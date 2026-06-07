@@ -1,0 +1,192 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  font-family: 'LXGW WenKai', 'Cinzel', serif;
+  background: #0a0c14;
+  color: #d4cfc4;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(212, 168, 83, 0.2);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(212, 168, 83, 0.35);
+}
+
+a {
+  color: #7b8bb5;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #d4a853;
+}
+
+button {
+  font-family: 'LXGW WenKai', 'Cinzel', serif;
+}
+
+input, select, textarea {
+  font-family: 'LXGW WenKai', 'Cinzel', serif;
+}
+
+/* 墨晕漂移动画 */
+@keyframes ink-drift {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.5; }
+  50% { transform: translate(10px, -5px) scale(1.05); opacity: 0.7; }
+}
+
+@keyframes ink-cloud-float {
+  0%, 100% { transform: translateX(0); }
+  50% { transform: translateX(15px); }
+}
+
+/* 星辰闪烁 */
+@keyframes star-twinkle {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.8; }
+}
+
+/* 余烬脉动 */
+@keyframes ember-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
+
+/* 墨滴扩散（卡片入场） */
+@keyframes ink-spread {
+  0% { transform: scale(0.92); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* 等级变动脉冲光效 */
+@keyframes levelChangePulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* 降级脉冲 - 鲜红 */
+@keyframes downgradePulse {
+  0%, 100% { opacity: 0.4; box-shadow: 0 0 8px rgba(255,50,50,0.3), inset 0 0 4px rgba(255,50,50,0.08); }
+  50% { opacity: 1; box-shadow: 0 0 24px rgba(255,50,50,0.6), inset 0 0 12px rgba(255,50,50,0.2); }
+}
+
+/* 升级脉冲 - 绿色 */
+@keyframes upgradePulse {
+  0%, 100% { opacity: 0.5; box-shadow: 0 0 8px rgba(100,220,140,0.2), inset 0 0 4px rgba(100,220,140,0.05); }
+  50% { opacity: 1; box-shadow: 0 0 20px rgba(100,220,140,0.45), inset 0 0 10px rgba(100,220,140,0.12); }
+}
+
+/* 时段选择器淡入滑入 */
+@keyframes fadeSlideIn {
+  0% { opacity: 0; transform: translateY(-8px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* 区块入场 - 轻微上浮 */
+@keyframes sectionReveal {
+  0% { opacity: 0; transform: translateY(6px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* 提交按钮光晕呼吸 */
+@keyframes submitGlow {
+  0%, 100% { box-shadow: 0 0 12px rgba(212,168,83,0.2), 0 0 24px rgba(212,168,83,0.08); }
+  50% { box-shadow: 0 0 20px rgba(212,168,83,0.35), 0 0 40px rgba(212,168,83,0.15); }
+}
+
+/* 芯片选中涟漪 */
+@keyframes chipSelect {
+  0% { transform: scale(0.95); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* 历史记录行hover微光 */
+@keyframes rowShimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+/* 翻面脉冲 - 红橙强烈 */
+@keyframes flipPulse {
+  0%, 100% { opacity: 0.35; box-shadow: 0 0 10px rgba(255,120,40,0.35), inset 0 0 6px rgba(255,120,40,0.1); }
+  50% { opacity: 1; box-shadow: 0 0 32px rgba(255,120,40,0.7), inset 0 0 16px rgba(255,120,40,0.25); }
+}
+
+/* ===== 手机端适配 ===== */
+
+/* 媒体查询：自动检测手机 */
+@media (max-width: 768px) {
+  html { font-size: 15px; }
+  body { -webkit-tap-highlight-color: transparent; }
+
+  /* 排版：中文不断字，超长强制换行，不溢出 */
+  *, *::before, *::after {
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
+  /* 短标签保持完整 */
+  [class*="nowrap"], .nowrap, span[style*="nowrap"] {
+    white-space: nowrap;
+  }
+
+  input, select, textarea, button {
+    font-size: 16px !important;
+  }
+  button, [role="button"], a[role="button"] {
+    min-height: 44px; min-width: 44px;
+  }
+  .scroll-x {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .scroll-x::-webkit-scrollbar { display: none; }
+}
+
+@media (max-width: 480px) {
+  html { font-size: 14px; }
+}
+
+/* 手动切换手机模式 */
+html.mobile-view { font-size: 15px; }
+html.mobile-view body { -webkit-tap-highlight-color: transparent; }
+html.mobile-view *, html.mobile-view *::before, html.mobile-view *::after {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+html.mobile-view input, html.mobile-view select, html.mobile-view textarea, html.mobile-view button {
+  font-size: 16px !important;
+}
+html.mobile-view button, html.mobile-view [role="button"] {
+  min-height: 44px; min-width: 44px;
+}
+
+/* RulesPage 手机端：双列变单列 */
+@media (max-width: 768px) { .rules-grid { grid-template-columns: 1fr !important; } }
+html.mobile-view .rules-grid { grid-template-columns: 1fr !important; }
+
+/* 汉堡菜单动画 */
+@keyframes slideDown {
+  0% { opacity: 0; transform: translateY(-8px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
