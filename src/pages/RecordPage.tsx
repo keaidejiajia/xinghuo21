@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { XCircle, CheckCircle2, AlertTriangle, Shield, Search, X, Users, Trash2, ShieldCheck, Edit3, TrendingUp, Flame } from 'lucide-react';
+import { XCircle, CheckCircle2, AlertTriangle, Shield, Search, X, Users, Trash2, Clock, ShieldCheck, Edit3, TrendingUp, Flame } from 'lucide-react';
 import { useStudents } from '../lib/store';
 import { useAuth } from '../hooks/useAuth';
 import { useToast } from '../hooks/useToast';

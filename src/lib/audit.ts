@@ -234,6 +234,7 @@ export function recomputeAllStudents(
         }
       } else {
         // Back side negative
+        const oldLv = sim.currentLevel;
         sim.heartDemonMarks += 1;
         sim.totalHeartDemonsEverGained += 1;
         while (sim.heartDemonMarks > 0 && sim.heritagePoints > 0 && sim.currentLevel === 6) {
