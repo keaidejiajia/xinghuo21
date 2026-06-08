@@ -4700,6 +4700,22 @@
   ],
   "behavior-records": [
     {
+      "studentId": "3",
+      "direction": "negative",
+      "weight": 3,
+      "category": "纪律",
+      "description": "集体活动中擅自行动或表现失格",
+      "remark": "ceshi",
+      "recordedBy": "王老师",
+      "verified": true,
+      "shieldsConsumed": 6,
+      "extraWeight": 0,
+      "isHighSensitivity": false,
+      "studentCardSide": "front",
+      "id": "2479",
+      "createdAt": "2026-06-08T02:00:45.120Z"
+    },
+    {
       "studentId": "39",
       "direction": "positive",
       "weight": 4,
@@ -32471,8 +32487,8 @@
       "blanksFilled": 0,
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
-      "starShields": 47,
-      "consecutiveNoViolationDays": 7,
+      "starShields": 41,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -32482,7 +32498,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T01:56:50.754Z",
+      "updatedAt": "2026-06-08T02:00:45.113Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
