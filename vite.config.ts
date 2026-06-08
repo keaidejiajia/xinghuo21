@@ -19,7 +19,10 @@ const postBuildFix = (): Plugin => ({
     // Remove external favicon
     html = html.replace(/<link rel="icon"[^>]*\/?>/g, '');
 
-    // Embed parent data if parent-data.json exists
+    // Embed parent data if parent-data.json exists — but NEVER on Vercel
+    if (process.env.VERCEL) {
+      console.log('[vercel-build] Skipping parent-data embed (on Vercel)');
+    } else {
     const parentDataPath = path.resolve(__dirname, 'parent-data.json');
     if (fs.existsSync(parentDataPath)) {
       const parentData = fs.readFileSync(parentDataPath, 'utf-8');
@@ -27,6 +30,7 @@ const postBuildFix = (): Plugin => ({
       html = html.replace('</head>', `${embedScript}\n</head>`);
       console.log('[parent-build] Embedded parent-data.json into index.html');
     }
+    } // close the VERCEL guard
 
     fs.writeFileSync(htmlPath, html);
 
