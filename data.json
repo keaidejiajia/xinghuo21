@@ -1502,6 +1502,7 @@
       "studentId": "34"
     }
   ],
+  "app_version_seen": "1.2.0",
   "app_mobile_view": false,
   "uc-stat-dn": "39a3f351-65d7-c3ad-61e3-4920b1cb6e5f",
   "demo_user": {
@@ -1510,9 +1511,10 @@
     "role": "teacher",
     "name": "班主任"
   },
+  "i18nextLng": "zh",
   "__itrace_wid": {
-    "expireAt": 1796436059884,
-    "value": "2dda5efe-7b74-49c7-beb4-4d645a04cc5b"
+    "expireAt": 1796438299036,
+    "value": "ee5b5f98-db55-4c98-2220-2b54ab8fa1cd"
   },
   "seat-history": [
     {
@@ -4173,7 +4175,7 @@
     }
   ],
   "itracereporter:dynamicConf:fqy8bgb3-is7w88xm": {
-    "expireAt": 1780885860024
+    "expireAt": 1780888099219
   },
   "seat-grid-layout": [
     {
@@ -4708,22 +4710,6 @@
   "seat-data-migrated-v2": true,
   "behavior-records": [
     {
-      "studentId": "3",
-      "direction": "negative",
-      "weight": 3,
-      "category": "纪律",
-      "description": "集体活动中擅自行动或表现失格",
-      "remark": "",
-      "recordedBy": "王老师",
-      "verified": true,
-      "shieldsConsumed": 6,
-      "extraWeight": 0,
-      "isHighSensitivity": false,
-      "studentCardSide": "front",
-      "id": "2480",
-      "createdAt": "2026-06-08T02:37:43.233Z"
-    },
-    {
       "studentId": "39",
       "direction": "positive",
       "weight": 4,
@@ -4737,7 +4723,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2478",
-      "createdAt": "2026-06-08T02:32:45.535Z"
+      "createdAt": "2026-06-08T02:38:20.418Z"
     },
     {
       "studentId": "6",
@@ -4753,7 +4739,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2477",
-      "createdAt": "2026-06-08T02:32:45.515Z"
+      "createdAt": "2026-06-08T02:38:20.398Z"
     },
     {
       "studentId": "3",
@@ -4769,7 +4755,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2476",
-      "createdAt": "2026-06-08T02:32:45.499Z"
+      "createdAt": "2026-06-08T02:38:20.382Z"
     },
     {
       "studentId": "43",
@@ -4785,7 +4771,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2475",
-      "createdAt": "2026-06-08T02:32:45.486Z"
+      "createdAt": "2026-06-08T02:38:20.365Z"
     },
     {
       "studentId": "42",
@@ -4801,7 +4787,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2474",
-      "createdAt": "2026-06-08T02:32:45.472Z"
+      "createdAt": "2026-06-08T02:38:20.350Z"
     },
     {
       "studentId": "41",
@@ -4817,7 +4803,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2473",
-      "createdAt": "2026-06-08T02:32:45.455Z"
+      "createdAt": "2026-06-08T02:38:20.332Z"
     },
     {
       "studentId": "40",
@@ -4833,7 +4819,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2472",
-      "createdAt": "2026-06-08T02:32:45.439Z"
+      "createdAt": "2026-06-08T02:38:20.317Z"
     },
     {
       "studentId": "39",
@@ -4849,7 +4835,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2471",
-      "createdAt": "2026-06-08T02:32:45.424Z"
+      "createdAt": "2026-06-08T02:38:20.302Z"
     },
     {
       "studentId": "37",
@@ -4865,7 +4851,7 @@
       "studentCardSide": "back",
       "isAutoRule": true,
       "id": "2470",
-      "createdAt": "2026-06-08T02:32:45.407Z"
+      "createdAt": "2026-06-08T02:38:20.285Z"
     },
     {
       "studentId": "36",
@@ -4881,7 +4867,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2469",
-      "createdAt": "2026-06-08T02:32:45.391Z"
+      "createdAt": "2026-06-08T02:38:20.268Z"
     },
     {
       "studentId": "35",
@@ -4897,7 +4883,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2468",
-      "createdAt": "2026-06-08T02:32:45.376Z"
+      "createdAt": "2026-06-08T02:38:20.254Z"
     },
     {
       "studentId": "31",
@@ -4913,7 +4899,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2467",
-      "createdAt": "2026-06-08T02:32:45.361Z"
+      "createdAt": "2026-06-08T02:38:20.242Z"
     },
     {
       "studentId": "30",
@@ -4929,7 +4915,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2466",
-      "createdAt": "2026-06-08T02:32:45.344Z"
+      "createdAt": "2026-06-08T02:38:20.228Z"
     },
     {
       "studentId": "29",
@@ -4945,7 +4931,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2465",
-      "createdAt": "2026-06-08T02:32:45.326Z"
+      "createdAt": "2026-06-08T02:38:20.214Z"
     },
     {
       "studentId": "28",
@@ -4961,7 +4947,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2464",
-      "createdAt": "2026-06-08T02:32:45.309Z"
+      "createdAt": "2026-06-08T02:38:20.201Z"
     },
     {
       "studentId": "26",
@@ -4977,7 +4963,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2463",
-      "createdAt": "2026-06-08T02:32:45.293Z"
+      "createdAt": "2026-06-08T02:38:20.187Z"
     },
     {
       "studentId": "25",
@@ -4993,7 +4979,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2462",
-      "createdAt": "2026-06-08T02:32:45.279Z"
+      "createdAt": "2026-06-08T02:38:20.173Z"
     },
     {
       "studentId": "22",
@@ -5009,7 +4995,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2461",
-      "createdAt": "2026-06-08T02:32:45.266Z"
+      "createdAt": "2026-06-08T02:38:20.159Z"
     },
     {
       "studentId": "20",
@@ -5025,7 +5011,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2460",
-      "createdAt": "2026-06-08T02:32:45.251Z"
+      "createdAt": "2026-06-08T02:38:20.146Z"
     },
     {
       "studentId": "19",
@@ -5041,7 +5027,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2459",
-      "createdAt": "2026-06-08T02:32:45.236Z"
+      "createdAt": "2026-06-08T02:38:20.129Z"
     },
     {
       "studentId": "17",
@@ -5057,7 +5043,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2458",
-      "createdAt": "2026-06-08T02:32:45.221Z"
+      "createdAt": "2026-06-08T02:38:20.117Z"
     },
     {
       "studentId": "16",
@@ -5073,7 +5059,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2457",
-      "createdAt": "2026-06-08T02:32:45.207Z"
+      "createdAt": "2026-06-08T02:38:20.106Z"
     },
     {
       "studentId": "14",
@@ -5089,7 +5075,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2456",
-      "createdAt": "2026-06-08T02:32:45.193Z"
+      "createdAt": "2026-06-08T02:38:20.094Z"
     },
     {
       "studentId": "12",
@@ -5105,7 +5091,7 @@
       "studentCardSide": "back",
       "isAutoRule": true,
       "id": "2455",
-      "createdAt": "2026-06-08T02:32:45.178Z"
+      "createdAt": "2026-06-08T02:38:20.081Z"
     },
     {
       "studentId": "11",
@@ -5121,7 +5107,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2454",
-      "createdAt": "2026-06-08T02:32:45.163Z"
+      "createdAt": "2026-06-08T02:38:20.068Z"
     },
     {
       "studentId": "10",
@@ -5137,7 +5123,7 @@
       "studentCardSide": "back",
       "isAutoRule": true,
       "id": "2453",
-      "createdAt": "2026-06-08T02:32:45.148Z"
+      "createdAt": "2026-06-08T02:38:20.057Z"
     },
     {
       "studentId": "9",
@@ -5153,7 +5139,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2452",
-      "createdAt": "2026-06-08T02:32:45.135Z"
+      "createdAt": "2026-06-08T02:38:20.046Z"
     },
     {
       "studentId": "8",
@@ -5169,7 +5155,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2451",
-      "createdAt": "2026-06-08T02:32:45.120Z"
+      "createdAt": "2026-06-08T02:38:20.033Z"
     },
     {
       "studentId": "6",
@@ -5185,7 +5171,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2450",
-      "createdAt": "2026-06-08T02:32:45.107Z"
+      "createdAt": "2026-06-08T02:38:20.015Z"
     },
     {
       "studentId": "3",
@@ -5201,7 +5187,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2449",
-      "createdAt": "2026-06-08T02:32:45.093Z"
+      "createdAt": "2026-06-08T02:38:19.998Z"
     },
     {
       "studentId": "2",
@@ -5217,7 +5203,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2448",
-      "createdAt": "2026-06-08T02:32:45.082Z"
+      "createdAt": "2026-06-08T02:38:19.982Z"
     },
     {
       "studentId": "1779204595006",
@@ -5233,7 +5219,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2447",
-      "createdAt": "2026-06-08T02:32:45.069Z"
+      "createdAt": "2026-06-08T02:38:19.965Z"
     },
     {
       "studentId": "43",
@@ -5249,7 +5235,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2446",
-      "createdAt": "2026-06-08T02:32:45.058Z"
+      "createdAt": "2026-06-08T02:38:19.949Z"
     },
     {
       "studentId": "42",
@@ -5265,7 +5251,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2445",
-      "createdAt": "2026-06-08T02:32:45.046Z"
+      "createdAt": "2026-06-08T02:38:19.932Z"
     },
     {
       "studentId": "41",
@@ -5281,7 +5267,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2444",
-      "createdAt": "2026-06-08T02:32:45.035Z"
+      "createdAt": "2026-06-08T02:38:19.916Z"
     },
     {
       "studentId": "39",
@@ -5297,7 +5283,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2443",
-      "createdAt": "2026-06-08T02:32:45.022Z"
+      "createdAt": "2026-06-08T02:38:19.901Z"
     },
     {
       "studentId": "38",
@@ -5313,7 +5299,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2442",
-      "createdAt": "2026-06-08T02:32:45.012Z"
+      "createdAt": "2026-06-08T02:38:19.887Z"
     },
     {
       "studentId": "37",
@@ -5329,7 +5315,7 @@
       "studentCardSide": "back",
       "isAutoRule": true,
       "id": "2441",
-      "createdAt": "2026-06-08T02:32:45.000Z"
+      "createdAt": "2026-06-08T02:38:19.873Z"
     },
     {
       "studentId": "35",
@@ -5345,7 +5331,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2440",
-      "createdAt": "2026-06-08T02:32:44.987Z"
+      "createdAt": "2026-06-08T02:38:19.859Z"
     },
     {
       "studentId": "33",
@@ -5361,7 +5347,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2439",
-      "createdAt": "2026-06-08T02:32:44.975Z"
+      "createdAt": "2026-06-08T02:38:19.846Z"
     },
     {
       "studentId": "32",
@@ -5377,7 +5363,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2438",
-      "createdAt": "2026-06-08T02:32:44.964Z"
+      "createdAt": "2026-06-08T02:38:19.831Z"
     },
     {
       "studentId": "30",
@@ -5393,7 +5379,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2437",
-      "createdAt": "2026-06-08T02:32:44.954Z"
+      "createdAt": "2026-06-08T02:38:19.818Z"
     },
     {
       "studentId": "29",
@@ -5409,7 +5395,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2436",
-      "createdAt": "2026-06-08T02:32:44.941Z"
+      "createdAt": "2026-06-08T02:38:19.805Z"
     },
     {
       "studentId": "28",
@@ -5425,7 +5411,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2435",
-      "createdAt": "2026-06-08T02:32:44.928Z"
+      "createdAt": "2026-06-08T02:38:19.792Z"
     },
     {
       "studentId": "27",
@@ -5441,7 +5427,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2434",
-      "createdAt": "2026-06-08T02:32:44.917Z"
+      "createdAt": "2026-06-08T02:38:19.778Z"
     },
     {
       "studentId": "26",
@@ -5457,7 +5443,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2433",
-      "createdAt": "2026-06-08T02:32:44.904Z"
+      "createdAt": "2026-06-08T02:38:19.765Z"
     },
     {
       "studentId": "25",
@@ -5473,7 +5459,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2432",
-      "createdAt": "2026-06-08T02:32:44.891Z"
+      "createdAt": "2026-06-08T02:38:19.750Z"
     },
     {
       "studentId": "24",
@@ -5489,7 +5475,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2431",
-      "createdAt": "2026-06-08T02:32:44.878Z"
+      "createdAt": "2026-06-08T02:38:19.735Z"
     },
     {
       "studentId": "22",
@@ -5505,7 +5491,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2430",
-      "createdAt": "2026-06-08T02:32:44.868Z"
+      "createdAt": "2026-06-08T02:38:19.725Z"
     },
     {
       "studentId": "21",
@@ -5521,7 +5507,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2429",
-      "createdAt": "2026-06-08T02:32:44.860Z"
+      "createdAt": "2026-06-08T02:38:19.715Z"
     },
     {
       "studentId": "20",
@@ -5537,7 +5523,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2428",
-      "createdAt": "2026-06-08T02:32:44.853Z"
+      "createdAt": "2026-06-08T02:38:19.705Z"
     },
     {
       "studentId": "19",
@@ -5553,7 +5539,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2427",
-      "createdAt": "2026-06-08T02:32:44.843Z"
+      "createdAt": "2026-06-08T02:38:19.696Z"
     },
     {
       "studentId": "17",
@@ -5569,7 +5555,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2426",
-      "createdAt": "2026-06-08T02:32:44.837Z"
+      "createdAt": "2026-06-08T02:38:19.687Z"
     },
     {
       "studentId": "16",
@@ -5585,7 +5571,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2425",
-      "createdAt": "2026-06-08T02:32:44.828Z"
+      "createdAt": "2026-06-08T02:38:19.679Z"
     },
     {
       "studentId": "15",
@@ -5601,7 +5587,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2424",
-      "createdAt": "2026-06-08T02:32:44.821Z"
+      "createdAt": "2026-06-08T02:38:19.671Z"
     },
     {
       "studentId": "13",
@@ -5617,7 +5603,7 @@
       "studentCardSide": "back",
       "isAutoRule": true,
       "id": "2423",
-      "createdAt": "2026-06-08T02:32:44.812Z"
+      "createdAt": "2026-06-08T02:38:19.661Z"
     },
     {
       "studentId": "12",
@@ -5633,7 +5619,7 @@
       "studentCardSide": "back",
       "isAutoRule": true,
       "id": "2422",
-      "createdAt": "2026-06-08T02:32:44.806Z"
+      "createdAt": "2026-06-08T02:38:19.652Z"
     },
     {
       "studentId": "10",
@@ -5649,7 +5635,7 @@
       "studentCardSide": "back",
       "isAutoRule": true,
       "id": "2421",
-      "createdAt": "2026-06-08T02:32:44.800Z"
+      "createdAt": "2026-06-08T02:38:19.643Z"
     },
     {
       "studentId": "6",
@@ -5665,7 +5651,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2420",
-      "createdAt": "2026-06-08T02:32:44.793Z"
+      "createdAt": "2026-06-08T02:38:19.637Z"
     },
     {
       "studentId": "5",
@@ -5681,7 +5667,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2419",
-      "createdAt": "2026-06-08T02:32:44.785Z"
+      "createdAt": "2026-06-08T02:38:19.630Z"
     },
     {
       "studentId": "3",
@@ -5697,7 +5683,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2418",
-      "createdAt": "2026-06-08T02:32:44.776Z"
+      "createdAt": "2026-06-08T02:38:19.620Z"
     },
     {
       "studentId": "2",
@@ -5713,7 +5699,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2417",
-      "createdAt": "2026-06-08T02:32:44.768Z"
+      "createdAt": "2026-06-08T02:38:19.613Z"
     },
     {
       "studentId": "10",
@@ -32461,6 +32447,7 @@
       "createdAt": "2026-05-19T17:53:19.888Z"
     }
   ],
+  "app_last_settle_date": "2026-06-08",
   "students": [
     {
       "id": "2",
@@ -32472,7 +32459,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 20,
-      "consecutiveNoViolationDays": 0,
+      "consecutiveNoViolationDays": 4,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -32482,7 +32469,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:37:38.406Z",
+      "updatedAt": "2026-06-08T02:38:19.974Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -32495,8 +32482,8 @@
       "blanksFilled": 0,
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
-      "starShields": 41,
-      "consecutiveNoViolationDays": 0,
+      "starShields": 47,
+      "consecutiveNoViolationDays": 7,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -32506,7 +32493,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:37:43.225Z",
+      "updatedAt": "2026-06-08T02:38:20.374Z",
       "totalShieldsExchanged": 0
     },
     {
@@ -32553,7 +32540,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:32:44.781Z",
+      "updatedAt": "2026-06-08T02:38:19.626Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -32577,7 +32564,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:32:45.509Z",
+      "updatedAt": "2026-06-08T02:38:20.392Z",
       "totalShieldsExchanged": 0
     },
     {
@@ -32623,7 +32610,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:32:45.115Z",
+      "updatedAt": "2026-06-08T02:38:20.024Z",
       "totalShieldsExchanged": 0
     },
     {
@@ -32646,7 +32633,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:32:45.128Z",
+      "updatedAt": "2026-06-08T02:38:20.040Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -32670,7 +32657,7 @@
       "totalChecksEverEarned": 17,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:32:45.142Z",
+      "updatedAt": "2026-06-08T02:38:20.052Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -32694,7 +32681,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:32:45.156Z",
+      "updatedAt": "2026-06-08T02:38:20.062Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -32718,7 +32705,7 @@
       "totalChecksEverEarned": 5,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:32:45.171Z",
+      "updatedAt": "2026-06-08T02:38:20.075Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -32742,7 +32729,7 @@
       "totalChecksEverEarned": 12,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:32:44.810Z",
+      "updatedAt": "2026-06-08T02:38:19.657Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -32766,7 +32753,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:32:45.186Z",
+      "updatedAt": "2026-06-08T02:38:20.088Z",
       "totalShieldsExchanged": 0
     },
     {
@@ -32789,7 +32776,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:32:44.817Z",
+      "updatedAt": "2026-06-08T02:38:19.666Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -32813,7 +32800,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:32:45.201Z",
+      "updatedAt": "2026-06-08T02:38:20.101Z",
       "totalShieldsExchanged": 0
     },
     {
@@ -32836,7 +32823,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:32:45.213Z",
+      "updatedAt": "2026-06-08T02:38:20.111Z",
       "totalShieldsExchanged": 56
     },
     {
@@ -32883,7 +32870,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:32:45.230Z",
+      "updatedAt": "2026-06-08T02:38:20.123Z",
       "totalShieldsExchanged": 5
     },
     {
@@ -32906,7 +32893,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:32:45.244Z",
+      "updatedAt": "2026-06-08T02:38:20.137Z",
       "totalShieldsExchanged": 5
     },
     {
@@ -32929,7 +32916,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:32:44.857Z",
+      "updatedAt": "2026-06-08T02:38:19.712Z",
       "totalShieldsExchanged": 0
     },
     {
@@ -32952,7 +32939,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:32:45.260Z",
+      "updatedAt": "2026-06-08T02:38:20.153Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -33000,7 +32987,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:32:44.875Z",
+      "updatedAt": "2026-06-08T02:38:19.731Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -33024,7 +33011,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:32:45.273Z",
+      "updatedAt": "2026-06-08T02:38:20.166Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -33048,7 +33035,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:32:45.286Z",
+      "updatedAt": "2026-06-08T02:38:20.181Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -33072,7 +33059,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:32:44.911Z",
+      "updatedAt": "2026-06-08T02:38:19.773Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -33096,7 +33083,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:32:45.302Z",
+      "updatedAt": "2026-06-08T02:38:20.194Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -33120,7 +33107,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:32:45.317Z",
+      "updatedAt": "2026-06-08T02:38:20.209Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -33144,7 +33131,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:32:45.334Z",
+      "updatedAt": "2026-06-08T02:38:20.222Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -33168,7 +33155,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:32:45.353Z",
+      "updatedAt": "2026-06-08T02:38:20.235Z",
       "totalShieldsExchanged": 0
     },
     {
@@ -33191,7 +33178,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:32:44.959Z",
+      "updatedAt": "2026-06-08T02:38:19.824Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -33215,7 +33202,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:32:44.971Z",
+      "updatedAt": "2026-06-08T02:38:19.839Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -33262,7 +33249,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:32:45.370Z",
+      "updatedAt": "2026-06-08T02:38:20.248Z",
       "totalShieldsExchanged": 0
     },
     {
@@ -33285,7 +33272,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:32:45.384Z",
+      "updatedAt": "2026-06-08T02:38:20.262Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -33309,7 +33296,7 @@
       "totalChecksEverEarned": 6,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:32:45.399Z",
+      "updatedAt": "2026-06-08T02:38:20.276Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -33333,7 +33320,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:32:45.007Z",
+      "updatedAt": "2026-06-08T02:38:19.880Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -33357,7 +33344,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:32:45.526Z",
+      "updatedAt": "2026-06-08T02:38:20.409Z",
       "totalShieldsExchanged": 0
     },
     {
@@ -33380,7 +33367,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:32:45.432Z",
+      "updatedAt": "2026-06-08T02:38:20.310Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -33404,7 +33391,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:32:45.449Z",
+      "updatedAt": "2026-06-08T02:38:20.326Z",
       "totalShieldsExchanged": 0
     },
     {
@@ -33427,7 +33414,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:32:45.464Z",
+      "updatedAt": "2026-06-08T02:38:20.342Z",
       "totalShieldsExchanged": 0
     },
     {
@@ -33450,7 +33437,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:32:45.479Z",
+      "updatedAt": "2026-06-08T02:38:20.358Z",
       "totalShieldsExchanged": 5,
       "riseTaskCompleted": false
     },
@@ -33474,7 +33461,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T15:29:55.006Z",
-      "updatedAt": "2026-06-08T02:32:45.065Z",
+      "updatedAt": "2026-06-08T02:38:19.957Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     }
