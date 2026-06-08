@@ -1503,7 +1503,6 @@
     }
   ],
   "app_mobile_view": false,
-  "uc-stat-dn": "39a3f351-65d7-c3ad-61e3-4920b1cb6e5f",
   "demo_user": {
     "id": "demo-teacher",
     "email": "teacher@21ban",
@@ -1511,8 +1510,8 @@
     "name": "班主任"
   },
   "__itrace_wid": {
-    "expireAt": 1796436059884,
-    "value": "2dda5efe-7b74-49c7-beb4-4d645a04cc5b"
+    "expireAt": 1796439714134,
+    "value": "1334325b-9bc8-4e9f-0e82-8a2442fd04dc"
   },
   "seat-history": [
     {
@@ -4173,7 +4172,7 @@
     }
   ],
   "itracereporter:dynamicConf:fqy8bgb3-is7w88xm": {
-    "expireAt": 1780885860024
+    "expireAt": 1780889515632
   },
   "seat-grid-layout": [
     {
@@ -4708,37 +4707,6 @@
   "seat-data-migrated-v2": true,
   "behavior-records": [
     {
-      "studentId": "2",
-      "direction": "positive",
-      "weight": 1,
-      "category": "品行",
-      "description": "星蚀连续无违纪5天，自动回升",
-      "remark": "弦月之辉 → 星辉典范",
-      "recordedBy": "王老师",
-      "verified": true,
-      "shieldsConsumed": 0,
-      "isHighSensitivity": false,
-      "studentCardSide": "front",
-      "id": "2483",
-      "createdAt": "2026-06-08T03:00:37.895Z"
-    },
-    {
-      "studentId": "3",
-      "direction": "negative",
-      "weight": 2,
-      "category": "纪律",
-      "description": "课间追逐打闹或在教室大喊大叫",
-      "remark": "",
-      "recordedBy": "王老师",
-      "verified": true,
-      "shieldsConsumed": 4,
-      "extraWeight": 0,
-      "isHighSensitivity": false,
-      "studentCardSide": "front",
-      "id": "2482",
-      "createdAt": "2026-06-08T03:00:37.876Z"
-    },
-    {
       "studentId": "39",
       "direction": "positive",
       "weight": 4,
@@ -4752,7 +4720,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2478",
-      "createdAt": "2026-06-08T02:39:29.196Z"
+      "createdAt": "2026-06-08T03:01:55.357Z"
     },
     {
       "studentId": "6",
@@ -4768,7 +4736,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2477",
-      "createdAt": "2026-06-08T02:39:29.176Z"
+      "createdAt": "2026-06-08T03:01:55.338Z"
     },
     {
       "studentId": "3",
@@ -4784,7 +4752,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2476",
-      "createdAt": "2026-06-08T02:39:29.156Z"
+      "createdAt": "2026-06-08T03:01:55.323Z"
     },
     {
       "studentId": "43",
@@ -4800,7 +4768,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2475",
-      "createdAt": "2026-06-08T02:39:29.141Z"
+      "createdAt": "2026-06-08T03:01:55.309Z"
     },
     {
       "studentId": "42",
@@ -4816,7 +4784,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2474",
-      "createdAt": "2026-06-08T02:39:29.123Z"
+      "createdAt": "2026-06-08T03:01:55.295Z"
     },
     {
       "studentId": "41",
@@ -4832,7 +4800,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2473",
-      "createdAt": "2026-06-08T02:39:29.106Z"
+      "createdAt": "2026-06-08T03:01:55.282Z"
     },
     {
       "studentId": "40",
@@ -4848,7 +4816,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2472",
-      "createdAt": "2026-06-08T02:39:29.090Z"
+      "createdAt": "2026-06-08T03:01:55.268Z"
     },
     {
       "studentId": "39",
@@ -4864,7 +4832,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2471",
-      "createdAt": "2026-06-08T02:39:29.078Z"
+      "createdAt": "2026-06-08T03:01:55.251Z"
     },
     {
       "studentId": "37",
@@ -4880,7 +4848,7 @@
       "studentCardSide": "back",
       "isAutoRule": true,
       "id": "2470",
-      "createdAt": "2026-06-08T02:39:29.064Z"
+      "createdAt": "2026-06-08T03:01:55.237Z"
     },
     {
       "studentId": "36",
@@ -4896,7 +4864,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2469",
-      "createdAt": "2026-06-08T02:39:29.050Z"
+      "createdAt": "2026-06-08T03:01:55.223Z"
     },
     {
       "studentId": "35",
@@ -4912,7 +4880,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2468",
-      "createdAt": "2026-06-08T02:39:29.033Z"
+      "createdAt": "2026-06-08T03:01:55.209Z"
     },
     {
       "studentId": "31",
@@ -4928,7 +4896,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2467",
-      "createdAt": "2026-06-08T02:39:29.015Z"
+      "createdAt": "2026-06-08T03:01:55.196Z"
     },
     {
       "studentId": "30",
@@ -4944,7 +4912,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2466",
-      "createdAt": "2026-06-08T02:39:28.998Z"
+      "createdAt": "2026-06-08T03:01:55.183Z"
     },
     {
       "studentId": "29",
@@ -4960,7 +4928,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2465",
-      "createdAt": "2026-06-08T02:39:28.980Z"
+      "createdAt": "2026-06-08T03:01:55.169Z"
     },
     {
       "studentId": "28",
@@ -4976,7 +4944,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2464",
-      "createdAt": "2026-06-08T02:39:28.962Z"
+      "createdAt": "2026-06-08T03:01:55.153Z"
     },
     {
       "studentId": "26",
@@ -4992,7 +4960,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2463",
-      "createdAt": "2026-06-08T02:39:28.947Z"
+      "createdAt": "2026-06-08T03:01:55.139Z"
     },
     {
       "studentId": "25",
@@ -5008,7 +4976,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2462",
-      "createdAt": "2026-06-08T02:39:28.931Z"
+      "createdAt": "2026-06-08T03:01:55.126Z"
     },
     {
       "studentId": "22",
@@ -5024,7 +4992,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2461",
-      "createdAt": "2026-06-08T02:39:28.917Z"
+      "createdAt": "2026-06-08T03:01:55.113Z"
     },
     {
       "studentId": "20",
@@ -5040,7 +5008,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2460",
-      "createdAt": "2026-06-08T02:39:28.901Z"
+      "createdAt": "2026-06-08T03:01:55.098Z"
     },
     {
       "studentId": "19",
@@ -5056,7 +5024,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2459",
-      "createdAt": "2026-06-08T02:39:28.888Z"
+      "createdAt": "2026-06-08T03:01:55.084Z"
     },
     {
       "studentId": "17",
@@ -5072,7 +5040,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2458",
-      "createdAt": "2026-06-08T02:39:28.873Z"
+      "createdAt": "2026-06-08T03:01:55.070Z"
     },
     {
       "studentId": "16",
@@ -5088,7 +5056,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2457",
-      "createdAt": "2026-06-08T02:39:28.858Z"
+      "createdAt": "2026-06-08T03:01:55.057Z"
     },
     {
       "studentId": "14",
@@ -5104,7 +5072,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2456",
-      "createdAt": "2026-06-08T02:39:28.846Z"
+      "createdAt": "2026-06-08T03:01:55.041Z"
     },
     {
       "studentId": "12",
@@ -5120,7 +5088,7 @@
       "studentCardSide": "back",
       "isAutoRule": true,
       "id": "2455",
-      "createdAt": "2026-06-08T02:39:28.830Z"
+      "createdAt": "2026-06-08T03:01:55.027Z"
     },
     {
       "studentId": "11",
@@ -5136,7 +5104,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2454",
-      "createdAt": "2026-06-08T02:39:28.816Z"
+      "createdAt": "2026-06-08T03:01:55.014Z"
     },
     {
       "studentId": "10",
@@ -5152,7 +5120,7 @@
       "studentCardSide": "back",
       "isAutoRule": true,
       "id": "2453",
-      "createdAt": "2026-06-08T02:39:28.803Z"
+      "createdAt": "2026-06-08T03:01:55.001Z"
     },
     {
       "studentId": "9",
@@ -5168,7 +5136,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2452",
-      "createdAt": "2026-06-08T02:39:28.792Z"
+      "createdAt": "2026-06-08T03:01:54.985Z"
     },
     {
       "studentId": "8",
@@ -5184,7 +5152,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2451",
-      "createdAt": "2026-06-08T02:39:28.780Z"
+      "createdAt": "2026-06-08T03:01:54.970Z"
     },
     {
       "studentId": "6",
@@ -5200,7 +5168,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2450",
-      "createdAt": "2026-06-08T02:39:28.766Z"
+      "createdAt": "2026-06-08T03:01:54.954Z"
     },
     {
       "studentId": "3",
@@ -5216,7 +5184,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2449",
-      "createdAt": "2026-06-08T02:39:28.753Z"
+      "createdAt": "2026-06-08T03:01:54.938Z"
     },
     {
       "studentId": "2",
@@ -5232,7 +5200,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2448",
-      "createdAt": "2026-06-08T02:39:28.739Z"
+      "createdAt": "2026-06-08T03:01:54.922Z"
     },
     {
       "studentId": "1779204595006",
@@ -5248,7 +5216,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2447",
-      "createdAt": "2026-06-08T02:39:28.725Z"
+      "createdAt": "2026-06-08T03:01:54.908Z"
     },
     {
       "studentId": "43",
@@ -5264,7 +5232,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2446",
-      "createdAt": "2026-06-08T02:39:28.707Z"
+      "createdAt": "2026-06-08T03:01:54.893Z"
     },
     {
       "studentId": "42",
@@ -5280,7 +5248,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2445",
-      "createdAt": "2026-06-08T02:39:28.694Z"
+      "createdAt": "2026-06-08T03:01:54.879Z"
     },
     {
       "studentId": "41",
@@ -5296,7 +5264,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2444",
-      "createdAt": "2026-06-08T02:39:28.680Z"
+      "createdAt": "2026-06-08T03:01:54.860Z"
     },
     {
       "studentId": "39",
@@ -5312,7 +5280,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2443",
-      "createdAt": "2026-06-08T02:39:28.664Z"
+      "createdAt": "2026-06-08T03:01:54.842Z"
     },
     {
       "studentId": "38",
@@ -5328,7 +5296,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2442",
-      "createdAt": "2026-06-08T02:39:28.654Z"
+      "createdAt": "2026-06-08T03:01:54.828Z"
     },
     {
       "studentId": "37",
@@ -5344,7 +5312,7 @@
       "studentCardSide": "back",
       "isAutoRule": true,
       "id": "2441",
-      "createdAt": "2026-06-08T02:39:28.640Z"
+      "createdAt": "2026-06-08T03:01:54.815Z"
     },
     {
       "studentId": "35",
@@ -5360,7 +5328,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2440",
-      "createdAt": "2026-06-08T02:39:28.627Z"
+      "createdAt": "2026-06-08T03:01:54.799Z"
     },
     {
       "studentId": "33",
@@ -5376,7 +5344,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2439",
-      "createdAt": "2026-06-08T02:39:28.614Z"
+      "createdAt": "2026-06-08T03:01:54.786Z"
     },
     {
       "studentId": "32",
@@ -5392,7 +5360,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2438",
-      "createdAt": "2026-06-08T02:39:28.600Z"
+      "createdAt": "2026-06-08T03:01:54.771Z"
     },
     {
       "studentId": "30",
@@ -5408,7 +5376,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2437",
-      "createdAt": "2026-06-08T02:39:28.586Z"
+      "createdAt": "2026-06-08T03:01:54.756Z"
     },
     {
       "studentId": "29",
@@ -5424,7 +5392,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2436",
-      "createdAt": "2026-06-08T02:39:28.573Z"
+      "createdAt": "2026-06-08T03:01:54.733Z"
     },
     {
       "studentId": "28",
@@ -5440,7 +5408,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2435",
-      "createdAt": "2026-06-08T02:39:28.559Z"
+      "createdAt": "2026-06-08T03:01:54.718Z"
     },
     {
       "studentId": "27",
@@ -5456,7 +5424,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2434",
-      "createdAt": "2026-06-08T02:39:28.546Z"
+      "createdAt": "2026-06-08T03:01:54.704Z"
     },
     {
       "studentId": "26",
@@ -5472,7 +5440,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2433",
-      "createdAt": "2026-06-08T02:39:28.532Z"
+      "createdAt": "2026-06-08T03:01:54.689Z"
     },
     {
       "studentId": "25",
@@ -5488,7 +5456,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2432",
-      "createdAt": "2026-06-08T02:39:28.519Z"
+      "createdAt": "2026-06-08T03:01:54.677Z"
     },
     {
       "studentId": "24",
@@ -5504,7 +5472,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2431",
-      "createdAt": "2026-06-08T02:39:28.505Z"
+      "createdAt": "2026-06-08T03:01:54.664Z"
     },
     {
       "studentId": "22",
@@ -5520,7 +5488,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2430",
-      "createdAt": "2026-06-08T02:39:28.495Z"
+      "createdAt": "2026-06-08T03:01:54.654Z"
     },
     {
       "studentId": "21",
@@ -5536,7 +5504,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2429",
-      "createdAt": "2026-06-08T02:39:28.487Z"
+      "createdAt": "2026-06-08T03:01:54.648Z"
     },
     {
       "studentId": "20",
@@ -5552,7 +5520,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2428",
-      "createdAt": "2026-06-08T02:39:28.481Z"
+      "createdAt": "2026-06-08T03:01:54.639Z"
     },
     {
       "studentId": "19",
@@ -5568,7 +5536,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2427",
-      "createdAt": "2026-06-08T02:39:28.472Z"
+      "createdAt": "2026-06-08T03:01:54.627Z"
     },
     {
       "studentId": "17",
@@ -5584,7 +5552,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2426",
-      "createdAt": "2026-06-08T02:39:28.464Z"
+      "createdAt": "2026-06-08T03:01:54.619Z"
     },
     {
       "studentId": "16",
@@ -5600,7 +5568,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2425",
-      "createdAt": "2026-06-08T02:39:28.455Z"
+      "createdAt": "2026-06-08T03:01:54.610Z"
     },
     {
       "studentId": "15",
@@ -5616,7 +5584,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2424",
-      "createdAt": "2026-06-08T02:39:28.447Z"
+      "createdAt": "2026-06-08T03:01:54.603Z"
     },
     {
       "studentId": "13",
@@ -5632,7 +5600,7 @@
       "studentCardSide": "back",
       "isAutoRule": true,
       "id": "2423",
-      "createdAt": "2026-06-08T02:39:28.439Z"
+      "createdAt": "2026-06-08T03:01:54.592Z"
     },
     {
       "studentId": "12",
@@ -5648,7 +5616,7 @@
       "studentCardSide": "back",
       "isAutoRule": true,
       "id": "2422",
-      "createdAt": "2026-06-08T02:39:28.433Z"
+      "createdAt": "2026-06-08T03:01:54.582Z"
     },
     {
       "studentId": "10",
@@ -5664,7 +5632,7 @@
       "studentCardSide": "back",
       "isAutoRule": true,
       "id": "2421",
-      "createdAt": "2026-06-08T02:39:28.427Z"
+      "createdAt": "2026-06-08T03:01:54.575Z"
     },
     {
       "studentId": "6",
@@ -5680,7 +5648,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2420",
-      "createdAt": "2026-06-08T02:39:28.421Z"
+      "createdAt": "2026-06-08T03:01:54.566Z"
     },
     {
       "studentId": "5",
@@ -5696,7 +5664,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2419",
-      "createdAt": "2026-06-08T02:39:28.413Z"
+      "createdAt": "2026-06-08T03:01:54.559Z"
     },
     {
       "studentId": "3",
@@ -5712,7 +5680,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2418",
-      "createdAt": "2026-06-08T02:39:28.404Z"
+      "createdAt": "2026-06-08T03:01:54.549Z"
     },
     {
       "studentId": "2",
@@ -5728,7 +5696,7 @@
       "studentCardSide": "front",
       "isAutoRule": true,
       "id": "2417",
-      "createdAt": "2026-06-08T02:39:28.396Z"
+      "createdAt": "2026-06-08T03:01:54.540Z"
     },
     {
       "studentId": "10",
@@ -32482,32 +32450,24 @@
       "name": "陈浩博",
       "number": 1,
       "cardSide": "front",
-      "currentLevel": 1,
-      "blanksFilled": 0,
+      "currentLevel": 3,
+      "blanksFilled": 2,
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
-      "starShields": 19,
-      "consecutiveNoViolationDays": 5,
+      "starShields": 20,
+      "consecutiveNoViolationDays": 4,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
       "totalBlanksEverFilled": 10,
       "totalHeartDemonsEverGained": 0,
-      "totalShieldsEverEarned": 43,
+      "totalShieldsEverEarned": 44,
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T03:00:45.659Z",
+      "updatedAt": "2026-06-08T03:01:54.914Z",
       "riseTaskCompleted": false,
-      "totalShieldsExchanged": 0,
-      "lastLevelChange": {
-        "direction": "up",
-        "fromLevel": 2,
-        "toLevel": 1,
-        "fromSide": "front",
-        "toSide": "front",
-        "timestamp": "2026-06-08T03:00:37.886Z"
-      }
+      "totalShieldsExchanged": 0
     },
     {
       "id": "3",
@@ -32518,8 +32478,8 @@
       "blanksFilled": 0,
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
-      "starShields": 43,
-      "consecutiveNoViolationDays": 0,
+      "starShields": 47,
+      "consecutiveNoViolationDays": 7,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -32529,9 +32489,8 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T03:00:46.872Z",
-      "totalShieldsExchanged": 0,
-      "riseTaskCompleted": false
+      "updatedAt": "2026-06-08T03:01:55.316Z",
+      "totalShieldsExchanged": 0
     },
     {
       "id": "4",
@@ -32543,7 +32502,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 15,
       "starShields": 0,
-      "consecutiveNoViolationDays": 1,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -32553,7 +32512,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:16.871Z",
+      "updatedAt": "2026-06-05T01:55:50.762Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -32567,7 +32526,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 2,
-      "consecutiveNoViolationDays": 1,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -32577,7 +32536,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:16.875Z",
+      "updatedAt": "2026-06-08T03:01:54.553Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -32591,7 +32550,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 8,
-      "consecutiveNoViolationDays": 15,
+      "consecutiveNoViolationDays": 14,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -32601,9 +32560,8 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:16.880Z",
-      "totalShieldsExchanged": 0,
-      "riseTaskCompleted": false
+      "updatedAt": "2026-06-08T03:01:55.331Z",
+      "totalShieldsExchanged": 0
     },
     {
       "id": "7",
@@ -32615,7 +32573,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 31,
-      "consecutiveNoViolationDays": 2,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -32625,9 +32583,8 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:16.885Z",
-      "totalShieldsExchanged": 0,
-      "riseTaskCompleted": false
+      "updatedAt": "2026-06-05T01:53:57.644Z",
+      "totalShieldsExchanged": 0
     },
     {
       "id": "8",
@@ -32639,7 +32596,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 18,
-      "consecutiveNoViolationDays": 1,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -32649,9 +32606,8 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:16.891Z",
-      "totalShieldsExchanged": 0,
-      "riseTaskCompleted": false
+      "updatedAt": "2026-06-08T03:01:54.962Z",
+      "totalShieldsExchanged": 0
     },
     {
       "id": "9",
@@ -32663,7 +32619,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 3,
-      "consecutiveNoViolationDays": 2,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -32673,7 +32629,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:16.897Z",
+      "updatedAt": "2026-06-08T03:01:54.978Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -32687,7 +32643,7 @@
       "cumulativeChecks": 17,
       "heartDemonMarks": 11,
       "starShields": 0,
-      "consecutiveNoViolationDays": 1,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -32697,7 +32653,7 @@
       "totalChecksEverEarned": 17,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:16.902Z",
+      "updatedAt": "2026-06-08T03:01:54.991Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -32711,7 +32667,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 2,
-      "consecutiveNoViolationDays": 2,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -32721,7 +32677,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:16.907Z",
+      "updatedAt": "2026-06-08T03:01:55.008Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -32735,7 +32691,7 @@
       "cumulativeChecks": 5,
       "heartDemonMarks": 10,
       "starShields": 1,
-      "consecutiveNoViolationDays": 1,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -32745,7 +32701,7 @@
       "totalChecksEverEarned": 5,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:16.914Z",
+      "updatedAt": "2026-06-08T03:01:55.021Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -32759,7 +32715,7 @@
       "cumulativeChecks": 12,
       "heartDemonMarks": 3,
       "starShields": 0,
-      "consecutiveNoViolationDays": 1,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -32769,7 +32725,7 @@
       "totalChecksEverEarned": 12,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:16.922Z",
+      "updatedAt": "2026-06-08T03:01:54.586Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -32783,7 +32739,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 18,
-      "consecutiveNoViolationDays": 1,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -32793,9 +32749,8 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:16.930Z",
-      "totalShieldsExchanged": 0,
-      "riseTaskCompleted": false
+      "updatedAt": "2026-06-08T03:01:55.035Z",
+      "totalShieldsExchanged": 0
     },
     {
       "id": "15",
@@ -32807,7 +32762,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 2,
-      "consecutiveNoViolationDays": 1,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -32817,7 +32772,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:16.939Z",
+      "updatedAt": "2026-06-08T03:01:54.598Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -32831,7 +32786,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 29,
-      "consecutiveNoViolationDays": 2,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -32841,9 +32796,8 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:16.946Z",
-      "totalShieldsExchanged": 0,
-      "riseTaskCompleted": false
+      "updatedAt": "2026-06-08T03:01:55.049Z",
+      "totalShieldsExchanged": 0
     },
     {
       "id": "17",
@@ -32855,7 +32809,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 18,
-      "consecutiveNoViolationDays": 1,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -32865,9 +32819,8 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:16.954Z",
-      "totalShieldsExchanged": 56,
-      "riseTaskCompleted": false
+      "updatedAt": "2026-06-08T03:01:55.063Z",
+      "totalShieldsExchanged": 56
     },
     {
       "id": "18",
@@ -32879,7 +32832,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 0,
-      "consecutiveNoViolationDays": 1,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -32889,7 +32842,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:16.962Z",
+      "updatedAt": "2026-06-05T01:55:04.117Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -32903,7 +32856,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 18,
-      "consecutiveNoViolationDays": 1,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -32913,9 +32866,8 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:16.972Z",
-      "totalShieldsExchanged": 5,
-      "riseTaskCompleted": false
+      "updatedAt": "2026-06-08T03:01:55.076Z",
+      "totalShieldsExchanged": 5
     },
     {
       "id": "20",
@@ -32927,7 +32879,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 48,
-      "consecutiveNoViolationDays": 12,
+      "consecutiveNoViolationDays": 11,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -32937,9 +32889,8 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:16.979Z",
-      "totalShieldsExchanged": 5,
-      "riseTaskCompleted": false
+      "updatedAt": "2026-06-08T03:01:55.090Z",
+      "totalShieldsExchanged": 5
     },
     {
       "id": "21",
@@ -32951,7 +32902,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 35,
-      "consecutiveNoViolationDays": 1,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -32961,9 +32912,8 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:16.987Z",
-      "totalShieldsExchanged": 0,
-      "riseTaskCompleted": false
+      "updatedAt": "2026-06-08T03:01:54.643Z",
+      "totalShieldsExchanged": 0
     },
     {
       "id": "22",
@@ -32975,7 +32925,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 5,
-      "consecutiveNoViolationDays": 1,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -32985,7 +32935,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:16.994Z",
+      "updatedAt": "2026-06-08T03:01:55.106Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -32999,7 +32949,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 1,
-      "consecutiveNoViolationDays": 2,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -33009,7 +32959,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:17.001Z",
+      "updatedAt": "2026-06-04T23:53:31.078Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -33023,7 +32973,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 7,
-      "consecutiveNoViolationDays": 2,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -33033,7 +32983,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:17.008Z",
+      "updatedAt": "2026-06-08T03:01:54.659Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -33047,7 +32997,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 6,
-      "consecutiveNoViolationDays": 2,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -33057,7 +33007,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:17.015Z",
+      "updatedAt": "2026-06-08T03:01:55.121Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -33071,7 +33021,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 4,
-      "consecutiveNoViolationDays": 1,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -33081,7 +33031,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:17.022Z",
+      "updatedAt": "2026-06-08T03:01:55.133Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -33095,7 +33045,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 2,
-      "consecutiveNoViolationDays": 1,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -33105,7 +33055,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:17.027Z",
+      "updatedAt": "2026-06-08T03:01:54.697Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -33119,7 +33069,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 5,
-      "consecutiveNoViolationDays": 2,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -33129,7 +33079,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:17.034Z",
+      "updatedAt": "2026-06-08T03:01:55.146Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -33143,7 +33093,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 6,
-      "consecutiveNoViolationDays": 4,
+      "consecutiveNoViolationDays": 3,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -33153,7 +33103,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:17.040Z",
+      "updatedAt": "2026-06-08T03:01:55.161Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -33167,7 +33117,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 4,
-      "consecutiveNoViolationDays": 1,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -33177,7 +33127,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:17.048Z",
+      "updatedAt": "2026-06-08T03:01:55.176Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -33191,7 +33141,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 18,
-      "consecutiveNoViolationDays": 1,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -33201,9 +33151,8 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:17.054Z",
-      "totalShieldsExchanged": 0,
-      "riseTaskCompleted": false
+      "updatedAt": "2026-06-08T03:01:55.190Z",
+      "totalShieldsExchanged": 0
     },
     {
       "id": "32",
@@ -33215,7 +33164,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 2,
-      "consecutiveNoViolationDays": 1,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -33225,7 +33174,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:17.061Z",
+      "updatedAt": "2026-06-08T03:01:54.764Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -33239,7 +33188,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 3,
-      "consecutiveNoViolationDays": 1,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -33249,7 +33198,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:17.067Z",
+      "updatedAt": "2026-06-08T03:01:54.779Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -33263,7 +33212,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 5,
-      "consecutiveNoViolationDays": 2,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -33273,9 +33222,8 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:17.074Z",
-      "totalShieldsExchanged": 0,
-      "riseTaskCompleted": false
+      "updatedAt": "2026-06-04T23:53:31.119Z",
+      "totalShieldsExchanged": 0
     },
     {
       "id": "35",
@@ -33287,7 +33235,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 8,
-      "consecutiveNoViolationDays": 1,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -33297,9 +33245,8 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:17.085Z",
-      "totalShieldsExchanged": 0,
-      "riseTaskCompleted": false
+      "updatedAt": "2026-06-08T03:01:55.203Z",
+      "totalShieldsExchanged": 0
     },
     {
       "id": "36",
@@ -33311,7 +33258,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 3,
-      "consecutiveNoViolationDays": 1,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -33321,7 +33268,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:17.093Z",
+      "updatedAt": "2026-06-08T03:01:55.216Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -33335,7 +33282,7 @@
       "cumulativeChecks": 6,
       "heartDemonMarks": 4,
       "starShields": 0,
-      "consecutiveNoViolationDays": 1,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -33345,7 +33292,7 @@
       "totalChecksEverEarned": 6,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:17.101Z",
+      "updatedAt": "2026-06-08T03:01:55.231Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -33359,7 +33306,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 3,
-      "consecutiveNoViolationDays": 1,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -33369,7 +33316,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:17.109Z",
+      "updatedAt": "2026-06-08T03:01:54.821Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -33383,7 +33330,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 77,
-      "consecutiveNoViolationDays": 15,
+      "consecutiveNoViolationDays": 14,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -33393,9 +33340,8 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:17.116Z",
-      "totalShieldsExchanged": 0,
-      "riseTaskCompleted": false
+      "updatedAt": "2026-06-08T03:01:55.350Z",
+      "totalShieldsExchanged": 0
     },
     {
       "id": "40",
@@ -33407,7 +33353,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 5,
-      "consecutiveNoViolationDays": 1,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -33417,7 +33363,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:17.124Z",
+      "updatedAt": "2026-06-08T03:01:55.260Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -33431,7 +33377,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 17,
-      "consecutiveNoViolationDays": 1,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -33441,9 +33387,8 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:17.131Z",
-      "totalShieldsExchanged": 0,
-      "riseTaskCompleted": false
+      "updatedAt": "2026-06-08T03:01:55.275Z",
+      "totalShieldsExchanged": 0
     },
     {
       "id": "42",
@@ -33455,7 +33400,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 42,
-      "consecutiveNoViolationDays": 3,
+      "consecutiveNoViolationDays": 2,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -33465,9 +33410,8 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:17.140Z",
-      "totalShieldsExchanged": 0,
-      "riseTaskCompleted": false
+      "updatedAt": "2026-06-08T03:01:55.289Z",
+      "totalShieldsExchanged": 0
     },
     {
       "id": "43",
@@ -33479,7 +33423,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 42,
-      "consecutiveNoViolationDays": 2,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -33489,7 +33433,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:17.148Z",
+      "updatedAt": "2026-06-08T03:01:55.303Z",
       "totalShieldsExchanged": 5,
       "riseTaskCompleted": false
     },
@@ -33503,7 +33447,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 3,
-      "consecutiveNoViolationDays": 1,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -33513,7 +33457,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T15:29:55.006Z",
-      "updatedAt": "2026-06-08T02:52:17.156Z",
+      "updatedAt": "2026-06-08T03:01:54.901Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     }
