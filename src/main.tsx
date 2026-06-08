@@ -82,10 +82,11 @@ async function loadFromServer(): Promise<void> {
     // No local server — we're on the web (Vercel)
   }
 
-  // 2. Try GitHub raw (live data for xinghuo21.xin) — no-store cache + timestamp
+  // 2. Try GitHub raw (live data for xinghuo21.xin)
   try {
-    const cacheBuster = '?v=' + Date.now() + '&r=' + Math.random();
-    const res = await fetch(GITHUB_DATA_URL + cacheBuster, { cache: 'no-store' });
+    const res = await fetch(GITHUB_DATA_URL, {
+      headers: { 'Cache-Control': 'max-age=0' },
+    });
     if (res.ok) {
       const raw = await res.text();
       const data = JSON.parse(raw.replace(/^﻿/, ''));
