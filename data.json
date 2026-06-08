@@ -4712,6 +4712,22 @@
   "seat-data-migrated-v2": true,
   "behavior-records": [
     {
+      "studentId": "2",
+      "direction": "negative",
+      "weight": 3,
+      "category": "纪律",
+      "description": "集体活动中擅自行动或表现失格",
+      "remark": "",
+      "recordedBy": "王老师",
+      "verified": true,
+      "shieldsConsumed": 6,
+      "extraWeight": 0,
+      "isHighSensitivity": false,
+      "studentCardSide": "front",
+      "id": "2479",
+      "createdAt": "2026-06-08T02:32:53.975Z"
+    },
+    {
       "studentId": "39",
       "direction": "positive",
       "weight": 4,
@@ -32460,8 +32476,8 @@
       "blanksFilled": 2,
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
-      "starShields": 20,
-      "consecutiveNoViolationDays": 4,
+      "starShields": 14,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -32471,7 +32487,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:32:45.076Z",
+      "updatedAt": "2026-06-08T02:32:53.965Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
