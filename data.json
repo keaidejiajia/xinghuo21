@@ -1502,6 +1502,7 @@
       "studentId": "34"
     }
   ],
+  "app_version_seen": "1.2.0",
   "app_mobile_view": false,
   "uc-stat-dn": "39a3f351-65d7-c3ad-61e3-4920b1cb6e5f",
   "demo_user": {
@@ -1510,6 +1511,7 @@
     "role": "teacher",
     "name": "班主任"
   },
+  "i18nextLng": "zh",
   "__itrace_wid": {
     "expireAt": 1796436059884,
     "value": "2dda5efe-7b74-49c7-beb4-4d645a04cc5b"
@@ -4707,22 +4709,6 @@
   ],
   "seat-data-migrated-v2": true,
   "behavior-records": [
-    {
-      "studentId": "3",
-      "direction": "negative",
-      "weight": 2,
-      "category": "纪律",
-      "description": "课间追逐打闹或在教室大喊大叫",
-      "remark": "",
-      "recordedBy": "王老师",
-      "verified": true,
-      "shieldsConsumed": 4,
-      "extraWeight": 0,
-      "isHighSensitivity": false,
-      "studentCardSide": "front",
-      "id": "2479",
-      "createdAt": "2026-06-08T02:39:36.440Z"
-    },
     {
       "studentId": "39",
       "direction": "positive",
@@ -32461,6 +32447,7 @@
       "createdAt": "2026-05-19T17:53:19.888Z"
     }
   ],
+  "app_last_settle_date": "2026-06-08",
   "students": [
     {
       "id": "2",
@@ -32495,7 +32482,7 @@
       "blanksFilled": 0,
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
-      "starShields": 43,
+      "starShields": 47,
       "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
@@ -32506,7 +32493,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:39:36.430Z",
+      "updatedAt": "2026-06-08T02:54:49.488Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
