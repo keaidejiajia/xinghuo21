@@ -62,8 +62,7 @@ document.addEventListener('visibilitychange', () => {
 });
 
 // ===== Load data: GitHub raw → desktop server → localStorage =====
-// 用 raw GitHub + Cache-Control bypass query
-const GITHUB_DATA_URL = 'https://raw.githubusercontent.com/keaidejiajia/xinghuo21/pages/data.json';
+// No direct GitHub URL — use /api/load (Vercel proxy, avoids CORS)
 
 async function loadFromServer(): Promise<void> {
   // 1. Try desktop server (localhost) first — for offline use with 星火燎原.bat
@@ -82,30 +81,25 @@ async function loadFromServer(): Promise<void> {
     // No local server — we're on the web (Vercel)
   }
 
-  // 2. Try GitHub raw (live data for xinghuo21.xin)
+  // 2. Try /api/load (Vercel proxy — fetches GitHub server-side, no CORS)
   try {
-    const res = await fetch(GITHUB_DATA_URL, {
-      headers: { 'Cache-Control': 'max-age=0' },
-    });
+    const res = await fetch('/api/load');
     if (res.ok) {
       const raw = await res.text();
       const data = JSON.parse(raw.replace(/^﻿/, ''));
       if (data && Object.keys(data).length > 0) {
-        // Don't overwrite demo_user (login session)
         const currentUser = localStorage.getItem('demo_user');
         for (const [key, value] of Object.entries(data)) {
-          if (key === 'demo_user') continue; // keep existing login
+          if (key === 'demo_user') continue;
           originalSetItem(key, JSON.stringify(value));
         }
-        if (currentUser) {
-          originalSetItem('demo_user', currentUser);
-        }
-        console.log('[sync] Loaded fresh data from GitHub');
+        if (currentUser) originalSetItem('demo_user', currentUser);
+        console.log('[sync] Loaded fresh data from GitHub via /api/load');
         return;
       }
     }
   } catch {
-    // GitHub unavailable — fall through to localStorage
+    // /api/load unavailable — fall through to localStorage
   }
 
   // 3. Final fallback: use localStorage as-is (desktop first run or offline)
