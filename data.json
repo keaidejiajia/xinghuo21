@@ -7588,22 +7588,6 @@
       "createdAt": "2026-06-03T01:56:20.152Z"
     },
     {
-      "studentId": "43",
-      "direction": "negative",
-      "weight": 2,
-      "category": "纪律",
-      "description": "课间追逐打闹或在教室大喊大叫",
-      "remark": "",
-      "recordedBy": "王琮睿",
-      "verified": true,
-      "shieldsConsumed": 4,
-      "extraWeight": 0,
-      "isHighSensitivity": false,
-      "studentCardSide": "front",
-      "id": "2126",
-      "createdAt": "2026-06-03T01:56:20.146Z"
-    },
-    {
       "studentId": "10",
       "direction": "negative",
       "weight": 1,
@@ -7619,23 +7603,6 @@
       "timePeriodId": "tp-zhengzhi",
       "id": "2125",
       "createdAt": "2026-06-03T01:55:19.475Z"
-    },
-    {
-      "studentId": "43",
-      "direction": "negative",
-      "weight": 1,
-      "category": "学习",
-      "description": "课上不记笔记、做与学习无关的事情、睡觉/趴桌",
-      "remark": "",
-      "recordedBy": "王琮睿",
-      "verified": true,
-      "shieldsConsumed": 2,
-      "extraWeight": 0,
-      "isHighSensitivity": false,
-      "studentCardSide": "front",
-      "timePeriodId": "tp-zhengzhi",
-      "id": "2124",
-      "createdAt": "2026-06-03T01:55:19.469Z"
     },
     {
       "studentId": "23",
@@ -33399,7 +33366,7 @@
       "blanksFilled": 0,
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
-      "starShields": 46,
+      "starShields": 52,
       "consecutiveNoViolationDays": 2,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
@@ -33410,7 +33377,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T14:47:50.263Z",
+      "updatedAt": "2026-06-08T14:47:52.684Z",
       "totalShieldsExchanged": 5,
       "riseTaskCompleted": false
     },
