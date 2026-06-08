@@ -1,4 +1,4 @@
-import type { FrontLevel, BackLevel, BehaviorDefinition, LevelConfig, AutoRule, LevelEffect, GridCell, AppConfig, TeachingWeek, NegativeWeight, PositiveWeight, TimePeriod } from '../types';
+import type { FrontLevel, BackLevel, BehaviorDefinition, LevelConfig, AutoRule, LevelEffect, GridCell, AppConfig, TeachingWeek, NegativeWeight, PositiveWeight } from '../types';
 import { toLocalDateStr } from '../lib/utils';
 
 // ===== 正面等级：星辰的六种光度 =====

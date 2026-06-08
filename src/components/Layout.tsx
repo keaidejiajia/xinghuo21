@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
-import { LayoutDashboard, ClipboardList, LogOut, Star, BookOpen, Armchair, Settings, CreditCard, X, Bell, Menu } from 'lucide-react';
+import { LayoutDashboard, ClipboardList, LogOut, Star, BookOpen, Armchair, Settings, CreditCard, X, Menu } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import { useMobile, toggleMobileView } from '../hooks/useMobile';
 import type { UserRole } from '../types';
