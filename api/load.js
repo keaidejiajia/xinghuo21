@@ -1,6 +1,6 @@
 /**
  * Vercel Serverless Function — 从 GitHub 读取最新数据
- * 使用 GitHub Contents API（认证通道，无 CDN 缓存问题）
+ * 使用 GitHub Contents API（Base64 解码，避免中文编码问题）
  * 数据存储在 data 分支，与 pages 部署分支分离
  */
 const REPO_OWNER = 'keaidejiajia';
@@ -19,18 +19,18 @@ export default async function handler(req, res) {
   if (!token) return res.status(500).json({ error: 'GITHUB_TOKEN not set' });
 
   try {
+    // Use standard Contents API (returns Base64 content) to avoid encoding corruption
     const ghRes = await fetch(
       `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}?ref=${BRANCH}`,
       {
         headers: {
           Authorization: `token ${token}`,
-          Accept: 'application/vnd.github.raw+json',
+          Accept: 'application/vnd.github.v3+json',
         },
       }
     );
 
     if (ghRes.status === 404) {
-      // data.json 不存在（首次使用）— 返回空对象
       res.setHeader('Access-Control-Allow-Origin', '*');
       res.setHeader('Cache-Control', 'no-store');
       return res.status(200).json({});
@@ -41,8 +41,11 @@ export default async function handler(req, res) {
       return res.status(502).json({ error: 'GitHub API failed', status: ghRes.status, detail: errText.slice(0, 200) });
     }
 
-    const data = await ghRes.text();
-    res.setHeader('Content-Type', 'application/json');
+    const ghData = await ghRes.json();
+    // Decode Base64 content to UTF-8 string
+    const data = Buffer.from(ghData.content, 'base64').toString('utf-8');
+
+    res.setHeader('Content-Type', 'application/json; charset=utf-8');
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Cache-Control', 'no-store');
     return res.status(200).send(data);
