@@ -52,7 +52,7 @@ localStorage.setItem = function(key: string, value: string) {
   if (!isLoading) scheduleSave();
 };
 
-localStorage.removeItem = function(key: string, value: string) {
+localStorage.removeItem = function(key: string) {
   originalRemoveItem(key);
   if (!isLoading) scheduleSave();
 };
