@@ -1510,8 +1510,8 @@
     "name": "班主任"
   },
   "__itrace_wid": {
-    "expireAt": 1796439943371,
-    "value": "903d688a-e8dd-4bae-a2a3-14462287add7"
+    "expireAt": 1796440035234,
+    "value": "0b16aa73-806c-48b5-02c1-deb934f5c78b"
   },
   "seat-history": [
     {
@@ -4172,7 +4172,7 @@
     }
   ],
   "itracereporter:dynamicConf:fqy8bgb3-is7w88xm": {
-    "expireAt": 1780889743498
+    "expireAt": 1780889835415
   },
   "seat-grid-layout": [
     {
