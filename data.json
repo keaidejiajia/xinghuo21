@@ -7325,22 +7325,6 @@
       "createdAt": "2026-06-04T01:46:12.583Z"
     },
     {
-      "studentId": "43",
-      "direction": "negative",
-      "weight": 2,
-      "category": "品行",
-      "description": "说脏话",
-      "remark": "",
-      "recordedBy": "邹梓航",
-      "verified": true,
-      "shieldsConsumed": 4,
-      "extraWeight": 0,
-      "isHighSensitivity": false,
-      "studentCardSide": "front",
-      "id": "2143",
-      "createdAt": "2026-06-04T01:45:25.437Z"
-    },
-    {
       "studentId": "26",
       "direction": "negative",
       "weight": 2,
@@ -33415,7 +33399,7 @@
       "blanksFilled": 0,
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
-      "starShields": 42,
+      "starShields": 46,
       "consecutiveNoViolationDays": 2,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
@@ -33426,7 +33410,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T05:21:15.283Z",
+      "updatedAt": "2026-06-08T14:47:50.263Z",
       "totalShieldsExchanged": 5,
       "riseTaskCompleted": false
     },
