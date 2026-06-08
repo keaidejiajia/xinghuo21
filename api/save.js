@@ -54,11 +54,13 @@ export default async function handler(req, res) {
     });
 
     if (!putRes.ok) {
-      const err = await putRes.json();
-      return res.status(500).json({ error: 'GitHub write failed', detail: err });
+      const errText = await putRes.text();
+      console.error('[save] GitHub write failed:', putRes.status, errText.slice(0, 200));
+      return res.status(500).json({ error: 'GitHub write failed', status: putRes.status, detail: errText.slice(0, 300) });
     }
 
-    return res.status(200).json({ ok: true, message: 'Saved' });
+    console.log('[save] Successfully wrote to GitHub');
+    return res.status(200).json({ ok: true, message: 'Saved', time: new Date().toISOString() });
   } catch (e) {
     return res.status(500).json({ error: e.message });
   }
