@@ -1502,6 +1502,8 @@
       "studentId": "34"
     }
   ],
+  "last_recorder": "王老师",
+  "app_version_seen": "1.2.0",
   "app_mobile_view": false,
   "uc-stat-dn": "39a3f351-65d7-c3ad-61e3-4920b1cb6e5f",
   "demo_user": {
@@ -1510,6 +1512,7 @@
     "role": "teacher",
     "name": "班主任"
   },
+  "i18nextLng": "zh",
   "__itrace_wid": {
     "expireAt": 1796436059884,
     "value": "2dda5efe-7b74-49c7-beb4-4d645a04cc5b"
@@ -4737,21 +4740,6 @@
       "studentCardSide": "front",
       "id": "2482",
       "createdAt": "2026-06-08T03:00:37.876Z"
-    },
-    {
-      "studentId": "2",
-      "direction": "positive",
-      "weight": 1,
-      "category": "品行",
-      "description": "星蚀连续无违纪5天，自动回升",
-      "remark": "云翳遮星 → 弦月之辉",
-      "recordedBy": "王老师",
-      "verified": true,
-      "shieldsConsumed": 0,
-      "isHighSensitivity": false,
-      "studentCardSide": "front",
-      "id": "2481",
-      "createdAt": "2026-06-08T02:55:04.070Z"
     },
     {
       "studentId": "3",
@@ -32517,18 +32505,18 @@
       "blanksFilled": 0,
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
-      "starShields": 20,
+      "starShields": 19,
       "consecutiveNoViolationDays": 5,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
       "totalBlanksEverFilled": 10,
       "totalHeartDemonsEverGained": 0,
-      "totalShieldsEverEarned": 44,
+      "totalShieldsEverEarned": 43,
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T03:00:37.886Z",
+      "updatedAt": "2026-06-08T03:00:45.659Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0,
       "lastLevelChange": {
