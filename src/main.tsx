@@ -57,8 +57,11 @@ document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'hidden') saveNow();
 });
 
-// ===== Load data: server first, then embedded (parent mode), then localStorage =====
+// ===== Load data: GitHub raw → desktop server → localStorage =====
+const GITHUB_DATA_URL = 'https://raw.githubusercontent.com/keaidejiajia/xinghuo21/pages/data.json';
+
 async function loadFromServer(): Promise<void> {
+  // 1. Try desktop server (localhost) first — for offline use with 星火燎原.bat
   try {
     const res = await fetch('/api/load');
     if (res.ok) {
@@ -67,24 +70,31 @@ async function loadFromServer(): Promise<void> {
         for (const [key, value] of Object.entries(data)) {
           originalSetItem(key, JSON.stringify(value));
         }
-        return; // Server data loaded successfully
+        return;
       }
     }
   } catch {
-    // No server available
+    // No local server — we're on the web (Vercel)
   }
 
-  // Fallback: embedded data (parent mode / Gitee Pages)
-  const embedded = (window as any).__EMBEDDED_DATA__;
-  if (embedded && typeof embedded === 'object' && Object.keys(embedded).length > 0) {
-    for (const [key, value] of Object.entries(embedded)) {
-      originalSetItem(key, JSON.stringify(value));
+  // 2. Try GitHub raw (live data for xinghuo21.xin) — add timestamp to bust CDN cache
+  try {
+    const res = await fetch(GITHUB_DATA_URL + '?t=' + Date.now());
+    if (res.ok) {
+      const raw = await res.text();
+      const data = JSON.parse(raw.replace(/^﻿/, ''));
+      if (data && Object.keys(data).length > 0) {
+        for (const [key, value] of Object.entries(data)) {
+          originalSetItem(key, JSON.stringify(value));
+        }
+        return;
+      }
     }
-    console.log('[parent-mode] Loaded embedded data');
-    return;
+  } catch {
+    // GitHub unavailable — fall through to localStorage
   }
 
-  // Final fallback: use localStorage as-is (desktop first run)
+  // 3. Final fallback: use localStorage as-is (desktop first run or offline)
 }
 
 // Boot: load data first, then render React
