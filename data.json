@@ -32430,7 +32430,6 @@
       "active": false
     }
   ],
-  "app_version_seen": "1.2.0",
   "app_mobile_view": false,
   "demo_user": {
     "id": "demo-teacher",
@@ -32438,7 +32437,6 @@
     "role": "teacher",
     "name": "班主任"
   },
-  "app_last_settle_date": "2026-06-08",
   "students": [
     {
       "id": "2",
