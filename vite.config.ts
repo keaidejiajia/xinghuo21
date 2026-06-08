@@ -19,18 +19,7 @@ const postBuildFix = (): Plugin => ({
     // Remove external favicon
     html = html.replace(/<link rel="icon"[^>]*\/?>/g, '');
 
-    // Embed parent data if parent-data.json exists — but NEVER on Vercel
-    if (process.env.VERCEL) {
-      console.log('[vercel-build] Skipping parent-data embed (on Vercel)');
-    } else {
-    const parentDataPath = path.resolve(__dirname, 'parent-data.json');
-    if (fs.existsSync(parentDataPath)) {
-      const parentData = fs.readFileSync(parentDataPath, 'utf-8');
-      const embedScript = `<script>window.__EMBEDDED_DATA__=${parentData};</script>`;
-      html = html.replace('</head>', `${embedScript}\n</head>`);
-      console.log('[parent-build] Embedded parent-data.json into index.html');
-    }
-    } // close the VERCEL guard
+    // ⚠️ 不再嵌入数据！数据由 /api/load 实时拉取，嵌入会导致数据过期
 
     fs.writeFileSync(htmlPath, html);
 
