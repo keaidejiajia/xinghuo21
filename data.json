@@ -1502,13 +1502,16 @@
       "studentId": "34"
     }
   ],
+  "app_sort_mode": "number",
   "app_mobile_view": false,
+  "app_version_seen": "1.2.0",
   "demo_user": {
     "id": "demo-teacher",
     "email": "teacher@21ban",
     "role": "teacher",
     "name": "班主任"
   },
+  "i18nextLng": "zh",
   "seat-history": [
     {
       "date": "2026-05-25T11:51:39.911Z",
@@ -32437,6 +32440,7 @@
       "createdAt": "2026-05-19T17:53:19.888Z"
     }
   ],
+  "app_last_settle_date": "2026-06-08",
   "students": [
     {
       "id": "2",
