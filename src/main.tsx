@@ -27,7 +27,11 @@ function saveNow() {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(data),
-  }).catch(() => {});
+  }).then(r => r.json().then(d => {
+    console.log('[sync] Saved to cloud:', d);
+  })).catch(e => {
+    console.error('[sync] Save failed:', e);
+  });
 }
 
 function scheduleSave() {
@@ -58,6 +62,7 @@ document.addEventListener('visibilitychange', () => {
 });
 
 // ===== Load data: GitHub raw → desktop server → localStorage =====
+// 用 raw GitHub + Cache-Control bypass query
 const GITHUB_DATA_URL = 'https://raw.githubusercontent.com/keaidejiajia/xinghuo21/pages/data.json';
 
 async function loadFromServer(): Promise<void> {
@@ -77,16 +82,24 @@ async function loadFromServer(): Promise<void> {
     // No local server — we're on the web (Vercel)
   }
 
-  // 2. Try GitHub raw (live data for xinghuo21.xin) — add timestamp to bust CDN cache
+  // 2. Try GitHub raw (live data for xinghuo21.xin) — no-store cache + timestamp
   try {
-    const res = await fetch(GITHUB_DATA_URL + '?t=' + Date.now());
+    const cacheBuster = '?v=' + Date.now() + '&r=' + Math.random();
+    const res = await fetch(GITHUB_DATA_URL + cacheBuster, { cache: 'no-store' });
     if (res.ok) {
       const raw = await res.text();
       const data = JSON.parse(raw.replace(/^﻿/, ''));
       if (data && Object.keys(data).length > 0) {
+        // Don't overwrite demo_user (login session)
+        const currentUser = localStorage.getItem('demo_user');
         for (const [key, value] of Object.entries(data)) {
+          if (key === 'demo_user') continue; // keep existing login
           originalSetItem(key, JSON.stringify(value));
         }
+        if (currentUser) {
+          originalSetItem('demo_user', currentUser);
+        }
+        console.log('[sync] Loaded fresh data from GitHub');
         return;
       }
     }
