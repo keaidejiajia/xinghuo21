@@ -1503,12 +1503,6 @@
     }
   ],
   "app_mobile_view": false,
-  "demo_user": {
-    "id": "demo-teacher",
-    "email": "teacher@21ban",
-    "role": "teacher",
-    "name": "班主任"
-  },
   "seat-history": [
     {
       "date": "2026-05-25T11:51:39.911Z",
