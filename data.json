@@ -32507,7 +32507,8 @@
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
       "updatedAt": "2026-06-08T02:39:36.430Z",
-      "totalShieldsExchanged": 0
+      "totalShieldsExchanged": 0,
+      "riseTaskCompleted": false
     },
     {
       "id": "4",
@@ -32578,7 +32579,8 @@
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
       "updatedAt": "2026-06-08T02:39:29.168Z",
-      "totalShieldsExchanged": 0
+      "totalShieldsExchanged": 0,
+      "riseTaskCompleted": false
     },
     {
       "id": "7",
@@ -32601,7 +32603,8 @@
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
       "updatedAt": "2026-06-05T01:53:57.644Z",
-      "totalShieldsExchanged": 0
+      "totalShieldsExchanged": 0,
+      "riseTaskCompleted": false
     },
     {
       "id": "8",
@@ -32624,7 +32627,8 @@
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
       "updatedAt": "2026-06-08T02:39:28.774Z",
-      "totalShieldsExchanged": 0
+      "totalShieldsExchanged": 0,
+      "riseTaskCompleted": false
     },
     {
       "id": "9",
@@ -32767,7 +32771,8 @@
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
       "updatedAt": "2026-06-08T02:39:28.839Z",
-      "totalShieldsExchanged": 0
+      "totalShieldsExchanged": 0,
+      "riseTaskCompleted": false
     },
     {
       "id": "15",
@@ -32814,7 +32819,8 @@
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
       "updatedAt": "2026-06-08T02:39:28.853Z",
-      "totalShieldsExchanged": 0
+      "totalShieldsExchanged": 0,
+      "riseTaskCompleted": false
     },
     {
       "id": "17",
@@ -32837,7 +32843,8 @@
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
       "updatedAt": "2026-06-08T02:39:28.865Z",
-      "totalShieldsExchanged": 56
+      "totalShieldsExchanged": 56,
+      "riseTaskCompleted": false
     },
     {
       "id": "18",
@@ -32884,7 +32891,8 @@
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
       "updatedAt": "2026-06-08T02:39:28.881Z",
-      "totalShieldsExchanged": 5
+      "totalShieldsExchanged": 5,
+      "riseTaskCompleted": false
     },
     {
       "id": "20",
@@ -32907,7 +32915,8 @@
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
       "updatedAt": "2026-06-08T02:39:28.895Z",
-      "totalShieldsExchanged": 5
+      "totalShieldsExchanged": 5,
+      "riseTaskCompleted": false
     },
     {
       "id": "21",
@@ -32930,7 +32939,8 @@
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
       "updatedAt": "2026-06-08T02:39:28.484Z",
-      "totalShieldsExchanged": 0
+      "totalShieldsExchanged": 0,
+      "riseTaskCompleted": false
     },
     {
       "id": "22",
@@ -33169,7 +33179,8 @@
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
       "updatedAt": "2026-06-08T02:39:29.008Z",
-      "totalShieldsExchanged": 0
+      "totalShieldsExchanged": 0,
+      "riseTaskCompleted": false
     },
     {
       "id": "32",
@@ -33240,7 +33251,8 @@
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
       "updatedAt": "2026-06-04T23:53:31.119Z",
-      "totalShieldsExchanged": 0
+      "totalShieldsExchanged": 0,
+      "riseTaskCompleted": false
     },
     {
       "id": "35",
@@ -33263,7 +33275,8 @@
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
       "updatedAt": "2026-06-08T02:39:29.023Z",
-      "totalShieldsExchanged": 0
+      "totalShieldsExchanged": 0,
+      "riseTaskCompleted": false
     },
     {
       "id": "36",
@@ -33358,7 +33371,8 @@
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
       "updatedAt": "2026-06-08T02:39:29.188Z",
-      "totalShieldsExchanged": 0
+      "totalShieldsExchanged": 0,
+      "riseTaskCompleted": false
     },
     {
       "id": "40",
@@ -33405,7 +33419,8 @@
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
       "updatedAt": "2026-06-08T02:39:29.099Z",
-      "totalShieldsExchanged": 0
+      "totalShieldsExchanged": 0,
+      "riseTaskCompleted": false
     },
     {
       "id": "42",
@@ -33428,7 +33443,8 @@
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
       "updatedAt": "2026-06-08T02:39:29.113Z",
-      "totalShieldsExchanged": 0
+      "totalShieldsExchanged": 0,
+      "riseTaskCompleted": false
     },
     {
       "id": "43",
