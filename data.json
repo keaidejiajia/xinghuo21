@@ -4172,9 +4172,7 @@
       "teachingWeek": 14
     }
   ],
-  "itracereporter:dynamicConf:fqy8bgb3-is7w88xm": {
-    "expireAt": 1780885860024
-  },
+  "seat-data-migrated-v2": true,
   "seat-grid-layout": [
     {
       "id": "1-1",
@@ -4705,7 +4703,9 @@
       "active": false
     }
   ],
-  "seat-data-migrated-v2": true,
+  "itracereporter:dynamicConf:fqy8bgb3-is7w88xm": {
+    "expireAt": 1780885860024
+  },
   "behavior-records": [
     {
       "studentId": "3",
