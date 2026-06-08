@@ -1510,6 +1510,7 @@
     "role": "teacher",
     "name": "班主任"
   },
+  "i18nextLng": "zh",
   "__itrace_wid": {
     "expireAt": 1796436059884,
     "value": "2dda5efe-7b74-49c7-beb4-4d645a04cc5b"
@@ -32461,6 +32462,7 @@
       "createdAt": "2026-05-19T17:53:19.888Z"
     }
   ],
+  "app_last_settle_date": "2026-06-08",
   "students": [
     {
       "id": "2",
@@ -32482,7 +32484,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:12.017Z",
+      "updatedAt": "2026-06-08T02:52:16.864Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -32530,7 +32532,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:12.022Z",
+      "updatedAt": "2026-06-08T02:52:16.871Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -32554,7 +32556,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:12.036Z",
+      "updatedAt": "2026-06-08T02:52:16.875Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -32578,7 +32580,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:12.043Z",
+      "updatedAt": "2026-06-08T02:52:16.880Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -32602,7 +32604,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:12.048Z",
+      "updatedAt": "2026-06-08T02:52:16.885Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -32626,7 +32628,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:12.054Z",
+      "updatedAt": "2026-06-08T02:52:16.891Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -32650,7 +32652,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:12.060Z",
+      "updatedAt": "2026-06-08T02:52:16.897Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -32674,7 +32676,7 @@
       "totalChecksEverEarned": 17,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:12.064Z",
+      "updatedAt": "2026-06-08T02:52:16.902Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -32698,7 +32700,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:12.070Z",
+      "updatedAt": "2026-06-08T02:52:16.907Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -32722,7 +32724,7 @@
       "totalChecksEverEarned": 5,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:12.079Z",
+      "updatedAt": "2026-06-08T02:52:16.914Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -32746,7 +32748,7 @@
       "totalChecksEverEarned": 12,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:12.085Z",
+      "updatedAt": "2026-06-08T02:52:16.922Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -32770,7 +32772,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:12.092Z",
+      "updatedAt": "2026-06-08T02:52:16.930Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -32794,7 +32796,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:12.098Z",
+      "updatedAt": "2026-06-08T02:52:16.939Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -32818,7 +32820,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:12.104Z",
+      "updatedAt": "2026-06-08T02:52:16.946Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -32842,7 +32844,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:12.110Z",
+      "updatedAt": "2026-06-08T02:52:16.954Z",
       "totalShieldsExchanged": 56,
       "riseTaskCompleted": false
     },
@@ -32866,7 +32868,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:12.116Z",
+      "updatedAt": "2026-06-08T02:52:16.962Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -32890,7 +32892,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:12.122Z",
+      "updatedAt": "2026-06-08T02:52:16.972Z",
       "totalShieldsExchanged": 5,
       "riseTaskCompleted": false
     },
@@ -32914,7 +32916,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:12.128Z",
+      "updatedAt": "2026-06-08T02:52:16.979Z",
       "totalShieldsExchanged": 5,
       "riseTaskCompleted": false
     },
@@ -32938,7 +32940,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:12.134Z",
+      "updatedAt": "2026-06-08T02:52:16.987Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -32962,7 +32964,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:12.140Z",
+      "updatedAt": "2026-06-08T02:52:16.994Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -32986,7 +32988,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:12.145Z",
+      "updatedAt": "2026-06-08T02:52:17.001Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -33010,7 +33012,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:12.152Z",
+      "updatedAt": "2026-06-08T02:52:17.008Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -33034,7 +33036,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:12.158Z",
+      "updatedAt": "2026-06-08T02:52:17.015Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -33058,7 +33060,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:12.164Z",
+      "updatedAt": "2026-06-08T02:52:17.022Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -33082,7 +33084,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:12.169Z",
+      "updatedAt": "2026-06-08T02:52:17.027Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -33106,7 +33108,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:12.176Z",
+      "updatedAt": "2026-06-08T02:52:17.034Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -33130,7 +33132,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:12.181Z",
+      "updatedAt": "2026-06-08T02:52:17.040Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -33154,7 +33156,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:12.187Z",
+      "updatedAt": "2026-06-08T02:52:17.048Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -33178,7 +33180,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:12.193Z",
+      "updatedAt": "2026-06-08T02:52:17.054Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -33202,7 +33204,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:12.199Z",
+      "updatedAt": "2026-06-08T02:52:17.061Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -33226,7 +33228,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:12.205Z",
+      "updatedAt": "2026-06-08T02:52:17.067Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -33250,7 +33252,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:12.211Z",
+      "updatedAt": "2026-06-08T02:52:17.074Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -33274,7 +33276,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:12.216Z",
+      "updatedAt": "2026-06-08T02:52:17.085Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -33298,7 +33300,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:12.222Z",
+      "updatedAt": "2026-06-08T02:52:17.093Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -33322,7 +33324,7 @@
       "totalChecksEverEarned": 6,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:12.228Z",
+      "updatedAt": "2026-06-08T02:52:17.101Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -33346,7 +33348,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:12.232Z",
+      "updatedAt": "2026-06-08T02:52:17.109Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -33370,7 +33372,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:12.238Z",
+      "updatedAt": "2026-06-08T02:52:17.116Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -33394,7 +33396,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:12.244Z",
+      "updatedAt": "2026-06-08T02:52:17.124Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -33418,7 +33420,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:12.250Z",
+      "updatedAt": "2026-06-08T02:52:17.131Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -33442,7 +33444,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:12.257Z",
+      "updatedAt": "2026-06-08T02:52:17.140Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -33466,7 +33468,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T02:52:12.263Z",
+      "updatedAt": "2026-06-08T02:52:17.148Z",
       "totalShieldsExchanged": 5,
       "riseTaskCompleted": false
     },
@@ -33490,7 +33492,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T15:29:55.006Z",
-      "updatedAt": "2026-06-08T02:52:12.269Z",
+      "updatedAt": "2026-06-08T02:52:17.156Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     }
