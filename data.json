@@ -1502,8 +1502,6 @@
       "studentId": "34"
     }
   ],
-  "last_recorder": "王老师",
-  "app_version_seen": "1.2.0",
   "app_mobile_view": false,
   "uc-stat-dn": "39a3f351-65d7-c3ad-61e3-4920b1cb6e5f",
   "demo_user": {
@@ -1512,7 +1510,6 @@
     "role": "teacher",
     "name": "班主任"
   },
-  "i18nextLng": "zh",
   "__itrace_wid": {
     "expireAt": 1796436059884,
     "value": "2dda5efe-7b74-49c7-beb4-4d645a04cc5b"
@@ -32479,7 +32476,6 @@
       "createdAt": "2026-05-19T17:53:19.888Z"
     }
   ],
-  "app_last_settle_date": "2026-06-08",
   "students": [
     {
       "id": "2",
