@@ -39,10 +39,12 @@ function scheduleSave() {
   saveTimer = setTimeout(saveNow, 1000);
 }
 
+let isLoading = true; // prevents save during initial data load
+
 const originalSetItem = localStorage.setItem.bind(localStorage);
 localStorage.setItem = function(key: string, value: string) {
   originalSetItem(key, value);
-  scheduleSave();
+  if (!isLoading) scheduleSave();
 };
 
 const originalRemoveItem = localStorage.removeItem.bind(localStorage);
@@ -107,6 +109,7 @@ async function loadFromServer(): Promise<void> {
 
 // Boot: load data first, then render React
 loadFromServer().finally(() => {
+  isLoading = false; // 解锁保存——只有用户操作才会触发保存
   reinitializeFromStorage();
   createRoot(document.getElementById('root')!).render(
     <StrictMode>
