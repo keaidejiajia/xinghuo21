@@ -5,9 +5,12 @@ import './index.css'
 import App from './App'
 import { reinitializeFromStorage } from './lib/store'
 
-// ===== Data sync: localStorage ↔ data.json via server API =====
+// ===== Data sync: localStorage ↔ GitHub via server API =====
 
-let saveTimer: ReturnType<typeof setTimeout> | null = null;
+const originalSetItem = localStorage.setItem.bind(localStorage);
+const originalRemoveItem = localStorage.removeItem.bind(localStorage);
+
+let isLoading = true; // prevents save during initial data load
 
 function collectAllData(): Record<string, unknown> {
   const data: Record<string, unknown> = {};
@@ -20,7 +23,11 @@ function collectAllData(): Record<string, unknown> {
   return data;
 }
 
-function saveNow() {
+// === 保存逻辑（唯一入口）===
+
+let saveTimer: ReturnType<typeof setTimeout> | null = null;
+
+function saveToCloud() {
   if (saveTimer) { clearTimeout(saveTimer); saveTimer = null; }
   const data = collectAllData();
   fetch('/api/save', {
@@ -36,54 +43,57 @@ function saveNow() {
 
 function scheduleSave() {
   if (saveTimer) clearTimeout(saveTimer);
-  saveTimer = setTimeout(saveNow, 1000);
+  saveTimer = setTimeout(saveToCloud, 1000);
 }
 
-let isLoading = true; // prevents save during initial data load
-
-const originalSetItem = localStorage.setItem.bind(localStorage);
+// 拦截 localStorage 操作 → 触发云端保存
 localStorage.setItem = function(key: string, value: string) {
   originalSetItem(key, value);
   if (!isLoading) scheduleSave();
 };
 
-const originalRemoveItem = localStorage.removeItem.bind(localStorage);
-localStorage.removeItem = function(key: string) {
+localStorage.removeItem = function(key: string, value: string) {
   originalRemoveItem(key);
-  scheduleSave();
+  if (!isLoading) scheduleSave();
 };
 
+// 页面关闭前紧急保存
 window.addEventListener('beforeunload', () => {
   if (saveTimer) { clearTimeout(saveTimer); saveTimer = null; }
   const data = collectAllData();
   navigator.sendBeacon('/api/save', new Blob([JSON.stringify(data)], { type: 'application/json' }));
 });
 
+// 页面切到后台时保存
 document.addEventListener('visibilitychange', () => {
-  if (document.visibilityState === 'hidden') saveNow();
+  if (document.visibilityState === 'hidden') saveToCloud();
 });
 
-// ===== Load data: GitHub raw → desktop server → localStorage =====
-// No direct GitHub URL — use /api/load (Vercel proxy, avoids CORS)
+// === 加载逻辑 ===
 
 async function loadFromServer(): Promise<void> {
-  // 1. Try desktop server (localhost) first — for offline use with 星火燎原.bat
-  try {
-    const res = await fetch('/api/load');
-    if (res.ok) {
-      const data: Record<string, unknown> = await res.json();
-      if (data && Object.keys(data).length > 0) {
-        for (const [key, value] of Object.entries(data)) {
-          originalSetItem(key, JSON.stringify(value));
+  const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+
+  // 1. 桌面版：仅在 localhost 时尝试本地服务器
+  if (isLocal) {
+    try {
+      const res = await fetch('http://localhost:8421/api/load');
+      if (res.ok) {
+        const data: Record<string, unknown> = await res.json();
+        if (data && Object.keys(data).length > 0) {
+          for (const [key, value] of Object.entries(data)) {
+            originalSetItem(key, JSON.stringify(value));
+          }
+          console.log('[sync] Loaded from desktop server');
+          return;
         }
-        return;
       }
+    } catch {
+      // 桌面服务器未启动 — 继续尝试 Vercel API
     }
-  } catch {
-    // No local server — we're on the web (Vercel)
   }
 
-  // 2. Try /api/load (Vercel proxy — fetches GitHub server-side, no CORS)
+  // 2. 网页版（或桌面服务器不可用时）：通过 Vercel 代理从 GitHub 加载
   try {
     const res = await fetch('/api/load');
     if (res.ok) {
@@ -96,15 +106,18 @@ async function loadFromServer(): Promise<void> {
           originalSetItem(key, JSON.stringify(value));
         }
         if (currentUser) originalSetItem('demo_user', currentUser);
-        console.log('[sync] Loaded fresh data from GitHub via /api/load');
+        console.log('[sync] Loaded from cloud via /api/load');
         return;
       }
+    } else {
+      console.warn('[sync] /api/load returned', res.status);
     }
-  } catch {
-    // /api/load unavailable — fall through to localStorage
+  } catch (e) {
+    console.warn('[sync] /api/load failed:', e);
   }
 
-  // 3. Final fallback: use localStorage as-is (desktop first run or offline)
+  // 3. 回退：使用现有 localStorage（桌面首次运行或离线）
+  console.log('[sync] Using localStorage fallback');
 }
 
 // Boot: load data first, then render React

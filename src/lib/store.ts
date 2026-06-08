@@ -114,32 +114,10 @@ let nextRecordId = behaviorRecordsState.reduce((max, r) => {
 type Listener = () => void;
 const listeners: Listener[] = [];
 
-// Debounced server save — keeps data.json in sync with localStorage
-let saveTimer: ReturnType<typeof setTimeout> | null = null;
-function scheduleServerSave() {
-  if (saveTimer) clearTimeout(saveTimer);
-  saveTimer = setTimeout(() => {
-    try {
-      const data: Record<string, unknown> = {};
-      for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        if (key) {
-          try { data[key] = JSON.parse(localStorage.getItem(key)!); } catch { data[key] = localStorage.getItem(key); }
-        }
-      }
-      fetch('/api/save', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      }).catch(() => {}); // silently ignore if server not available
-    } catch { /* ignore */ }
-  }, 1000);
-}
-
 function notify() {
   saveToStorage(STORAGE_KEYS.students, studentsState);
   saveToStorage(STORAGE_KEYS.behaviorRecords, behaviorRecordsState);
-  scheduleServerSave(); // auto-sync data.json to disk
+  // 云端保存由 main.tsx 的 localStorage.setItem 拦截器统一触发，无需在这里重复
   listeners.forEach(l => l());
 }
 

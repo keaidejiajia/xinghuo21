@@ -17,20 +17,10 @@ cp dist/index.html "/c/Users/11879/Desktop/星火燎原/index.html"
 echo "   ✅ Desktop updated"
 
 echo ""
-echo "👨‍👩‍👧 Building parent portal..."
-node scripts/build-parent.cjs
-
-echo ""
-echo "🌐 Ensuring CNAME for custom domain..."
-echo "xinghuo21.xin" > dist/CNAME
-
-echo "🚀 Pushing to GitHub Pages..."
-cd dist
-# Keep CNAME for custom domain
-echo "xinghuo21.xin" > CNAME
+echo "🚀 Pushing to GitHub (triggers Vercel deploy)..."
 git add -A
-git commit --amend -m "Deploy $(date '+%Y-%m-%d %H:%M')" || git commit -m "Deploy $(date '+%Y-%m-%d %H:%M')"
-GIT_SSH_COMMAND="ssh -i $HOME/.ssh/gitee_ed25519 -o StrictHostKeyChecking=accept-new" git push github pages --force
+git diff --cached --quiet || git commit -m "Deploy $(date '+%Y-%m-%d %H:%M')"
+GIT_SSH_COMMAND="ssh -i $HOME/.ssh/gitee_ed25519 -o StrictHostKeyChecking=accept-new" git push origin main
 
 echo ""
-echo "✅ Done! Desktop updated + xinghuo21.xin live"
+echo "✅ Done! Desktop updated + Vercel will auto-deploy"
