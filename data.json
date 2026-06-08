@@ -28878,21 +28878,6 @@
       "createdAt": "2026-05-19T17:55:16.798Z"
     },
     {
-      "studentId": "43",
-      "direction": "negative",
-      "weight": 1,
-      "category": "学习",
-      "description": "作业未按时上交或未按要求完成",
-      "remark": "语文作业",
-      "recordedBy": "袁俪玮",
-      "verified": true,
-      "shieldsConsumed": 2,
-      "isHighSensitivity": false,
-      "studentCardSide": "front",
-      "id": "43",
-      "createdAt": "2026-05-19T17:55:16.798Z"
-    },
-    {
       "studentId": "11",
       "direction": "negative",
       "weight": 1,
@@ -33310,7 +33295,7 @@
       "blanksFilled": 0,
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
-      "starShields": 56,
+      "starShields": 58,
       "consecutiveNoViolationDays": 2,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
@@ -33321,7 +33306,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T14:48:00.304Z",
+      "updatedAt": "2026-06-08T14:48:01.767Z",
       "totalShieldsExchanged": 5,
       "riseTaskCompleted": false
     },
