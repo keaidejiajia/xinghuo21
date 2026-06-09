@@ -28771,7 +28771,7 @@
     "name": "班主任"
   },
   "seat-data-migrated-v2": true,
-  "app_mobile_view": true,
+  "app_mobile_view": false,
   "app-config": {
     "version": 13,
     "frontLevels": [
