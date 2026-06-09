@@ -29,7 +29,7 @@ const SECTIONS = [
 ];
 
 const CATEGORY_COLORS: Record<Category, string> = {
-  '纪律': D.blue, '学习': D.success, '卫生': D.ember, '品行': D.cinnabar,
+  '纪律': D.blue, '学习': D.success, '卫生': D.ember, '品行': D.cinnabar, '限时活动': D.gold,
 };
 
 const sectionStyle: React.CSSProperties = {

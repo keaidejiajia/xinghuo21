@@ -7,7 +7,7 @@ export type CardSide = 'front' | 'back';
 export type Direction = 'negative' | 'positive';
 
 /** 行为类别 */
-export type Category = '纪律' | '学习' | '卫生' | '品行';
+export type Category = '纪律' | '学习' | '卫生' | '品行' | '限时活动';
 
 /** 用户角色 */
 export type UserRole = 'teacher' | 'committee' | 'student' | 'parent';

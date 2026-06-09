@@ -21,8 +21,8 @@ export interface AuditDiscrepancy {
 }
 
 export interface LevelChangeInfo {
-  fromSide: string;
-  toSide: string;
+  fromSide: CardSide;
+  toSide: CardSide;
   fromLevel: number;
   toLevel: number;
   studentName: string;
