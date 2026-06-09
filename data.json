@@ -4172,9 +4172,6 @@
     }
   ],
   "seat-data-migrated-v2": true,
-  "itracereporter:dynamicConf:fqy8bgb3-is7w88xm": {
-    "expireAt": 1780973076920
-  },
   "seat-grid-layout": [
     {
       "id": "1-1",
@@ -4705,6 +4702,9 @@
       "active": false
     }
   ],
+  "itracereporter:dynamicConf:fqy8bgb3-is7w88xm": {
+    "expireAt": 1780973076920
+  },
   "behavior-records": [
     {
       "studentId": "2",
