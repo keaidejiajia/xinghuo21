@@ -4700,6 +4700,52 @@
   ],
   "behavior-records": [
     {
+      "studentId": "29",
+      "direction": "positive",
+      "weight": 1,
+      "category": "品行",
+      "description": "星蚀连续无违纪5天，自动回升",
+      "remark": "弦月之辉 → 星辉典范",
+      "recordedBy": "王老师",
+      "verified": true,
+      "shieldsConsumed": 0,
+      "isHighSensitivity": false,
+      "studentCardSide": "front",
+      "id": "2481",
+      "createdAt": "2026-06-09T02:14:11.124Z"
+    },
+    {
+      "studentId": "2",
+      "direction": "positive",
+      "weight": 1,
+      "category": "品行",
+      "description": "星蚀连续无违纪6天，自动回升",
+      "remark": "云翳遮星 → 弦月之辉",
+      "recordedBy": "王老师",
+      "verified": true,
+      "shieldsConsumed": 0,
+      "isHighSensitivity": false,
+      "studentCardSide": "front",
+      "id": "2480",
+      "createdAt": "2026-06-09T02:14:11.105Z"
+    },
+    {
+      "studentId": "3",
+      "direction": "negative",
+      "weight": 2,
+      "category": "纪律",
+      "description": "课间追逐打闹或在教室大喊大叫",
+      "remark": "",
+      "recordedBy": "王老师",
+      "verified": true,
+      "shieldsConsumed": 4,
+      "extraWeight": 0,
+      "isHighSensitivity": false,
+      "studentCardSide": "front",
+      "id": "2479",
+      "createdAt": "2026-06-09T02:14:11.087Z"
+    },
+    {
       "studentId": "39",
       "direction": "positive",
       "weight": 4,
@@ -32443,8 +32489,8 @@
       "name": "陈浩博",
       "number": 1,
       "cardSide": "front",
-      "currentLevel": 3,
-      "blanksFilled": 2,
+      "currentLevel": 2,
+      "blanksFilled": 0,
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 20,
@@ -32458,9 +32504,17 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-09T02:13:49.989Z",
+      "updatedAt": "2026-06-09T02:14:11.096Z",
       "riseTaskCompleted": false,
-      "totalShieldsExchanged": 0
+      "totalShieldsExchanged": 0,
+      "lastLevelChange": {
+        "direction": "up",
+        "fromLevel": 3,
+        "toLevel": 2,
+        "fromSide": "front",
+        "toSide": "front",
+        "timestamp": "2026-06-09T02:14:11.096Z"
+      }
     },
     {
       "id": "3",
@@ -32471,8 +32525,8 @@
       "blanksFilled": 0,
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
-      "starShields": 47,
-      "consecutiveNoViolationDays": 9,
+      "starShields": 43,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -32482,7 +32536,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-09T02:13:49.994Z",
+      "updatedAt": "2026-06-09T02:14:11.077Z",
       "totalShieldsExchanged": 0
     },
     {
@@ -33081,8 +33135,8 @@
       "name": "孙浩凯",
       "number": 28,
       "cardSide": "front",
-      "currentLevel": 2,
-      "blanksFilled": 3,
+      "currentLevel": 1,
+      "blanksFilled": 0,
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 6,
@@ -33096,9 +33150,17 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-09T02:13:50.145Z",
+      "updatedAt": "2026-06-09T02:14:11.114Z",
       "totalShieldsExchanged": 0,
-      "riseTaskCompleted": false
+      "riseTaskCompleted": false,
+      "lastLevelChange": {
+        "direction": "up",
+        "fromLevel": 2,
+        "toLevel": 1,
+        "fromSide": "front",
+        "toSide": "front",
+        "timestamp": "2026-06-09T02:14:11.114Z"
+      }
     },
     {
       "id": "30",
