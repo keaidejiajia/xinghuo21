@@ -4707,6 +4707,37 @@
   ],
   "behavior-records": [
     {
+      "studentId": "2",
+      "direction": "positive",
+      "weight": 1,
+      "category": "品行",
+      "description": "星蚀连续无违纪6天，自动回升",
+      "remark": "弦月之辉 → 星辉典范",
+      "recordedBy": "王老师",
+      "verified": true,
+      "shieldsConsumed": 0,
+      "isHighSensitivity": false,
+      "studentCardSide": "front",
+      "id": "2480",
+      "createdAt": "2026-06-09T02:49:02.227Z"
+    },
+    {
+      "studentId": "3",
+      "direction": "negative",
+      "weight": 2,
+      "category": "纪律",
+      "description": "课间追逐打闹或在教室大喊大叫",
+      "remark": "",
+      "recordedBy": "王老师",
+      "verified": true,
+      "shieldsConsumed": 4,
+      "extraWeight": 0,
+      "isHighSensitivity": false,
+      "studentCardSide": "front",
+      "id": "2479",
+      "createdAt": "2026-06-09T02:49:02.210Z"
+    },
+    {
       "studentId": "39",
       "direction": "positive",
       "weight": 4,
@@ -32450,7 +32481,7 @@
       "name": "陈浩博",
       "number": 1,
       "cardSide": "front",
-      "currentLevel": 2,
+      "currentLevel": 1,
       "blanksFilled": 0,
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
@@ -32465,9 +32496,17 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-09T02:15:23.586Z",
+      "updatedAt": "2026-06-09T02:49:02.220Z",
       "riseTaskCompleted": false,
-      "totalShieldsExchanged": 0
+      "totalShieldsExchanged": 0,
+      "lastLevelChange": {
+        "direction": "up",
+        "fromLevel": 2,
+        "toLevel": 1,
+        "fromSide": "front",
+        "toSide": "front",
+        "timestamp": "2026-06-09T02:49:02.220Z"
+      }
     },
     {
       "id": "3",
@@ -32478,8 +32517,8 @@
       "blanksFilled": 0,
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
-      "starShields": 47,
-      "consecutiveNoViolationDays": 9,
+      "starShields": 43,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -32489,7 +32528,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-09T02:15:44.447Z",
+      "updatedAt": "2026-06-09T02:49:02.202Z",
       "totalShieldsExchanged": 0
     },
     {
