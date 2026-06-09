@@ -1502,13 +1502,6 @@
       "studentId": "34"
     }
   ],
-  "app_mobile_view": false,
-  "demo_user": {
-    "id": "demo-teacher",
-    "email": "teacher@21ban",
-    "role": "teacher",
-    "name": "班主任"
-  },
   "__itrace_wid": {
     "expireAt": 1796523275655,
     "value": "8f9f0df9-9af6-4a97-8543-09b980659609"
