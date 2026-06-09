@@ -51,9 +51,9 @@ const S = {
   }),
   card: { padding: 16, borderRadius: D.radiusSm, background: SCROLL_CARD.background, border: SCROLL_CARD.border, marginBottom: 12, backdropFilter: D.glassBlur },
   label: { display: 'block', fontSize: 12, color: INK.textSecondary, marginBottom: 4, fontFamily: "'LXGW WenKai', 'Cinzel', serif" },
-  input: { width: '100%', padding: '8px 12px', borderRadius: INK_INPUT.borderRadius, background: INK_INPUT.background, border: INK_INPUT.border, color: INK_INPUT.color, fontSize: 13, outline: INK_INPUT.outline, fontFamily: INK_INPUT.fontFamily },
+  input: { width: '100%', boxSizing: 'border-box' as const, padding: '8px 12px', borderRadius: INK_INPUT.borderRadius, background: INK_INPUT.background, border: INK_INPUT.border, color: INK_INPUT.color, fontSize: 13, lineHeight: 1.35, outline: INK_INPUT.outline, fontFamily: INK_INPUT.fontFamily },
   select: { width: '100%', boxSizing: 'border-box' as const, padding: '8px 28px 8px 12px', borderRadius: INK_INPUT.borderRadius, background: INK_INPUT.background, border: INK_INPUT.border, color: INK_INPUT.color, fontSize: 13, outline: INK_INPUT.outline, fontFamily: INK_INPUT.fontFamily, appearance: 'auto' as any },
-  btnPrimary: { padding: '8px 16px', borderRadius: D.radiusSm, background: INK.starGoldFaint, border: `1px solid ${INK.borderStrong}`, color: INK.starGold, fontSize: 13, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 4, fontFamily: "'LXGW WenKai', 'Cinzel', serif", boxShadow: D.goldGlow },
+  btnPrimary: { padding: '8px 16px', borderRadius: D.radiusSm, background: INK.starGoldFaint, border: `1px solid ${INK.borderStrong}`, color: INK.starGold, fontSize: 13, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 4, whiteSpace: 'nowrap' as const, fontFamily: "'LXGW WenKai', 'Cinzel', serif", boxShadow: D.goldGlow },
   btnDanger: { padding: '4px 8px', borderRadius: D.radiusSm, background: INK.flameFaint, border: `1px solid rgba(196,65,37,0.3)`, color: INK.flameCinnabar, fontSize: 11, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 2, fontFamily: "'LXGW WenKai', 'Cinzel', serif" },
   badge: (bg: string, fg: string) => ({ padding: '2px 8px', borderRadius: D.radiusSm, fontSize: 11, background: bg, color: fg, display: 'inline-block', fontFamily: "'LXGW WenKai', 'Cinzel', serif" }),
   row: { display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8, flexWrap: 'wrap' as const },
@@ -171,6 +171,73 @@ export default function SettingsPage() {
           .settings-mobile select,
           .settings-mobile textarea {
             min-width: 0 !important;
+            line-height: 1.35 !important;
+          }
+          .settings-mobile input[type="date"],
+          .settings-mobile input[type="number"],
+          .settings-mobile select {
+            min-height: 44px !important;
+            font-size: 16px !important;
+            padding-top: 10px !important;
+            padding-bottom: 10px !important;
+          }
+          .settings-mobile input[type="date"] {
+            width: 100% !important;
+            min-width: 100% !important;
+            color-scheme: dark;
+          }
+          .settings-mobile input[type="date"]::-webkit-date-and-time-value {
+            min-height: 22px;
+            text-align: left;
+          }
+          .settings-mobile input[style*="width:"],
+          .settings-mobile select[style*="width:"],
+          .settings-mobile textarea[style*="width:"] {
+            width: 100% !important;
+          }
+          .settings-mobile [style*="width: 55px"],
+          .settings-mobile [style*="width: 58px"],
+          .settings-mobile [style*="width: 60px"],
+          .settings-mobile [style*="width: 72px"],
+          .settings-mobile [style*="width: 80px"],
+          .settings-mobile [style*="width: 90px"],
+          .settings-mobile [style*="width: 100px"],
+          .settings-mobile [style*="width: 120px"],
+          .settings-mobile [style*="width: 130px"],
+          .settings-mobile [style*="width: 150px"],
+          .settings-mobile [style*="width: 180px"],
+          .settings-mobile [style*="width: 200px"] {
+            width: 100% !important;
+            min-width: 0 !important;
+            flex: 1 1 100% !important;
+          }
+          .settings-mobile [style*="display: flex"][style*="justify-content: space-between"] {
+            gap: 10px !important;
+            align-items: stretch !important;
+            flex-wrap: wrap !important;
+          }
+          .settings-mobile [style*="display: flex"][style*="align-items: center"] {
+            min-width: 0 !important;
+            flex-wrap: wrap !important;
+          }
+          .settings-mobile [style*="display: flex"][style*="gap: 16px"] {
+            gap: 8px !important;
+          }
+          .settings-mobile button {
+            min-height: 34px;
+            justify-content: center;
+          }
+          .settings-mobile [style*="font-family: Consolas"] {
+            white-space: normal !important;
+            overflow-wrap: anywhere !important;
+            word-break: break-word !important;
+          }
+          .settings-mobile [style*="max-height: 500px"] {
+            max-height: none !important;
+            overflow-y: visible !important;
+          }
+          .settings-mobile [style*="grid-template-columns: repeat(3"] {
+            grid-template-columns: 1fr !important;
           }
           .settings-mobile [style*="grid-template-columns: 1fr 1fr"],
           .settings-mobile [style*="grid-template-columns: repeat(2"] {
@@ -193,18 +260,30 @@ export default function SettingsPage() {
       {/* Tab row */}
       <div style={{
         ...S.tabRow,
-        flexWrap: isMobile ? 'nowrap' : S.tabRow.flexWrap,
-        overflowX: isMobile ? 'auto' : undefined,
-        paddingBottom: isMobile ? 10 : S.tabRow.paddingBottom,
-        marginBottom: isMobile ? 14 : S.tabRow.marginBottom,
-        position: isMobile ? 'sticky' : undefined,
-        top: isMobile ? 0 : undefined,
-        zIndex: isMobile ? 5 : undefined,
-        background: isMobile ? 'rgba(0,0,0,0.86)' : undefined,
-        backdropFilter: isMobile ? D.glassBlur : undefined,
+        display: isMobile ? 'grid' : S.tabRow.display,
+        gridTemplateColumns: isMobile ? 'minmax(0, 1fr) minmax(0, 1fr)' : undefined,
+        gap: isMobile ? 8 : S.tabRow.gap,
+        flexWrap: isMobile ? undefined : S.tabRow.flexWrap,
+        overflowX: undefined,
+        paddingBottom: isMobile ? 0 : S.tabRow.paddingBottom,
+        marginBottom: isMobile ? 16 : S.tabRow.marginBottom,
+        borderBottom: isMobile ? 'none' : S.tabRow.borderBottom,
+        position: undefined,
+        top: undefined,
+        zIndex: undefined,
+        background: undefined,
+        backdropFilter: undefined,
       }}>
         {TAB_ITEMS.map(({ key, label, icon: Icon }) => (
-          <button key={key} style={{ ...S.tab(activeTab === key), flexShrink: 0, minHeight: isMobile ? 38 : undefined, whiteSpace: 'nowrap' }} onClick={() => setActiveTab(key)}>
+          <button key={key} style={{
+            ...S.tab(activeTab === key),
+            borderRadius: isMobile ? D.radiusSm : S.tab(activeTab === key).borderRadius,
+            justifyContent: isMobile ? 'flex-start' : undefined,
+            padding: isMobile ? '10px 12px' : S.tab(activeTab === key).padding,
+            minHeight: isMobile ? 42 : undefined,
+            whiteSpace: isMobile ? 'normal' : 'nowrap',
+            width: isMobile ? '100%' : undefined,
+          }} onClick={() => setActiveTab(key)}>
             <Icon size={14} /> {label}
           </button>
         ))}
@@ -236,6 +315,7 @@ function BehaviorsTab({ config, updateConfig }: { config: ReturnType<typeof useC
     direction: 'negative', category: config.categories[0] as Category, weight: 1,
     name: '', description: '', isHighSensitivity: false, isComposite: false, isInverseSelectable: false, requiresTimePeriod: false,
   });
+  const isMobile = useMobile();
 
   const students = useStudents().students;
 
@@ -310,7 +390,7 @@ function BehaviorsTab({ config, updateConfig }: { config: ReturnType<typeof useC
   return (
     <div>
       {/* Sub-tab */}
-      <div style={{ display: 'flex', gap: 8, marginBottom: 16 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, max-content)', gap: 8, marginBottom: 16 }}>
         <button onClick={() => { setSubTab('negative'); setEditingId(null); setShowAddForm(false); setCategoryFilter('all'); }} style={{
           ...S.tab(subTab === 'negative'), borderRadius: D.radiusSm, background: subTab === 'negative' ? INK.flameFaint : 'transparent',
           color: subTab === 'negative' ? INK.flameCinnabar : INK.textMuted,
@@ -360,9 +440,9 @@ function BehaviorsTab({ config, updateConfig }: { config: ReturnType<typeof useC
               <button onClick={() => removeCategory(cat)} style={{ background: 'none', border: 'none', color: getCatColor(cat), cursor: 'pointer', padding: 0, opacity: 0.6 }}><X size={10} /></button>
             </span>
           ))}
-          <div style={{ display: 'flex', gap: 4 }}>
-            <input value={newCategory} onChange={e => setNewCategory(e.target.value)} placeholder="新类别" style={{ ...S.input, width: 80, padding: '4px 8px', fontSize: 12 }} onKeyDown={e => e.key === 'Enter' && addCategory()} />
-            <button onClick={addCategory} style={{ ...S.btnPrimary, padding: '4px 8px', fontSize: 11 }}><Plus size={10} /></button>
+          <div style={{ display: 'flex', gap: 6, width: isMobile ? '100%' : undefined }}>
+            <input value={newCategory} onChange={e => setNewCategory(e.target.value)} placeholder="新类别" style={{ ...S.input, width: isMobile ? '100%' : 80, padding: isMobile ? '9px 10px' : '4px 8px', fontSize: isMobile ? 14 : 12 }} onKeyDown={e => e.key === 'Enter' && addCategory()} />
+            <button onClick={addCategory} style={{ ...S.btnPrimary, padding: isMobile ? '8px 12px' : '4px 8px', fontSize: isMobile ? 12 : 11, flexShrink: 0 }}><Plus size={10} /></button>
           </div>
         </div>
       </div>
@@ -370,10 +450,10 @@ function BehaviorsTab({ config, updateConfig }: { config: ReturnType<typeof useC
       {/* Behavior list */}
       {displayedBehaviors.map(b => (
         <div key={b.id} style={S.card}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: editingId === b.id ? 12 : 0 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: isMobile ? 'stretch' : 'center', flexDirection: isMobile ? 'column' : undefined, gap: isMobile ? 10 : undefined, marginBottom: editingId === b.id ? 12 : 0 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap', minWidth: 0 }}>
               <span style={S.tag(`${getCatColor(b.category)}20`, getCatColor(b.category))}>{b.category}</span>
-              <span style={{ color: INK.textPrimary, fontSize: 14, fontWeight: 500, fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}>{b.name}</span>
+              <span style={{ color: INK.textPrimary, fontSize: 14, fontWeight: 500, fontFamily: "'LXGW WenKai', 'Cinzel', serif", overflowWrap: 'break-word' }}>{b.name}</span>
               <span style={S.badge(subTab === 'negative' ? INK.flameFaint : INK.starGoldFaint, subTab === 'negative' ? INK.flameCinnabar : INK.starGold)}>
                 {weightNames[b.weight]} {b.weight}{subTab === 'negative' ? '星蚀/心魔' : '护盾/火种'}
               </span>
@@ -381,27 +461,27 @@ function BehaviorsTab({ config, updateConfig }: { config: ReturnType<typeof useC
               {b.isInverseSelectable && <span style={S.tag('rgba(123,139,181,0.15)', INK.starBlue)}>反选</span>}
               {b.isHighSensitivity && <span style={S.tag(INK.flameFaint, INK.flameCinnabar)}>高敏感</span>}
             </div>
-            <div style={{ display: 'flex', gap: 4 }}>
-              <button onClick={() => setEditingId(editingId === b.id ? null : b.id)} style={{ ...S.btnPrimary, padding: '4px 8px' }}>
+            <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+              <button onClick={() => setEditingId(editingId === b.id ? null : b.id)} style={{ ...S.btnPrimary, padding: '4px 8px', flex: isMobile ? '1 1 100px' : undefined }}>
                 {editingId === b.id ? '收起' : '编辑'}
               </button>
-              <button onClick={() => deleteBehavior(b.id)} style={S.btnDanger}><Trash2 size={10} /></button>
+              <button onClick={() => deleteBehavior(b.id)} style={{ ...S.btnDanger, flex: isMobile ? '0 0 44px' : undefined, justifyContent: 'center' }}><Trash2 size={10} /></button>
             </div>
           </div>
           {editingId === b.id && (
             <div style={{ borderTop: `1px solid ${INK.border}`, paddingTop: 12 }}>
-              <div style={S.row}>
-                <div style={{ flex: 1 }}>
+              <div style={{ ...S.row, flexDirection: isMobile ? 'column' : undefined, alignItems: isMobile ? 'stretch' : S.row.alignItems, gap: isMobile ? 10 : S.row.gap }}>
+                <div style={{ flex: 1, width: isMobile ? '100%' : undefined }}>
                   <label style={S.label}>名称</label>
                   <input value={b.name} onChange={e => updateBehavior(b.id, { name: e.target.value })} style={S.input} />
                 </div>
-                <div style={{ width: 100 }}>
+                <div style={{ width: isMobile ? '100%' : 100 }}>
                   <label style={S.label}>类别</label>
                   <select value={b.category} onChange={e => updateBehavior(b.id, { category: e.target.value as Category })} style={S.select}>
                     {config.categories.map(c => <option key={c} value={c} style={INK_OPTION}>{c}</option>)}
                   </select>
                 </div>
-                <div style={{ width: 80 }}>
+                <div style={{ width: isMobile ? '100%' : 80 }}>
                   <label style={S.label}>权重</label>
                   <select value={b.weight} onChange={e => updateBehavior(b.id, { weight: Number(e.target.value) as 1|2|3 })} style={S.select}>
                     <option value={1} style={INK_OPTION}>1 - {weightNames[1]}</option>
@@ -414,14 +494,14 @@ function BehaviorsTab({ config, updateConfig }: { config: ReturnType<typeof useC
                 <label style={S.label}>描述</label>
                 <input value={b.description} onChange={e => updateBehavior(b.id, { description: e.target.value })} style={S.input} />
               </div>
-              <div style={{ ...S.row, alignItems: 'flex-end' }}>
-                <div style={{ width: 100 }}>
+              <div style={{ ...S.row, alignItems: isMobile ? 'stretch' : 'flex-end', flexDirection: isMobile ? 'column' : undefined, gap: isMobile ? 10 : S.row.gap }}>
+                <div style={{ width: isMobile ? '100%' : 100 }}>
                   <label style={S.label}>每日上限</label>
                   <input type="number" min={0} value={b.maxDailyCount || ''} placeholder="不限"
                     onChange={e => updateBehavior(b.id, { maxDailyCount: e.target.value ? Number(e.target.value) : undefined })}
                     style={S.input} />
                 </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
                   <span style={{ fontSize: 12, color: INK.textSecondary }}>黑名单: {(b.behaviorBlacklist || []).length}人</span>
                   <button onClick={() => setEditingBlacklistId(editingBlacklistId === b.id ? null : b.id)}
                     style={{ ...S.btnPrimary, padding: '2px 8px', fontSize: 11 }}>管理</button>
@@ -480,12 +560,12 @@ function BehaviorsTab({ config, updateConfig }: { config: ReturnType<typeof useC
                 </label>
               </div>
               {b.isComposite && (
-                <div style={S.row}>
-                  <div style={{ width: 100 }}>
+                <div style={{ ...S.row, flexDirection: isMobile ? 'column' : undefined, alignItems: isMobile ? 'stretch' : S.row.alignItems, gap: isMobile ? 10 : S.row.gap }}>
+                  <div style={{ width: isMobile ? '100%' : 100 }}>
                     <label style={S.label}>阈值（次/周）</label>
                     <input type="number" value={b.compositeThreshold ?? 3} onChange={e => updateBehavior(b.id, { compositeThreshold: Number(e.target.value) })} style={S.input} />
                   </div>
-                  <div style={{ width: 100 }}>
+                  <div style={{ width: isMobile ? '100%' : 100 }}>
                     <label style={S.label}>额外惩罚</label>
                     <input type="number" value={b.compositePenalty ?? 1} onChange={e => updateBehavior(b.id, { compositePenalty: Number(e.target.value) })} style={S.input} />
                   </div>
@@ -500,18 +580,18 @@ function BehaviorsTab({ config, updateConfig }: { config: ReturnType<typeof useC
       {showAddForm ? (
         <div style={S.card}>
           <div style={{ fontSize: 13, fontWeight: 600, color: INK.textPrimary, marginBottom: 12, fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}>添加行为</div>
-          <div style={S.row}>
-            <div style={{ flex: 1 }}>
+          <div style={{ ...S.row, flexDirection: isMobile ? 'column' : undefined, alignItems: isMobile ? 'stretch' : S.row.alignItems, gap: isMobile ? 10 : S.row.gap }}>
+            <div style={{ flex: 1, width: isMobile ? '100%' : undefined }}>
               <label style={S.label}>名称</label>
               <input value={newBehavior.name} onChange={e => setNewBehavior(p => ({ ...p, name: e.target.value }))} style={S.input} placeholder="行为名称" />
             </div>
-            <div style={{ width: 100 }}>
+            <div style={{ width: isMobile ? '100%' : 100 }}>
               <label style={S.label}>类别</label>
               <select value={newBehavior.category} onChange={e => setNewBehavior(p => ({ ...p, category: e.target.value as Category }))} style={S.select}>
                 {config.categories.map(c => <option key={c} value={c} style={INK_OPTION}>{c}</option>)}
               </select>
             </div>
-            <div style={{ width: 80 }}>
+            <div style={{ width: isMobile ? '100%' : 80 }}>
               <label style={S.label}>权重</label>
               <select value={newBehavior.weight} onChange={e => setNewBehavior(p => ({ ...p, weight: Number(e.target.value) as 1|2|3 }))} style={S.select}>
                 <option value={1} style={INK_OPTION}>1 - {weightNames[1]}</option>
@@ -524,7 +604,7 @@ function BehaviorsTab({ config, updateConfig }: { config: ReturnType<typeof useC
             <label style={S.label}>描述</label>
             <input value={newBehavior.description} onChange={e => setNewBehavior(p => ({ ...p, description: e.target.value }))} style={S.input} placeholder="行为描述（可选）" />
           </div>
-          <div style={{ display: 'flex', gap: 16, marginBottom: 8 }}>
+          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 8 }}>
             <label style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 12, color: '#E8A030', cursor: 'pointer', fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}>
               <input type="checkbox" checked={!!newBehavior.requiresTimePeriod} onChange={e => setNewBehavior(p => ({ ...p, requiresTimePeriod: e.target.checked }))} /> 需选择时间
             </label>
@@ -532,13 +612,13 @@ function BehaviorsTab({ config, updateConfig }: { config: ReturnType<typeof useC
               <input type="checkbox" checked={!!newBehavior.affectsFlag} onChange={e => setNewBehavior(p => ({ ...p, affectsFlag: e.target.checked }))} /> 影响流动红旗
             </label>
           </div>
-          <div style={{ display: 'flex', gap: 8 }}>
-            <button onClick={addBehavior} style={S.btnPrimary}><Plus size={12} /> 确认添加</button>
-            <button onClick={() => setShowAddForm(false)} style={{ ...S.btnPrimary, background: 'rgba(107,103,96,0.15)', border: `1px solid ${INK.borderHover}`, color: INK.textMuted }}>取消</button>
+          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+            <button onClick={addBehavior} style={{ ...S.btnPrimary, flex: isMobile ? '1 1 140px' : undefined }}><Plus size={12} /> 确认添加</button>
+            <button onClick={() => setShowAddForm(false)} style={{ ...S.btnPrimary, flex: isMobile ? '1 1 100px' : undefined, background: 'rgba(107,103,96,0.15)', border: `1px solid ${INK.borderHover}`, color: INK.textMuted }}>取消</button>
           </div>
         </div>
       ) : (
-        <button onClick={() => setShowAddForm(true)} style={S.btnPrimary}><Plus size={14} /> 添加行为</button>
+        <button onClick={() => setShowAddForm(true)} style={{ ...S.btnPrimary, width: isMobile ? '100%' : undefined }}><Plus size={14} /> 添加行为</button>
       )}
 
       {/* Weight names */}
@@ -685,6 +765,7 @@ function LevelsTab({ config, updateConfig }: { config: ReturnType<typeof useConf
 // ===== Calendar Tab =====
 function CalendarTab({ config, updateConfig }: { config: ReturnType<typeof useConfig>; updateConfig: (fn: (prev: typeof config) => typeof config) => void }) {
   const [newWeekCount, setNewWeekCount] = useState(20);
+  const isMobile = useMobile();
 
   const generateWeeks = () => {
     if (!config.semesterStartDate) return;
@@ -712,32 +793,50 @@ function CalendarTab({ config, updateConfig }: { config: ReturnType<typeof useCo
   return (
     <div>
       <div style={S.card}>
-        <div style={S.row}>
-          <div>
+        <div style={{ ...S.row, flexDirection: isMobile ? 'column' : undefined, alignItems: isMobile ? 'stretch' : S.row.alignItems, gap: isMobile ? 10 : S.row.gap }}>
+          <div style={{ width: isMobile ? '100%' : undefined }}>
             <label style={S.label}>学期起始日期</label>
-            <input type="date" value={config.semesterStartDate} onChange={e => updateConfig(prev => ({ ...prev, semesterStartDate: e.target.value }))} style={S.input} />
+            <input type="date" value={config.semesterStartDate} onChange={e => updateConfig(prev => ({ ...prev, semesterStartDate: e.target.value }))} style={{ ...S.input, minHeight: isMobile ? 44 : undefined, fontSize: isMobile ? 16 : S.input.fontSize }} />
           </div>
-          <div>
+          <div style={{ width: isMobile ? '100%' : undefined }}>
             <label style={S.label}>生成周数</label>
-            <input type="number" value={newWeekCount} onChange={e => setNewWeekCount(Number(e.target.value))} style={{ ...S.input, width: 60 }} />
+            <input type="number" value={newWeekCount} onChange={e => setNewWeekCount(Number(e.target.value))} style={{ ...S.input, width: isMobile ? '100%' : 60, minHeight: isMobile ? 44 : undefined, fontSize: isMobile ? 16 : S.input.fontSize }} />
           </div>
-          <div style={{ alignSelf: 'flex-end' }}>
-            <button onClick={generateWeeks} style={S.btnPrimary}>按起始日期生成教学周</button>
+          <div style={{ alignSelf: 'flex-end', width: isMobile ? '100%' : undefined }}>
+            <button onClick={generateWeeks} style={{ ...S.btnPrimary, width: isMobile ? '100%' : undefined }}>按起始日期生成教学周</button>
           </div>
         </div>
       </div>
 
-      <div style={{ maxHeight: 500, overflowY: 'auto' }}>
+      <div style={{ maxHeight: isMobile ? undefined : 500, overflowY: isMobile ? 'visible' : 'auto' }}>
         {config.teachingWeeks.map(week => {
           const isCurrent = now >= week.startDate && now <= week.endDate;
           return (
-            <div key={week.weekNumber} style={{ ...S.card, display: 'flex', alignItems: 'center', gap: 12, background: D.bgGlass, borderLeft: isCurrent ? `3px solid ${INK.starGold}` : undefined }}>
-              <span style={{ color: isCurrent ? INK.starGold : INK.textMuted, fontSize: 14, fontWeight: 600, width: 40, fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}>第{week.weekNumber}周</span>
-              <input type="date" value={week.startDate} onChange={e => updateWeek(week.weekNumber, { startDate: e.target.value })} style={{ ...S.input, width: 130 }} />
-              <span style={{ color: INK.textMuted }}>→</span>
-              <input type="date" value={week.endDate} onChange={e => updateWeek(week.weekNumber, { endDate: e.target.value })} style={{ ...S.input, width: 130 }} />
-              <input value={week.label || ''} onChange={e => updateWeek(week.weekNumber, { label: e.target.value || undefined })} placeholder="备注" style={{ ...S.input, width: 120 }} />
-              {isCurrent && <span style={S.tag(INK.starGoldFaint, INK.starGold)}>当前</span>}
+            <div key={week.weekNumber} style={{
+              ...S.card,
+              display: isMobile ? 'grid' : 'flex',
+              gridTemplateColumns: isMobile ? '1fr' : undefined,
+              alignItems: isMobile ? 'stretch' : 'center',
+              gap: isMobile ? 10 : 12,
+              background: D.bgGlass,
+              borderLeft: isCurrent ? `3px solid ${INK.starGold}` : undefined,
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
+                <span style={{ color: isCurrent ? INK.starGold : INK.textMuted, fontSize: 14, fontWeight: 600, width: isMobile ? 'auto' : 40, fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}>第{week.weekNumber}周</span>
+                {isCurrent && <span style={S.tag(INK.starGoldFaint, INK.starGold)}>当前</span>}
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '130px auto 130px', alignItems: 'center', gap: 8, flex: 1 }}>
+                <div>
+                  {isMobile && <label style={S.label}>开始日期</label>}
+                  <input type="date" value={week.startDate} onChange={e => updateWeek(week.weekNumber, { startDate: e.target.value })} style={{ ...S.input, width: isMobile ? '100%' : 130, minHeight: isMobile ? 44 : undefined, fontSize: isMobile ? 16 : S.input.fontSize }} />
+                </div>
+                <span style={{ color: INK.textMuted, textAlign: 'center', display: isMobile ? 'none' : undefined }}>→</span>
+                <div>
+                  {isMobile && <label style={S.label}>结束日期</label>}
+                  <input type="date" value={week.endDate} onChange={e => updateWeek(week.weekNumber, { endDate: e.target.value })} style={{ ...S.input, width: isMobile ? '100%' : 130, minHeight: isMobile ? 44 : undefined, fontSize: isMobile ? 16 : S.input.fontSize }} />
+                </div>
+              </div>
+              <input value={week.label || ''} onChange={e => updateWeek(week.weekNumber, { label: e.target.value || undefined })} placeholder="备注" style={{ ...S.input, width: isMobile ? '100%' : 120 }} />
             </div>
           );
         })}
@@ -1040,6 +1139,7 @@ function VersionLogsTab({ config, updateConfig }: { config: ReturnType<typeof us
 function LimitedEventsTab({ config, updateConfig }: { config: ReturnType<typeof useConfig>; updateConfig: (fn: (prev: typeof config) => typeof config) => void }) {
   const [showAddForm, setShowAddForm] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
+  const isMobile = useMobile();
   const [newEvent, setNewEvent] = useState({
     name: '', direction: 'positive' as 'positive' | 'negative',
     weight: 1 as 1 | 2 | 3, description: '',
@@ -1097,29 +1197,29 @@ function LimitedEventsTab({ config, updateConfig }: { config: ReturnType<typeof 
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: isMobile ? 'stretch' : 'center', flexDirection: isMobile ? 'column' : undefined, gap: isMobile ? 10 : undefined, marginBottom: 16 }}>
         <div style={{ fontSize: 13, color: INK.textSecondary, fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}>
           共 {config.limitedEvents.length} 个限时活动
         </div>
-        <button onClick={() => setShowAddForm(!showAddForm)} style={S.btnPrimary}><Plus size={14} /> 添加活动</button>
+        <button onClick={() => setShowAddForm(!showAddForm)} style={{ ...S.btnPrimary, width: isMobile ? '100%' : undefined }}><Plus size={14} /> 添加活动</button>
       </div>
 
       {showAddForm && (
         <div style={S.card}>
           <div style={{ fontSize: 13, fontWeight: 600, color: INK.textPrimary, marginBottom: 12, fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}>新增限时活动</div>
-          <div style={S.row}>
-            <div style={{ flex: 1 }}>
+          <div style={{ ...S.row, flexDirection: isMobile ? 'column' : undefined, alignItems: isMobile ? 'stretch' : S.row.alignItems, gap: isMobile ? 10 : S.row.gap }}>
+            <div style={{ flex: 1, width: isMobile ? '100%' : undefined }}>
               <label style={S.label}>活动名称</label>
               <input value={newEvent.name} onChange={e => setNewEvent(p => ({ ...p, name: e.target.value }))} style={S.input} placeholder="活动名称" />
             </div>
-            <div style={{ width: 120 }}>
+            <div style={{ width: isMobile ? '100%' : 120 }}>
               <label style={S.label}>行为类别</label>
               <select value={newEvent.direction} onChange={e => setNewEvent(p => ({ ...p, direction: e.target.value as 'positive' | 'negative' }))} style={S.select}>
                 <option value="positive" style={INK_OPTION}>正面行为</option>
                 <option value="negative" style={INK_OPTION}>负面行为</option>
               </select>
             </div>
-            <div style={{ width: 80 }}>
+            <div style={{ width: isMobile ? '100%' : 80 }}>
               <label style={S.label}>权重</label>
               <select value={newEvent.weight} onChange={e => setNewEvent(p => ({ ...p, weight: Number(e.target.value) as 1 | 2 | 3 }))} style={S.select}>
                 <option value={1} style={INK_OPTION}>1 - {weightNames[1]}</option>
@@ -1132,23 +1232,23 @@ function LimitedEventsTab({ config, updateConfig }: { config: ReturnType<typeof 
             <label style={S.label}>描述</label>
             <input value={newEvent.description} onChange={e => setNewEvent(p => ({ ...p, description: e.target.value }))} style={S.input} placeholder="活动描述" />
           </div>
-          <div style={S.row}>
-            <div>
+          <div style={{ ...S.row, flexDirection: isMobile ? 'column' : undefined, alignItems: isMobile ? 'stretch' : S.row.alignItems, gap: isMobile ? 10 : S.row.gap }}>
+            <div style={{ width: isMobile ? '100%' : undefined }}>
               <label style={S.label}>开始日期</label>
-              <input type="date" value={newEvent.startDate} onChange={e => setNewEvent(p => ({ ...p, startDate: e.target.value }))} style={S.input} />
+              <input type="date" value={newEvent.startDate} onChange={e => setNewEvent(p => ({ ...p, startDate: e.target.value }))} style={{ ...S.input, minHeight: isMobile ? 44 : undefined, fontSize: isMobile ? 16 : S.input.fontSize }} />
             </div>
-            <span style={{ color: INK.textMuted, alignSelf: 'flex-end', marginBottom: 4 }}>→</span>
-            <div>
+            <span style={{ color: INK.textMuted, alignSelf: 'center', marginBottom: isMobile ? 0 : 4, display: isMobile ? 'none' : undefined }}>→</span>
+            <div style={{ width: isMobile ? '100%' : undefined }}>
               <label style={S.label}>结束日期</label>
-              <input type="date" value={newEvent.endDate} onChange={e => setNewEvent(p => ({ ...p, endDate: e.target.value }))} style={S.input} />
+              <input type="date" value={newEvent.endDate} onChange={e => setNewEvent(p => ({ ...p, endDate: e.target.value }))} style={{ ...S.input, minHeight: isMobile ? 44 : undefined, fontSize: isMobile ? 16 : S.input.fontSize }} />
             </div>
-            <label style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 12, color: INK.textSecondary, cursor: 'pointer', alignSelf: 'flex-end', fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}>
+            <label style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 12, color: INK.textSecondary, cursor: 'pointer', alignSelf: isMobile ? 'auto' : 'flex-end', fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}>
               <input type="checkbox" checked={newEvent.isActive} onChange={e => setNewEvent(p => ({ ...p, isActive: e.target.checked }))} /> 启用
             </label>
           </div>
-          <div style={{ display: 'flex', gap: 8, marginTop: 8 }}>
-            <button onClick={addEvent} style={S.btnPrimary}><Plus size={12} /> 确认添加</button>
-            <button onClick={() => setShowAddForm(false)} style={{ ...S.btnPrimary, background: 'rgba(107,103,96,0.15)', border: `1px solid ${INK.borderHover}`, color: INK.textMuted }}>取消</button>
+          <div style={{ display: 'flex', gap: 8, marginTop: 8, flexWrap: 'wrap' }}>
+            <button onClick={addEvent} style={{ ...S.btnPrimary, flex: isMobile ? '1 1 140px' : undefined }}><Plus size={12} /> 确认添加</button>
+            <button onClick={() => setShowAddForm(false)} style={{ ...S.btnPrimary, flex: isMobile ? '1 1 100px' : undefined, background: 'rgba(107,103,96,0.15)', border: `1px solid ${INK.borderHover}`, color: INK.textMuted }}>取消</button>
           </div>
         </div>
       )}
@@ -1169,14 +1269,14 @@ function LimitedEventsTab({ config, updateConfig }: { config: ReturnType<typeof 
 
         return (
           <div key={event.id} style={{ ...S.card, marginBottom: 8, borderLeft: `3px ${statusCfg.borderStyle} ${statusCfg.borderColor}` }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: isMobile ? 'stretch' : 'center', flexDirection: isMobile ? 'column' : undefined, gap: isMobile ? 8 : undefined }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
                 <span style={{ color: INK.textPrimary, fontSize: 14, fontWeight: 500, fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}>{event.name}</span>
                 <span style={S.tag(directionBg, directionColor)}>{directionLabel}</span>
                 <span style={S.badge(directionBg, directionColor)}>权重{event.weight}</span>
                 <span style={S.tag(statusCfg.tagBg, statusCfg.tagFg)}>{statusCfg.label}</span>
               </div>
-              <div style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
+              <div style={{ display: 'flex', gap: 4, alignItems: 'center', flexWrap: 'wrap' }}>
                 <label style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 11, color: INK.textSecondary, cursor: 'pointer', fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}>
                   <input type="checkbox" checked={event.isActive} onChange={e => updateEvent(event.id, { isActive: e.target.checked })} /> 启用
                 </label>
@@ -1192,19 +1292,19 @@ function LimitedEventsTab({ config, updateConfig }: { config: ReturnType<typeof 
             </div>
             {isEditing && (
               <div style={{ marginTop: 8, borderTop: `1px solid ${INK.border}`, paddingTop: 8 }}>
-                <div style={S.row}>
-                  <div style={{ flex: 1 }}>
+                <div style={{ ...S.row, flexDirection: isMobile ? 'column' : undefined, alignItems: isMobile ? 'stretch' : S.row.alignItems, gap: isMobile ? 10 : S.row.gap }}>
+                  <div style={{ flex: 1, width: isMobile ? '100%' : undefined }}>
                     <label style={S.label}>活动名称</label>
                     <input value={event.name} onChange={e => updateEvent(event.id, { name: e.target.value })} style={S.input} />
                   </div>
-                  <div style={{ width: 120 }}>
+                  <div style={{ width: isMobile ? '100%' : 120 }}>
                     <label style={S.label}>行为类别</label>
                     <select value={event.direction} onChange={e => updateEvent(event.id, { direction: e.target.value as 'positive' | 'negative' })} style={S.select}>
                       <option value="positive" style={INK_OPTION}>正面行为</option>
                       <option value="negative" style={INK_OPTION}>负面行为</option>
                     </select>
                   </div>
-                  <div style={{ width: 100 }}>
+                  <div style={{ width: isMobile ? '100%' : 100 }}>
                     <label style={S.label}>权重</label>
                     <select value={event.weight} onChange={e => updateEvent(event.id, { weight: Number(e.target.value) as 1 | 2 | 3 })} style={S.select}>
                       <option value={1} style={INK_OPTION}>1 - {(event.direction === 'negative' ? config.negativeWeightNames : config.positiveWeightNames)[1]}</option>
@@ -1217,14 +1317,14 @@ function LimitedEventsTab({ config, updateConfig }: { config: ReturnType<typeof 
                   <label style={S.label}>描述</label>
                   <input value={event.description} onChange={e => updateEvent(event.id, { description: e.target.value })} style={S.input} />
                 </div>
-                <div style={S.row}>
-                  <div>
+                <div style={{ ...S.row, flexDirection: isMobile ? 'column' : undefined, alignItems: isMobile ? 'stretch' : S.row.alignItems, gap: isMobile ? 10 : S.row.gap }}>
+                  <div style={{ width: isMobile ? '100%' : undefined }}>
                     <label style={S.label}>开始日期</label>
-                    <input type="date" value={event.startDate} onChange={e => updateEvent(event.id, { startDate: e.target.value })} style={S.input} />
+                    <input type="date" value={event.startDate} onChange={e => updateEvent(event.id, { startDate: e.target.value })} style={{ ...S.input, minHeight: isMobile ? 44 : undefined, fontSize: isMobile ? 16 : S.input.fontSize }} />
                   </div>
-                  <div>
+                  <div style={{ width: isMobile ? '100%' : undefined }}>
                     <label style={S.label}>结束日期</label>
-                    <input type="date" value={event.endDate} onChange={e => updateEvent(event.id, { endDate: e.target.value })} style={S.input} />
+                    <input type="date" value={event.endDate} onChange={e => updateEvent(event.id, { endDate: e.target.value })} style={{ ...S.input, minHeight: isMobile ? 44 : undefined, fontSize: isMobile ? 16 : S.input.fontSize }} />
                   </div>
                 </div>
               </div>
@@ -1319,6 +1419,7 @@ function StudentsTab({ students, updateStudent, addStudent, removeStudent, batch
 // ===== Committee Name Input =====
 function CommitteeNameInput({ onAdd }: { onAdd: (name: string) => void }) {
   const [value, setValue] = useState('');
+  const isMobile = useMobile();
   const handleAdd = () => {
     const name = value.trim();
     if (!name) return;
@@ -1326,9 +1427,9 @@ function CommitteeNameInput({ onAdd }: { onAdd: (name: string) => void }) {
     setValue('');
   };
   return (
-    <div style={{ display: 'flex', gap: 4 }}>
-      <input value={value} onChange={e => setValue(e.target.value)} placeholder="添加记录人" style={{ ...S.input, width: 90, padding: '4px 8px', fontSize: 12 }} onKeyDown={e => e.key === 'Enter' && handleAdd()} />
-      <button onClick={handleAdd} style={{ ...S.btnPrimary, padding: '4px 8px', fontSize: 11 }}><Plus size={10} /></button>
+    <div style={{ display: 'flex', gap: 6, width: isMobile ? '100%' : undefined }}>
+      <input value={value} onChange={e => setValue(e.target.value)} placeholder="添加记录人" style={{ ...S.input, width: isMobile ? '100%' : 90, padding: isMobile ? '9px 10px' : '4px 8px', fontSize: isMobile ? 14 : 12 }} onKeyDown={e => e.key === 'Enter' && handleAdd()} />
+      <button onClick={handleAdd} style={{ ...S.btnPrimary, padding: isMobile ? '8px 12px' : '4px 8px', fontSize: isMobile ? 12 : 11, flexShrink: 0 }}><Plus size={10} /></button>
     </div>
   );
 }
@@ -1337,6 +1438,7 @@ function CommitteeNameInput({ onAdd }: { onAdd: (name: string) => void }) {
 function TimePeriodInput({ onAdd }: { onAdd: (name: string, group: 'course' | 'other') => void }) {
   const [value, setValue] = useState('');
   const [group, setGroup] = useState<'course' | 'other'>('course');
+  const isMobile = useMobile();
   const handleAdd = () => {
     const name = value.trim();
     if (!name) return;
@@ -1345,13 +1447,13 @@ function TimePeriodInput({ onAdd }: { onAdd: (name: string, group: 'course' | 'o
     setGroup('course');
   };
   return (
-    <div style={{ display: 'flex', gap: 4, alignItems: 'center' }}>
-      <input value={value} onChange={e => setValue(e.target.value)} placeholder="时间段名" style={{ ...S.input, width: 100, padding: '4px 8px', fontSize: 12 }} onKeyDown={e => e.key === 'Enter' && handleAdd()} />
-      <select value={group} onChange={e => setGroup(e.target.value as any)} style={{ ...S.input, width: 72, padding: '4px 4px', fontSize: 11, fontFamily: "'LXGW WenKai','Cinzel',serif" }}>
+    <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '100px 72px auto', gap: 6, alignItems: 'center', width: '100%', marginTop: 8 }}>
+      <input value={value} onChange={e => setValue(e.target.value)} placeholder="时间段名" style={{ ...S.input, width: '100%', padding: isMobile ? '9px 10px' : '4px 8px', fontSize: isMobile ? 14 : 12 }} onKeyDown={e => e.key === 'Enter' && handleAdd()} />
+      <select value={group} onChange={e => setGroup(e.target.value as any)} style={{ ...S.input, width: '100%', padding: isMobile ? '9px 10px' : '4px 4px', fontSize: isMobile ? 14 : 11, fontFamily: "'LXGW WenKai','Cinzel',serif" }}>
         <option value="course">学科课程</option>
         <option value="other">其他时段</option>
       </select>
-      <button onClick={handleAdd} style={{ ...S.btnPrimary, padding: '4px 8px', fontSize: 11 }}><Plus size={10} /></button>
+      <button onClick={handleAdd} style={{ ...S.btnPrimary, padding: isMobile ? '8px 12px' : '4px 8px', fontSize: isMobile ? 12 : 11 }}><Plus size={10} /></button>
     </div>
   );
 }
@@ -1536,6 +1638,7 @@ function DataAuditSection() {
 function SystemTab({ config, updateConfig }: { config: ReturnType<typeof useConfig>; updateConfig: (fn: (prev: typeof config) => typeof config) => void }) {
   const [editingRuleId, setEditingRuleId] = useState<string | null>(null);
   const { showToast } = useToast();
+  const isMobile = useMobile();
   const [zoom, setZoom] = useState(() => {
     const saved = localStorage.getItem('app_zoom');
     return saved ? parseFloat(saved) : 1;
@@ -1606,37 +1709,37 @@ function SystemTab({ config, updateConfig }: { config: ReturnType<typeof useConf
         <div style={{ fontSize: 11, color: INK.textMuted, marginBottom: 10, fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}>
           导出当前全部数据（学生、记录、设置）为文件，可在其他设备导入恢复
         </div>
-        <div style={{ display: 'flex', gap: 8 }}>
-          <button onClick={handleExport} style={S.btnPrimary}><Download size={13} /> 导出数据</button>
-          <button onClick={handleImport} style={{ ...S.btnPrimary, background: 'rgba(107,103,96,0.15)', border: `1px solid ${INK.borderHover}`, color: INK.textMuted }}><Upload size={13} /> 导入数据</button>
+        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+          <button onClick={handleExport} style={{ ...S.btnPrimary, flex: isMobile ? '1 1 140px' : undefined }}><Download size={13} /> 导出数据</button>
+          <button onClick={handleImport} style={{ ...S.btnPrimary, flex: isMobile ? '1 1 140px' : undefined, background: 'rgba(107,103,96,0.15)', border: `1px solid ${INK.borderHover}`, color: INK.textMuted }}><Upload size={13} /> 导入数据</button>
         </div>
       </div>
 
       {/* Basic parameters */}
       <div style={S.card}>
         <div style={{ fontSize: 13, fontWeight: 600, color: INK.textPrimary, marginBottom: 12, fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}>基础参数</div>
-        <div style={S.row}>
-          <div style={{ width: 150 }}>
+        <div style={{ ...S.row, flexDirection: isMobile ? 'column' : undefined, alignItems: isMobile ? 'stretch' : S.row.alignItems, gap: isMobile ? 8 : S.row.gap }}>
+          <div style={{ width: isMobile ? '100%' : 150 }}>
             <label style={S.label}>护盾抵消比例</label>
-            <input type="number" value={config.shieldOffsetRatio} onChange={e => updateConfig(prev => ({ ...prev, shieldOffsetRatio: Number(e.target.value) }))} style={S.input} />
+            <input type="number" value={config.shieldOffsetRatio} onChange={e => updateConfig(prev => ({ ...prev, shieldOffsetRatio: Number(e.target.value) }))} style={{ ...S.input, minHeight: isMobile ? 44 : undefined, fontSize: isMobile ? 16 : S.input.fontSize }} />
           </div>
-          <span style={{ color: INK.textMuted, fontSize: 12, alignSelf: 'flex-end', fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}>{config.shieldOffsetRatio}个护盾抵消1个{config.blankMarkName}</span>
+          <span style={{ color: INK.textMuted, fontSize: 12, lineHeight: 1.6, alignSelf: isMobile ? 'auto' : 'flex-end', fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}>{config.shieldOffsetRatio}个护盾抵消1个{config.blankMarkName}</span>
         </div>
-        <div style={S.row}>
-          <div style={{ width: 150 }}>
+        <div style={{ ...S.row, flexDirection: isMobile ? 'column' : undefined, alignItems: isMobile ? 'stretch' : S.row.alignItems, gap: isMobile ? 8 : S.row.gap }}>
+          <div style={{ width: isMobile ? '100%' : 150 }}>
             <label style={S.label}>自主选座排名上限</label>
-            <input type="number" value={config.chooseThreshold} onChange={e => updateConfig(prev => ({ ...prev, chooseThreshold: Number(e.target.value) }))} style={S.input} />
+            <input type="number" value={config.chooseThreshold} onChange={e => updateConfig(prev => ({ ...prev, chooseThreshold: Number(e.target.value) }))} style={{ ...S.input, minHeight: isMobile ? 44 : undefined, fontSize: isMobile ? 16 : S.input.fontSize }} />
           </div>
-          <span style={{ color: INK.textMuted, fontSize: 12, alignSelf: 'flex-end', fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}>排名 1-{config.chooseThreshold} 可自主选座</span>
+          <span style={{ color: INK.textMuted, fontSize: 12, lineHeight: 1.6, alignSelf: isMobile ? 'auto' : 'flex-end', fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}>排名 1-{config.chooseThreshold} 可自主选座</span>
         </div>
-        <div style={S.row}>
-          <div style={{ width: 100 }}>
+        <div style={{ ...S.row, flexDirection: isMobile ? 'column' : undefined, alignItems: isMobile ? 'stretch' : S.row.alignItems, gap: isMobile ? 10 : S.row.gap }}>
+          <div style={{ width: isMobile ? '100%' : 100 }}>
             <label style={S.label}>正面标记名</label>
-            <input value={config.blankMarkName} onChange={e => updateConfig(prev => ({ ...prev, blankMarkName: e.target.value }))} style={S.input} />
+            <input value={config.blankMarkName} onChange={e => updateConfig(prev => ({ ...prev, blankMarkName: e.target.value }))} style={{ ...S.input, minHeight: isMobile ? 42 : undefined }} />
           </div>
-          <div style={{ width: 100 }}>
+          <div style={{ width: isMobile ? '100%' : 100 }}>
             <label style={S.label}>背面标记名</label>
-            <input value={config.checkMarkName} onChange={e => updateConfig(prev => ({ ...prev, checkMarkName: e.target.value }))} style={S.input} />
+            <input value={config.checkMarkName} onChange={e => updateConfig(prev => ({ ...prev, checkMarkName: e.target.value }))} style={{ ...S.input, minHeight: isMobile ? 42 : undefined }} />
           </div>
         </div>
       </div>
@@ -1705,10 +1808,10 @@ function SystemTab({ config, updateConfig }: { config: ReturnType<typeof useConf
         <div style={{ fontSize: 11, color: INK.textMuted, marginBottom: 10, fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}>
           构建一个包含当前数据的只读版本，部署到 Gitee Pages，家长即可通过域名访问。
         </div>
-        <div style={{ padding: '10px 14px', borderRadius: D.radiusSm, background: 'rgba(0,0,0,0.2)', border: `1px solid ${INK.border}`, fontFamily: 'Consolas, monospace, sans-serif', fontSize: 12, color: '#a0d0a0', marginBottom: 10 }}>
+        <div style={{ padding: '10px 14px', borderRadius: D.radiusSm, background: 'rgba(0,0,0,0.2)', border: `1px solid ${INK.border}`, fontFamily: 'Consolas, monospace, sans-serif', fontSize: isMobile ? 11 : 12, color: '#a0d0a0', marginBottom: 10, overflowWrap: 'anywhere' }}>
           node scripts/build-parent.cjs --push
         </div>
-        <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+        <div style={{ display: 'flex', gap: 8, alignItems: isMobile ? 'stretch' : 'center', flexDirection: isMobile ? 'column' : undefined }}>
           <button
             onClick={() => {
               navigator.clipboard.writeText('node scripts/build-parent.cjs --push');
@@ -1723,7 +1826,7 @@ function SystemTab({ config, updateConfig }: { config: ReturnType<typeof useConf
           >
             📋 复制命令
           </button>
-          <span style={{ fontSize: 11, color: INK.textMuted }}>
+          <span style={{ fontSize: 11, color: INK.textMuted, lineHeight: 1.6 }}>
             在「星辰与火焰v4」文件夹打开终端，粘贴运行
           </span>
         </div>
@@ -1756,14 +1859,14 @@ function SystemTab({ config, updateConfig }: { config: ReturnType<typeof useConf
 
       {/* Auto rules */}
       <div style={S.card}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: isMobile ? 'stretch' : 'center', flexDirection: isMobile ? 'column' : undefined, gap: isMobile ? 10 : undefined, marginBottom: 12 }}>
           <div style={{ fontSize: 13, fontWeight: 600, color: INK.textPrimary, fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}>自动触发规则</div>
-          <div style={{ display: 'flex', gap: 6 }}>
+          <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
             <button onClick={() => {
               if (!window.confirm('将重新结算上周的自动规则。已有的结算记录不会重复添加（系统会自动跳过）。确定？')) return;
               localStorage.setItem('app_last_week_settle', '0');
               showToast('已重置结算标记，下次进入仪表盘将自动结算上周');
-            }} style={{ ...S.btnPrimary, padding: '4px 10px', fontSize: 11, background: 'rgba(123,139,181,0.15)', color: INK.starBlue, border: `1px solid rgba(123,139,181,0.3)` }}>重新结算上周</button>
+            }} style={{ ...S.btnPrimary, flex: isMobile ? '1 1 140px' : undefined, padding: '4px 10px', fontSize: 11, background: 'rgba(123,139,181,0.15)', color: INK.starBlue, border: `1px solid rgba(123,139,181,0.3)` }}>重新结算上周</button>
             <button onClick={() => {
               const newRule = {
                 id: `ar-custom-${Date.now()}`,
@@ -1776,7 +1879,7 @@ function SystemTab({ config, updateConfig }: { config: ReturnType<typeof useConf
               updateConfig(prev => ({ ...prev, autoRules: [...prev.autoRules, newRule] }));
               setEditingRuleId(newRule.id);
               showToast('已添加新规则');
-            }} style={S.btnPrimary}><Plus size={12} /> 新增规则</button>
+            }} style={{ ...S.btnPrimary, flex: isMobile ? '1 1 120px' : undefined }}><Plus size={12} /> 新增规则</button>
           </div>
         </div>
         {config.autoRules.map(rule => {
