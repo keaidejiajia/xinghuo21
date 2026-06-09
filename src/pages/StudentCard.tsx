@@ -663,11 +663,12 @@ function LevelEffects({ student }: { student: Student }) {
   );
 }
 
-function BehaviorHistory({ student, onDeleteRecord }: { student: Student; onDeleteRecord: (id: string) => void }) {
+function BehaviorHistory({ student, onDeleteRecord }: { student: Student; onDeleteRecord: (id: string) => boolean | Promise<boolean> }) {
   const config = useConfig();
   const { records } = useStudents();
   const { canDeleteRecord } = useAuth();
   const [showDeleteConfirm, setShowDeleteConfirm] = useState<string | null>(null);
+  const [deletingRecordId, setDeletingRecordId] = useState<string | null>(null);
   const [showAll, setShowAll] = useState(false);
 
   const studentRecords = useMemo(
@@ -771,7 +772,12 @@ function BehaviorHistory({ student, onDeleteRecord }: { student: Student; onDele
                   {canDeleteRecord && (
                     showDeleteConfirm === record.id ? (
                       <div style={{ display: 'flex', gap: 3 }}>
-                        <button onClick={() => { onDeleteRecord(record.id); setShowDeleteConfirm(null); }} style={{ padding: '2px 8px', borderRadius: D.radiusXs, fontSize: 11, cursor: 'pointer', background: 'rgba(196,65,37,0.15)', border: '1px solid rgba(196,65,37,0.35)', color: INK.flameCinnabar }}>确认</button>
+                        <button disabled={deletingRecordId === record.id} onClick={async () => {
+                          setDeletingRecordId(record.id);
+                          const synced = await onDeleteRecord(record.id);
+                          if (synced) setShowDeleteConfirm(null);
+                          setDeletingRecordId(null);
+                        }} style={{ padding: '2px 8px', borderRadius: D.radiusXs, fontSize: 11, cursor: deletingRecordId === record.id ? 'wait' : 'pointer', opacity: deletingRecordId === record.id ? 0.65 : 1, background: 'rgba(196,65,37,0.15)', border: '1px solid rgba(196,65,37,0.35)', color: INK.flameCinnabar }}>{deletingRecordId === record.id ? '同步中' : '确认'}</button>
                         <button onClick={() => setShowDeleteConfirm(null)} style={{ padding: '2px 8px', borderRadius: D.radiusXs, fontSize: 11, cursor: 'pointer', background: 'rgba(74,83,112,0.15)', border: `1px solid ${INK.border}`, color: INK.textSecondary }}>取消</button>
                       </div>
                     ) : (
@@ -821,7 +827,12 @@ function BehaviorHistory({ student, onDeleteRecord }: { student: Student; onDele
                   {canDeleteRecord && (
                     showDeleteConfirm === record.id ? (
                       <div style={{ display: 'flex', gap: 3 }}>
-                        <button onClick={() => { onDeleteRecord(record.id); setShowDeleteConfirm(null); }} style={{ padding: '1px 6px', borderRadius: D.radiusXs, fontSize: 10, cursor: 'pointer', fontFamily: "'LXGW WenKai', 'Cinzel', serif", background: 'rgba(196,65,37,0.15)', border: '1px solid rgba(196,65,37,0.35)', color: INK.flameCinnabar }}>确认</button>
+                        <button disabled={deletingRecordId === record.id} onClick={async () => {
+                          setDeletingRecordId(record.id);
+                          const synced = await onDeleteRecord(record.id);
+                          if (synced) setShowDeleteConfirm(null);
+                          setDeletingRecordId(null);
+                        }} style={{ padding: '1px 6px', borderRadius: D.radiusXs, fontSize: 10, cursor: deletingRecordId === record.id ? 'wait' : 'pointer', opacity: deletingRecordId === record.id ? 0.65 : 1, fontFamily: "'LXGW WenKai', 'Cinzel', serif", background: 'rgba(196,65,37,0.15)', border: '1px solid rgba(196,65,37,0.35)', color: INK.flameCinnabar }}>{deletingRecordId === record.id ? '同步中' : '确认'}</button>
                         <button onClick={() => setShowDeleteConfirm(null)} style={{ padding: '1px 6px', borderRadius: D.radiusXs, fontSize: 10, cursor: 'pointer', fontFamily: "'LXGW WenKai', 'Cinzel', serif", background: 'rgba(74,83,112,0.15)', border: `1px solid ${INK.border}`, color: INK.textSecondary }}>取消</button>
                       </div>
                     ) : (
@@ -1543,6 +1554,7 @@ export default function StudentCard() {
   const [showExchangePanel, setShowExchangePanel] = useState(false);
   const [exchangeConfirmId, setExchangeConfirmId] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'level' | 'effects' | 'history'>('level');
+  const [isSyncing, setIsSyncing] = useState(false);
 
   const student = students.find((s) => s.id === id);
 
@@ -1607,15 +1619,29 @@ export default function StudentCard() {
     ? getFrontProgress(student, config.frontLevels)
     : getBackProgress(student, config.backLevels);
 
-  const handleDeleteRecord = (recordId: string) => {
-    deleteBehaviorRecord(recordId);
-    showToast('已删除记录');
+  const syncAfterChange = async (successMessage: string) => {
+    setIsSyncing(true);
+    try {
+      await window.xinghuoSync?.saveNow();
+      showToast(successMessage);
+      return true;
+    } catch {
+      showToast('同步失败：请检查网络后在顶部点“重试”');
+      return false;
+    } finally {
+      setIsSyncing(false);
+    }
   };
 
-  const handleEditSave = (updates: Partial<Student>) => {
+  const handleDeleteRecord = async (recordId: string) => {
+    deleteBehaviorRecord(recordId);
+    return await syncAfterChange('已删除记录并同步');
+  };
+
+  const handleEditSave = async (updates: Partial<Student>) => {
     if (!student) return;
     updateStudent(student.id, (s) => ({ ...s, ...updates }));
-    showToast('已保存修改');
+    await syncAfterChange('已保存修改并同步');
   };
 
   return (
@@ -1851,9 +1877,14 @@ export default function StudentCard() {
                   </span>
                   {taskDone ? (
                     <button
-                      onClick={() => updateStudent(student.id, s => ({ ...s, riseTaskCompleted: false }))}
+                      disabled={isSyncing}
+                      onClick={async () => {
+                        updateStudent(student.id, s => ({ ...s, riseTaskCompleted: false }));
+                        await syncAfterChange('回升任务状态已同步');
+                      }}
                       style={{
-                        padding: '2px 8px', borderRadius: D.radiusXs, fontSize: 11, cursor: 'pointer',
+                        padding: '2px 8px', borderRadius: D.radiusXs, fontSize: 11, cursor: isSyncing ? 'wait' : 'pointer',
+                        opacity: isSyncing ? 0.65 : 1,
                         background: 'rgba(100,200,130,0.08)', border: '1px solid rgba(100,200,130,0.25)',
                         color: '#68c87a',
                       }}
@@ -1862,9 +1893,14 @@ export default function StudentCard() {
                     </button>
                   ) : (
                     <button
-                      onClick={() => updateStudent(student.id, s => ({ ...s, riseTaskCompleted: true }))}
+                      disabled={isSyncing}
+                      onClick={async () => {
+                        updateStudent(student.id, s => ({ ...s, riseTaskCompleted: true }));
+                        await syncAfterChange('回升任务已标记完成并同步');
+                      }}
                       style={{
-                        padding: '2px 8px', borderRadius: D.radiusXs, fontSize: 11, cursor: 'pointer',
+                        padding: '2px 8px', borderRadius: D.radiusXs, fontSize: 11, cursor: isSyncing ? 'wait' : 'pointer',
+                        opacity: isSyncing ? 0.65 : 1,
                         background: 'rgba(100,200,130,0.08)', border: '1px solid rgba(100,200,130,0.25)',
                         color: '#68c87a',
                       }}
@@ -1953,7 +1989,7 @@ export default function StudentCard() {
                         {isConfirming && (
                           <div style={{ display: 'flex', gap: 6, alignItems: 'center', marginTop: 4 }}>
                             <span style={{ fontSize: 11, color: D.cinnabar, fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}>确认消耗{item.cost}{currency}兑换？</span>
-                            <button onClick={() => {
+                            <button disabled={isSyncing} onClick={async () => {
                               if (student.cardSide === 'front') {
                                 updateStudent(student.id, (s: Student) => ({ ...s, starShields: s.starShields - item.cost, totalShieldsExchanged: (s.totalShieldsExchanged || 0) + item.cost }));
                               } else {
@@ -1966,11 +2002,13 @@ export default function StudentCard() {
                                 verified: true, shieldsConsumed: 0, isHighSensitivity: false,
                                 studentCardSide: student.cardSide,
                               });
-                              showToast(`已兑换：${item.name}`);
-                              setExchangeConfirmId(null);
-                              setShowExchangePanel(false);
-                            }} style={{ padding: '3px 8px', borderRadius: D.radiusSm, fontSize: 11, cursor: 'pointer', background: student.cardSide === 'front' ? 'rgba(123,139,181,0.2)' : 'rgba(232,160,48,0.2)', border: student.cardSide === 'front' ? '1px solid rgba(123,139,181,0.4)' : '1px solid rgba(232,160,48,0.4)', color: student.cardSide === 'front' ? INK.starBlue : '#E8A030', fontWeight: 500, fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}>
-                              确认
+                              const synced = await syncAfterChange(`已兑换并同步：${item.name}`);
+                              if (synced) {
+                                setExchangeConfirmId(null);
+                                setShowExchangePanel(false);
+                              }
+                            }} style={{ padding: '3px 8px', borderRadius: D.radiusSm, fontSize: 11, cursor: isSyncing ? 'wait' : 'pointer', opacity: isSyncing ? 0.65 : 1, background: student.cardSide === 'front' ? 'rgba(123,139,181,0.2)' : 'rgba(232,160,48,0.2)', border: student.cardSide === 'front' ? '1px solid rgba(123,139,181,0.4)' : '1px solid rgba(232,160,48,0.4)', color: student.cardSide === 'front' ? INK.starBlue : '#E8A030', fontWeight: 500, fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}>
+                              {isSyncing ? '同步中' : '确认'}
                             </button>
                             <button onClick={() => setExchangeConfirmId(null)} style={{ padding: '3px 8px', borderRadius: D.radiusSm, fontSize: 11, cursor: 'pointer', background: D.bgCard, border: `1px solid ${D.border}`, color: D.textMid, fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}>
                               取消
@@ -2032,7 +2070,7 @@ export default function StudentCard() {
                   return heritageConfirm ? (
                     <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
                       <span style={{ fontSize: 12, color: D.cinnabar }}>确认捐赠1传承值帮{recipient.name}消除1心魔？</span>
-                      <button onClick={() => {
+                      <button disabled={isSyncing} onClick={async () => {
                         const { donor: updatedDonor, recipient: updatedRecipient } = donateHeritage(student, recipient);
                         updateStudent(student.id, () => updatedDonor);
                         updateStudent(heritageRecipientId, () => updatedRecipient);
@@ -2043,10 +2081,13 @@ export default function StudentCard() {
                           verified: true, shieldsConsumed: 0, isHighSensitivity: false,
                           studentCardSide: 'back',
                         });
-                        showToast(`已帮${recipient.name}消除1个心魔`);
-                        setShowHeritageDonate(false);
-                      }} style={{ padding: '4px 10px', borderRadius: D.radiusSm, fontSize: 12, cursor: 'pointer', background: 'rgba(232,160,48,0.2)', border: '1px solid rgba(232,160,48,0.4)', color: '#E8A030', fontWeight: 500 }}>
-                        确认
+                        const synced = await syncAfterChange(`已帮${recipient.name}消除1个心魔并同步`);
+                        if (synced) {
+                          setShowHeritageDonate(false);
+                          setHeritageConfirm(false);
+                        }
+                      }} style={{ padding: '4px 10px', borderRadius: D.radiusSm, fontSize: 12, cursor: isSyncing ? 'wait' : 'pointer', opacity: isSyncing ? 0.65 : 1, background: 'rgba(232,160,48,0.2)', border: '1px solid rgba(232,160,48,0.4)', color: '#E8A030', fontWeight: 500 }}>
+                        {isSyncing ? '同步中' : '确认'}
                       </button>
                       <button onClick={() => setHeritageConfirm(false)} style={{ padding: '4px 10px', borderRadius: D.radiusSm, fontSize: 12, cursor: 'pointer', background: D.bgCard, border: `1px solid ${D.border}`, color: D.textMid }}>
                         取消

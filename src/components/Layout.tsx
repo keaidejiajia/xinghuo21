@@ -33,6 +33,13 @@ const ROLE_COLORS: Record<UserRole, string> = {
   parent: D.success,
 };
 
+type SyncState = {
+  status: 'idle' | 'saving' | 'saved' | 'error';
+  message: string;
+  updatedAt?: string;
+  error?: string;
+};
+
 const BG_SHIFT_MAP: Record<string, number> = {
   '/': 0,
   '/record': -40,
@@ -58,6 +65,9 @@ export default function Layout() {
   }, [location.pathname, isMobile]);
   const mobileView = localStorage.getItem('app_mobile_view') === 'true';
   const [menuOpen, setMenuOpen] = useState(false);
+  const [syncState, setSyncState] = useState<SyncState>(() =>
+    window.xinghuoSync?.getState() ?? { status: 'idle', message: '待同步' }
+  );
 
   const [showUpdatePopup, setShowUpdatePopup] = useState(() => {
     const lastSeen = localStorage.getItem('app_version_seen');
@@ -71,6 +81,15 @@ export default function Layout() {
     };
     window.addEventListener('zoom-changed', handler);
     return () => window.removeEventListener('zoom-changed', handler);
+  }, []);
+
+  useEffect(() => {
+    const handler = (event: Event) => {
+      const detail = (event as CustomEvent<SyncState>).detail;
+      if (detail) setSyncState(detail);
+    };
+    window.addEventListener('xinghuo-sync-state', handler);
+    return () => window.removeEventListener('xinghuo-sync-state', handler);
   }, []);
 
   return (
@@ -151,6 +170,35 @@ export default function Layout() {
 
         {/* Right side controls */}
         <div style={{ flexShrink: 0, display: 'flex', alignItems: 'center', gap: isMobile ? 6 : 10, justifyContent: 'flex-end' }}>
+        {user && (
+          <button
+            onClick={() => syncState.status === 'error' && window.xinghuoSync?.retry().catch(() => { /* status event handles UI */ })}
+            title={syncState.error || syncState.message}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 5,
+              padding: isMobile ? '4px 7px' : '5px 9px',
+              borderRadius: D.radiusXs,
+              border: `1px solid ${syncState.status === 'error' ? 'rgba(196,65,37,0.45)' : syncState.status === 'saving' ? 'rgba(212,168,83,0.45)' : D.border}`,
+              background: syncState.status === 'error' ? D.cinnabarDim : syncState.status === 'saving' ? D.goldDim : 'rgba(255,255,255,0.03)',
+              color: syncState.status === 'error' ? D.cinnabar : syncState.status === 'saving' ? D.gold : D.textDim,
+              fontSize: isMobile ? 10 : 11,
+              cursor: syncState.status === 'error' ? 'pointer' : 'default',
+              fontFamily: "'LXGW WenKai', 'Cinzel', serif",
+              whiteSpace: 'nowrap',
+            }}
+          >
+            <span style={{
+              width: 6,
+              height: 6,
+              borderRadius: '50%',
+              background: syncState.status === 'error' ? D.cinnabar : syncState.status === 'saving' ? D.gold : D.success,
+              boxShadow: syncState.status === 'saving' ? `0 0 8px ${D.gold}` : 'none',
+            }} />
+            {isMobile ? (syncState.status === 'error' ? '重试' : syncState.status === 'saving' ? '同步中' : '已同步') : syncState.message}
+          </button>
+        )}
         {user ? (
           <>
             {!isMobile && (

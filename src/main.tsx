@@ -12,49 +12,146 @@ const originalRemoveItem = localStorage.removeItem.bind(localStorage);
 
 let isLoading = true; // prevents save during initial data load
 
+type SyncStatus = 'idle' | 'saving' | 'saved' | 'error';
+type SyncState = {
+  status: SyncStatus;
+  message: string;
+  updatedAt?: string;
+  error?: string;
+};
+
+declare global {
+  interface Window {
+    xinghuoSync?: {
+      saveNow: () => Promise<void>;
+      retry: () => Promise<void>;
+      getState: () => SyncState;
+    };
+  }
+}
+
+const LOCAL_ONLY_KEYS = new Set([
+  'demo_user',
+  'xinghuo_auth_user',
+  'xinghuo_auth_remembered',
+  'last_recorder',
+  'app_mobile_view',
+  'app_version_seen',
+  'app_sort_mode',
+]);
+
+let syncState: SyncState = { status: 'idle', message: '待同步' };
+
+function shouldSyncKey(key: string): boolean {
+  return !LOCAL_ONLY_KEYS.has(key);
+}
+
+function setSyncState(next: SyncState) {
+  syncState = next;
+  window.dispatchEvent(new CustomEvent('xinghuo-sync-state', { detail: next }));
+}
+
 function collectAllData(): Record<string, unknown> {
   const data: Record<string, unknown> = {};
   for (let i = 0; i < localStorage.length; i++) {
     const key = localStorage.key(i);
-    if (key) {
+    if (key && shouldSyncKey(key)) {
       try { data[key] = JSON.parse(localStorage.getItem(key)!); } catch { /* skip */ }
     }
   }
   return data;
 }
 
+function restoreSyncedData(data: Record<string, unknown>) {
+  const currentUser = localStorage.getItem('demo_user');
+  const rememberedUser = localStorage.getItem('xinghuo_auth_user');
+  const rememberedFlag = localStorage.getItem('xinghuo_auth_remembered');
+
+  for (const [key, value] of Object.entries(data)) {
+    if (!shouldSyncKey(key)) continue;
+    originalSetItem(key, JSON.stringify(value));
+  }
+
+  if (currentUser) originalSetItem('demo_user', currentUser);
+  if (rememberedUser) originalSetItem('xinghuo_auth_user', rememberedUser);
+  if (rememberedFlag) originalSetItem('xinghuo_auth_remembered', rememberedFlag);
+}
+
 // === 保存逻辑（唯一入口）===
 
 let saveTimer: ReturnType<typeof setTimeout> | null = null;
+let inFlightSave: Promise<void> | null = null;
+let pendingSaveAfterInFlight = false;
 
-function saveToCloud() {
+async function saveToCloud(): Promise<void> {
   if (saveTimer) { clearTimeout(saveTimer); saveTimer = null; }
+  if (isLoading) return;
+  if (inFlightSave) {
+    pendingSaveAfterInFlight = true;
+    await inFlightSave;
+    return saveToCloud();
+  }
+
   const data = collectAllData();
-  fetch('/api/save', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data),
-  }).then(r => r.json().then(d => {
-    console.log('[sync] Saved to cloud:', d);
-  })).catch(e => {
-    console.error('[sync] Save failed:', e);
+  pendingSaveAfterInFlight = false;
+  console.log('[sync] Save started:', Object.keys(data));
+  setSyncState({ status: 'saving', message: '正在同步...', updatedAt: new Date().toISOString() });
+
+  const request = fetch('/api/save', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    })
+    .then(async r => {
+      const text = await r.text();
+      let payload: unknown = null;
+      try { payload = text ? JSON.parse(text) : null; } catch { payload = text; }
+      if (!r.ok) {
+        const detail = typeof payload === 'string' ? payload : JSON.stringify(payload);
+        throw new Error(`HTTP ${r.status}: ${detail.slice(0, 300)}`);
+      }
+      console.log('[sync] Saved to cloud:', payload);
+      setSyncState({ status: 'saved', message: '已同步', updatedAt: new Date().toISOString() });
+    })
+    .catch(e => {
+      const message = e instanceof Error ? e.message : String(e);
+      console.error('[sync] Save failed:', e);
+      setSyncState({ status: 'error', message: '同步失败', error: message, updatedAt: new Date().toISOString() });
+      throw e;
+    });
+
+  inFlightSave = request.finally(() => {
+    inFlightSave = null;
   });
+
+  await inFlightSave;
+  if (pendingSaveAfterInFlight) {
+    return saveToCloud();
+  }
 }
 
 function scheduleSave() {
   if (saveTimer) clearTimeout(saveTimer);
-  saveTimer = setTimeout(saveToCloud, 1000);
+  saveTimer = setTimeout(() => {
+    saveToCloud().catch(() => { /* status already updated */ });
+  }, 1000);
 }
+
+window.xinghuoSync = {
+  saveNow: saveToCloud,
+  retry: saveToCloud,
+  getState: () => syncState,
+};
 
 // 拦截 localStorage 操作 → 触发云端保存
 localStorage.setItem = function(key: string, value: string) {
   originalSetItem(key, value);
-  if (!isLoading) scheduleSave();
+  if (!isLoading && shouldSyncKey(key)) scheduleSave();
 };
 
 localStorage.removeItem = function(key: string) {
   originalRemoveItem(key);
-  if (!isLoading) scheduleSave();
+  if (!isLoading && shouldSyncKey(key)) scheduleSave();
 };
 
 // 页面关闭前紧急保存
@@ -66,7 +163,7 @@ window.addEventListener('beforeunload', () => {
 
 // 页面切到后台时保存
 document.addEventListener('visibilitychange', () => {
-  if (document.visibilityState === 'hidden') saveToCloud();
+  if (document.visibilityState === 'hidden') saveToCloud().catch(() => { /* status already updated */ });
 });
 
 // === 加载逻辑 ===
@@ -81,9 +178,7 @@ async function loadFromServer(): Promise<void> {
       if (res.ok) {
         const data: Record<string, unknown> = await res.json();
         if (data && Object.keys(data).length > 0) {
-          for (const [key, value] of Object.entries(data)) {
-            originalSetItem(key, JSON.stringify(value));
-          }
+          restoreSyncedData(data);
           console.log('[sync] Loaded from desktop server');
           return;
         }
@@ -100,12 +195,7 @@ async function loadFromServer(): Promise<void> {
       const raw = await res.text();
       const data = JSON.parse(raw.replace(/^﻿/, ''));
       if (data && Object.keys(data).length > 0) {
-        const currentUser = localStorage.getItem('demo_user');
-        for (const [key, value] of Object.entries(data)) {
-          if (key === 'demo_user') continue;
-          originalSetItem(key, JSON.stringify(value));
-        }
-        if (currentUser) originalSetItem('demo_user', currentUser);
+        restoreSyncedData(data);
         console.log('[sync] Loaded from cloud via /api/load');
         return;
       }

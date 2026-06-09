@@ -128,6 +128,8 @@ export default function RecordPage() {
   const [selectedInitial, setSelectedInitial] = useState<string>('');
   const [isLimitedCategory, setIsLimitedCategory] = useState(false);
   const [selectedTimePeriodId, setSelectedTimePeriodId] = useState('');
+  const [isSyncing, setIsSyncing] = useState(false);
+  const [syncError, setSyncError] = useState('');
 
   // Directional sliding transition
   const [slideDirection, setSlideDirection] = useState<'left' | 'right'>('right');
@@ -203,14 +205,38 @@ export default function RecordPage() {
     }
   };
 
-  const handleBatchDelete = () => {
+  const syncAfterChange = async (successMessage: string): Promise<boolean> => {
+    setIsSyncing(true);
+    setSyncError('');
+    try {
+      await window.xinghuoSync?.saveNow();
+      showToast(successMessage);
+      return true;
+    } catch (e) {
+      const message = e instanceof Error ? e.message : String(e);
+      setSyncError(message);
+      showToast('同步失败：请检查网络后点“重试同步”');
+      return false;
+    } finally {
+      setIsSyncing(false);
+    }
+  };
+
+  const retrySync = async () => {
+    const synced = await syncAfterChange('同步成功');
+    if (synced) setSyncError('');
+  };
+
+  const handleBatchDelete = async () => {
     const count = selectedRecordIds.size;
     for (const id of selectedRecordIds) {
       deleteBehaviorRecord(id);
     }
-    setSelectedRecordIds(new Set());
-    setBatchDeleteConfirm(false);
-    showToast(`已删除 ${count} 条记录`);
+    const synced = await syncAfterChange(`已删除并同步 ${count} 条记录`);
+    if (synced) {
+      setSelectedRecordIds(new Set());
+      setBatchDeleteConfirm(false);
+    }
   };
 
   const today = toLocalDateStr();
@@ -363,7 +389,9 @@ export default function RecordPage() {
     setShieldResults(null);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    if (isSyncing) return;
+    if (syncError) { showToast('上次同步失败，请先重试同步'); return; }
     if (selectedStudentIds.length === 0 || !selectedBehaviorId) return;
     if (!recordedBy) { showToast('请选择记录人'); return; }
     if (requiresTimePeriod && !selectedTimePeriodId) { showToast('请选择行为发生时间'); return; }
@@ -772,15 +800,19 @@ export default function RecordPage() {
 
     setBatchResults(results);
     setShieldResults(autoShieldResults.length > 0 ? autoShieldResults : null);
+    localStorage.setItem('last_recorder', recordedBy);
+    const synced = await syncAfterChange('已记录并同步');
+    if (!synced) return;
     setSelectedBehaviorId('');
     setDescription('');
     setSelectedTimePeriodId('');
     setStudentCounts({});
     setSelectedStudentIds([]);
-    localStorage.setItem('last_recorder', recordedBy);
   };
 
-  const handleRiseSubmit = () => {
+  const handleRiseSubmit = async () => {
+    if (isSyncing) return;
+    if (syncError) { showToast('上次同步失败，请先重试同步'); return; }
     if (selectedStudentIds.length === 0) return;
     if (!recordedBy) { showToast('请选择记录人'); return; }
 
@@ -823,9 +855,11 @@ export default function RecordPage() {
 
     setBatchResults(results);
     setShieldResults(null);
+    localStorage.setItem('last_recorder', recordedBy);
+    const synced = await syncAfterChange(results.some(r => r.levelChanged) ? `${results.filter(r => r.levelChanged).length}人回升成功并同步` : '已同步');
+    if (!synced) return;
     setStudentCounts({});
     setSelectedStudentIds([]);
-    localStorage.setItem('last_recorder', recordedBy);
 
     if (results.some(r => r.levelChanged)) {
       showToast(`${results.filter(r => r.levelChanged).length}人回升成功！`);
@@ -1397,7 +1431,11 @@ export default function RecordPage() {
                     </span>
                     {taskDone ? (
                       <button
-                        onClick={() => updateStudent(student.id, s => ({ ...s, riseTaskCompleted: false }))}
+                        disabled={isSyncing}
+                        onClick={async () => {
+                          updateStudent(student.id, s => ({ ...s, riseTaskCompleted: false }));
+                          await syncAfterChange('回升任务状态已同步');
+                        }}
                         style={{
                           padding: '2px 8px', borderRadius: D.radiusXs, fontSize: 11, cursor: 'pointer',
                           background: 'rgba(100,200,130,0.08)', border: '1px solid rgba(100,200,130,0.25)',
@@ -1408,7 +1446,8 @@ export default function RecordPage() {
                       </button>
                     ) : (
                       <button
-                        onClick={() => {
+                        disabled={isSyncing}
+                        onClick={async () => {
                           // 先标记任务完成
                           updateStudent(student.id, s => ({ ...s, riseTaskCompleted: true }));
                           // 如果天数也达标，同时触发回升（与 handleRiseSubmit 逻辑一致）
@@ -1434,10 +1473,12 @@ export default function RecordPage() {
                                 studentCardSide: student.cardSide,
                                 timePeriodId: undefined,
                               });
-                              showToast(`✅ ${student.name} 回升成功：${oldName} → ${newName}`);
+                              await syncAfterChange(`${student.name} 回升成功并同步：${oldName} → ${newName}`);
+                            } else {
+                              await syncAfterChange(`${student.name}：任务已标记完成并同步`);
                             }
                           } else {
-                            showToast(`📋 ${student.name}：任务已标记完成，还需 ${daysRequired - currentDays} 天零违纪`);
+                            await syncAfterChange(`${student.name}：任务已标记完成并同步，还需 ${daysRequired - currentDays} 天零违纪`);
                           }
                         }}
                         style={{
@@ -1518,14 +1559,51 @@ export default function RecordPage() {
           </div>
         )}
 
+        {/* Sync status */}
+        {(isSyncing || syncError) && (
+          <div style={{
+            marginBottom: 10,
+            padding: '10px 12px',
+            borderRadius: D.radiusSm,
+            background: syncError ? D.cinnabarDim : D.goldDim,
+            border: `1px solid ${syncError ? 'rgba(196,65,37,0.35)' : 'rgba(212,168,83,0.35)'}`,
+            color: syncError ? D.cinnabar : D.gold,
+            fontSize: 13,
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            gap: 10,
+            fontFamily: "'LXGW WenKai', 'Cinzel', serif",
+          }}>
+            <span>{isSyncing ? '正在同步到云端，请不要立即关闭页面...' : '同步失败，请检查网络后重试。'}</span>
+            {syncError && (
+              <button
+                onClick={retrySync}
+                disabled={isSyncing}
+                style={{
+                  padding: '4px 10px',
+                  borderRadius: D.radiusXs,
+                  border: '1px solid rgba(196,65,37,0.4)',
+                  background: 'rgba(196,65,37,0.08)',
+                  color: D.cinnabar,
+                  cursor: isSyncing ? 'not-allowed' : 'pointer',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                重试同步
+              </button>
+            )}
+          </div>
+        )}
+
         {/* Submit */}
         <button
           onClick={direction === 'rise' ? handleRiseSubmit : handleSubmit}
-          disabled={direction === 'rise' ? selectedStudentIds.length === 0 : (selectedStudentIds.length === 0 || !selectedBehaviorId)}
+          disabled={isSyncing || (direction === 'rise' ? selectedStudentIds.length === 0 : (selectedStudentIds.length === 0 || !selectedBehaviorId))}
           style={{
             width: '100%', padding: '16px', borderRadius: D.radiusSm, fontSize: 15, fontWeight: 600,
             letterSpacing: '0.04em',
-            background: direction === 'rise'
+            background: isSyncing ? D.bgCard : direction === 'rise'
               ? (selectedStudentIds.length > 0 ? 'linear-gradient(135deg, #3d8a4f, #68c87a)' : D.bgCard)
               : (selectedStudentIds.length > 0 && selectedBehaviorId
                 ? ((isLimitedCategory ? selectedBehavior?.direction : direction) === 'negative'
@@ -1533,29 +1611,29 @@ export default function RecordPage() {
                   : `linear-gradient(135deg, #b8942e, ${D.flameGold})`)
                 : D.bgCard),
             border: 'none',
-            color: (direction === 'rise' ? selectedStudentIds.length > 0 : (selectedStudentIds.length > 0 && selectedBehaviorId)) ? '#fff' : D.textDim,
-            cursor: (direction === 'rise' ? selectedStudentIds.length > 0 : (selectedStudentIds.length > 0 && selectedBehaviorId)) ? 'pointer' : 'not-allowed',
+            color: !isSyncing && (direction === 'rise' ? selectedStudentIds.length > 0 : (selectedStudentIds.length > 0 && selectedBehaviorId)) ? '#fff' : D.textDim,
+            cursor: !isSyncing && (direction === 'rise' ? selectedStudentIds.length > 0 : (selectedStudentIds.length > 0 && selectedBehaviorId)) ? 'pointer' : 'not-allowed',
             boxShadow: direction === 'rise'
-              ? (selectedStudentIds.length > 0 ? '0 0 24px rgba(100,200,130,0.25)' : 'none')
+              ? (!isSyncing && selectedStudentIds.length > 0 ? '0 0 24px rgba(100,200,130,0.25)' : 'none')
               : (selectedStudentIds.length > 0 && selectedBehaviorId
                 ? ((isLimitedCategory ? selectedBehavior?.direction : direction) === 'negative'
                   ? '0 0 24px rgba(196,65,37,0.3), 0 0 48px rgba(196,65,37,0.1)'
                   : '0 0 24px rgba(212,168,83,0.3), 0 0 48px rgba(212,168,83,0.1)')
                 : 'none'),
             transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-            animation: (direction === 'rise' ? selectedStudentIds.length > 0 : (selectedStudentIds.length > 0 && selectedBehaviorId))
+            animation: !isSyncing && (direction === 'rise' ? selectedStudentIds.length > 0 : (selectedStudentIds.length > 0 && selectedBehaviorId))
               ? 'submitGlow 3s ease-in-out infinite' : 'none',
             transform: (direction === 'rise' ? selectedStudentIds.length > 0 : (selectedStudentIds.length > 0 && selectedBehaviorId)) ? 'translateY(0)' : 'translateY(0)',
           }}
           onMouseEnter={e => {
-            const active = direction === 'rise' ? selectedStudentIds.length > 0 : (selectedStudentIds.length > 0 && selectedBehaviorId);
+            const active = !isSyncing && (direction === 'rise' ? selectedStudentIds.length > 0 : (selectedStudentIds.length > 0 && selectedBehaviorId));
             if (active) (e.target as HTMLElement).style.transform = 'translateY(-1px)';
           }}
           onMouseLeave={e => {
             (e.target as HTMLElement).style.transform = 'translateY(0)';
           }}
         >
-          {direction === 'rise' ? '确认完成回升任务' : (isLimitedCategory ? `记录限时活动` : (direction === 'negative' ? `记录 ${config.blankMarkName} 行为` : '记录正面行为'))}
+          {isSyncing ? '正在同步...' : direction === 'rise' ? '确认完成回升任务' : (isLimitedCategory ? `记录限时活动` : (direction === 'negative' ? `记录 ${config.blankMarkName} 行为` : '记录正面行为'))}
           {selectedStudentIds.length > 0 && ` (${selectedStudentIds.length}人)`}
         </button>
 
@@ -1645,7 +1723,7 @@ export default function RecordPage() {
                     <span style={{ fontSize: 12, color: D.cinnabar }}>
                       确认{donor.name}捐赠1传承值帮{recipient.name}消除1心魔？
                     </span>
-                    <button onClick={() => {
+                    <button disabled={isSyncing} onClick={async () => {
                       const { donor: updatedDonor, recipient: updatedRecipient } = donateHeritage(donor, recipient);
                       updateStudent(heritageDonorId, () => updatedDonor);
                       updateStudent(heritageRecipientId, () => updatedRecipient);
@@ -1657,10 +1735,13 @@ export default function RecordPage() {
                         studentCardSide: 'back',
                       timePeriodId: selectedTimePeriodId || undefined,
                       });
-                      showToast(`${donor.name}帮${recipient.name}消除了1个心魔`);
-                      setShowHeritageDonate(false);
-                    }} style={{ padding: '4px 10px', borderRadius: D.radiusSm, fontSize: 12, cursor: 'pointer', background: 'rgba(232,160,48,0.2)', border: '1px solid rgba(232,160,48,0.4)', color: '#E8A030', fontWeight: 500 }}>
-                      确认
+                      const synced = await syncAfterChange(`${donor.name}帮${recipient.name}消除了1个心魔并同步`);
+                      if (synced) {
+                        setShowHeritageDonate(false);
+                        setHeritageConfirm(false);
+                      }
+                    }} style={{ padding: '4px 10px', borderRadius: D.radiusSm, fontSize: 12, cursor: isSyncing ? 'wait' : 'pointer', opacity: isSyncing ? 0.65 : 1, background: 'rgba(232,160,48,0.2)', border: '1px solid rgba(232,160,48,0.4)', color: '#E8A030', fontWeight: 500 }}>
+                      {isSyncing ? '同步中' : '确认'}
                     </button>
                     <button onClick={() => setHeritageConfirm(false)} style={{ padding: '4px 10px', borderRadius: D.radiusSm, fontSize: 12, cursor: 'pointer', background: D.bgCard, border: `1px solid ${D.border}`, color: D.textMid }}>
                       取消
@@ -1687,7 +1768,8 @@ export default function RecordPage() {
             <div style={{ fontSize: 13, color: D.textMid, fontWeight: 500, letterSpacing: '0.02em', marginBottom: 10 }}>⚡ 快捷操作</div>
             <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
               <button
-                onClick={() => {
+                disabled={isSyncing}
+                onClick={async () => {
                   for (const id of selectedStudentIds) {
                     updateStudent(id, (s) => addStarShield(s));
                     const st = students.find(s => s.id === id);
@@ -1710,11 +1792,12 @@ export default function RecordPage() {
                     return { studentId: id, studentName: s?.name ?? '', message: '获得1个星光护盾', levelChanged: false, flipped: false, shieldUsed: false, reachedImmortal: false, shieldsGained: 1 };
                   }));
                   setShieldResults(null);
+                  await syncAfterChange(`已为 ${selectedStudentIds.length} 人添加星光护盾并同步`);
                 }}
                 style={{
                   padding: '8px 14px', borderRadius: D.radiusSm, fontSize: 13,
                   background: D.blueDim, border: '1px solid rgba(123,139,181,0.3)',
-                  color: D.blue, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 4,
+                  color: D.blue, cursor: isSyncing ? 'wait' : 'pointer', opacity: isSyncing ? 0.65 : 1, display: 'flex', alignItems: 'center', gap: 4,
                   transition: 'all 0.25s ease',
                 }}
               >
@@ -1749,7 +1832,8 @@ export default function RecordPage() {
                 <span style={{ fontSize: 11, color: D.textDim }}>负数=扣减</span>
                 <div style={{ flex: 1 }} />
                 <button
-                  onClick={() => {
+                  disabled={isSyncing}
+                  onClick={async () => {
                     for (const id of selectedStudentIds) {
                       updateStudent(id, (s) => ({ ...s, starShields: Math.max(0, s.starShields + shieldAdjustAmount), totalShieldsEverEarned: shieldAdjustAmount > 0 ? s.totalShieldsEverEarned + shieldAdjustAmount : s.totalShieldsEverEarned }));
                       if (shieldAdjustAmount > 0) {
@@ -1774,11 +1858,12 @@ export default function RecordPage() {
                       return { studentId: id, studentName: s?.name ?? '', message: `护盾${shieldAdjustAmount > 0 ? '+' : ''}${shieldAdjustAmount} → ${Math.max(0, (s?.starShields ?? 0) + shieldAdjustAmount)}`, levelChanged: false, flipped: false, shieldUsed: false, reachedImmortal: false, shieldsGained: Math.max(0, shieldAdjustAmount) };
                     }));
                     setShieldResults(null);
-                    setShowShieldAdjust(false);
-                    showToast(`已为 ${selectedStudentIds.length} 人调整护盾${shieldAdjustAmount > 0 ? '+' : ''}${shieldAdjustAmount}`);
+                    const synced = await syncAfterChange(`已为 ${selectedStudentIds.length} 人调整护盾${shieldAdjustAmount > 0 ? '+' : ''}${shieldAdjustAmount}并同步`);
+                    if (synced) setShowShieldAdjust(false);
                   }}
                   style={{
-                    padding: '6px 14px', borderRadius: D.radiusSm, fontSize: 12, cursor: 'pointer',
+                    padding: '6px 14px', borderRadius: D.radiusSm, fontSize: 12, cursor: isSyncing ? 'wait' : 'pointer',
+                    opacity: isSyncing ? 0.65 : 1,
                     background: shieldAdjustAmount < 0 ? D.cinnabarDim : D.goldDim,
                     border: `1px solid ${shieldAdjustAmount < 0 ? 'rgba(196,65,37,0.3)' : 'rgba(212,168,83,0.3)'}`,
                     color: shieldAdjustAmount < 0 ? D.cinnabar : D.gold,
@@ -1919,10 +2004,10 @@ export default function RecordPage() {
                         {canDeleteRecord && (
                           group.allIds.some(id => showDeleteConfirm === id) ? (
                             <div style={{ display: 'flex', gap: 4 }}>
-                              <button onClick={() => {
+                              <button onClick={async () => {
                                 group.allIds.forEach(id => deleteBehaviorRecord(id));
-                                setShowDeleteConfirm(null);
-                                showToast(`已删除 ${group.allIds.length} 条记录`);
+                                const synced = await syncAfterChange(`已删除并同步 ${group.allIds.length} 条记录`);
+                                if (synced) setShowDeleteConfirm(null);
                               }} style={{ padding: '2px 8px', borderRadius: D.radiusXs, fontSize: 11, cursor: 'pointer', background: D.cinnabarDim, border: '1px solid rgba(196,65,37,0.4)', color: D.cinnabar }}>确认</button>
                               <button onClick={() => setShowDeleteConfirm(null)} style={{ padding: '2px 8px', borderRadius: D.radiusXs, fontSize: 11, cursor: 'pointer', background: D.bgCard, border: `1px solid ${D.border}`, color: D.textMid }}>取消</button>
                             </div>
