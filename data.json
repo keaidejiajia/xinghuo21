@@ -1,537 +1,2665 @@
 {
   "app_last_week_settle": 15,
   "app_zoom": 1.15,
-  "seat-data-migrated-v2": true,
-  "seat-grid-layout": [
-    {
-      "id": "1-1",
-      "row": 0,
-      "col": 0,
-      "active": true
-    },
-    {
-      "id": "1-2",
-      "row": 0,
-      "col": 1,
-      "active": false
-    },
-    {
-      "id": "1-3",
-      "row": 0,
-      "col": 2,
-      "active": true
-    },
-    {
-      "id": "1-4",
-      "row": 0,
-      "col": 3,
-      "active": false
-    },
-    {
-      "id": "1-5",
-      "row": 0,
-      "col": 4,
-      "active": true
-    },
-    {
-      "id": "1-6",
-      "row": 0,
-      "col": 5,
-      "active": false
-    },
-    {
-      "id": "1-7",
-      "row": 0,
-      "col": 6,
-      "active": true
-    },
-    {
-      "id": "1-8",
-      "row": 0,
-      "col": 7,
-      "active": false
-    },
-    {
-      "id": "1-9",
-      "row": 0,
-      "col": 8,
-      "active": true
-    },
-    {
-      "id": "1-10",
-      "row": 0,
-      "col": 9,
-      "active": false
-    },
-    {
-      "id": "1-11",
-      "row": 0,
-      "col": 10,
-      "active": true
-    },
-    {
-      "id": "2-1",
-      "row": 1,
-      "col": 0,
-      "active": true
-    },
-    {
-      "id": "2-2",
-      "row": 1,
-      "col": 1,
-      "active": false
-    },
-    {
-      "id": "2-3",
-      "row": 1,
-      "col": 2,
-      "active": true
-    },
-    {
-      "id": "2-4",
-      "row": 1,
-      "col": 3,
-      "active": false
-    },
-    {
-      "id": "2-5",
-      "row": 1,
-      "col": 4,
-      "active": true
-    },
-    {
-      "id": "2-6",
-      "row": 1,
-      "col": 5,
-      "active": false
-    },
-    {
-      "id": "2-7",
-      "row": 1,
-      "col": 6,
-      "active": true
-    },
-    {
-      "id": "2-8",
-      "row": 1,
-      "col": 7,
-      "active": false
-    },
-    {
-      "id": "2-9",
-      "row": 1,
-      "col": 8,
-      "active": true
-    },
-    {
-      "id": "2-10",
-      "row": 1,
-      "col": 9,
-      "active": false
-    },
-    {
-      "id": "2-11",
-      "row": 1,
-      "col": 10,
-      "active": true
-    },
-    {
-      "id": "3-1",
-      "row": 2,
-      "col": 0,
-      "active": true
-    },
-    {
-      "id": "3-2",
-      "row": 2,
-      "col": 1,
-      "active": false
-    },
-    {
-      "id": "3-3",
-      "row": 2,
-      "col": 2,
-      "active": true
-    },
-    {
-      "id": "3-4",
-      "row": 2,
-      "col": 3,
-      "active": false
-    },
-    {
-      "id": "3-5",
-      "row": 2,
-      "col": 4,
-      "active": true
-    },
-    {
-      "id": "3-6",
-      "row": 2,
-      "col": 5,
-      "active": false
-    },
-    {
-      "id": "3-7",
-      "row": 2,
-      "col": 6,
-      "active": true
-    },
-    {
-      "id": "3-8",
-      "row": 2,
-      "col": 7,
-      "active": false
-    },
-    {
-      "id": "3-9",
-      "row": 2,
-      "col": 8,
-      "active": true
-    },
-    {
-      "id": "3-10",
-      "row": 2,
-      "col": 9,
-      "active": false
-    },
-    {
-      "id": "3-11",
-      "row": 2,
-      "col": 10,
-      "active": true
-    },
-    {
-      "id": "4-1",
-      "row": 3,
-      "col": 0,
-      "active": true
-    },
-    {
-      "id": "4-2",
-      "row": 3,
-      "col": 1,
-      "active": false
-    },
-    {
-      "id": "4-3",
-      "row": 3,
-      "col": 2,
-      "active": true
-    },
-    {
-      "id": "4-4",
-      "row": 3,
-      "col": 3,
-      "active": false
-    },
-    {
-      "id": "4-5",
-      "row": 3,
-      "col": 4,
-      "active": true
-    },
-    {
-      "id": "4-6",
-      "row": 3,
-      "col": 5,
-      "active": false
-    },
-    {
-      "id": "4-7",
-      "row": 3,
-      "col": 6,
-      "active": true
-    },
-    {
-      "id": "4-8",
-      "row": 3,
-      "col": 7,
-      "active": false
-    },
-    {
-      "id": "4-9",
-      "row": 3,
-      "col": 8,
-      "active": true
-    },
-    {
-      "id": "4-10",
-      "row": 3,
-      "col": 9,
-      "active": false
-    },
-    {
-      "id": "4-11",
-      "row": 3,
-      "col": 10,
-      "active": true
-    },
-    {
-      "id": "5-1",
-      "row": 4,
-      "col": 0,
-      "active": true
-    },
-    {
-      "id": "5-2",
-      "row": 4,
-      "col": 1,
-      "active": false
-    },
-    {
-      "id": "5-3",
-      "row": 4,
-      "col": 2,
-      "active": true
-    },
-    {
-      "id": "5-4",
-      "row": 4,
-      "col": 3,
-      "active": false
-    },
-    {
-      "id": "5-5",
-      "row": 4,
-      "col": 4,
-      "active": true
-    },
-    {
-      "id": "5-6",
-      "row": 4,
-      "col": 5,
-      "active": false
-    },
-    {
-      "id": "5-7",
-      "row": 4,
-      "col": 6,
-      "active": true
-    },
-    {
-      "id": "5-8",
-      "row": 4,
-      "col": 7,
-      "active": false
-    },
-    {
-      "id": "5-9",
-      "row": 4,
-      "col": 8,
-      "active": true
-    },
-    {
-      "id": "5-10",
-      "row": 4,
-      "col": 9,
-      "active": false
-    },
-    {
-      "id": "5-11",
-      "row": 4,
-      "col": 10,
-      "active": true
-    },
-    {
-      "id": "6-1",
-      "row": 5,
-      "col": 0,
-      "active": true
-    },
-    {
-      "id": "6-2",
-      "row": 5,
-      "col": 1,
-      "active": false
-    },
-    {
-      "id": "6-3",
-      "row": 5,
-      "col": 2,
-      "active": true
-    },
-    {
-      "id": "6-4",
-      "row": 5,
-      "col": 3,
-      "active": false
-    },
-    {
-      "id": "6-5",
-      "row": 5,
-      "col": 4,
-      "active": true
-    },
-    {
-      "id": "6-6",
-      "row": 5,
-      "col": 5,
-      "active": false
-    },
-    {
-      "id": "6-7",
-      "row": 5,
-      "col": 6,
-      "active": true
-    },
-    {
-      "id": "6-8",
-      "row": 5,
-      "col": 7,
-      "active": false
-    },
-    {
-      "id": "6-9",
-      "row": 5,
-      "col": 8,
-      "active": true
-    },
-    {
-      "id": "6-10",
-      "row": 5,
-      "col": 9,
-      "active": false
-    },
-    {
-      "id": "6-11",
-      "row": 5,
-      "col": 10,
-      "active": true
-    },
-    {
-      "id": "7-1",
-      "row": 6,
-      "col": 0,
-      "active": true
-    },
-    {
-      "id": "7-2",
-      "row": 6,
-      "col": 1,
-      "active": false
-    },
-    {
-      "id": "7-3",
-      "row": 6,
-      "col": 2,
-      "active": true
-    },
-    {
-      "id": "7-4",
-      "row": 6,
-      "col": 3,
-      "active": false
-    },
-    {
-      "id": "7-5",
-      "row": 6,
-      "col": 4,
-      "active": true
-    },
-    {
-      "id": "7-6",
-      "row": 6,
-      "col": 5,
-      "active": false
-    },
-    {
-      "id": "7-7",
-      "row": 6,
-      "col": 6,
-      "active": true
-    },
-    {
-      "id": "7-8",
-      "row": 6,
-      "col": 7,
-      "active": false
-    },
-    {
-      "id": "7-9",
-      "row": 6,
-      "col": 8,
-      "active": true
-    },
-    {
-      "id": "7-10",
-      "row": 6,
-      "col": 9,
-      "active": false
-    },
-    {
-      "id": "7-11",
-      "row": 6,
-      "col": 10,
-      "active": true
-    },
-    {
-      "id": "8-1",
-      "row": 7,
-      "col": 0,
-      "active": true
-    },
-    {
-      "id": "8-2",
-      "row": 7,
-      "col": 1,
-      "active": false
-    },
-    {
-      "id": "8-3",
-      "row": 7,
-      "col": 2,
-      "active": false
-    },
-    {
-      "id": "8-4",
-      "row": 7,
-      "col": 3,
-      "active": false
-    },
-    {
-      "id": "8-5",
-      "row": 7,
-      "col": 4,
-      "active": false
-    },
-    {
-      "id": "8-6",
-      "row": 7,
-      "col": 5,
-      "active": false
-    },
-    {
-      "id": "8-7",
-      "row": 7,
-      "col": 6,
-      "active": false
-    },
-    {
-      "id": "8-8",
-      "row": 7,
-      "col": 7,
-      "active": false
-    },
-    {
-      "id": "8-9",
-      "row": 7,
-      "col": 8,
-      "active": false
-    },
-    {
-      "id": "8-10",
-      "row": 7,
-      "col": 9,
-      "active": false
-    },
-    {
-      "id": "8-11",
-      "row": 7,
-      "col": 10,
-      "active": false
+  "seat-history": [
+    {
+      "date": "2026-05-25T11:51:39.911Z",
+      "assignments": [
+        {
+          "seatId": "3-7",
+          "studentId": "17"
+        },
+        {
+          "seatId": "2-5",
+          "studentId": "39"
+        },
+        {
+          "seatId": "1-7",
+          "studentId": "20"
+        },
+        {
+          "seatId": "4-1",
+          "studentId": "19"
+        },
+        {
+          "seatId": "5-1",
+          "studentId": "28"
+        },
+        {
+          "seatId": "3-1",
+          "studentId": "14"
+        },
+        {
+          "seatId": "6-1",
+          "studentId": "24"
+        },
+        {
+          "seatId": "6-11",
+          "studentId": "37"
+        },
+        {
+          "seatId": "7-11",
+          "studentId": "38"
+        },
+        {
+          "seatId": "4-5",
+          "studentId": "11"
+        },
+        {
+          "seatId": "3-3",
+          "studentId": "8"
+        },
+        {
+          "seatId": "4-11",
+          "studentId": "27"
+        },
+        {
+          "seatId": "5-11",
+          "studentId": "22"
+        },
+        {
+          "seatId": "2-3",
+          "studentId": "31"
+        },
+        {
+          "seatId": "4-3",
+          "studentId": "16"
+        },
+        {
+          "seatId": "4-7",
+          "studentId": "1779204595006"
+        },
+        {
+          "seatId": "5-5",
+          "studentId": "7"
+        },
+        {
+          "seatId": "2-9",
+          "studentId": "21"
+        },
+        {
+          "seatId": "3-5",
+          "studentId": "34"
+        },
+        {
+          "seatId": "3-9",
+          "studentId": "41"
+        },
+        {
+          "seatId": "6-3",
+          "studentId": "3"
+        },
+        {
+          "seatId": "5-7",
+          "studentId": "25"
+        },
+        {
+          "seatId": "8-1",
+          "studentId": "5"
+        },
+        {
+          "seatId": "2-7",
+          "studentId": "42"
+        },
+        {
+          "seatId": "1-5",
+          "studentId": "43"
+        },
+        {
+          "seatId": "1-3",
+          "studentId": "18"
+        },
+        {
+          "seatId": "6-9",
+          "studentId": "30"
+        },
+        {
+          "seatId": "5-3",
+          "studentId": "23"
+        },
+        {
+          "seatId": "6-5",
+          "studentId": "33"
+        },
+        {
+          "seatId": "6-7",
+          "studentId": "35"
+        },
+        {
+          "seatId": "3-11",
+          "studentId": "36"
+        },
+        {
+          "seatId": "4-9",
+          "studentId": "2"
+        },
+        {
+          "seatId": "7-1",
+          "studentId": "29"
+        },
+        {
+          "seatId": "5-9",
+          "studentId": "32"
+        },
+        {
+          "seatId": "7-9",
+          "studentId": "9"
+        },
+        {
+          "seatId": "2-11",
+          "studentId": "13"
+        },
+        {
+          "seatId": "7-7",
+          "studentId": "12"
+        },
+        {
+          "seatId": "7-5",
+          "studentId": "26"
+        },
+        {
+          "seatId": "2-1",
+          "studentId": "10"
+        },
+        {
+          "seatId": "1-9",
+          "studentId": "15"
+        },
+        {
+          "seatId": "1-11",
+          "studentId": "40"
+        },
+        {
+          "seatId": "1-1",
+          "studentId": "4"
+        },
+        {
+          "seatId": "7-3",
+          "studentId": "6"
+        }
+      ],
+      "layout": [
+        {
+          "id": "1-1",
+          "row": 0,
+          "col": 0,
+          "active": true
+        },
+        {
+          "id": "1-2",
+          "row": 0,
+          "col": 1,
+          "active": false
+        },
+        {
+          "id": "1-3",
+          "row": 0,
+          "col": 2,
+          "active": true
+        },
+        {
+          "id": "1-4",
+          "row": 0,
+          "col": 3,
+          "active": false
+        },
+        {
+          "id": "1-5",
+          "row": 0,
+          "col": 4,
+          "active": true
+        },
+        {
+          "id": "1-6",
+          "row": 0,
+          "col": 5,
+          "active": false
+        },
+        {
+          "id": "1-7",
+          "row": 0,
+          "col": 6,
+          "active": true
+        },
+        {
+          "id": "1-8",
+          "row": 0,
+          "col": 7,
+          "active": false
+        },
+        {
+          "id": "1-9",
+          "row": 0,
+          "col": 8,
+          "active": true
+        },
+        {
+          "id": "1-10",
+          "row": 0,
+          "col": 9,
+          "active": false
+        },
+        {
+          "id": "1-11",
+          "row": 0,
+          "col": 10,
+          "active": true
+        },
+        {
+          "id": "2-1",
+          "row": 1,
+          "col": 0,
+          "active": true
+        },
+        {
+          "id": "2-2",
+          "row": 1,
+          "col": 1,
+          "active": false
+        },
+        {
+          "id": "2-3",
+          "row": 1,
+          "col": 2,
+          "active": true
+        },
+        {
+          "id": "2-4",
+          "row": 1,
+          "col": 3,
+          "active": false
+        },
+        {
+          "id": "2-5",
+          "row": 1,
+          "col": 4,
+          "active": true
+        },
+        {
+          "id": "2-6",
+          "row": 1,
+          "col": 5,
+          "active": false
+        },
+        {
+          "id": "2-7",
+          "row": 1,
+          "col": 6,
+          "active": true
+        },
+        {
+          "id": "2-8",
+          "row": 1,
+          "col": 7,
+          "active": false
+        },
+        {
+          "id": "2-9",
+          "row": 1,
+          "col": 8,
+          "active": true
+        },
+        {
+          "id": "2-10",
+          "row": 1,
+          "col": 9,
+          "active": false
+        },
+        {
+          "id": "2-11",
+          "row": 1,
+          "col": 10,
+          "active": true
+        },
+        {
+          "id": "3-1",
+          "row": 2,
+          "col": 0,
+          "active": true
+        },
+        {
+          "id": "3-2",
+          "row": 2,
+          "col": 1,
+          "active": false
+        },
+        {
+          "id": "3-3",
+          "row": 2,
+          "col": 2,
+          "active": true
+        },
+        {
+          "id": "3-4",
+          "row": 2,
+          "col": 3,
+          "active": false
+        },
+        {
+          "id": "3-5",
+          "row": 2,
+          "col": 4,
+          "active": true
+        },
+        {
+          "id": "3-6",
+          "row": 2,
+          "col": 5,
+          "active": false
+        },
+        {
+          "id": "3-7",
+          "row": 2,
+          "col": 6,
+          "active": true
+        },
+        {
+          "id": "3-8",
+          "row": 2,
+          "col": 7,
+          "active": false
+        },
+        {
+          "id": "3-9",
+          "row": 2,
+          "col": 8,
+          "active": true
+        },
+        {
+          "id": "3-10",
+          "row": 2,
+          "col": 9,
+          "active": false
+        },
+        {
+          "id": "3-11",
+          "row": 2,
+          "col": 10,
+          "active": true
+        },
+        {
+          "id": "4-1",
+          "row": 3,
+          "col": 0,
+          "active": true
+        },
+        {
+          "id": "4-2",
+          "row": 3,
+          "col": 1,
+          "active": false
+        },
+        {
+          "id": "4-3",
+          "row": 3,
+          "col": 2,
+          "active": true
+        },
+        {
+          "id": "4-4",
+          "row": 3,
+          "col": 3,
+          "active": false
+        },
+        {
+          "id": "4-5",
+          "row": 3,
+          "col": 4,
+          "active": true
+        },
+        {
+          "id": "4-6",
+          "row": 3,
+          "col": 5,
+          "active": false
+        },
+        {
+          "id": "4-7",
+          "row": 3,
+          "col": 6,
+          "active": true
+        },
+        {
+          "id": "4-8",
+          "row": 3,
+          "col": 7,
+          "active": false
+        },
+        {
+          "id": "4-9",
+          "row": 3,
+          "col": 8,
+          "active": true
+        },
+        {
+          "id": "4-10",
+          "row": 3,
+          "col": 9,
+          "active": false
+        },
+        {
+          "id": "4-11",
+          "row": 3,
+          "col": 10,
+          "active": true
+        },
+        {
+          "id": "5-1",
+          "row": 4,
+          "col": 0,
+          "active": true
+        },
+        {
+          "id": "5-2",
+          "row": 4,
+          "col": 1,
+          "active": false
+        },
+        {
+          "id": "5-3",
+          "row": 4,
+          "col": 2,
+          "active": true
+        },
+        {
+          "id": "5-4",
+          "row": 4,
+          "col": 3,
+          "active": false
+        },
+        {
+          "id": "5-5",
+          "row": 4,
+          "col": 4,
+          "active": true
+        },
+        {
+          "id": "5-6",
+          "row": 4,
+          "col": 5,
+          "active": false
+        },
+        {
+          "id": "5-7",
+          "row": 4,
+          "col": 6,
+          "active": true
+        },
+        {
+          "id": "5-8",
+          "row": 4,
+          "col": 7,
+          "active": false
+        },
+        {
+          "id": "5-9",
+          "row": 4,
+          "col": 8,
+          "active": true
+        },
+        {
+          "id": "5-10",
+          "row": 4,
+          "col": 9,
+          "active": false
+        },
+        {
+          "id": "5-11",
+          "row": 4,
+          "col": 10,
+          "active": true
+        },
+        {
+          "id": "6-1",
+          "row": 5,
+          "col": 0,
+          "active": true
+        },
+        {
+          "id": "6-2",
+          "row": 5,
+          "col": 1,
+          "active": false
+        },
+        {
+          "id": "6-3",
+          "row": 5,
+          "col": 2,
+          "active": true
+        },
+        {
+          "id": "6-4",
+          "row": 5,
+          "col": 3,
+          "active": false
+        },
+        {
+          "id": "6-5",
+          "row": 5,
+          "col": 4,
+          "active": true
+        },
+        {
+          "id": "6-6",
+          "row": 5,
+          "col": 5,
+          "active": false
+        },
+        {
+          "id": "6-7",
+          "row": 5,
+          "col": 6,
+          "active": true
+        },
+        {
+          "id": "6-8",
+          "row": 5,
+          "col": 7,
+          "active": false
+        },
+        {
+          "id": "6-9",
+          "row": 5,
+          "col": 8,
+          "active": true
+        },
+        {
+          "id": "6-10",
+          "row": 5,
+          "col": 9,
+          "active": false
+        },
+        {
+          "id": "6-11",
+          "row": 5,
+          "col": 10,
+          "active": true
+        },
+        {
+          "id": "7-1",
+          "row": 6,
+          "col": 0,
+          "active": true
+        },
+        {
+          "id": "7-2",
+          "row": 6,
+          "col": 1,
+          "active": false
+        },
+        {
+          "id": "7-3",
+          "row": 6,
+          "col": 2,
+          "active": true
+        },
+        {
+          "id": "7-4",
+          "row": 6,
+          "col": 3,
+          "active": false
+        },
+        {
+          "id": "7-5",
+          "row": 6,
+          "col": 4,
+          "active": true
+        },
+        {
+          "id": "7-6",
+          "row": 6,
+          "col": 5,
+          "active": false
+        },
+        {
+          "id": "7-7",
+          "row": 6,
+          "col": 6,
+          "active": true
+        },
+        {
+          "id": "7-8",
+          "row": 6,
+          "col": 7,
+          "active": false
+        },
+        {
+          "id": "7-9",
+          "row": 6,
+          "col": 8,
+          "active": true
+        },
+        {
+          "id": "7-10",
+          "row": 6,
+          "col": 9,
+          "active": false
+        },
+        {
+          "id": "7-11",
+          "row": 6,
+          "col": 10,
+          "active": true
+        },
+        {
+          "id": "8-1",
+          "row": 7,
+          "col": 0,
+          "active": true
+        },
+        {
+          "id": "8-2",
+          "row": 7,
+          "col": 1,
+          "active": false
+        },
+        {
+          "id": "8-3",
+          "row": 7,
+          "col": 2,
+          "active": false
+        },
+        {
+          "id": "8-4",
+          "row": 7,
+          "col": 3,
+          "active": false
+        },
+        {
+          "id": "8-5",
+          "row": 7,
+          "col": 4,
+          "active": false
+        },
+        {
+          "id": "8-6",
+          "row": 7,
+          "col": 5,
+          "active": false
+        },
+        {
+          "id": "8-7",
+          "row": 7,
+          "col": 6,
+          "active": false
+        },
+        {
+          "id": "8-8",
+          "row": 7,
+          "col": 7,
+          "active": false
+        },
+        {
+          "id": "8-9",
+          "row": 7,
+          "col": 8,
+          "active": false
+        },
+        {
+          "id": "8-10",
+          "row": 7,
+          "col": 9,
+          "active": false
+        },
+        {
+          "id": "8-11",
+          "row": 7,
+          "col": 10,
+          "active": false
+        }
+      ],
+      "thumbnailData": {
+        "rows": 8,
+        "cols": 11,
+        "cells": [
+          {
+            "row": 0,
+            "col": 0,
+            "active": true,
+            "merged": false,
+            "studentName": "邓渝凡",
+            "priority": 7
+          },
+          {
+            "row": 0,
+            "col": 1,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 0,
+            "col": 2,
+            "active": true,
+            "merged": false,
+            "studentName": "蓝义皓",
+            "priority": 4
+          },
+          {
+            "row": 0,
+            "col": 3,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 0,
+            "col": 4,
+            "active": true,
+            "merged": false,
+            "studentName": "邹梓航",
+            "priority": 4
+          },
+          {
+            "row": 0,
+            "col": 5,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 0,
+            "col": 6,
+            "active": true,
+            "merged": false,
+            "studentName": "刘晨熙",
+            "priority": 2
+          },
+          {
+            "row": 0,
+            "col": 7,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 0,
+            "col": 8,
+            "active": true,
+            "merged": false,
+            "studentName": "阚雅涵",
+            "priority": 6
+          },
+          {
+            "row": 0,
+            "col": 9,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 0,
+            "col": 10,
+            "active": true,
+            "merged": false,
+            "studentName": "喻叶函",
+            "priority": 6
+          },
+          {
+            "row": 1,
+            "col": 0,
+            "active": true,
+            "merged": false,
+            "studentName": "何泓霖",
+            "priority": 6
+          },
+          {
+            "row": 1,
+            "col": 1,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 1,
+            "col": 2,
+            "active": true,
+            "merged": false,
+            "studentName": "王晨雨琳",
+            "priority": 2
+          },
+          {
+            "row": 1,
+            "col": 3,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 1,
+            "col": 4,
+            "active": true,
+            "merged": false,
+            "studentName": "易安心",
+            "priority": 2
+          },
+          {
+            "row": 1,
+            "col": 5,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 1,
+            "col": 6,
+            "active": true,
+            "merged": false,
+            "studentName": "袁俪玮",
+            "priority": 2
+          },
+          {
+            "row": 1,
+            "col": 7,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 1,
+            "col": 8,
+            "active": true,
+            "merged": false,
+            "studentName": "刘入源",
+            "priority": 2
+          },
+          {
+            "row": 1,
+            "col": 9,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 1,
+            "col": 10,
+            "active": true,
+            "merged": false,
+            "studentName": "蒋佳骏",
+            "priority": 4
+          },
+          {
+            "row": 2,
+            "col": 0,
+            "active": true,
+            "merged": false,
+            "studentName": "蒋芮西",
+            "priority": 2
+          },
+          {
+            "row": 2,
+            "col": 1,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 2,
+            "col": 2,
+            "active": true,
+            "merged": false,
+            "studentName": "龚雅琪",
+            "priority": 2
+          },
+          {
+            "row": 2,
+            "col": 3,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 2,
+            "col": 4,
+            "active": true,
+            "merged": false,
+            "studentName": "王梓祺",
+            "priority": 2
+          },
+          {
+            "row": 2,
+            "col": 5,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 2,
+            "col": 6,
+            "active": true,
+            "merged": false,
+            "studentName": "赖俊豪",
+            "priority": 2
+          },
+          {
+            "row": 2,
+            "col": 7,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 2,
+            "col": 8,
+            "active": true,
+            "merged": false,
+            "studentName": "袁昊",
+            "priority": 2
+          },
+          {
+            "row": 2,
+            "col": 9,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 2,
+            "col": 10,
+            "active": true,
+            "merged": false,
+            "studentName": "徐浚卜",
+            "priority": 4
+          },
+          {
+            "row": 3,
+            "col": 0,
+            "active": true,
+            "merged": false,
+            "studentName": "黎梦琪",
+            "priority": 2
+          },
+          {
+            "row": 3,
+            "col": 1,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 3,
+            "col": 2,
+            "active": true,
+            "merged": false,
+            "studentName": "赖佳颖",
+            "priority": 2
+          },
+          {
+            "row": 3,
+            "col": 3,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 3,
+            "col": 4,
+            "active": true,
+            "merged": false,
+            "studentName": "胡琴雅淇",
+            "priority": 2
+          },
+          {
+            "row": 3,
+            "col": 5,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 3,
+            "col": 6,
+            "active": true,
+            "merged": false,
+            "studentName": "曾馨",
+            "priority": 2
+          },
+          {
+            "row": 3,
+            "col": 7,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 3,
+            "col": 8,
+            "active": true,
+            "merged": false,
+            "studentName": "陈浩博",
+            "priority": 4
+          },
+          {
+            "row": 3,
+            "col": 9,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 3,
+            "col": 10,
+            "active": true,
+            "merged": false,
+            "studentName": "冉宇泽",
+            "priority": 2
+          },
+          {
+            "row": 4,
+            "col": 0,
+            "active": true,
+            "merged": false,
+            "studentName": "宋荐昕",
+            "priority": 2
+          },
+          {
+            "row": 4,
+            "col": 1,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 4,
+            "col": 2,
+            "active": true,
+            "merged": false,
+            "studentName": "刘梓谖",
+            "priority": 4
+          },
+          {
+            "row": 4,
+            "col": 3,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 4,
+            "col": 4,
+            "active": true,
+            "merged": false,
+            "studentName": "冯晨轩",
+            "priority": 2
+          },
+          {
+            "row": 4,
+            "col": 5,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 4,
+            "col": 6,
+            "active": true,
+            "merged": false,
+            "studentName": "秦姝楟",
+            "priority": 2
+          },
+          {
+            "row": 4,
+            "col": 7,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 4,
+            "col": 8,
+            "active": true,
+            "merged": false,
+            "studentName": "王琮睿",
+            "priority": 4
+          },
+          {
+            "row": 4,
+            "col": 9,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 4,
+            "col": 10,
+            "active": true,
+            "merged": false,
+            "studentName": "刘烨梓",
+            "priority": 2
+          },
+          {
+            "row": 5,
+            "col": 0,
+            "active": true,
+            "merged": false,
+            "studentName": "彭子媂",
+            "priority": 2
+          },
+          {
+            "row": 5,
+            "col": 1,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 5,
+            "col": 2,
+            "active": true,
+            "merged": false,
+            "studentName": "陈可美",
+            "priority": 2
+          },
+          {
+            "row": 5,
+            "col": 3,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 5,
+            "col": 4,
+            "active": true,
+            "merged": false,
+            "studentName": "王泽诚",
+            "priority": 4
+          },
+          {
+            "row": 5,
+            "col": 5,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 5,
+            "col": 6,
+            "active": true,
+            "merged": false,
+            "studentName": "吴佳芮",
+            "priority": 2
+          },
+          {
+            "row": 5,
+            "col": 7,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 5,
+            "col": 8,
+            "active": true,
+            "merged": false,
+            "studentName": "王晨辰",
+            "priority": 4
+          },
+          {
+            "row": 5,
+            "col": 9,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 5,
+            "col": 10,
+            "active": true,
+            "merged": false,
+            "studentName": "徐小乔",
+            "priority": 2
+          },
+          {
+            "row": 6,
+            "col": 0,
+            "active": true,
+            "merged": false,
+            "studentName": "孙浩凯",
+            "priority": 4
+          },
+          {
+            "row": 6,
+            "col": 1,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 6,
+            "col": 2,
+            "active": true,
+            "merged": false,
+            "studentName": "董溢文",
+            "priority": 2
+          },
+          {
+            "row": 6,
+            "col": 3,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 6,
+            "col": 4,
+            "active": true,
+            "merged": false,
+            "studentName": "冉家鳌",
+            "priority": 6
+          },
+          {
+            "row": 6,
+            "col": 5,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 6,
+            "col": 6,
+            "active": true,
+            "merged": false,
+            "studentName": "胡荣耀",
+            "priority": 6
+          },
+          {
+            "row": 6,
+            "col": 7,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 6,
+            "col": 8,
+            "active": true,
+            "merged": false,
+            "studentName": "龚煜心",
+            "priority": 4
+          },
+          {
+            "row": 6,
+            "col": 9,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 6,
+            "col": 10,
+            "active": true,
+            "merged": false,
+            "studentName": "徐于淇",
+            "priority": 2
+          },
+          {
+            "row": 7,
+            "col": 0,
+            "active": true,
+            "merged": false,
+            "studentName": "丁紫洪",
+            "priority": 2
+          },
+          {
+            "row": 7,
+            "col": 1,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 7,
+            "col": 2,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 7,
+            "col": 3,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 7,
+            "col": 4,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 7,
+            "col": 5,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 7,
+            "col": 6,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 7,
+            "col": 7,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 7,
+            "col": 8,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 7,
+            "col": 9,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 7,
+            "col": 10,
+            "active": false,
+            "merged": false
+          }
+        ]
+      },
+      "teachingWeek": 13
+    },
+    {
+      "date": "2026-06-01T16:08:44.289Z",
+      "assignments": [
+        {
+          "seatId": "2-9",
+          "studentId": "17"
+        },
+        {
+          "seatId": "2-5",
+          "studentId": "39"
+        },
+        {
+          "seatId": "4-11",
+          "studentId": "19"
+        },
+        {
+          "seatId": "4-9",
+          "studentId": "16"
+        },
+        {
+          "seatId": "1-7",
+          "studentId": "20"
+        },
+        {
+          "seatId": "5-1",
+          "studentId": "37"
+        },
+        {
+          "seatId": "3-5",
+          "studentId": "7"
+        },
+        {
+          "seatId": "6-3",
+          "studentId": "3"
+        },
+        {
+          "seatId": "5-11",
+          "studentId": "14"
+        },
+        {
+          "seatId": "3-7",
+          "studentId": "6"
+        },
+        {
+          "seatId": "5-9",
+          "studentId": "8"
+        },
+        {
+          "seatId": "6-7",
+          "studentId": "35"
+        },
+        {
+          "seatId": "7-1",
+          "studentId": "22"
+        },
+        {
+          "seatId": "4-1",
+          "studentId": "38"
+        },
+        {
+          "seatId": "2-3",
+          "studentId": "42"
+        },
+        {
+          "seatId": "6-9",
+          "studentId": "31"
+        },
+        {
+          "seatId": "7-3",
+          "studentId": "11"
+        },
+        {
+          "seatId": "7-5",
+          "studentId": "1779204595006"
+        },
+        {
+          "seatId": "2-11",
+          "studentId": "41"
+        },
+        {
+          "seatId": "6-11",
+          "studentId": "28"
+        },
+        {
+          "seatId": "3-11",
+          "studentId": "27"
+        },
+        {
+          "seatId": "8-1",
+          "studentId": "5"
+        },
+        {
+          "seatId": "1-3",
+          "studentId": "21"
+        },
+        {
+          "seatId": "1-5",
+          "studentId": "43"
+        },
+        {
+          "seatId": "6-1",
+          "studentId": "24"
+        },
+        {
+          "seatId": "3-9",
+          "studentId": "36"
+        },
+        {
+          "seatId": "7-11",
+          "studentId": "23"
+        },
+        {
+          "seatId": "1-1",
+          "studentId": "18"
+        },
+        {
+          "seatId": "6-5",
+          "studentId": "25"
+        },
+        {
+          "seatId": "4-7",
+          "studentId": "2"
+        },
+        {
+          "seatId": "3-1",
+          "studentId": "26"
+        },
+        {
+          "seatId": "1-9",
+          "studentId": "15"
+        },
+        {
+          "seatId": "7-7",
+          "studentId": "9"
+        },
+        {
+          "seatId": "5-5",
+          "studentId": "33"
+        },
+        {
+          "seatId": "7-9",
+          "studentId": "29"
+        },
+        {
+          "seatId": "4-5",
+          "studentId": "40"
+        },
+        {
+          "seatId": "3-3",
+          "studentId": "12"
+        },
+        {
+          "seatId": "5-3",
+          "studentId": "10"
+        },
+        {
+          "seatId": "4-3",
+          "studentId": "13"
+        },
+        {
+          "seatId": "1-11",
+          "studentId": "32"
+        },
+        {
+          "seatId": "2-7",
+          "studentId": "30"
+        },
+        {
+          "seatId": "2-1",
+          "studentId": "4"
+        },
+        {
+          "seatId": "5-7",
+          "studentId": "34"
+        }
+      ],
+      "layout": [
+        {
+          "id": "1-1",
+          "row": 0,
+          "col": 0,
+          "active": true
+        },
+        {
+          "id": "1-2",
+          "row": 0,
+          "col": 1,
+          "active": false
+        },
+        {
+          "id": "1-3",
+          "row": 0,
+          "col": 2,
+          "active": true
+        },
+        {
+          "id": "1-4",
+          "row": 0,
+          "col": 3,
+          "active": false
+        },
+        {
+          "id": "1-5",
+          "row": 0,
+          "col": 4,
+          "active": true
+        },
+        {
+          "id": "1-6",
+          "row": 0,
+          "col": 5,
+          "active": false
+        },
+        {
+          "id": "1-7",
+          "row": 0,
+          "col": 6,
+          "active": true
+        },
+        {
+          "id": "1-8",
+          "row": 0,
+          "col": 7,
+          "active": false
+        },
+        {
+          "id": "1-9",
+          "row": 0,
+          "col": 8,
+          "active": true
+        },
+        {
+          "id": "1-10",
+          "row": 0,
+          "col": 9,
+          "active": false
+        },
+        {
+          "id": "1-11",
+          "row": 0,
+          "col": 10,
+          "active": true
+        },
+        {
+          "id": "2-1",
+          "row": 1,
+          "col": 0,
+          "active": true
+        },
+        {
+          "id": "2-2",
+          "row": 1,
+          "col": 1,
+          "active": false
+        },
+        {
+          "id": "2-3",
+          "row": 1,
+          "col": 2,
+          "active": true
+        },
+        {
+          "id": "2-4",
+          "row": 1,
+          "col": 3,
+          "active": false
+        },
+        {
+          "id": "2-5",
+          "row": 1,
+          "col": 4,
+          "active": true
+        },
+        {
+          "id": "2-6",
+          "row": 1,
+          "col": 5,
+          "active": false
+        },
+        {
+          "id": "2-7",
+          "row": 1,
+          "col": 6,
+          "active": true
+        },
+        {
+          "id": "2-8",
+          "row": 1,
+          "col": 7,
+          "active": false
+        },
+        {
+          "id": "2-9",
+          "row": 1,
+          "col": 8,
+          "active": true
+        },
+        {
+          "id": "2-10",
+          "row": 1,
+          "col": 9,
+          "active": false
+        },
+        {
+          "id": "2-11",
+          "row": 1,
+          "col": 10,
+          "active": true
+        },
+        {
+          "id": "3-1",
+          "row": 2,
+          "col": 0,
+          "active": true
+        },
+        {
+          "id": "3-2",
+          "row": 2,
+          "col": 1,
+          "active": false
+        },
+        {
+          "id": "3-3",
+          "row": 2,
+          "col": 2,
+          "active": true
+        },
+        {
+          "id": "3-4",
+          "row": 2,
+          "col": 3,
+          "active": false
+        },
+        {
+          "id": "3-5",
+          "row": 2,
+          "col": 4,
+          "active": true
+        },
+        {
+          "id": "3-6",
+          "row": 2,
+          "col": 5,
+          "active": false
+        },
+        {
+          "id": "3-7",
+          "row": 2,
+          "col": 6,
+          "active": true
+        },
+        {
+          "id": "3-8",
+          "row": 2,
+          "col": 7,
+          "active": false
+        },
+        {
+          "id": "3-9",
+          "row": 2,
+          "col": 8,
+          "active": true
+        },
+        {
+          "id": "3-10",
+          "row": 2,
+          "col": 9,
+          "active": false
+        },
+        {
+          "id": "3-11",
+          "row": 2,
+          "col": 10,
+          "active": true
+        },
+        {
+          "id": "4-1",
+          "row": 3,
+          "col": 0,
+          "active": true
+        },
+        {
+          "id": "4-2",
+          "row": 3,
+          "col": 1,
+          "active": false
+        },
+        {
+          "id": "4-3",
+          "row": 3,
+          "col": 2,
+          "active": true
+        },
+        {
+          "id": "4-4",
+          "row": 3,
+          "col": 3,
+          "active": false
+        },
+        {
+          "id": "4-5",
+          "row": 3,
+          "col": 4,
+          "active": true
+        },
+        {
+          "id": "4-6",
+          "row": 3,
+          "col": 5,
+          "active": false
+        },
+        {
+          "id": "4-7",
+          "row": 3,
+          "col": 6,
+          "active": true
+        },
+        {
+          "id": "4-8",
+          "row": 3,
+          "col": 7,
+          "active": false
+        },
+        {
+          "id": "4-9",
+          "row": 3,
+          "col": 8,
+          "active": true
+        },
+        {
+          "id": "4-10",
+          "row": 3,
+          "col": 9,
+          "active": false
+        },
+        {
+          "id": "4-11",
+          "row": 3,
+          "col": 10,
+          "active": true
+        },
+        {
+          "id": "5-1",
+          "row": 4,
+          "col": 0,
+          "active": true
+        },
+        {
+          "id": "5-2",
+          "row": 4,
+          "col": 1,
+          "active": false
+        },
+        {
+          "id": "5-3",
+          "row": 4,
+          "col": 2,
+          "active": true
+        },
+        {
+          "id": "5-4",
+          "row": 4,
+          "col": 3,
+          "active": false
+        },
+        {
+          "id": "5-5",
+          "row": 4,
+          "col": 4,
+          "active": true
+        },
+        {
+          "id": "5-6",
+          "row": 4,
+          "col": 5,
+          "active": false
+        },
+        {
+          "id": "5-7",
+          "row": 4,
+          "col": 6,
+          "active": true
+        },
+        {
+          "id": "5-8",
+          "row": 4,
+          "col": 7,
+          "active": false
+        },
+        {
+          "id": "5-9",
+          "row": 4,
+          "col": 8,
+          "active": true
+        },
+        {
+          "id": "5-10",
+          "row": 4,
+          "col": 9,
+          "active": false
+        },
+        {
+          "id": "5-11",
+          "row": 4,
+          "col": 10,
+          "active": true
+        },
+        {
+          "id": "6-1",
+          "row": 5,
+          "col": 0,
+          "active": true
+        },
+        {
+          "id": "6-2",
+          "row": 5,
+          "col": 1,
+          "active": false
+        },
+        {
+          "id": "6-3",
+          "row": 5,
+          "col": 2,
+          "active": true
+        },
+        {
+          "id": "6-4",
+          "row": 5,
+          "col": 3,
+          "active": false
+        },
+        {
+          "id": "6-5",
+          "row": 5,
+          "col": 4,
+          "active": true
+        },
+        {
+          "id": "6-6",
+          "row": 5,
+          "col": 5,
+          "active": false
+        },
+        {
+          "id": "6-7",
+          "row": 5,
+          "col": 6,
+          "active": true
+        },
+        {
+          "id": "6-8",
+          "row": 5,
+          "col": 7,
+          "active": false
+        },
+        {
+          "id": "6-9",
+          "row": 5,
+          "col": 8,
+          "active": true
+        },
+        {
+          "id": "6-10",
+          "row": 5,
+          "col": 9,
+          "active": false
+        },
+        {
+          "id": "6-11",
+          "row": 5,
+          "col": 10,
+          "active": true
+        },
+        {
+          "id": "7-1",
+          "row": 6,
+          "col": 0,
+          "active": true
+        },
+        {
+          "id": "7-2",
+          "row": 6,
+          "col": 1,
+          "active": false
+        },
+        {
+          "id": "7-3",
+          "row": 6,
+          "col": 2,
+          "active": true
+        },
+        {
+          "id": "7-4",
+          "row": 6,
+          "col": 3,
+          "active": false
+        },
+        {
+          "id": "7-5",
+          "row": 6,
+          "col": 4,
+          "active": true
+        },
+        {
+          "id": "7-6",
+          "row": 6,
+          "col": 5,
+          "active": false
+        },
+        {
+          "id": "7-7",
+          "row": 6,
+          "col": 6,
+          "active": true
+        },
+        {
+          "id": "7-8",
+          "row": 6,
+          "col": 7,
+          "active": false
+        },
+        {
+          "id": "7-9",
+          "row": 6,
+          "col": 8,
+          "active": true
+        },
+        {
+          "id": "7-10",
+          "row": 6,
+          "col": 9,
+          "active": false
+        },
+        {
+          "id": "7-11",
+          "row": 6,
+          "col": 10,
+          "active": true
+        },
+        {
+          "id": "8-1",
+          "row": 7,
+          "col": 0,
+          "active": true
+        },
+        {
+          "id": "8-2",
+          "row": 7,
+          "col": 1,
+          "active": false
+        },
+        {
+          "id": "8-3",
+          "row": 7,
+          "col": 2,
+          "active": false
+        },
+        {
+          "id": "8-4",
+          "row": 7,
+          "col": 3,
+          "active": false
+        },
+        {
+          "id": "8-5",
+          "row": 7,
+          "col": 4,
+          "active": false
+        },
+        {
+          "id": "8-6",
+          "row": 7,
+          "col": 5,
+          "active": false
+        },
+        {
+          "id": "8-7",
+          "row": 7,
+          "col": 6,
+          "active": false
+        },
+        {
+          "id": "8-8",
+          "row": 7,
+          "col": 7,
+          "active": false
+        },
+        {
+          "id": "8-9",
+          "row": 7,
+          "col": 8,
+          "active": false
+        },
+        {
+          "id": "8-10",
+          "row": 7,
+          "col": 9,
+          "active": false
+        },
+        {
+          "id": "8-11",
+          "row": 7,
+          "col": 10,
+          "active": false
+        }
+      ],
+      "thumbnailData": {
+        "rows": 8,
+        "cols": 11,
+        "cells": [
+          {
+            "row": 0,
+            "col": 0,
+            "active": true,
+            "merged": false,
+            "studentName": "蓝义皓",
+            "priority": 6
+          },
+          {
+            "row": 0,
+            "col": 1,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 0,
+            "col": 2,
+            "active": true,
+            "merged": false,
+            "studentName": "刘入源",
+            "priority": 2
+          },
+          {
+            "row": 0,
+            "col": 3,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 0,
+            "col": 4,
+            "active": true,
+            "merged": false,
+            "studentName": "邹梓航",
+            "priority": 4
+          },
+          {
+            "row": 0,
+            "col": 5,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 0,
+            "col": 6,
+            "active": true,
+            "merged": false,
+            "studentName": "刘晨熙",
+            "priority": 2
+          },
+          {
+            "row": 0,
+            "col": 7,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 0,
+            "col": 8,
+            "active": true,
+            "merged": false,
+            "studentName": "阚雅涵",
+            "priority": 6
+          },
+          {
+            "row": 0,
+            "col": 9,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 0,
+            "col": 10,
+            "active": true,
+            "merged": false,
+            "studentName": "王琮睿",
+            "priority": 9
+          },
+          {
+            "row": 1,
+            "col": 0,
+            "active": true,
+            "merged": false,
+            "studentName": "邓渝凡",
+            "priority": 9
+          },
+          {
+            "row": 1,
+            "col": 1,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 1,
+            "col": 2,
+            "active": true,
+            "merged": false,
+            "studentName": "袁俪玮",
+            "priority": 2
+          },
+          {
+            "row": 1,
+            "col": 3,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 1,
+            "col": 4,
+            "active": true,
+            "merged": false,
+            "studentName": "易安心",
+            "priority": 2
+          },
+          {
+            "row": 1,
+            "col": 5,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 1,
+            "col": 6,
+            "active": true,
+            "merged": false,
+            "studentName": "王晨辰",
+            "priority": 9
+          },
+          {
+            "row": 1,
+            "col": 7,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 1,
+            "col": 8,
+            "active": true,
+            "merged": false,
+            "studentName": "赖俊豪",
+            "priority": 2
+          },
+          {
+            "row": 1,
+            "col": 9,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 1,
+            "col": 10,
+            "active": true,
+            "merged": false,
+            "studentName": "袁昊",
+            "priority": 2
+          },
+          {
+            "row": 2,
+            "col": 0,
+            "active": true,
+            "merged": false,
+            "studentName": "冉家鳌",
+            "priority": 6
+          },
+          {
+            "row": 2,
+            "col": 1,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 2,
+            "col": 2,
+            "active": true,
+            "merged": false,
+            "studentName": "胡荣耀",
+            "priority": 7
+          },
+          {
+            "row": 2,
+            "col": 3,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 2,
+            "col": 4,
+            "active": true,
+            "merged": false,
+            "studentName": "冯晨轩",
+            "priority": 2
+          },
+          {
+            "row": 2,
+            "col": 5,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 2,
+            "col": 6,
+            "active": true,
+            "merged": false,
+            "studentName": "董溢文",
+            "priority": 2
+          },
+          {
+            "row": 2,
+            "col": 7,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 2,
+            "col": 8,
+            "active": true,
+            "merged": false,
+            "studentName": "徐浚卜",
+            "priority": 4
+          },
+          {
+            "row": 2,
+            "col": 9,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 2,
+            "col": 10,
+            "active": true,
+            "merged": false,
+            "studentName": "冉宇泽",
+            "priority": 2
+          },
+          {
+            "row": 3,
+            "col": 0,
+            "active": true,
+            "merged": false,
+            "studentName": "徐于淇",
+            "priority": 2
+          },
+          {
+            "row": 3,
+            "col": 1,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 3,
+            "col": 2,
+            "active": true,
+            "merged": false,
+            "studentName": "蒋佳骏",
+            "priority": 7
+          },
+          {
+            "row": 3,
+            "col": 3,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 3,
+            "col": 4,
+            "active": true,
+            "merged": false,
+            "studentName": "喻叶函",
+            "priority": 7
+          },
+          {
+            "row": 3,
+            "col": 5,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 3,
+            "col": 6,
+            "active": true,
+            "merged": false,
+            "studentName": "陈浩博",
+            "priority": 6
+          },
+          {
+            "row": 3,
+            "col": 7,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 3,
+            "col": 8,
+            "active": true,
+            "merged": false,
+            "studentName": "赖佳颖",
+            "priority": 2
+          },
+          {
+            "row": 3,
+            "col": 9,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 3,
+            "col": 10,
+            "active": true,
+            "merged": false,
+            "studentName": "黎梦琪",
+            "priority": 2
+          },
+          {
+            "row": 4,
+            "col": 0,
+            "active": true,
+            "merged": false,
+            "studentName": "徐小乔",
+            "priority": 2
+          },
+          {
+            "row": 4,
+            "col": 1,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 4,
+            "col": 2,
+            "active": true,
+            "merged": false,
+            "studentName": "何泓霖",
+            "priority": 9
+          },
+          {
+            "row": 4,
+            "col": 3,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 4,
+            "col": 4,
+            "active": true,
+            "merged": false,
+            "studentName": "王泽诚",
+            "priority": 6
+          },
+          {
+            "row": 4,
+            "col": 5,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 4,
+            "col": 6,
+            "active": true,
+            "merged": false,
+            "studentName": "王梓祺",
+            "priority": 2
+          },
+          {
+            "row": 4,
+            "col": 7,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 4,
+            "col": 8,
+            "active": true,
+            "merged": false,
+            "studentName": "龚雅琪",
+            "priority": 2
+          },
+          {
+            "row": 4,
+            "col": 9,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 4,
+            "col": 10,
+            "active": true,
+            "merged": false,
+            "studentName": "蒋芮西",
+            "priority": 2
+          },
+          {
+            "row": 5,
+            "col": 0,
+            "active": true,
+            "merged": false,
+            "studentName": "彭子媂",
+            "priority": 4
+          },
+          {
+            "row": 5,
+            "col": 1,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 5,
+            "col": 2,
+            "active": true,
+            "merged": false,
+            "studentName": "陈可美",
+            "priority": 2
+          },
+          {
+            "row": 5,
+            "col": 3,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 5,
+            "col": 4,
+            "active": true,
+            "merged": false,
+            "studentName": "秦姝楟",
+            "priority": 6
+          },
+          {
+            "row": 5,
+            "col": 5,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 5,
+            "col": 6,
+            "active": true,
+            "merged": false,
+            "studentName": "吴佳芮",
+            "priority": 2
+          },
+          {
+            "row": 5,
+            "col": 7,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 5,
+            "col": 8,
+            "active": true,
+            "merged": false,
+            "studentName": "王晨雨琳",
+            "priority": 2
+          },
+          {
+            "row": 5,
+            "col": 9,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 5,
+            "col": 10,
+            "active": true,
+            "merged": false,
+            "studentName": "宋荐昕",
+            "priority": 2
+          },
+          {
+            "row": 6,
+            "col": 0,
+            "active": true,
+            "merged": false,
+            "studentName": "刘烨梓",
+            "priority": 2
+          },
+          {
+            "row": 6,
+            "col": 1,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 6,
+            "col": 2,
+            "active": true,
+            "merged": false,
+            "studentName": "胡琴雅淇",
+            "priority": 2
+          },
+          {
+            "row": 6,
+            "col": 3,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 6,
+            "col": 4,
+            "active": true,
+            "merged": false,
+            "studentName": "曾馨",
+            "priority": 2
+          },
+          {
+            "row": 6,
+            "col": 5,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 6,
+            "col": 6,
+            "active": true,
+            "merged": false,
+            "studentName": "龚煜心",
+            "priority": 6
+          },
+          {
+            "row": 6,
+            "col": 7,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 6,
+            "col": 8,
+            "active": true,
+            "merged": false,
+            "studentName": "孙浩凯",
+            "priority": 4
+          },
+          {
+            "row": 6,
+            "col": 9,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 6,
+            "col": 10,
+            "active": true,
+            "merged": false,
+            "studentName": "刘梓谖",
+            "priority": 6
+          },
+          {
+            "row": 7,
+            "col": 0,
+            "active": true,
+            "merged": false,
+            "studentName": "丁紫洪",
+            "priority": 4
+          },
+          {
+            "row": 7,
+            "col": 1,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 7,
+            "col": 2,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 7,
+            "col": 3,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 7,
+            "col": 4,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 7,
+            "col": 5,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 7,
+            "col": 6,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 7,
+            "col": 7,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 7,
+            "col": 8,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 7,
+            "col": 9,
+            "active": false,
+            "merged": false
+          },
+          {
+            "row": 7,
+            "col": 10,
+            "active": false,
+            "merged": false
+          }
+        ]
+      },
+      "teachingWeek": 14
     }
   ],
+  "seat-data-migrated-v2": true,
   "seat_skipped": [],
   "app-config": {
     "version": 13,
@@ -7325,6 +9453,22 @@
       "createdAt": "2026-06-04T01:46:12.583Z"
     },
     {
+      "studentId": "43",
+      "direction": "negative",
+      "weight": 2,
+      "category": "品行",
+      "description": "说脏话",
+      "remark": "",
+      "recordedBy": "邹梓航",
+      "verified": true,
+      "shieldsConsumed": 4,
+      "extraWeight": 0,
+      "isHighSensitivity": false,
+      "studentCardSide": "front",
+      "id": "2143",
+      "createdAt": "2026-06-04T01:45:25.437Z"
+    },
+    {
       "studentId": "26",
       "direction": "negative",
       "weight": 2,
@@ -7588,6 +9732,22 @@
       "createdAt": "2026-06-03T01:56:20.152Z"
     },
     {
+      "studentId": "43",
+      "direction": "negative",
+      "weight": 2,
+      "category": "纪律",
+      "description": "课间追逐打闹或在教室大喊大叫",
+      "remark": "",
+      "recordedBy": "王琮睿",
+      "verified": true,
+      "shieldsConsumed": 4,
+      "extraWeight": 0,
+      "isHighSensitivity": false,
+      "studentCardSide": "front",
+      "id": "2126",
+      "createdAt": "2026-06-03T01:56:20.146Z"
+    },
+    {
       "studentId": "10",
       "direction": "negative",
       "weight": 1,
@@ -7603,6 +9763,23 @@
       "timePeriodId": "tp-zhengzhi",
       "id": "2125",
       "createdAt": "2026-06-03T01:55:19.475Z"
+    },
+    {
+      "studentId": "43",
+      "direction": "negative",
+      "weight": 1,
+      "category": "学习",
+      "description": "课上不记笔记、做与学习无关的事情、睡觉/趴桌",
+      "remark": "",
+      "recordedBy": "王琮睿",
+      "verified": true,
+      "shieldsConsumed": 2,
+      "extraWeight": 0,
+      "isHighSensitivity": false,
+      "studentCardSide": "front",
+      "timePeriodId": "tp-zhengzhi",
+      "id": "2124",
+      "createdAt": "2026-06-03T01:55:19.469Z"
     },
     {
       "studentId": "23",
@@ -20281,6 +22458,20 @@
       "createdAt": "2026-05-26T23:23:16.070Z"
     },
     {
+      "studentId": "43",
+      "direction": "negative",
+      "weight": 1,
+      "category": "纪律",
+      "description": "迟到",
+      "recordedBy": "王老师",
+      "verified": true,
+      "shieldsConsumed": 2,
+      "isHighSensitivity": false,
+      "studentCardSide": "front",
+      "id": "672",
+      "createdAt": "2026-05-26T23:23:16.064Z"
+    },
+    {
       "studentId": "13",
       "direction": "negative",
       "weight": 1,
@@ -25819,6 +28010,20 @@
       "createdAt": "2026-05-20T01:48:56.418Z"
     },
     {
+      "studentId": "43",
+      "direction": "negative",
+      "weight": 2,
+      "category": "纪律",
+      "description": "课上随意讲话",
+      "recordedBy": "蓝义皓",
+      "verified": true,
+      "shieldsConsumed": 0,
+      "isHighSensitivity": false,
+      "studentCardSide": "front",
+      "id": "268",
+      "createdAt": "2026-05-20T01:48:56.417Z"
+    },
+    {
       "studentId": "30",
       "direction": "negative",
       "weight": 2,
@@ -25934,6 +28139,20 @@
       "createdAt": "2026-05-20T01:46:17.921Z"
     },
     {
+      "studentId": "43",
+      "direction": "negative",
+      "weight": 1,
+      "category": "纪律",
+      "description": "预备铃后未按时就位",
+      "recordedBy": "王晨雨琳",
+      "verified": true,
+      "shieldsConsumed": 0,
+      "isHighSensitivity": false,
+      "studentCardSide": "front",
+      "id": "259",
+      "createdAt": "2026-05-20T01:46:17.919Z"
+    },
+    {
       "studentId": "21",
       "direction": "negative",
       "weight": 2,
@@ -25946,6 +28165,20 @@
       "studentCardSide": "front",
       "id": "258",
       "createdAt": "2026-05-20T01:45:53.738Z"
+    },
+    {
+      "studentId": "43",
+      "direction": "negative",
+      "weight": 2,
+      "category": "纪律",
+      "description": "课间追逐打闹",
+      "recordedBy": "王晨雨琳",
+      "verified": true,
+      "shieldsConsumed": 2,
+      "isHighSensitivity": false,
+      "studentCardSide": "front",
+      "id": "257",
+      "createdAt": "2026-05-20T01:45:53.736Z"
     },
     {
       "studentId": "26",
@@ -28878,6 +31111,21 @@
       "createdAt": "2026-05-19T17:55:16.798Z"
     },
     {
+      "studentId": "43",
+      "direction": "negative",
+      "weight": 1,
+      "category": "学习",
+      "description": "作业未按时上交或未按要求完成",
+      "remark": "语文作业",
+      "recordedBy": "袁俪玮",
+      "verified": true,
+      "shieldsConsumed": 2,
+      "isHighSensitivity": false,
+      "studentCardSide": "front",
+      "id": "43",
+      "createdAt": "2026-05-19T17:55:16.798Z"
+    },
+    {
       "studentId": "11",
       "direction": "negative",
       "weight": 1,
@@ -29478,2664 +31726,6 @@
       "createdAt": "2026-05-19T17:53:19.888Z"
     }
   ],
-  "seat-history": [
-    {
-      "date": "2026-05-25T11:51:39.911Z",
-      "assignments": [
-        {
-          "seatId": "3-7",
-          "studentId": "17"
-        },
-        {
-          "seatId": "2-5",
-          "studentId": "39"
-        },
-        {
-          "seatId": "1-7",
-          "studentId": "20"
-        },
-        {
-          "seatId": "4-1",
-          "studentId": "19"
-        },
-        {
-          "seatId": "5-1",
-          "studentId": "28"
-        },
-        {
-          "seatId": "3-1",
-          "studentId": "14"
-        },
-        {
-          "seatId": "6-1",
-          "studentId": "24"
-        },
-        {
-          "seatId": "6-11",
-          "studentId": "37"
-        },
-        {
-          "seatId": "7-11",
-          "studentId": "38"
-        },
-        {
-          "seatId": "4-5",
-          "studentId": "11"
-        },
-        {
-          "seatId": "3-3",
-          "studentId": "8"
-        },
-        {
-          "seatId": "4-11",
-          "studentId": "27"
-        },
-        {
-          "seatId": "5-11",
-          "studentId": "22"
-        },
-        {
-          "seatId": "2-3",
-          "studentId": "31"
-        },
-        {
-          "seatId": "4-3",
-          "studentId": "16"
-        },
-        {
-          "seatId": "4-7",
-          "studentId": "1779204595006"
-        },
-        {
-          "seatId": "5-5",
-          "studentId": "7"
-        },
-        {
-          "seatId": "2-9",
-          "studentId": "21"
-        },
-        {
-          "seatId": "3-5",
-          "studentId": "34"
-        },
-        {
-          "seatId": "3-9",
-          "studentId": "41"
-        },
-        {
-          "seatId": "6-3",
-          "studentId": "3"
-        },
-        {
-          "seatId": "5-7",
-          "studentId": "25"
-        },
-        {
-          "seatId": "8-1",
-          "studentId": "5"
-        },
-        {
-          "seatId": "2-7",
-          "studentId": "42"
-        },
-        {
-          "seatId": "1-5",
-          "studentId": "43"
-        },
-        {
-          "seatId": "1-3",
-          "studentId": "18"
-        },
-        {
-          "seatId": "6-9",
-          "studentId": "30"
-        },
-        {
-          "seatId": "5-3",
-          "studentId": "23"
-        },
-        {
-          "seatId": "6-5",
-          "studentId": "33"
-        },
-        {
-          "seatId": "6-7",
-          "studentId": "35"
-        },
-        {
-          "seatId": "3-11",
-          "studentId": "36"
-        },
-        {
-          "seatId": "4-9",
-          "studentId": "2"
-        },
-        {
-          "seatId": "7-1",
-          "studentId": "29"
-        },
-        {
-          "seatId": "5-9",
-          "studentId": "32"
-        },
-        {
-          "seatId": "7-9",
-          "studentId": "9"
-        },
-        {
-          "seatId": "2-11",
-          "studentId": "13"
-        },
-        {
-          "seatId": "7-7",
-          "studentId": "12"
-        },
-        {
-          "seatId": "7-5",
-          "studentId": "26"
-        },
-        {
-          "seatId": "2-1",
-          "studentId": "10"
-        },
-        {
-          "seatId": "1-9",
-          "studentId": "15"
-        },
-        {
-          "seatId": "1-11",
-          "studentId": "40"
-        },
-        {
-          "seatId": "1-1",
-          "studentId": "4"
-        },
-        {
-          "seatId": "7-3",
-          "studentId": "6"
-        }
-      ],
-      "layout": [
-        {
-          "id": "1-1",
-          "row": 0,
-          "col": 0,
-          "active": true
-        },
-        {
-          "id": "1-2",
-          "row": 0,
-          "col": 1,
-          "active": false
-        },
-        {
-          "id": "1-3",
-          "row": 0,
-          "col": 2,
-          "active": true
-        },
-        {
-          "id": "1-4",
-          "row": 0,
-          "col": 3,
-          "active": false
-        },
-        {
-          "id": "1-5",
-          "row": 0,
-          "col": 4,
-          "active": true
-        },
-        {
-          "id": "1-6",
-          "row": 0,
-          "col": 5,
-          "active": false
-        },
-        {
-          "id": "1-7",
-          "row": 0,
-          "col": 6,
-          "active": true
-        },
-        {
-          "id": "1-8",
-          "row": 0,
-          "col": 7,
-          "active": false
-        },
-        {
-          "id": "1-9",
-          "row": 0,
-          "col": 8,
-          "active": true
-        },
-        {
-          "id": "1-10",
-          "row": 0,
-          "col": 9,
-          "active": false
-        },
-        {
-          "id": "1-11",
-          "row": 0,
-          "col": 10,
-          "active": true
-        },
-        {
-          "id": "2-1",
-          "row": 1,
-          "col": 0,
-          "active": true
-        },
-        {
-          "id": "2-2",
-          "row": 1,
-          "col": 1,
-          "active": false
-        },
-        {
-          "id": "2-3",
-          "row": 1,
-          "col": 2,
-          "active": true
-        },
-        {
-          "id": "2-4",
-          "row": 1,
-          "col": 3,
-          "active": false
-        },
-        {
-          "id": "2-5",
-          "row": 1,
-          "col": 4,
-          "active": true
-        },
-        {
-          "id": "2-6",
-          "row": 1,
-          "col": 5,
-          "active": false
-        },
-        {
-          "id": "2-7",
-          "row": 1,
-          "col": 6,
-          "active": true
-        },
-        {
-          "id": "2-8",
-          "row": 1,
-          "col": 7,
-          "active": false
-        },
-        {
-          "id": "2-9",
-          "row": 1,
-          "col": 8,
-          "active": true
-        },
-        {
-          "id": "2-10",
-          "row": 1,
-          "col": 9,
-          "active": false
-        },
-        {
-          "id": "2-11",
-          "row": 1,
-          "col": 10,
-          "active": true
-        },
-        {
-          "id": "3-1",
-          "row": 2,
-          "col": 0,
-          "active": true
-        },
-        {
-          "id": "3-2",
-          "row": 2,
-          "col": 1,
-          "active": false
-        },
-        {
-          "id": "3-3",
-          "row": 2,
-          "col": 2,
-          "active": true
-        },
-        {
-          "id": "3-4",
-          "row": 2,
-          "col": 3,
-          "active": false
-        },
-        {
-          "id": "3-5",
-          "row": 2,
-          "col": 4,
-          "active": true
-        },
-        {
-          "id": "3-6",
-          "row": 2,
-          "col": 5,
-          "active": false
-        },
-        {
-          "id": "3-7",
-          "row": 2,
-          "col": 6,
-          "active": true
-        },
-        {
-          "id": "3-8",
-          "row": 2,
-          "col": 7,
-          "active": false
-        },
-        {
-          "id": "3-9",
-          "row": 2,
-          "col": 8,
-          "active": true
-        },
-        {
-          "id": "3-10",
-          "row": 2,
-          "col": 9,
-          "active": false
-        },
-        {
-          "id": "3-11",
-          "row": 2,
-          "col": 10,
-          "active": true
-        },
-        {
-          "id": "4-1",
-          "row": 3,
-          "col": 0,
-          "active": true
-        },
-        {
-          "id": "4-2",
-          "row": 3,
-          "col": 1,
-          "active": false
-        },
-        {
-          "id": "4-3",
-          "row": 3,
-          "col": 2,
-          "active": true
-        },
-        {
-          "id": "4-4",
-          "row": 3,
-          "col": 3,
-          "active": false
-        },
-        {
-          "id": "4-5",
-          "row": 3,
-          "col": 4,
-          "active": true
-        },
-        {
-          "id": "4-6",
-          "row": 3,
-          "col": 5,
-          "active": false
-        },
-        {
-          "id": "4-7",
-          "row": 3,
-          "col": 6,
-          "active": true
-        },
-        {
-          "id": "4-8",
-          "row": 3,
-          "col": 7,
-          "active": false
-        },
-        {
-          "id": "4-9",
-          "row": 3,
-          "col": 8,
-          "active": true
-        },
-        {
-          "id": "4-10",
-          "row": 3,
-          "col": 9,
-          "active": false
-        },
-        {
-          "id": "4-11",
-          "row": 3,
-          "col": 10,
-          "active": true
-        },
-        {
-          "id": "5-1",
-          "row": 4,
-          "col": 0,
-          "active": true
-        },
-        {
-          "id": "5-2",
-          "row": 4,
-          "col": 1,
-          "active": false
-        },
-        {
-          "id": "5-3",
-          "row": 4,
-          "col": 2,
-          "active": true
-        },
-        {
-          "id": "5-4",
-          "row": 4,
-          "col": 3,
-          "active": false
-        },
-        {
-          "id": "5-5",
-          "row": 4,
-          "col": 4,
-          "active": true
-        },
-        {
-          "id": "5-6",
-          "row": 4,
-          "col": 5,
-          "active": false
-        },
-        {
-          "id": "5-7",
-          "row": 4,
-          "col": 6,
-          "active": true
-        },
-        {
-          "id": "5-8",
-          "row": 4,
-          "col": 7,
-          "active": false
-        },
-        {
-          "id": "5-9",
-          "row": 4,
-          "col": 8,
-          "active": true
-        },
-        {
-          "id": "5-10",
-          "row": 4,
-          "col": 9,
-          "active": false
-        },
-        {
-          "id": "5-11",
-          "row": 4,
-          "col": 10,
-          "active": true
-        },
-        {
-          "id": "6-1",
-          "row": 5,
-          "col": 0,
-          "active": true
-        },
-        {
-          "id": "6-2",
-          "row": 5,
-          "col": 1,
-          "active": false
-        },
-        {
-          "id": "6-3",
-          "row": 5,
-          "col": 2,
-          "active": true
-        },
-        {
-          "id": "6-4",
-          "row": 5,
-          "col": 3,
-          "active": false
-        },
-        {
-          "id": "6-5",
-          "row": 5,
-          "col": 4,
-          "active": true
-        },
-        {
-          "id": "6-6",
-          "row": 5,
-          "col": 5,
-          "active": false
-        },
-        {
-          "id": "6-7",
-          "row": 5,
-          "col": 6,
-          "active": true
-        },
-        {
-          "id": "6-8",
-          "row": 5,
-          "col": 7,
-          "active": false
-        },
-        {
-          "id": "6-9",
-          "row": 5,
-          "col": 8,
-          "active": true
-        },
-        {
-          "id": "6-10",
-          "row": 5,
-          "col": 9,
-          "active": false
-        },
-        {
-          "id": "6-11",
-          "row": 5,
-          "col": 10,
-          "active": true
-        },
-        {
-          "id": "7-1",
-          "row": 6,
-          "col": 0,
-          "active": true
-        },
-        {
-          "id": "7-2",
-          "row": 6,
-          "col": 1,
-          "active": false
-        },
-        {
-          "id": "7-3",
-          "row": 6,
-          "col": 2,
-          "active": true
-        },
-        {
-          "id": "7-4",
-          "row": 6,
-          "col": 3,
-          "active": false
-        },
-        {
-          "id": "7-5",
-          "row": 6,
-          "col": 4,
-          "active": true
-        },
-        {
-          "id": "7-6",
-          "row": 6,
-          "col": 5,
-          "active": false
-        },
-        {
-          "id": "7-7",
-          "row": 6,
-          "col": 6,
-          "active": true
-        },
-        {
-          "id": "7-8",
-          "row": 6,
-          "col": 7,
-          "active": false
-        },
-        {
-          "id": "7-9",
-          "row": 6,
-          "col": 8,
-          "active": true
-        },
-        {
-          "id": "7-10",
-          "row": 6,
-          "col": 9,
-          "active": false
-        },
-        {
-          "id": "7-11",
-          "row": 6,
-          "col": 10,
-          "active": true
-        },
-        {
-          "id": "8-1",
-          "row": 7,
-          "col": 0,
-          "active": true
-        },
-        {
-          "id": "8-2",
-          "row": 7,
-          "col": 1,
-          "active": false
-        },
-        {
-          "id": "8-3",
-          "row": 7,
-          "col": 2,
-          "active": false
-        },
-        {
-          "id": "8-4",
-          "row": 7,
-          "col": 3,
-          "active": false
-        },
-        {
-          "id": "8-5",
-          "row": 7,
-          "col": 4,
-          "active": false
-        },
-        {
-          "id": "8-6",
-          "row": 7,
-          "col": 5,
-          "active": false
-        },
-        {
-          "id": "8-7",
-          "row": 7,
-          "col": 6,
-          "active": false
-        },
-        {
-          "id": "8-8",
-          "row": 7,
-          "col": 7,
-          "active": false
-        },
-        {
-          "id": "8-9",
-          "row": 7,
-          "col": 8,
-          "active": false
-        },
-        {
-          "id": "8-10",
-          "row": 7,
-          "col": 9,
-          "active": false
-        },
-        {
-          "id": "8-11",
-          "row": 7,
-          "col": 10,
-          "active": false
-        }
-      ],
-      "thumbnailData": {
-        "rows": 8,
-        "cols": 11,
-        "cells": [
-          {
-            "row": 0,
-            "col": 0,
-            "active": true,
-            "merged": false,
-            "studentName": "邓渝凡",
-            "priority": 7
-          },
-          {
-            "row": 0,
-            "col": 1,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 0,
-            "col": 2,
-            "active": true,
-            "merged": false,
-            "studentName": "蓝义皓",
-            "priority": 4
-          },
-          {
-            "row": 0,
-            "col": 3,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 0,
-            "col": 4,
-            "active": true,
-            "merged": false,
-            "studentName": "邹梓航",
-            "priority": 4
-          },
-          {
-            "row": 0,
-            "col": 5,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 0,
-            "col": 6,
-            "active": true,
-            "merged": false,
-            "studentName": "刘晨熙",
-            "priority": 2
-          },
-          {
-            "row": 0,
-            "col": 7,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 0,
-            "col": 8,
-            "active": true,
-            "merged": false,
-            "studentName": "阚雅涵",
-            "priority": 6
-          },
-          {
-            "row": 0,
-            "col": 9,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 0,
-            "col": 10,
-            "active": true,
-            "merged": false,
-            "studentName": "喻叶函",
-            "priority": 6
-          },
-          {
-            "row": 1,
-            "col": 0,
-            "active": true,
-            "merged": false,
-            "studentName": "何泓霖",
-            "priority": 6
-          },
-          {
-            "row": 1,
-            "col": 1,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 1,
-            "col": 2,
-            "active": true,
-            "merged": false,
-            "studentName": "王晨雨琳",
-            "priority": 2
-          },
-          {
-            "row": 1,
-            "col": 3,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 1,
-            "col": 4,
-            "active": true,
-            "merged": false,
-            "studentName": "易安心",
-            "priority": 2
-          },
-          {
-            "row": 1,
-            "col": 5,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 1,
-            "col": 6,
-            "active": true,
-            "merged": false,
-            "studentName": "袁俪玮",
-            "priority": 2
-          },
-          {
-            "row": 1,
-            "col": 7,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 1,
-            "col": 8,
-            "active": true,
-            "merged": false,
-            "studentName": "刘入源",
-            "priority": 2
-          },
-          {
-            "row": 1,
-            "col": 9,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 1,
-            "col": 10,
-            "active": true,
-            "merged": false,
-            "studentName": "蒋佳骏",
-            "priority": 4
-          },
-          {
-            "row": 2,
-            "col": 0,
-            "active": true,
-            "merged": false,
-            "studentName": "蒋芮西",
-            "priority": 2
-          },
-          {
-            "row": 2,
-            "col": 1,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 2,
-            "col": 2,
-            "active": true,
-            "merged": false,
-            "studentName": "龚雅琪",
-            "priority": 2
-          },
-          {
-            "row": 2,
-            "col": 3,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 2,
-            "col": 4,
-            "active": true,
-            "merged": false,
-            "studentName": "王梓祺",
-            "priority": 2
-          },
-          {
-            "row": 2,
-            "col": 5,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 2,
-            "col": 6,
-            "active": true,
-            "merged": false,
-            "studentName": "赖俊豪",
-            "priority": 2
-          },
-          {
-            "row": 2,
-            "col": 7,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 2,
-            "col": 8,
-            "active": true,
-            "merged": false,
-            "studentName": "袁昊",
-            "priority": 2
-          },
-          {
-            "row": 2,
-            "col": 9,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 2,
-            "col": 10,
-            "active": true,
-            "merged": false,
-            "studentName": "徐浚卜",
-            "priority": 4
-          },
-          {
-            "row": 3,
-            "col": 0,
-            "active": true,
-            "merged": false,
-            "studentName": "黎梦琪",
-            "priority": 2
-          },
-          {
-            "row": 3,
-            "col": 1,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 3,
-            "col": 2,
-            "active": true,
-            "merged": false,
-            "studentName": "赖佳颖",
-            "priority": 2
-          },
-          {
-            "row": 3,
-            "col": 3,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 3,
-            "col": 4,
-            "active": true,
-            "merged": false,
-            "studentName": "胡琴雅淇",
-            "priority": 2
-          },
-          {
-            "row": 3,
-            "col": 5,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 3,
-            "col": 6,
-            "active": true,
-            "merged": false,
-            "studentName": "曾馨",
-            "priority": 2
-          },
-          {
-            "row": 3,
-            "col": 7,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 3,
-            "col": 8,
-            "active": true,
-            "merged": false,
-            "studentName": "陈浩博",
-            "priority": 4
-          },
-          {
-            "row": 3,
-            "col": 9,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 3,
-            "col": 10,
-            "active": true,
-            "merged": false,
-            "studentName": "冉宇泽",
-            "priority": 2
-          },
-          {
-            "row": 4,
-            "col": 0,
-            "active": true,
-            "merged": false,
-            "studentName": "宋荐昕",
-            "priority": 2
-          },
-          {
-            "row": 4,
-            "col": 1,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 4,
-            "col": 2,
-            "active": true,
-            "merged": false,
-            "studentName": "刘梓谖",
-            "priority": 4
-          },
-          {
-            "row": 4,
-            "col": 3,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 4,
-            "col": 4,
-            "active": true,
-            "merged": false,
-            "studentName": "冯晨轩",
-            "priority": 2
-          },
-          {
-            "row": 4,
-            "col": 5,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 4,
-            "col": 6,
-            "active": true,
-            "merged": false,
-            "studentName": "秦姝楟",
-            "priority": 2
-          },
-          {
-            "row": 4,
-            "col": 7,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 4,
-            "col": 8,
-            "active": true,
-            "merged": false,
-            "studentName": "王琮睿",
-            "priority": 4
-          },
-          {
-            "row": 4,
-            "col": 9,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 4,
-            "col": 10,
-            "active": true,
-            "merged": false,
-            "studentName": "刘烨梓",
-            "priority": 2
-          },
-          {
-            "row": 5,
-            "col": 0,
-            "active": true,
-            "merged": false,
-            "studentName": "彭子媂",
-            "priority": 2
-          },
-          {
-            "row": 5,
-            "col": 1,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 5,
-            "col": 2,
-            "active": true,
-            "merged": false,
-            "studentName": "陈可美",
-            "priority": 2
-          },
-          {
-            "row": 5,
-            "col": 3,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 5,
-            "col": 4,
-            "active": true,
-            "merged": false,
-            "studentName": "王泽诚",
-            "priority": 4
-          },
-          {
-            "row": 5,
-            "col": 5,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 5,
-            "col": 6,
-            "active": true,
-            "merged": false,
-            "studentName": "吴佳芮",
-            "priority": 2
-          },
-          {
-            "row": 5,
-            "col": 7,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 5,
-            "col": 8,
-            "active": true,
-            "merged": false,
-            "studentName": "王晨辰",
-            "priority": 4
-          },
-          {
-            "row": 5,
-            "col": 9,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 5,
-            "col": 10,
-            "active": true,
-            "merged": false,
-            "studentName": "徐小乔",
-            "priority": 2
-          },
-          {
-            "row": 6,
-            "col": 0,
-            "active": true,
-            "merged": false,
-            "studentName": "孙浩凯",
-            "priority": 4
-          },
-          {
-            "row": 6,
-            "col": 1,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 6,
-            "col": 2,
-            "active": true,
-            "merged": false,
-            "studentName": "董溢文",
-            "priority": 2
-          },
-          {
-            "row": 6,
-            "col": 3,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 6,
-            "col": 4,
-            "active": true,
-            "merged": false,
-            "studentName": "冉家鳌",
-            "priority": 6
-          },
-          {
-            "row": 6,
-            "col": 5,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 6,
-            "col": 6,
-            "active": true,
-            "merged": false,
-            "studentName": "胡荣耀",
-            "priority": 6
-          },
-          {
-            "row": 6,
-            "col": 7,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 6,
-            "col": 8,
-            "active": true,
-            "merged": false,
-            "studentName": "龚煜心",
-            "priority": 4
-          },
-          {
-            "row": 6,
-            "col": 9,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 6,
-            "col": 10,
-            "active": true,
-            "merged": false,
-            "studentName": "徐于淇",
-            "priority": 2
-          },
-          {
-            "row": 7,
-            "col": 0,
-            "active": true,
-            "merged": false,
-            "studentName": "丁紫洪",
-            "priority": 2
-          },
-          {
-            "row": 7,
-            "col": 1,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 7,
-            "col": 2,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 7,
-            "col": 3,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 7,
-            "col": 4,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 7,
-            "col": 5,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 7,
-            "col": 6,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 7,
-            "col": 7,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 7,
-            "col": 8,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 7,
-            "col": 9,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 7,
-            "col": 10,
-            "active": false,
-            "merged": false
-          }
-        ]
-      },
-      "teachingWeek": 13
-    },
-    {
-      "date": "2026-06-01T16:08:44.289Z",
-      "assignments": [
-        {
-          "seatId": "2-9",
-          "studentId": "17"
-        },
-        {
-          "seatId": "2-5",
-          "studentId": "39"
-        },
-        {
-          "seatId": "4-11",
-          "studentId": "19"
-        },
-        {
-          "seatId": "4-9",
-          "studentId": "16"
-        },
-        {
-          "seatId": "1-7",
-          "studentId": "20"
-        },
-        {
-          "seatId": "5-1",
-          "studentId": "37"
-        },
-        {
-          "seatId": "3-5",
-          "studentId": "7"
-        },
-        {
-          "seatId": "6-3",
-          "studentId": "3"
-        },
-        {
-          "seatId": "5-11",
-          "studentId": "14"
-        },
-        {
-          "seatId": "3-7",
-          "studentId": "6"
-        },
-        {
-          "seatId": "5-9",
-          "studentId": "8"
-        },
-        {
-          "seatId": "6-7",
-          "studentId": "35"
-        },
-        {
-          "seatId": "7-1",
-          "studentId": "22"
-        },
-        {
-          "seatId": "4-1",
-          "studentId": "38"
-        },
-        {
-          "seatId": "2-3",
-          "studentId": "42"
-        },
-        {
-          "seatId": "6-9",
-          "studentId": "31"
-        },
-        {
-          "seatId": "7-3",
-          "studentId": "11"
-        },
-        {
-          "seatId": "7-5",
-          "studentId": "1779204595006"
-        },
-        {
-          "seatId": "2-11",
-          "studentId": "41"
-        },
-        {
-          "seatId": "6-11",
-          "studentId": "28"
-        },
-        {
-          "seatId": "3-11",
-          "studentId": "27"
-        },
-        {
-          "seatId": "8-1",
-          "studentId": "5"
-        },
-        {
-          "seatId": "1-3",
-          "studentId": "21"
-        },
-        {
-          "seatId": "1-5",
-          "studentId": "43"
-        },
-        {
-          "seatId": "6-1",
-          "studentId": "24"
-        },
-        {
-          "seatId": "3-9",
-          "studentId": "36"
-        },
-        {
-          "seatId": "7-11",
-          "studentId": "23"
-        },
-        {
-          "seatId": "1-1",
-          "studentId": "18"
-        },
-        {
-          "seatId": "6-5",
-          "studentId": "25"
-        },
-        {
-          "seatId": "4-7",
-          "studentId": "2"
-        },
-        {
-          "seatId": "3-1",
-          "studentId": "26"
-        },
-        {
-          "seatId": "1-9",
-          "studentId": "15"
-        },
-        {
-          "seatId": "7-7",
-          "studentId": "9"
-        },
-        {
-          "seatId": "5-5",
-          "studentId": "33"
-        },
-        {
-          "seatId": "7-9",
-          "studentId": "29"
-        },
-        {
-          "seatId": "4-5",
-          "studentId": "40"
-        },
-        {
-          "seatId": "3-3",
-          "studentId": "12"
-        },
-        {
-          "seatId": "5-3",
-          "studentId": "10"
-        },
-        {
-          "seatId": "4-3",
-          "studentId": "13"
-        },
-        {
-          "seatId": "1-11",
-          "studentId": "32"
-        },
-        {
-          "seatId": "2-7",
-          "studentId": "30"
-        },
-        {
-          "seatId": "2-1",
-          "studentId": "4"
-        },
-        {
-          "seatId": "5-7",
-          "studentId": "34"
-        }
-      ],
-      "layout": [
-        {
-          "id": "1-1",
-          "row": 0,
-          "col": 0,
-          "active": true
-        },
-        {
-          "id": "1-2",
-          "row": 0,
-          "col": 1,
-          "active": false
-        },
-        {
-          "id": "1-3",
-          "row": 0,
-          "col": 2,
-          "active": true
-        },
-        {
-          "id": "1-4",
-          "row": 0,
-          "col": 3,
-          "active": false
-        },
-        {
-          "id": "1-5",
-          "row": 0,
-          "col": 4,
-          "active": true
-        },
-        {
-          "id": "1-6",
-          "row": 0,
-          "col": 5,
-          "active": false
-        },
-        {
-          "id": "1-7",
-          "row": 0,
-          "col": 6,
-          "active": true
-        },
-        {
-          "id": "1-8",
-          "row": 0,
-          "col": 7,
-          "active": false
-        },
-        {
-          "id": "1-9",
-          "row": 0,
-          "col": 8,
-          "active": true
-        },
-        {
-          "id": "1-10",
-          "row": 0,
-          "col": 9,
-          "active": false
-        },
-        {
-          "id": "1-11",
-          "row": 0,
-          "col": 10,
-          "active": true
-        },
-        {
-          "id": "2-1",
-          "row": 1,
-          "col": 0,
-          "active": true
-        },
-        {
-          "id": "2-2",
-          "row": 1,
-          "col": 1,
-          "active": false
-        },
-        {
-          "id": "2-3",
-          "row": 1,
-          "col": 2,
-          "active": true
-        },
-        {
-          "id": "2-4",
-          "row": 1,
-          "col": 3,
-          "active": false
-        },
-        {
-          "id": "2-5",
-          "row": 1,
-          "col": 4,
-          "active": true
-        },
-        {
-          "id": "2-6",
-          "row": 1,
-          "col": 5,
-          "active": false
-        },
-        {
-          "id": "2-7",
-          "row": 1,
-          "col": 6,
-          "active": true
-        },
-        {
-          "id": "2-8",
-          "row": 1,
-          "col": 7,
-          "active": false
-        },
-        {
-          "id": "2-9",
-          "row": 1,
-          "col": 8,
-          "active": true
-        },
-        {
-          "id": "2-10",
-          "row": 1,
-          "col": 9,
-          "active": false
-        },
-        {
-          "id": "2-11",
-          "row": 1,
-          "col": 10,
-          "active": true
-        },
-        {
-          "id": "3-1",
-          "row": 2,
-          "col": 0,
-          "active": true
-        },
-        {
-          "id": "3-2",
-          "row": 2,
-          "col": 1,
-          "active": false
-        },
-        {
-          "id": "3-3",
-          "row": 2,
-          "col": 2,
-          "active": true
-        },
-        {
-          "id": "3-4",
-          "row": 2,
-          "col": 3,
-          "active": false
-        },
-        {
-          "id": "3-5",
-          "row": 2,
-          "col": 4,
-          "active": true
-        },
-        {
-          "id": "3-6",
-          "row": 2,
-          "col": 5,
-          "active": false
-        },
-        {
-          "id": "3-7",
-          "row": 2,
-          "col": 6,
-          "active": true
-        },
-        {
-          "id": "3-8",
-          "row": 2,
-          "col": 7,
-          "active": false
-        },
-        {
-          "id": "3-9",
-          "row": 2,
-          "col": 8,
-          "active": true
-        },
-        {
-          "id": "3-10",
-          "row": 2,
-          "col": 9,
-          "active": false
-        },
-        {
-          "id": "3-11",
-          "row": 2,
-          "col": 10,
-          "active": true
-        },
-        {
-          "id": "4-1",
-          "row": 3,
-          "col": 0,
-          "active": true
-        },
-        {
-          "id": "4-2",
-          "row": 3,
-          "col": 1,
-          "active": false
-        },
-        {
-          "id": "4-3",
-          "row": 3,
-          "col": 2,
-          "active": true
-        },
-        {
-          "id": "4-4",
-          "row": 3,
-          "col": 3,
-          "active": false
-        },
-        {
-          "id": "4-5",
-          "row": 3,
-          "col": 4,
-          "active": true
-        },
-        {
-          "id": "4-6",
-          "row": 3,
-          "col": 5,
-          "active": false
-        },
-        {
-          "id": "4-7",
-          "row": 3,
-          "col": 6,
-          "active": true
-        },
-        {
-          "id": "4-8",
-          "row": 3,
-          "col": 7,
-          "active": false
-        },
-        {
-          "id": "4-9",
-          "row": 3,
-          "col": 8,
-          "active": true
-        },
-        {
-          "id": "4-10",
-          "row": 3,
-          "col": 9,
-          "active": false
-        },
-        {
-          "id": "4-11",
-          "row": 3,
-          "col": 10,
-          "active": true
-        },
-        {
-          "id": "5-1",
-          "row": 4,
-          "col": 0,
-          "active": true
-        },
-        {
-          "id": "5-2",
-          "row": 4,
-          "col": 1,
-          "active": false
-        },
-        {
-          "id": "5-3",
-          "row": 4,
-          "col": 2,
-          "active": true
-        },
-        {
-          "id": "5-4",
-          "row": 4,
-          "col": 3,
-          "active": false
-        },
-        {
-          "id": "5-5",
-          "row": 4,
-          "col": 4,
-          "active": true
-        },
-        {
-          "id": "5-6",
-          "row": 4,
-          "col": 5,
-          "active": false
-        },
-        {
-          "id": "5-7",
-          "row": 4,
-          "col": 6,
-          "active": true
-        },
-        {
-          "id": "5-8",
-          "row": 4,
-          "col": 7,
-          "active": false
-        },
-        {
-          "id": "5-9",
-          "row": 4,
-          "col": 8,
-          "active": true
-        },
-        {
-          "id": "5-10",
-          "row": 4,
-          "col": 9,
-          "active": false
-        },
-        {
-          "id": "5-11",
-          "row": 4,
-          "col": 10,
-          "active": true
-        },
-        {
-          "id": "6-1",
-          "row": 5,
-          "col": 0,
-          "active": true
-        },
-        {
-          "id": "6-2",
-          "row": 5,
-          "col": 1,
-          "active": false
-        },
-        {
-          "id": "6-3",
-          "row": 5,
-          "col": 2,
-          "active": true
-        },
-        {
-          "id": "6-4",
-          "row": 5,
-          "col": 3,
-          "active": false
-        },
-        {
-          "id": "6-5",
-          "row": 5,
-          "col": 4,
-          "active": true
-        },
-        {
-          "id": "6-6",
-          "row": 5,
-          "col": 5,
-          "active": false
-        },
-        {
-          "id": "6-7",
-          "row": 5,
-          "col": 6,
-          "active": true
-        },
-        {
-          "id": "6-8",
-          "row": 5,
-          "col": 7,
-          "active": false
-        },
-        {
-          "id": "6-9",
-          "row": 5,
-          "col": 8,
-          "active": true
-        },
-        {
-          "id": "6-10",
-          "row": 5,
-          "col": 9,
-          "active": false
-        },
-        {
-          "id": "6-11",
-          "row": 5,
-          "col": 10,
-          "active": true
-        },
-        {
-          "id": "7-1",
-          "row": 6,
-          "col": 0,
-          "active": true
-        },
-        {
-          "id": "7-2",
-          "row": 6,
-          "col": 1,
-          "active": false
-        },
-        {
-          "id": "7-3",
-          "row": 6,
-          "col": 2,
-          "active": true
-        },
-        {
-          "id": "7-4",
-          "row": 6,
-          "col": 3,
-          "active": false
-        },
-        {
-          "id": "7-5",
-          "row": 6,
-          "col": 4,
-          "active": true
-        },
-        {
-          "id": "7-6",
-          "row": 6,
-          "col": 5,
-          "active": false
-        },
-        {
-          "id": "7-7",
-          "row": 6,
-          "col": 6,
-          "active": true
-        },
-        {
-          "id": "7-8",
-          "row": 6,
-          "col": 7,
-          "active": false
-        },
-        {
-          "id": "7-9",
-          "row": 6,
-          "col": 8,
-          "active": true
-        },
-        {
-          "id": "7-10",
-          "row": 6,
-          "col": 9,
-          "active": false
-        },
-        {
-          "id": "7-11",
-          "row": 6,
-          "col": 10,
-          "active": true
-        },
-        {
-          "id": "8-1",
-          "row": 7,
-          "col": 0,
-          "active": true
-        },
-        {
-          "id": "8-2",
-          "row": 7,
-          "col": 1,
-          "active": false
-        },
-        {
-          "id": "8-3",
-          "row": 7,
-          "col": 2,
-          "active": false
-        },
-        {
-          "id": "8-4",
-          "row": 7,
-          "col": 3,
-          "active": false
-        },
-        {
-          "id": "8-5",
-          "row": 7,
-          "col": 4,
-          "active": false
-        },
-        {
-          "id": "8-6",
-          "row": 7,
-          "col": 5,
-          "active": false
-        },
-        {
-          "id": "8-7",
-          "row": 7,
-          "col": 6,
-          "active": false
-        },
-        {
-          "id": "8-8",
-          "row": 7,
-          "col": 7,
-          "active": false
-        },
-        {
-          "id": "8-9",
-          "row": 7,
-          "col": 8,
-          "active": false
-        },
-        {
-          "id": "8-10",
-          "row": 7,
-          "col": 9,
-          "active": false
-        },
-        {
-          "id": "8-11",
-          "row": 7,
-          "col": 10,
-          "active": false
-        }
-      ],
-      "thumbnailData": {
-        "rows": 8,
-        "cols": 11,
-        "cells": [
-          {
-            "row": 0,
-            "col": 0,
-            "active": true,
-            "merged": false,
-            "studentName": "蓝义皓",
-            "priority": 6
-          },
-          {
-            "row": 0,
-            "col": 1,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 0,
-            "col": 2,
-            "active": true,
-            "merged": false,
-            "studentName": "刘入源",
-            "priority": 2
-          },
-          {
-            "row": 0,
-            "col": 3,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 0,
-            "col": 4,
-            "active": true,
-            "merged": false,
-            "studentName": "邹梓航",
-            "priority": 4
-          },
-          {
-            "row": 0,
-            "col": 5,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 0,
-            "col": 6,
-            "active": true,
-            "merged": false,
-            "studentName": "刘晨熙",
-            "priority": 2
-          },
-          {
-            "row": 0,
-            "col": 7,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 0,
-            "col": 8,
-            "active": true,
-            "merged": false,
-            "studentName": "阚雅涵",
-            "priority": 6
-          },
-          {
-            "row": 0,
-            "col": 9,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 0,
-            "col": 10,
-            "active": true,
-            "merged": false,
-            "studentName": "王琮睿",
-            "priority": 9
-          },
-          {
-            "row": 1,
-            "col": 0,
-            "active": true,
-            "merged": false,
-            "studentName": "邓渝凡",
-            "priority": 9
-          },
-          {
-            "row": 1,
-            "col": 1,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 1,
-            "col": 2,
-            "active": true,
-            "merged": false,
-            "studentName": "袁俪玮",
-            "priority": 2
-          },
-          {
-            "row": 1,
-            "col": 3,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 1,
-            "col": 4,
-            "active": true,
-            "merged": false,
-            "studentName": "易安心",
-            "priority": 2
-          },
-          {
-            "row": 1,
-            "col": 5,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 1,
-            "col": 6,
-            "active": true,
-            "merged": false,
-            "studentName": "王晨辰",
-            "priority": 9
-          },
-          {
-            "row": 1,
-            "col": 7,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 1,
-            "col": 8,
-            "active": true,
-            "merged": false,
-            "studentName": "赖俊豪",
-            "priority": 2
-          },
-          {
-            "row": 1,
-            "col": 9,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 1,
-            "col": 10,
-            "active": true,
-            "merged": false,
-            "studentName": "袁昊",
-            "priority": 2
-          },
-          {
-            "row": 2,
-            "col": 0,
-            "active": true,
-            "merged": false,
-            "studentName": "冉家鳌",
-            "priority": 6
-          },
-          {
-            "row": 2,
-            "col": 1,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 2,
-            "col": 2,
-            "active": true,
-            "merged": false,
-            "studentName": "胡荣耀",
-            "priority": 7
-          },
-          {
-            "row": 2,
-            "col": 3,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 2,
-            "col": 4,
-            "active": true,
-            "merged": false,
-            "studentName": "冯晨轩",
-            "priority": 2
-          },
-          {
-            "row": 2,
-            "col": 5,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 2,
-            "col": 6,
-            "active": true,
-            "merged": false,
-            "studentName": "董溢文",
-            "priority": 2
-          },
-          {
-            "row": 2,
-            "col": 7,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 2,
-            "col": 8,
-            "active": true,
-            "merged": false,
-            "studentName": "徐浚卜",
-            "priority": 4
-          },
-          {
-            "row": 2,
-            "col": 9,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 2,
-            "col": 10,
-            "active": true,
-            "merged": false,
-            "studentName": "冉宇泽",
-            "priority": 2
-          },
-          {
-            "row": 3,
-            "col": 0,
-            "active": true,
-            "merged": false,
-            "studentName": "徐于淇",
-            "priority": 2
-          },
-          {
-            "row": 3,
-            "col": 1,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 3,
-            "col": 2,
-            "active": true,
-            "merged": false,
-            "studentName": "蒋佳骏",
-            "priority": 7
-          },
-          {
-            "row": 3,
-            "col": 3,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 3,
-            "col": 4,
-            "active": true,
-            "merged": false,
-            "studentName": "喻叶函",
-            "priority": 7
-          },
-          {
-            "row": 3,
-            "col": 5,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 3,
-            "col": 6,
-            "active": true,
-            "merged": false,
-            "studentName": "陈浩博",
-            "priority": 6
-          },
-          {
-            "row": 3,
-            "col": 7,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 3,
-            "col": 8,
-            "active": true,
-            "merged": false,
-            "studentName": "赖佳颖",
-            "priority": 2
-          },
-          {
-            "row": 3,
-            "col": 9,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 3,
-            "col": 10,
-            "active": true,
-            "merged": false,
-            "studentName": "黎梦琪",
-            "priority": 2
-          },
-          {
-            "row": 4,
-            "col": 0,
-            "active": true,
-            "merged": false,
-            "studentName": "徐小乔",
-            "priority": 2
-          },
-          {
-            "row": 4,
-            "col": 1,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 4,
-            "col": 2,
-            "active": true,
-            "merged": false,
-            "studentName": "何泓霖",
-            "priority": 9
-          },
-          {
-            "row": 4,
-            "col": 3,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 4,
-            "col": 4,
-            "active": true,
-            "merged": false,
-            "studentName": "王泽诚",
-            "priority": 6
-          },
-          {
-            "row": 4,
-            "col": 5,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 4,
-            "col": 6,
-            "active": true,
-            "merged": false,
-            "studentName": "王梓祺",
-            "priority": 2
-          },
-          {
-            "row": 4,
-            "col": 7,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 4,
-            "col": 8,
-            "active": true,
-            "merged": false,
-            "studentName": "龚雅琪",
-            "priority": 2
-          },
-          {
-            "row": 4,
-            "col": 9,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 4,
-            "col": 10,
-            "active": true,
-            "merged": false,
-            "studentName": "蒋芮西",
-            "priority": 2
-          },
-          {
-            "row": 5,
-            "col": 0,
-            "active": true,
-            "merged": false,
-            "studentName": "彭子媂",
-            "priority": 4
-          },
-          {
-            "row": 5,
-            "col": 1,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 5,
-            "col": 2,
-            "active": true,
-            "merged": false,
-            "studentName": "陈可美",
-            "priority": 2
-          },
-          {
-            "row": 5,
-            "col": 3,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 5,
-            "col": 4,
-            "active": true,
-            "merged": false,
-            "studentName": "秦姝楟",
-            "priority": 6
-          },
-          {
-            "row": 5,
-            "col": 5,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 5,
-            "col": 6,
-            "active": true,
-            "merged": false,
-            "studentName": "吴佳芮",
-            "priority": 2
-          },
-          {
-            "row": 5,
-            "col": 7,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 5,
-            "col": 8,
-            "active": true,
-            "merged": false,
-            "studentName": "王晨雨琳",
-            "priority": 2
-          },
-          {
-            "row": 5,
-            "col": 9,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 5,
-            "col": 10,
-            "active": true,
-            "merged": false,
-            "studentName": "宋荐昕",
-            "priority": 2
-          },
-          {
-            "row": 6,
-            "col": 0,
-            "active": true,
-            "merged": false,
-            "studentName": "刘烨梓",
-            "priority": 2
-          },
-          {
-            "row": 6,
-            "col": 1,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 6,
-            "col": 2,
-            "active": true,
-            "merged": false,
-            "studentName": "胡琴雅淇",
-            "priority": 2
-          },
-          {
-            "row": 6,
-            "col": 3,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 6,
-            "col": 4,
-            "active": true,
-            "merged": false,
-            "studentName": "曾馨",
-            "priority": 2
-          },
-          {
-            "row": 6,
-            "col": 5,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 6,
-            "col": 6,
-            "active": true,
-            "merged": false,
-            "studentName": "龚煜心",
-            "priority": 6
-          },
-          {
-            "row": 6,
-            "col": 7,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 6,
-            "col": 8,
-            "active": true,
-            "merged": false,
-            "studentName": "孙浩凯",
-            "priority": 4
-          },
-          {
-            "row": 6,
-            "col": 9,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 6,
-            "col": 10,
-            "active": true,
-            "merged": false,
-            "studentName": "刘梓谖",
-            "priority": 6
-          },
-          {
-            "row": 7,
-            "col": 0,
-            "active": true,
-            "merged": false,
-            "studentName": "丁紫洪",
-            "priority": 4
-          },
-          {
-            "row": 7,
-            "col": 1,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 7,
-            "col": 2,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 7,
-            "col": 3,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 7,
-            "col": 4,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 7,
-            "col": 5,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 7,
-            "col": 6,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 7,
-            "col": 7,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 7,
-            "col": 8,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 7,
-            "col": 9,
-            "active": false,
-            "merged": false
-          },
-          {
-            "row": 7,
-            "col": 10,
-            "active": false,
-            "merged": false
-          }
-        ]
-      },
-      "teachingWeek": 14
-    }
-  ],
   "seat-assignments": [
     {
       "seatId": "2-9",
@@ -32310,6 +31900,536 @@
       "studentId": "34"
     }
   ],
+  "seat-grid-layout": [
+    {
+      "id": "1-1",
+      "row": 0,
+      "col": 0,
+      "active": true
+    },
+    {
+      "id": "1-2",
+      "row": 0,
+      "col": 1,
+      "active": false
+    },
+    {
+      "id": "1-3",
+      "row": 0,
+      "col": 2,
+      "active": true
+    },
+    {
+      "id": "1-4",
+      "row": 0,
+      "col": 3,
+      "active": false
+    },
+    {
+      "id": "1-5",
+      "row": 0,
+      "col": 4,
+      "active": true
+    },
+    {
+      "id": "1-6",
+      "row": 0,
+      "col": 5,
+      "active": false
+    },
+    {
+      "id": "1-7",
+      "row": 0,
+      "col": 6,
+      "active": true
+    },
+    {
+      "id": "1-8",
+      "row": 0,
+      "col": 7,
+      "active": false
+    },
+    {
+      "id": "1-9",
+      "row": 0,
+      "col": 8,
+      "active": true
+    },
+    {
+      "id": "1-10",
+      "row": 0,
+      "col": 9,
+      "active": false
+    },
+    {
+      "id": "1-11",
+      "row": 0,
+      "col": 10,
+      "active": true
+    },
+    {
+      "id": "2-1",
+      "row": 1,
+      "col": 0,
+      "active": true
+    },
+    {
+      "id": "2-2",
+      "row": 1,
+      "col": 1,
+      "active": false
+    },
+    {
+      "id": "2-3",
+      "row": 1,
+      "col": 2,
+      "active": true
+    },
+    {
+      "id": "2-4",
+      "row": 1,
+      "col": 3,
+      "active": false
+    },
+    {
+      "id": "2-5",
+      "row": 1,
+      "col": 4,
+      "active": true
+    },
+    {
+      "id": "2-6",
+      "row": 1,
+      "col": 5,
+      "active": false
+    },
+    {
+      "id": "2-7",
+      "row": 1,
+      "col": 6,
+      "active": true
+    },
+    {
+      "id": "2-8",
+      "row": 1,
+      "col": 7,
+      "active": false
+    },
+    {
+      "id": "2-9",
+      "row": 1,
+      "col": 8,
+      "active": true
+    },
+    {
+      "id": "2-10",
+      "row": 1,
+      "col": 9,
+      "active": false
+    },
+    {
+      "id": "2-11",
+      "row": 1,
+      "col": 10,
+      "active": true
+    },
+    {
+      "id": "3-1",
+      "row": 2,
+      "col": 0,
+      "active": true
+    },
+    {
+      "id": "3-2",
+      "row": 2,
+      "col": 1,
+      "active": false
+    },
+    {
+      "id": "3-3",
+      "row": 2,
+      "col": 2,
+      "active": true
+    },
+    {
+      "id": "3-4",
+      "row": 2,
+      "col": 3,
+      "active": false
+    },
+    {
+      "id": "3-5",
+      "row": 2,
+      "col": 4,
+      "active": true
+    },
+    {
+      "id": "3-6",
+      "row": 2,
+      "col": 5,
+      "active": false
+    },
+    {
+      "id": "3-7",
+      "row": 2,
+      "col": 6,
+      "active": true
+    },
+    {
+      "id": "3-8",
+      "row": 2,
+      "col": 7,
+      "active": false
+    },
+    {
+      "id": "3-9",
+      "row": 2,
+      "col": 8,
+      "active": true
+    },
+    {
+      "id": "3-10",
+      "row": 2,
+      "col": 9,
+      "active": false
+    },
+    {
+      "id": "3-11",
+      "row": 2,
+      "col": 10,
+      "active": true
+    },
+    {
+      "id": "4-1",
+      "row": 3,
+      "col": 0,
+      "active": true
+    },
+    {
+      "id": "4-2",
+      "row": 3,
+      "col": 1,
+      "active": false
+    },
+    {
+      "id": "4-3",
+      "row": 3,
+      "col": 2,
+      "active": true
+    },
+    {
+      "id": "4-4",
+      "row": 3,
+      "col": 3,
+      "active": false
+    },
+    {
+      "id": "4-5",
+      "row": 3,
+      "col": 4,
+      "active": true
+    },
+    {
+      "id": "4-6",
+      "row": 3,
+      "col": 5,
+      "active": false
+    },
+    {
+      "id": "4-7",
+      "row": 3,
+      "col": 6,
+      "active": true
+    },
+    {
+      "id": "4-8",
+      "row": 3,
+      "col": 7,
+      "active": false
+    },
+    {
+      "id": "4-9",
+      "row": 3,
+      "col": 8,
+      "active": true
+    },
+    {
+      "id": "4-10",
+      "row": 3,
+      "col": 9,
+      "active": false
+    },
+    {
+      "id": "4-11",
+      "row": 3,
+      "col": 10,
+      "active": true
+    },
+    {
+      "id": "5-1",
+      "row": 4,
+      "col": 0,
+      "active": true
+    },
+    {
+      "id": "5-2",
+      "row": 4,
+      "col": 1,
+      "active": false
+    },
+    {
+      "id": "5-3",
+      "row": 4,
+      "col": 2,
+      "active": true
+    },
+    {
+      "id": "5-4",
+      "row": 4,
+      "col": 3,
+      "active": false
+    },
+    {
+      "id": "5-5",
+      "row": 4,
+      "col": 4,
+      "active": true
+    },
+    {
+      "id": "5-6",
+      "row": 4,
+      "col": 5,
+      "active": false
+    },
+    {
+      "id": "5-7",
+      "row": 4,
+      "col": 6,
+      "active": true
+    },
+    {
+      "id": "5-8",
+      "row": 4,
+      "col": 7,
+      "active": false
+    },
+    {
+      "id": "5-9",
+      "row": 4,
+      "col": 8,
+      "active": true
+    },
+    {
+      "id": "5-10",
+      "row": 4,
+      "col": 9,
+      "active": false
+    },
+    {
+      "id": "5-11",
+      "row": 4,
+      "col": 10,
+      "active": true
+    },
+    {
+      "id": "6-1",
+      "row": 5,
+      "col": 0,
+      "active": true
+    },
+    {
+      "id": "6-2",
+      "row": 5,
+      "col": 1,
+      "active": false
+    },
+    {
+      "id": "6-3",
+      "row": 5,
+      "col": 2,
+      "active": true
+    },
+    {
+      "id": "6-4",
+      "row": 5,
+      "col": 3,
+      "active": false
+    },
+    {
+      "id": "6-5",
+      "row": 5,
+      "col": 4,
+      "active": true
+    },
+    {
+      "id": "6-6",
+      "row": 5,
+      "col": 5,
+      "active": false
+    },
+    {
+      "id": "6-7",
+      "row": 5,
+      "col": 6,
+      "active": true
+    },
+    {
+      "id": "6-8",
+      "row": 5,
+      "col": 7,
+      "active": false
+    },
+    {
+      "id": "6-9",
+      "row": 5,
+      "col": 8,
+      "active": true
+    },
+    {
+      "id": "6-10",
+      "row": 5,
+      "col": 9,
+      "active": false
+    },
+    {
+      "id": "6-11",
+      "row": 5,
+      "col": 10,
+      "active": true
+    },
+    {
+      "id": "7-1",
+      "row": 6,
+      "col": 0,
+      "active": true
+    },
+    {
+      "id": "7-2",
+      "row": 6,
+      "col": 1,
+      "active": false
+    },
+    {
+      "id": "7-3",
+      "row": 6,
+      "col": 2,
+      "active": true
+    },
+    {
+      "id": "7-4",
+      "row": 6,
+      "col": 3,
+      "active": false
+    },
+    {
+      "id": "7-5",
+      "row": 6,
+      "col": 4,
+      "active": true
+    },
+    {
+      "id": "7-6",
+      "row": 6,
+      "col": 5,
+      "active": false
+    },
+    {
+      "id": "7-7",
+      "row": 6,
+      "col": 6,
+      "active": true
+    },
+    {
+      "id": "7-8",
+      "row": 6,
+      "col": 7,
+      "active": false
+    },
+    {
+      "id": "7-9",
+      "row": 6,
+      "col": 8,
+      "active": true
+    },
+    {
+      "id": "7-10",
+      "row": 6,
+      "col": 9,
+      "active": false
+    },
+    {
+      "id": "7-11",
+      "row": 6,
+      "col": 10,
+      "active": true
+    },
+    {
+      "id": "8-1",
+      "row": 7,
+      "col": 0,
+      "active": true
+    },
+    {
+      "id": "8-2",
+      "row": 7,
+      "col": 1,
+      "active": false
+    },
+    {
+      "id": "8-3",
+      "row": 7,
+      "col": 2,
+      "active": false
+    },
+    {
+      "id": "8-4",
+      "row": 7,
+      "col": 3,
+      "active": false
+    },
+    {
+      "id": "8-5",
+      "row": 7,
+      "col": 4,
+      "active": false
+    },
+    {
+      "id": "8-6",
+      "row": 7,
+      "col": 5,
+      "active": false
+    },
+    {
+      "id": "8-7",
+      "row": 7,
+      "col": 6,
+      "active": false
+    },
+    {
+      "id": "8-8",
+      "row": 7,
+      "col": 7,
+      "active": false
+    },
+    {
+      "id": "8-9",
+      "row": 7,
+      "col": 8,
+      "active": false
+    },
+    {
+      "id": "8-10",
+      "row": 7,
+      "col": 9,
+      "active": false
+    },
+    {
+      "id": "8-11",
+      "row": 7,
+      "col": 10,
+      "active": false
+    }
+  ],
   "app_mobile_view": false,
   "demo_user": {
     "id": "demo-teacher",
@@ -32328,7 +32448,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 20,
-      "consecutiveNoViolationDays": 5,
+      "consecutiveNoViolationDays": 4,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -32338,7 +32458,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T05:21:14.855Z",
+      "updatedAt": "2026-06-08T03:15:01.046Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -32352,7 +32472,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 47,
-      "consecutiveNoViolationDays": 8,
+      "consecutiveNoViolationDays": 7,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -32362,7 +32482,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T05:21:14.862Z",
+      "updatedAt": "2026-06-08T03:15:01.612Z",
       "totalShieldsExchanged": 0
     },
     {
@@ -32399,7 +32519,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 2,
-      "consecutiveNoViolationDays": 1,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -32409,7 +32529,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T05:21:14.868Z",
+      "updatedAt": "2026-06-08T03:15:00.600Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -32423,7 +32543,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 8,
-      "consecutiveNoViolationDays": 15,
+      "consecutiveNoViolationDays": 14,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -32433,7 +32553,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T05:21:14.877Z",
+      "updatedAt": "2026-06-08T03:15:01.633Z",
       "totalShieldsExchanged": 0
     },
     {
@@ -32469,7 +32589,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 18,
-      "consecutiveNoViolationDays": 1,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -32479,7 +32599,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T05:21:14.896Z",
+      "updatedAt": "2026-06-08T03:15:01.105Z",
       "totalShieldsExchanged": 0
     },
     {
@@ -32492,7 +32612,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 3,
-      "consecutiveNoViolationDays": 2,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -32502,7 +32622,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T05:21:14.902Z",
+      "updatedAt": "2026-06-08T03:15:01.127Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -32513,20 +32633,20 @@
       "cardSide": "back",
       "currentLevel": 1,
       "blanksFilled": 0,
-      "cumulativeChecks": 18,
+      "cumulativeChecks": 17,
       "heartDemonMarks": 11,
       "starShields": 0,
-      "consecutiveNoViolationDays": 1,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
       "totalBlanksEverFilled": 35,
       "totalHeartDemonsEverGained": 12,
       "totalShieldsEverEarned": 12,
-      "totalChecksEverEarned": 18,
+      "totalChecksEverEarned": 17,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T05:21:14.917Z",
+      "updatedAt": "2026-06-08T03:15:01.149Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -32540,7 +32660,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 2,
-      "consecutiveNoViolationDays": 2,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -32550,7 +32670,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T05:21:14.924Z",
+      "updatedAt": "2026-06-08T03:15:01.173Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -32564,7 +32684,7 @@
       "cumulativeChecks": 5,
       "heartDemonMarks": 10,
       "starShields": 1,
-      "consecutiveNoViolationDays": 1,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -32574,7 +32694,7 @@
       "totalChecksEverEarned": 5,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T05:21:14.933Z",
+      "updatedAt": "2026-06-08T03:15:01.193Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -32588,7 +32708,7 @@
       "cumulativeChecks": 12,
       "heartDemonMarks": 3,
       "starShields": 0,
-      "consecutiveNoViolationDays": 1,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -32598,7 +32718,7 @@
       "totalChecksEverEarned": 12,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T05:21:14.938Z",
+      "updatedAt": "2026-06-08T03:15:00.648Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -32612,7 +32732,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 18,
-      "consecutiveNoViolationDays": 1,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -32622,7 +32742,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T05:21:14.944Z",
+      "updatedAt": "2026-06-08T03:15:01.215Z",
       "totalShieldsExchanged": 0
     },
     {
@@ -32635,7 +32755,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 2,
-      "consecutiveNoViolationDays": 1,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -32645,7 +32765,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T05:21:14.974Z",
+      "updatedAt": "2026-06-08T03:15:00.660Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -32659,7 +32779,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 29,
-      "consecutiveNoViolationDays": 2,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -32669,7 +32789,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T05:21:14.995Z",
+      "updatedAt": "2026-06-08T03:15:01.235Z",
       "totalShieldsExchanged": 0
     },
     {
@@ -32681,18 +32801,18 @@
       "blanksFilled": 0,
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
-      "starShields": 23,
-      "consecutiveNoViolationDays": 1,
+      "starShields": 18,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
       "totalBlanksEverFilled": 0,
       "totalHeartDemonsEverGained": 0,
-      "totalShieldsEverEarned": 109,
+      "totalShieldsEverEarned": 104,
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T05:21:15.005Z",
+      "updatedAt": "2026-06-08T03:15:01.256Z",
       "totalShieldsExchanged": 56
     },
     {
@@ -32728,18 +32848,18 @@
       "blanksFilled": 0,
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
-      "starShields": 19,
-      "consecutiveNoViolationDays": 1,
+      "starShields": 18,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
       "totalBlanksEverFilled": 0,
       "totalHeartDemonsEverGained": 0,
-      "totalShieldsEverEarned": 48,
+      "totalShieldsEverEarned": 47,
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T05:21:15.021Z",
+      "updatedAt": "2026-06-08T03:15:01.274Z",
       "totalShieldsExchanged": 5
     },
     {
@@ -32751,18 +32871,18 @@
       "blanksFilled": 0,
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
-      "starShields": 49,
-      "consecutiveNoViolationDays": 12,
+      "starShields": 48,
+      "consecutiveNoViolationDays": 11,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
       "totalBlanksEverFilled": 0,
       "totalHeartDemonsEverGained": 0,
-      "totalShieldsEverEarned": 56,
+      "totalShieldsEverEarned": 55,
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T05:21:15.033Z",
+      "updatedAt": "2026-06-08T03:15:01.296Z",
       "totalShieldsExchanged": 5
     },
     {
@@ -32775,7 +32895,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 35,
-      "consecutiveNoViolationDays": 1,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -32785,7 +32905,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T05:21:15.039Z",
+      "updatedAt": "2026-06-08T03:15:00.720Z",
       "totalShieldsExchanged": 0
     },
     {
@@ -32798,7 +32918,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 5,
-      "consecutiveNoViolationDays": 1,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -32808,7 +32928,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T05:21:15.082Z",
+      "updatedAt": "2026-06-08T03:15:01.312Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -32846,7 +32966,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 7,
-      "consecutiveNoViolationDays": 2,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -32856,7 +32976,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T05:21:15.097Z",
+      "updatedAt": "2026-06-08T03:15:00.743Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -32870,7 +32990,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 6,
-      "consecutiveNoViolationDays": 2,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -32880,7 +33000,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T05:21:15.102Z",
+      "updatedAt": "2026-06-08T03:15:01.330Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -32894,7 +33014,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 4,
-      "consecutiveNoViolationDays": 1,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -32904,7 +33024,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T05:21:15.116Z",
+      "updatedAt": "2026-06-08T03:15:01.345Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -32918,7 +33038,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 2,
-      "consecutiveNoViolationDays": 1,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -32928,7 +33048,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T05:21:15.122Z",
+      "updatedAt": "2026-06-08T03:15:00.790Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -32942,7 +33062,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 5,
-      "consecutiveNoViolationDays": 2,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -32952,7 +33072,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T05:21:15.127Z",
+      "updatedAt": "2026-06-08T03:15:01.367Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -32966,7 +33086,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 6,
-      "consecutiveNoViolationDays": 4,
+      "consecutiveNoViolationDays": 3,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -32976,7 +33096,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T05:21:15.137Z",
+      "updatedAt": "2026-06-08T03:15:01.385Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -32990,7 +33110,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 4,
-      "consecutiveNoViolationDays": 1,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -33000,7 +33120,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T05:21:15.142Z",
+      "updatedAt": "2026-06-08T03:15:01.404Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -33014,7 +33134,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 18,
-      "consecutiveNoViolationDays": 1,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -33024,7 +33144,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T05:21:15.156Z",
+      "updatedAt": "2026-06-08T03:15:01.426Z",
       "totalShieldsExchanged": 0
     },
     {
@@ -33037,7 +33157,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 2,
-      "consecutiveNoViolationDays": 1,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -33047,7 +33167,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T05:21:15.176Z",
+      "updatedAt": "2026-06-08T03:15:00.856Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -33061,7 +33181,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 3,
-      "consecutiveNoViolationDays": 1,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -33071,7 +33191,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T05:21:15.187Z",
+      "updatedAt": "2026-06-08T03:15:00.874Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -33108,7 +33228,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 8,
-      "consecutiveNoViolationDays": 1,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -33118,7 +33238,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T05:21:15.200Z",
+      "updatedAt": "2026-06-08T03:15:01.451Z",
       "totalShieldsExchanged": 0
     },
     {
@@ -33131,7 +33251,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 3,
-      "consecutiveNoViolationDays": 1,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -33141,7 +33261,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T05:21:15.219Z",
+      "updatedAt": "2026-06-08T03:15:01.468Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -33155,7 +33275,7 @@
       "cumulativeChecks": 6,
       "heartDemonMarks": 4,
       "starShields": 0,
-      "consecutiveNoViolationDays": 1,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -33165,7 +33285,7 @@
       "totalChecksEverEarned": 6,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T05:21:15.234Z",
+      "updatedAt": "2026-06-08T03:15:01.489Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -33179,7 +33299,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 3,
-      "consecutiveNoViolationDays": 1,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -33189,7 +33309,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T05:21:15.247Z",
+      "updatedAt": "2026-06-08T03:15:00.931Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -33203,7 +33323,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 77,
-      "consecutiveNoViolationDays": 15,
+      "consecutiveNoViolationDays": 14,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -33213,7 +33333,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T05:21:15.260Z",
+      "updatedAt": "2026-06-08T03:15:01.659Z",
       "totalShieldsExchanged": 0
     },
     {
@@ -33226,7 +33346,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 5,
-      "consecutiveNoViolationDays": 1,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -33236,7 +33356,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T05:21:15.265Z",
+      "updatedAt": "2026-06-08T03:15:01.527Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -33250,7 +33370,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 17,
-      "consecutiveNoViolationDays": 1,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -33260,7 +33380,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T05:21:15.273Z",
+      "updatedAt": "2026-06-08T03:15:01.547Z",
       "totalShieldsExchanged": 0
     },
     {
@@ -33273,7 +33393,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 42,
-      "consecutiveNoViolationDays": 3,
+      "consecutiveNoViolationDays": 2,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -33283,7 +33403,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T05:21:15.278Z",
+      "updatedAt": "2026-06-08T03:15:01.574Z",
       "totalShieldsExchanged": 0
     },
     {
@@ -33295,18 +33415,18 @@
       "blanksFilled": 0,
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
-      "starShields": 59,
-      "consecutiveNoViolationDays": 15,
+      "starShields": 42,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
-      "totalBlanksEverFilled": 0,
+      "totalBlanksEverFilled": 4,
       "totalHeartDemonsEverGained": 0,
-      "totalShieldsEverEarned": 64,
+      "totalShieldsEverEarned": 63,
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-08T16:30:53.513Z",
+      "updatedAt": "2026-06-08T03:15:01.591Z",
       "totalShieldsExchanged": 5,
       "riseTaskCompleted": false
     },
@@ -33320,7 +33440,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 3,
-      "consecutiveNoViolationDays": 1,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -33330,7 +33450,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T15:29:55.006Z",
-      "updatedAt": "2026-06-08T05:21:15.287Z",
+      "updatedAt": "2026-06-08T03:15:01.027Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     }
