@@ -32467,7 +32467,15 @@
       "createdAt": "2026-05-19T11:15:43.713Z",
       "updatedAt": "2026-06-09T02:15:23.586Z",
       "riseTaskCompleted": false,
-      "totalShieldsExchanged": 0
+      "totalShieldsExchanged": 0,
+      "lastLevelChange": {
+        "direction": "up",
+        "fromLevel": 3,
+        "toLevel": 2,
+        "fromSide": "front",
+        "toSide": "front",
+        "timestamp": "2026-06-09T02:14:11.096Z"
+      }
     },
     {
       "id": "3",
@@ -32479,7 +32487,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 47,
-      "consecutiveNoViolationDays": 9,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -32489,7 +32497,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-09T02:15:44.447Z",
+      "updatedAt": "2026-06-09T02:15:21.945Z",
       "totalShieldsExchanged": 0
     },
     {
