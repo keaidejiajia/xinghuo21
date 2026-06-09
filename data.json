@@ -4700,22 +4700,6 @@
   },
   "behavior-records": [
     {
-      "studentId": "3",
-      "direction": "negative",
-      "weight": 2,
-      "category": "纪律",
-      "description": "课间追逐打闹或在教室大喊大叫",
-      "remark": "",
-      "recordedBy": "王老师",
-      "verified": true,
-      "shieldsConsumed": 4,
-      "extraWeight": 0,
-      "isHighSensitivity": false,
-      "studentCardSide": "front",
-      "id": "2481",
-      "createdAt": "2026-06-09T02:50:12.655Z"
-    },
-    {
       "studentId": "2",
       "direction": "positive",
       "weight": 1,
@@ -32526,7 +32510,7 @@
       "blanksFilled": 0,
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
-      "starShields": 39,
+      "starShields": 43,
       "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
@@ -32537,7 +32521,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-09T02:50:12.646Z",
+      "updatedAt": "2026-06-09T04:29:16.380Z",
       "totalShieldsExchanged": 0
     },
     {
