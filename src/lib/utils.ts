@@ -31,21 +31,30 @@ export function isTeachingDay(dateStr: string, teachingWeeks: Array<{ startDate:
 export function calcConsecutiveNoViolationDays(
   studentId: string | number,
   studentCreatedAt: string,
-  records: Array<{ studentId: string | number; direction: string; createdAt: string }>,
+  records: Array<{ studentId: string | number; direction: string; description?: string; createdAt: string }>,
   teachingWeeks: Array<{ startDate: string; endDate: string }>,
   today: string,
 ): number {
   const sid = String(studentId);
+  const latestRiseDate = records
+    .filter(r =>
+      String(r.studentId) === sid
+      && r.direction === 'positive'
+      && ((r.description || '').includes('回升任务') || (r.description || '').includes('自动回升'))
+    )
+    .map(r => recordLocalDate(r.createdAt))
+    .sort()
+    .pop();
+  const countStartDate = latestRiseDate ? addDays(latestRiseDate, 1) : recordLocalDate(studentCreatedAt);
   const violationDates = [...new Set(
     records
-      .filter(r => String(r.studentId) === sid && r.direction === 'negative')
+      .filter(r => String(r.studentId) === sid && r.direction === 'negative' && recordLocalDate(r.createdAt) >= countStartDate)
       .map(r => recordLocalDate(r.createdAt))
   )].sort();
 
   if (violationDates.length === 0) {
-    const start = recordLocalDate(studentCreatedAt);
     let count = 0;
-    let current = start;
+    let current = countStartDate;
     while (current <= today) {
       if (isTeachingDay(current, teachingWeeks)) count++;
       current = addDays(current, 1);

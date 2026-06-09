@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
-import { LayoutDashboard, ClipboardList, LogOut, Star, BookOpen, Armchair, Settings, CreditCard, X, Menu } from 'lucide-react';
+import { LayoutDashboard, ClipboardList, LogOut, Star, BookOpen, Armchair, Settings, CreditCard, X, Monitor, Smartphone } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import { useMobile, toggleMobileView } from '../hooks/useMobile';
 import type { UserRole } from '../types';
@@ -63,11 +63,18 @@ export default function Layout() {
     const path = location.pathname.startsWith('/card') ? '/' : location.pathname;
     return BG_SHIFT_MAP[path] || 0;
   }, [location.pathname, isMobile]);
-  const mobileView = localStorage.getItem('app_mobile_view') === 'true';
-  const [menuOpen, setMenuOpen] = useState(false);
   const [syncState, setSyncState] = useState<SyncState>(() =>
     window.xinghuoSync?.getState() ?? { status: 'idle', message: '待同步' }
   );
+  const visibleNavItems = useMemo(() => NAV_ITEMS.filter(({ roles: navRoles, parentOnly }) => {
+    if (parentOnly) return role === 'parent';
+    return !navRoles || navRoles.includes(role);
+  }), [role]);
+  const currentTitle = useMemo(() => {
+    if (location.pathname.startsWith('/card')) return role === 'parent' ? '孩子卡片' : '学生卡片';
+    const item = visibleNavItems.find(nav => nav.to === location.pathname) ?? visibleNavItems.find(nav => nav.to === '/' && location.pathname === '/');
+    return item?.label.replace('全班', '').replace('行为', '') ?? '星火燎原';
+  }, [location.pathname, role, visibleNavItems]);
 
   const [showUpdatePopup, setShowUpdatePopup] = useState(() => {
     const lastSeen = localStorage.getItem('app_version_seen');
@@ -117,18 +124,8 @@ export default function Layout() {
           gap: isMobile ? 8 : 0,
         }}
       >
-        {/* Mobile hamburger */}
-        {isMobile && (
-          <button onClick={() => setMenuOpen(v => !v)} style={{
-            background: 'none', border: 'none', color: D.text, cursor: 'pointer',
-            padding: 8, display: 'flex', alignItems: 'center', fontSize: 22,
-          }}>
-            <Menu size={22} />
-          </button>
-        )}
-
         {/* Logo */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? 6 : 8, marginRight: isMobile ? 0 : 32 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? 7 : 8, marginRight: isMobile ? 0 : 32, minWidth: 0, flex: isMobile ? 1 : 'initial' }}>
           <Star size={isMobile ? 18 : 22} style={{ color: D.gold, filter: 'drop-shadow(0 0 8px rgba(212,168,83,0.5))' }} />
           {!isMobile && (
           <span style={{
@@ -136,6 +133,18 @@ export default function Layout() {
           }}>
             星火燎原
           </span>
+          )}
+          {isMobile && (
+            <div style={{ minWidth: 0 }}>
+              <div style={{ fontSize: 15, fontWeight: 700, color: D.text, lineHeight: 1.1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                {currentTitle}
+              </div>
+              {user && (
+                <div style={{ fontSize: 10, color: ROLE_COLORS[role], lineHeight: 1.2, marginTop: 2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                  {user.name} · {ROLE_LABELS[role]}
+                </div>
+              )}
+            </div>
           )}
         </div>
 
@@ -217,18 +226,18 @@ export default function Layout() {
             </div>
             )}
             {/* View toggle — always visible */}
-            <button onClick={() => { toggleMobileView(); setMenuOpen(false); }}
-              title={mobileView ? '切换到桌面视图' : '切换到手机视图'}
+            <button onClick={() => { toggleMobileView(); }}
+              title={isMobile ? '切换到桌面视图' : '切换到手机视图'}
               style={{
                 padding: isMobile ? '4px 6px' : '6px 8px', borderRadius: D.radiusXs,
-                background: mobileView ? D.goldDim : 'transparent',
-                border: `1px solid ${mobileView ? D.borderGlow : D.border}`,
-                color: mobileView ? D.gold : D.textDim, fontSize: isMobile ? 14 : 16,
+                background: isMobile ? D.goldDim : 'transparent',
+                border: `1px solid ${isMobile ? D.borderGlow : D.border}`,
+                color: isMobile ? D.gold : D.textDim, fontSize: isMobile ? 14 : 16,
                 cursor: 'pointer', transition: 'all 0.2s ease',
                 display: 'flex', alignItems: 'center', lineHeight: 1,
               }}
             >
-              {mobileView ? '📱' : '💻'}
+              {isMobile ? <Smartphone size={isMobile ? 15 : 16} /> : <Monitor size={isMobile ? 15 : 16} />}
             </button>
             <button onClick={() => signOut()} style={{
               padding: isMobile ? '4px 8px' : '6px 10px', borderRadius: D.radiusXs,
@@ -245,42 +254,11 @@ export default function Layout() {
         </div>
       </header>
 
-      {/* Mobile slide-down menu */}
-      {isMobile && menuOpen && (
-        <div style={{
-          background: 'rgba(0,0,0,0.95)', backdropFilter: 'blur(20px)',
-          borderBottom: `1px solid ${D.border}`, padding: '8px 12px',
-          animation: 'slideDown 0.2s ease', zIndex: 99,
-        }}>
-          {NAV_ITEMS.map(({ to, icon: Icon, label, roles: navRoles, parentOnly }) => {
-            if (parentOnly && role !== 'parent') return null;
-            if (navRoles && !navRoles.includes(role) && !parentOnly) return null;
-            const resolvedTo = to === '/card/me' && user?.linkedStudentId ? `/card/${user.linkedStudentId}` : to;
-            return (
-              <NavLink
-                key={to} to={resolvedTo} end={to === '/'}
-                onClick={() => setMenuOpen(false)}
-                style={({ isActive }) => ({
-                  display: 'flex', alignItems: 'center', gap: 10,
-                  padding: '14px 16px', borderRadius: D.radiusXs, textDecoration: 'none',
-                  fontSize: 15, fontWeight: isActive ? 600 : 400,
-                  color: isActive ? D.gold : D.text,
-                  background: isActive ? D.goldDim : 'transparent',
-                  transition: 'all 0.2s ease',
-                })}
-              >
-                <Icon size={20} /><span>{label}</span>
-              </NavLink>
-            );
-          })}
-        </div>
-      )}
-
       {/* Main content area — full width */}
       <main
         style={{
           flex: 1,
-          padding: isMobile ? '12px 8px' : '28px 32px',
+          padding: isMobile ? '10px 10px calc(80px + env(safe-area-inset-bottom))' : '28px 32px',
           background: D.bg,
           overflowY: 'auto',
           position: 'relative',
@@ -292,6 +270,57 @@ export default function Layout() {
           <Outlet />
         </div>
       </main>
+
+      {isMobile && user && (
+        <nav
+          style={{
+            position: 'fixed',
+            left: 0,
+            right: 0,
+            bottom: 0,
+            zIndex: 90,
+            padding: '7px 8px calc(7px + env(safe-area-inset-bottom))',
+            background: 'rgba(0,0,0,0.92)',
+            backdropFilter: 'blur(22px)',
+            borderTop: `1px solid ${D.border}`,
+            display: 'grid',
+            gridTemplateColumns: `repeat(${visibleNavItems.length}, minmax(0, 1fr))`,
+            gap: 4,
+          }}
+        >
+          {visibleNavItems.map(({ to, icon: Icon, label }) => {
+            const resolvedTo = to === '/card/me' && user?.linkedStudentId ? `/card/${user.linkedStudentId}` : to;
+            const shortLabel = label.replace('全班', '').replace('行为', '').replace('说明', '').replace('编排', '').replace('系统', '');
+            return (
+              <NavLink
+                key={to}
+                to={resolvedTo}
+                end={to === '/'}
+                style={({ isActive }) => ({
+                  minHeight: 48,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 3,
+                  borderRadius: D.radiusSm,
+                  textDecoration: 'none',
+                  color: isActive ? D.gold : D.textDim,
+                  background: isActive ? D.goldDim : 'transparent',
+                  border: `1px solid ${isActive ? D.borderGlow : 'transparent'}`,
+                  fontSize: 11,
+                  lineHeight: 1,
+                  fontWeight: isActive ? 700 : 500,
+                  minWidth: 0,
+                })}
+              >
+                <Icon size={18} />
+                <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '100%' }}>{shortLabel}</span>
+              </NavLink>
+            );
+          })}
+        </nav>
+      )}
 
       {/* Update announcement popup */}
       {showUpdatePopup && (() => {

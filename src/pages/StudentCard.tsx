@@ -25,10 +25,12 @@ import {
   getLevelOneTitle,
   getImmortalTitle,
   donateHeritage,
+  processRise,
 } from '../lib/cardLogic';
 import { toLocalDateStr } from '../lib/utils';
 import { useStudents } from '../lib/store';
 import { computeStudentLevelChanges } from '../lib/audit';
+import { formatLevelChangeDisplay } from '../lib/levelChangeDisplay';
 import { useAuth } from '../hooks/useAuth';
 import { useToast } from '../hooks/useToast';
 import { useMobile } from '../hooks/useMobile';
@@ -216,6 +218,7 @@ function CardFace({
       style={{
         width: '100%',
         maxWidth: 400,
+        boxSizing: 'border-box',
         borderRadius: D.radius,
         padding: 28,
         position: 'relative',
@@ -351,6 +354,7 @@ function CardFace({
 
 function StatsPanel({ student }: { student: Student }) {
   const config = useConfig();
+  const isMobile = useMobile();
   const isFront = student.cardSide === 'front';
   const isImmortal = !isFront && student.currentLevel === 6;
 
@@ -462,7 +466,7 @@ function StatsPanel({ student }: { student: Student }) {
     <div
       style={{
         display: 'grid',
-        gridTemplateColumns: student.cardSide === 'front' && student.currentLevel === 1 ? 'repeat(4, 1fr)' : student.cardSide === 'back' && student.currentLevel === 6 ? 'repeat(4, 1fr)' : 'repeat(3, 1fr)',
+        gridTemplateColumns: isMobile ? 'repeat(2, minmax(0, 1fr))' : (student.cardSide === 'front' && student.currentLevel === 1 ? 'repeat(4, 1fr)' : student.cardSide === 'back' && student.currentLevel === 6 ? 'repeat(4, 1fr)' : 'repeat(3, 1fr)'),
         gap: 8,
       }}
     >
@@ -478,11 +482,12 @@ function StatsPanel({ student }: { student: Student }) {
             alignItems: 'center',
             gap: 8,
             boxShadow: `0 0 12px ${stat.color}10`,
+            minWidth: 0,
           }}
         >
           <span style={{ color: stat.color }}>{stat.icon}</span>
-          <div>
-            <div style={{ fontSize: 11, fontFamily: "'LXGW WenKai', 'Cinzel', serif", color: INK.textMuted }}>{stat.label}</div>
+          <div style={{ minWidth: 0 }}>
+            <div style={{ fontSize: 11, fontFamily: "'LXGW WenKai', 'Cinzel', serif", color: INK.textMuted, overflowWrap: 'break-word', lineHeight: 1.25 }}>{stat.label}</div>
             <div style={{ fontSize: 16, fontWeight: 600, fontFamily: "'LXGW WenKai', 'Cinzel', serif", color: stat.color }}>{stat.value}</div>
           </div>
         </div>
@@ -516,6 +521,7 @@ function LevelEffects({ student }: { student: Student }) {
         borderRadius: D.radiusSm,
         border: D.glassBorder,
         padding: 16,
+        boxSizing: 'border-box',
       }}
     >
       <div
@@ -684,6 +690,32 @@ function BehaviorHistory({ student, onDeleteRecord }: { student: Student; onDele
 
   // Time period lookup
   const isMobile = useMobile();
+
+  const renderLevelChangeBadge = (lc: NonNullable<ReturnType<typeof levelChangeMap.get>>, compact = false) => {
+    const display = formatLevelChangeDisplay(lc);
+    const toneStyle = display.tone === 'up'
+      ? { background: 'rgba(139,170,122,0.15)', color: '#8baa7a', border: 'rgba(139,170,122,0.3)' }
+      : display.tone === 'flip'
+        ? { background: 'rgba(212,168,83,0.16)', color: D.gold, border: 'rgba(212,168,83,0.35)' }
+        : { background: 'rgba(196,65,37,0.12)', color: INK.flameCinnabar, border: 'rgba(196,65,37,0.25)' };
+    return (
+      <span
+        style={{
+          fontSize: compact ? 10 : 11,
+          fontWeight: 600,
+          padding: compact ? '1px 5px' : '1px 6px',
+          borderRadius: D.radiusXs,
+          flexShrink: 0,
+          fontFamily: "'LXGW WenKai', 'Cinzel', serif",
+          background: toneStyle.background,
+          color: toneStyle.color,
+          border: `1px solid ${toneStyle.border}`,
+        }}
+      >
+        {display.label}
+      </span>
+    );
+  };
   const timePeriods = config.timePeriods || [];
 
   const displayRecords = showAll ? studentRecords : studentRecords.slice(0, 200);
@@ -733,7 +765,12 @@ function BehaviorHistory({ student, onDeleteRecord }: { student: Student; onDele
             const weightName = isNeg
               ? config.negativeWeightNames[record.weight as NegativeWeight]
               : config.positiveWeightNames[record.weight as PositiveWeight];
-            const symbol = isNeg ? `${record.weight}${config.blankMarkName}` : `${record.weight}盾/${config.checkMarkName}`;
+            const effectiveRecordWeight = isNeg
+              ? (record.studentCardSide === 'back' ? 1 + (record.extraWeight ?? 0) : (record.weight as number) + (record.extraWeight ?? 0))
+              : (record.weight as number) + (record.extraWeight ?? 0);
+            const negativeUnit = record.studentCardSide === 'back' ? '心魔' : config.blankMarkName;
+            const positiveUnit = record.studentCardSide === 'back' ? config.checkMarkName : '护盾';
+            const symbol = isNeg ? `${effectiveRecordWeight}${negativeUnit}` : `${effectiveRecordWeight}${positiveUnit}`;
 
             // Mobile: stacked layout. Desktop: single-row layout.
             if (isMobile) {
@@ -760,9 +797,7 @@ function BehaviorHistory({ student, onDeleteRecord }: { student: Student; onDele
                   {record.isHighSensitivity && <AlertTriangle size={12} style={{ color: INK.flameCinnabar }} />}
                   {levelChangeMap.has(record.id) && (() => {
                     const lc = levelChangeMap.get(record.id)!;
-                    const isFlip = lc.fromSide !== lc.toSide;
-                    const isUp = lc.toLevel > lc.fromLevel;
-                    return <span style={{ fontSize: 11, fontWeight: 600, padding: '1px 6px', borderRadius: D.radiusXs, background: isUp ? 'rgba(139,170,122,0.15)' : 'rgba(196,65,37,0.12)', color: isUp ? '#8baa7a' : INK.flameCinnabar, border: `1px solid ${isUp ? 'rgba(139,170,122,0.3)' : 'rgba(196,65,37,0.25)'}` }}>{isFlip ? '↻翻面' : (isUp ? `↑升L${lc.toLevel}` : `↓降L${lc.toLevel}`)}</span>;
+                    return renderLevelChangeBadge(lc);
                   })()}
                   <div style={{ flex: 1 }} />
                   <span style={{ fontSize: 11, color: INK.textMuted }}>
@@ -814,9 +849,7 @@ function BehaviorHistory({ student, onDeleteRecord }: { student: Student; onDele
                   {record.isHighSensitivity && <AlertTriangle size={10} style={{ color: INK.flameCinnabar, flexShrink: 0 }} />}
                   {levelChangeMap.has(record.id) && (() => {
                     const lc = levelChangeMap.get(record.id)!;
-                    const isFlip = lc.fromSide !== lc.toSide;
-                    const isUp = lc.toLevel > lc.fromLevel;
-                    return <span style={{ fontSize: 10, fontWeight: 600, padding: '1px 5px', borderRadius: D.radiusXs, flexShrink: 0, fontFamily: "'LXGW WenKai', 'Cinzel', serif", background: isUp ? 'rgba(139,170,122,0.15)' : 'rgba(196,65,37,0.12)', color: isUp ? '#8baa7a' : INK.flameCinnabar, border: `1px solid ${isUp ? 'rgba(139,170,122,0.3)' : 'rgba(196,65,37,0.25)'}` }}>{isFlip ? '↻翻面' : (isUp ? `↑升L${lc.toLevel}` : `↓降L${lc.toLevel}`)}</span>;
+                    return renderLevelChangeBadge(lc, true);
                   })()}
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexShrink: 0 }}>
@@ -1555,6 +1588,7 @@ export default function StudentCard() {
   const [exchangeConfirmId, setExchangeConfirmId] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'level' | 'effects' | 'history'>('level');
   const [isSyncing, setIsSyncing] = useState(false);
+  const isMobile = useMobile();
 
   const student = students.find((s) => s.id === id);
 
@@ -1645,7 +1679,7 @@ export default function StudentCard() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', padding: '16px' }}>
+    <div style={{ minHeight: '100vh', padding: isMobile ? '8px 0 calc(94px + env(safe-area-inset-bottom))' : '16px', overflowX: 'hidden' }}>
       {/* Flip ceremony overlay */}
       <AnimatePresence>
         {showFlipCeremony && (
@@ -1690,7 +1724,7 @@ export default function StudentCard() {
         )}
       </AnimatePresence>
 
-      <div style={{ maxWidth: 600, margin: '0 auto' }}>
+      <div style={{ maxWidth: 600, margin: '0 auto', width: '100%', boxSizing: 'border-box' }}>
         {/* Back button — hidden for parents (they can't access 全班总览) */}
         {!isParent && (
         <button
@@ -1895,6 +1929,30 @@ export default function StudentCard() {
                     <button
                       disabled={isSyncing}
                       onClick={async () => {
+                        if (daysMet) {
+                          const { student: updated, rose } = processRise(student, currentDays, daysRequired, true);
+                          if (rose) {
+                            const oldName = getLevelName('front', student.currentLevel, config.frontLevels, config.backLevels);
+                            const newName = getLevelName('front', updated.currentLevel, config.frontLevels, config.backLevels);
+                            updateStudent(student.id, () => updated);
+                            addBehaviorRecord({
+                              studentId: student.id,
+                              direction: 'positive',
+                              weight: 1 as PositiveWeight,
+                              category: '品行',
+                              description: `完成回升任务：${riseTask.riseTask}`,
+                              remark: `${oldName} → ${newName}`,
+                              recordedBy: '班主任',
+                              verified: true,
+                              shieldsConsumed: 0,
+                              isHighSensitivity: false,
+                              studentCardSide: student.cardSide,
+                              timePeriodId: undefined,
+                            });
+                            await syncAfterChange(`${student.name} 回升成功并同步：${oldName} → ${newName}`);
+                            return;
+                          }
+                        }
                         updateStudent(student.id, s => ({ ...s, riseTaskCompleted: true }));
                         await syncAfterChange('回升任务已标记完成并同步');
                       }}

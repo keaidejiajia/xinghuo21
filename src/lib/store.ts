@@ -276,8 +276,9 @@ export function deleteBehaviorRecord(id: string): boolean {
       student.blanksFilled = Math.max(0, student.blanksFilled - actualFill);
       student.totalBlanksEverFilled = Math.max(0, student.totalBlanksEverFilled - actualFill);
     } else {
-      student.heartDemonMarks = Math.max(0, student.heartDemonMarks - 1);
-      student.totalHeartDemonsEverGained = Math.max(0, student.totalHeartDemonsEverGained - 1);
+      const heartDemonAmount = 1 + (record.extraWeight ?? 0);
+      student.heartDemonMarks = Math.max(0, student.heartDemonMarks - heartDemonAmount);
+      student.totalHeartDemonsEverGained = Math.max(0, student.totalHeartDemonsEverGained - heartDemonAmount);
     }
   } else if (record.direction === 'positive') {
     if (student.cardSide === 'front') {

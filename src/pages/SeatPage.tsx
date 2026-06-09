@@ -13,6 +13,8 @@ import {
 } from '../data/config';
 import { LevelIcon } from '../components/LevelIcon';
 import { D, INK } from '../data/theme';
+import { useMobile } from '../hooks/useMobile';
+import { MobilePage, MobileRecordItem, MobileSection, MobileSegmentedControl } from '../components/mobile/MobileUI';
 
 // ===== Teaching week from config =====
 function getCurrentTeachingWeek(teachingWeeks: Array<{ weekNumber: number; startDate: string; endDate: string }>): number {
@@ -676,6 +678,7 @@ function StudentTag({
 export default function SeatPage() {
   const { students } = useStudents();
   const config = useConfig();
+  const isMobile = useMobile();
 
   // Run migration on first load
   const migrationResult = useMemo(() => migrateOldData(), []);
@@ -690,6 +693,7 @@ export default function SeatPage() {
   const [editMode, setEditMode] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
   const [showReference, setShowReference] = useState(false);
+  const [mobileSeatView, setMobileSeatView] = useState<'map' | 'list' | 'history'>('map');
   const [referenceData, setReferenceData] = useState<Map<string, string> | null>(null);
 
   // Auto-advance assignment state
@@ -1448,6 +1452,126 @@ export default function SeatPage() {
       </div>
     );
   };
+
+  if (isMobile) {
+    const assignedStudents = priorityOrder.filter(student => studentSeatMap.has(student.id));
+    const unseatedStudents = priorityOrder.filter(student => !studentSeatMap.has(student.id));
+
+    return (
+      <MobilePage>
+        <MobileSection title="座位编排" subtitle={`已分配 ${assignments.length}/${students.length}`}>
+          <MobileSegmentedControl
+            value={mobileSeatView}
+            onChange={setMobileSeatView}
+            columns={3}
+            options={[
+              { value: 'map', label: '座位图', tone: 'gold' },
+              { value: 'list', label: '名单', tone: 'blue' },
+              { value: 'history', label: '历史', tone: 'green' },
+            ]}
+          />
+        </MobileSection>
+
+        {mobileSeatView === 'map' && (
+          <MobileSection title="座位图" subtitle="可横向拖动查看全班座位">
+            <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch', paddingBottom: 8 }}>
+              <div style={{
+                minWidth: Math.max(520, gridCols * 68),
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 10,
+              }}>
+                <div style={{ padding: 10, borderRadius: D.radiusSm, textAlign: 'center', background: 'rgba(212,168,83,0.08)', border: `1px solid ${D.borderGlow}`, color: D.gold, fontSize: 13, fontWeight: 700 }}>
+                  讲台
+                </div>
+                <div style={{
+                  display: 'grid',
+                  gridTemplateColumns: `repeat(${gridCols}, 64px)`,
+                  gridTemplateRows: `repeat(${gridRows}, auto)`,
+                  gap: 4,
+                }}>
+                  {gridCells.map(cell => renderCell(cell, 1, 1))}
+                </div>
+              </div>
+            </div>
+          </MobileSection>
+        )}
+
+        {mobileSeatView === 'list' && (
+          <>
+            <MobileSection title="已分配">
+              {assignedStudents.length === 0 ? (
+                <div style={{ color: D.textDim, fontSize: 13, textAlign: 'center', padding: 16 }}>暂无已分配座位</div>
+              ) : assignedStudents.map(student => {
+                const seat = getSeatLabelForStudent(student.id);
+                const priority = getSeatPriority(student.cardSide, student.currentLevel, config.seatPriorityMap);
+                return (
+                  <MobileRecordItem
+                    key={student.id}
+                    leading={<LevelIcon side={student.cardSide} level={student.currentLevel} size={26} />}
+                    title={<><b>{student.name}</b> · {getLevelName(student.cardSide, student.currentLevel, config.frontLevels, config.backLevels)}</>}
+                    meta={`座位 ${seat ?? '-'} · 排座优先级 ${priority}`}
+                    tags={<span style={{ fontSize: 10, color: student.cardSide === 'front' ? D.blue : D.ember, background: student.cardSide === 'front' ? D.blueDim : 'rgba(212,122,40,0.12)', borderRadius: 3, padding: '2px 5px' }}>{student.cardSide === 'front' ? '正面' : '背面'} L{student.currentLevel}</span>}
+                  />
+                );
+              })}
+            </MobileSection>
+
+            {unseatedStudents.length > 0 && (
+              <MobileSection title="暂未安排">
+                {unseatedStudents.map(student => (
+                  <MobileRecordItem
+                    key={student.id}
+                    leading={<LevelIcon side={student.cardSide} level={student.currentLevel} size={26} />}
+                    title={<><b>{student.name}</b> · {getLevelName(student.cardSide, student.currentLevel, config.frontLevels, config.backLevels)}</>}
+                    meta={`排座优先级 ${getSeatPriority(student.cardSide, student.currentLevel, config.seatPriorityMap)}`}
+                  />
+                ))}
+              </MobileSection>
+            )}
+          </>
+        )}
+
+        {mobileSeatView === 'history' && (
+          <MobileSection title="排座历史">
+            {history.length === 0 ? (
+              <div style={{ color: D.textDim, fontSize: 13, textAlign: 'center', padding: 16 }}>暂无历史记录</div>
+            ) : history.slice().reverse().map((entry, idx) => (
+              <button
+                key={`${entry.date}-${idx}`}
+                type="button"
+                onClick={() => setShowHistory(true)}
+                style={{
+                  width: '100%',
+                  textAlign: 'left',
+                  border: `1px solid ${D.border}`,
+                  background: D.bgCard,
+                  color: D.text,
+                  borderRadius: D.radiusSm,
+                  padding: 10,
+                  marginBottom: 8,
+                  fontFamily: "'LXGW WenKai', 'Cinzel', serif",
+                }}
+              >
+                <div style={{ fontSize: 13, fontWeight: 700 }}>第{entry.teachingWeek ?? '-'}周座位</div>
+                <div style={{ fontSize: 11, color: D.textDim, marginTop: 3 }}>{new Date(entry.date).toLocaleString('zh-CN')}</div>
+              </button>
+            ))}
+          </MobileSection>
+        )}
+
+        <AnimatePresence>
+          {showHistory && (
+            <HistoryModal history={history} students={students} onClose={() => setShowHistory(false)} onDelete={(idx) => {
+              const newHistory = history.filter((_, i) => i !== idx);
+              setHistory(newHistory);
+              saveHistoryToStorage(newHistory);
+            }} />
+          )}
+        </AnimatePresence>
+      </MobilePage>
+    );
+  }
 
   return (
     <div style={{ display: 'flex', gap: 24, height: 'calc(100vh - 64px)', overflow: 'hidden', fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}>

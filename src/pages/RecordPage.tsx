@@ -9,9 +9,11 @@ import { useMobile } from '../hooks/useMobile';
 import { D, INK } from '../data/theme';
 import { getSeatPriority } from '../data/config';
 import { HeritageIcon, HeartDemonInlineIcon } from '../components/LevelIcon';
+import { MobileActionBar, MobilePage, MobileRecordItem, MobileSection, MobileSegmentedControl } from '../components/mobile/MobileUI';
 import { processNegativeBehavior, processPositiveBehavior, processPositiveBehaviorFront, processRise, addStarShield, getLevelName, donateHeritage, checkHeartDemonAutoClear } from '../lib/cardLogic';
+import { calculateNegativePenalty } from '../lib/negativePenalty';
 import { toLocalDateStr, recordLocalDate } from '../lib/utils';
-import type { Category, NegativeWeight, PositiveWeight } from '../types';
+import type { BehaviorRecord, Category, NegativeWeight, PositiveWeight } from '../types';
 
 function getPinyinInitial(name: string): string {
   const char = name.charAt(0);
@@ -81,6 +83,10 @@ const CATEGORY_COLORS: Record<string, string> = {
 };
 
 const CATEGORY_ORDER = ['纪律', '学习', '卫生', '品行'];
+
+function joinRemarkParts(...parts: Array<string | undefined | null | false>): string {
+  return parts.map(part => typeof part === 'string' ? part.trim() : '').filter(Boolean).join('；');
+}
 
 interface BatchResult {
   studentId: string;
@@ -174,7 +180,7 @@ export default function RecordPage() {
     for (const record of displayedRecords) {
       const date = new Date(record.createdAt);
       const minuteKey = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}-${date.getHours()}-${date.getMinutes()}`;
-      const groupKey = `${record.description}|${record.direction}|${record.weight}|${record.recordedBy}|${minuteKey}`;
+      const groupKey = `${record.description}|${record.direction}|${record.weight}|${record.extraWeight ?? 0}|${record.penaltyReasons?.join(',') ?? ''}|${record.studentCardSide ?? ''}|${record.recordedBy}|${minuteKey}`;
       if (!groupMap.has(groupKey)) groupMap.set(groupKey, []);
       groupMap.get(groupKey)!.push(record);
     }
@@ -185,6 +191,7 @@ export default function RecordPage() {
       description: recs[0].description,
       direction: recs[0].direction,
       weight: recs[0].weight,
+      extraWeight: recs[0].extraWeight ?? 0,
       createdAt: recs[0].createdAt,
       remark: recs[0].remark,
       hasShields: recs.some(r => r.shieldsConsumed > 0),
@@ -253,6 +260,8 @@ export default function RecordPage() {
         weight: e.weight,
         name: e.name,
         description: e.description,
+        aliases: e.aliases,
+        seriesId: e.seriesId ?? e.id,
         isHighSensitivity: false,
         isComposite: false,
         isInverseSelectable: false,
@@ -271,6 +280,8 @@ export default function RecordPage() {
         weight: selectedLimitedEvent.weight,
         name: selectedLimitedEvent.name,
         description: selectedLimitedEvent.description,
+        aliases: selectedLimitedEvent.aliases,
+        seriesId: selectedLimitedEvent.seriesId ?? selectedLimitedEvent.id,
         isHighSensitivity: false,
         isComposite: false,
         isInverseSelectable: false,
@@ -446,33 +457,44 @@ export default function RecordPage() {
       let anyReachedImmortal = false;
       let totalShieldsConsumed = 0;
       let totalShieldsGained = 0;
+      const sessionNegativeRecords: BehaviorRecord[] = [];
+      const negativeEffectLabels: string[] = [];
+      const negativePenaltyNotes = new Set<string>();
 
       for (let i = 0; i < applyCount; i++) {
         if (effectiveDirection === 'negative' && selectedBehavior) {
-          const effectiveWeight = (selectedBehavior.weight as number) + (selectedBehavior.extraWeight ?? 0);
+          const penalty = calculateNegativePenalty(currentStudent, selectedBehavior, [...records, ...sessionNegativeRecords], config.committeeNames ?? []);
+          const isBackNegative = currentStudent.cardSide === 'back';
+          const effectiveWeight = isBackNegative ? penalty.backHeartDemonAmount : penalty.effectiveFrontWeight;
           const { student: updated, shieldsConsumed, levelChanged, flipped, heritageOffsetCount } = processNegativeBehavior(currentStudent, effectiveWeight, currentStudent.starShields, config.shieldOffsetRatio, config.frontLevels, config.backLevels, config.immortalDemotionThreshold);
 
           if (levelChanged) anyLevelChanged = true;
           if (flipped) anyFlipped = true;
           totalShieldsConsumed += shieldsConsumed;
+          negativeEffectLabels.push(`${effectiveWeight}${isBackNegative ? '心魔' : config.blankMarkName}`);
+          if (penalty.remarkSuffix) negativePenaltyNotes.add(penalty.remarkSuffix);
 
           updateStudent(studentId, () => updated);
-          addBehaviorRecord({
+          const newRecord = addBehaviorRecord({
             studentId,
             direction: 'negative',
             weight: selectedBehavior.weight as NegativeWeight,
+            behaviorId: selectedBehavior.id,
+            behaviorSeriesId: selectedBehavior.seriesId,
             category: selectedBehavior.category,
             description: selectedBehavior.name,
-            remark: (applyCount > 1 ? `第${i + 1}次` : '') + (description || ''),
+            remark: joinRemarkParts(applyCount > 1 ? `第${i + 1}次` : '', description, penalty.remarkSuffix),
             recordedBy,
             verified: !selectedBehavior.isHighSensitivity,
             shieldsConsumed,
-            extraWeight: selectedBehavior.extraWeight ?? 0,
+            extraWeight: penalty.extraWeight,
+            penaltyReasons: penalty.penaltyReasons,
             isHighSensitivity: selectedBehavior.isHighSensitivity,
             studentCardSide: currentStudent.cardSide,
             affectsFlag: selectedBehavior.affectsFlag,
             timePeriodId: selectedTimePeriodId || undefined,
           });
+          sessionNegativeRecords.push(newRecord);
 
           // 传承值自动抵消心魔记录
           if (heritageOffsetCount > 0) {
@@ -506,6 +528,8 @@ export default function RecordPage() {
               studentId,
               direction: 'positive',
               weight: baseWeight,
+              behaviorId: selectedBehavior.id,
+              behaviorSeriesId: selectedBehavior.seriesId,
               category: selectedBehavior.category,
               description: selectedBehavior.name,
               remark: (applyCount > 1 ? `第${i + 1}次` : '') + (description || (selectedBehavior.extraWeight ? `额外+${selectedBehavior.extraWeight}` : '')),
@@ -530,6 +554,8 @@ export default function RecordPage() {
               studentId,
               direction: 'positive',
               weight: baseWeight,
+              behaviorId: selectedBehavior.id,
+              behaviorSeriesId: selectedBehavior.seriesId,
               category: selectedBehavior.category,
               description: selectedBehavior.name,
               remark: (applyCount > 1 ? `第${i + 1}次` : '') + (description || (selectedBehavior.extraWeight ? `额外+${selectedBehavior.extraWeight}` : '')),
@@ -673,11 +699,13 @@ export default function RecordPage() {
       // Build result message
       if (effectiveDirection === 'negative' && selectedBehavior) {
         const baseWeight = selectedBehavior.weight as NegativeWeight;
-        const effectiveWeight = (selectedBehavior.weight as number) + (selectedBehavior.extraWeight ?? 0);
-        let msg = selectedBehavior.extraWeight
-          ? `${config.negativeWeightNames[baseWeight]} ${effectiveWeight}${config.blankMarkName}（含额外+${selectedBehavior.extraWeight}）`
-          : `${config.negativeWeightNames[baseWeight]} ${baseWeight}${config.blankMarkName}`;
-        if (applyCount > 1) msg = `${applyCount}次 ${msg}`;
+        const uniqueEffectLabels = Array.from(new Set(negativeEffectLabels));
+        const effectLabel = uniqueEffectLabels.length === 1
+          ? uniqueEffectLabels[0]
+          : uniqueEffectLabels.join('、');
+        let msg = `${config.negativeWeightNames[baseWeight]} ${effectLabel || `${baseWeight}${config.blankMarkName}`}`;
+        if (applyCount > 1 && uniqueEffectLabels.length <= 1) msg = `${applyCount}次 ${msg}`;
+        if (negativePenaltyNotes.size > 0) msg += `（${Array.from(negativePenaltyNotes).join('；')}）`;
         if (totalShieldsConsumed > 0) msg += ` — 消耗${totalShieldsConsumed}护盾`;
         if (anyLevelChanged && !anyFlipped) msg += ` → 降至${getLevelName(currentStudent.cardSide, currentStudent.currentLevel, config.frontLevels, config.backLevels)}`;
         if (anyFlipped) msg += ' → 已翻面！';
@@ -763,41 +791,6 @@ export default function RecordPage() {
       }
     }
 
-    // Auto-rise: check all front-side level 2+ students for rise conditions
-    for (const s of students) {
-      if (s.cardSide !== 'front' || s.currentLevel <= 1) continue;
-      const riseTask = config.riseTasks.find(t => t.side === 'front' && t.level === s.currentLevel);
-      if (!riseTask) continue;
-      const daysRequired = riseTask.riseDaysRequired ?? 0;
-      if (s.consecutiveNoViolationDays < daysRequired) continue;
-      const { student: updated, rose } = processRise(s, s.consecutiveNoViolationDays, daysRequired, true);
-      if (rose) {
-        const oldName = getLevelName('front', s.currentLevel, config.frontLevels, config.backLevels);
-        const newName = getLevelName('front', updated.currentLevel, config.frontLevels, config.backLevels);
-        updateStudent(s.id, () => updated);
-        addBehaviorRecord({
-          studentId: s.id,
-          direction: 'positive',
-          weight: 1 as PositiveWeight,
-          category: '品行',
-          description: `${config.blankMarkName}连续无违纪${s.consecutiveNoViolationDays}天，自动回升`,
-          remark: `${oldName} → ${newName}`,
-          recordedBy: recordedBy || '系统',
-          verified: true,
-          shieldsConsumed: 0,
-          isHighSensitivity: false,
-          studentCardSide: s.cardSide,
-          timePeriodId: undefined,
-        });
-        results.push({
-          studentId: s.id, studentName: s.name,
-          message: `自动回升：${oldName} → ${newName}`,
-          levelChanged: true, flipped: false, shieldUsed: false,
-          reachedImmortal: false, shieldsGained: 0,
-        });
-      }
-    }
-
     setBatchResults(results);
     setShieldResults(autoShieldResults.length > 0 ? autoShieldResults : null);
     localStorage.setItem('last_recorder', recordedBy);
@@ -848,8 +841,10 @@ export default function RecordPage() {
         });
         results.push({ studentId, studentName: student.name, message: `回升成功：${oldName} → ${newName}`, levelChanged: true, flipped: false, shieldUsed: false, reachedImmortal: false, shieldsGained: 0 });
       } else {
-        const remaining = daysRequired - student.consecutiveNoViolationDays;
-        results.push({ studentId, studentName: student.name, message: `条件不满足：还需${remaining}天无违纪`, levelChanged: false, flipped: false, shieldUsed: false, reachedImmortal: false, shieldsGained: 0 });
+        const missing: string[] = [];
+        if (student.consecutiveNoViolationDays < daysRequired) missing.push(`还需${daysRequired - student.consecutiveNoViolationDays}天无违纪`);
+        if (!(student.riseTaskCompleted ?? false)) missing.push('请先标记回升任务完成');
+        results.push({ studentId, studentName: student.name, message: `条件不满足：${missing.join('，') || '请检查回升条件'}`, levelChanged: false, flipped: false, shieldUsed: false, reachedImmortal: false, shieldsGained: 0 });
       }
     }
 
@@ -878,6 +873,404 @@ export default function RecordPage() {
       autoShields: shieldResults?.length ?? 0,
     };
   }, [batchResults, shieldResults]);
+
+  if (isMobile) {
+    const selectedStudents = selectedStudentIds
+      .map(id => students.find(student => student.id === id))
+      .filter(Boolean) as typeof students;
+    const submitDisabled = isSyncing || (direction === 'rise'
+      ? selectedStudentIds.length === 0
+      : (selectedStudentIds.length === 0 || !selectedBehaviorId || (requiresTimePeriod && !selectedTimePeriodId)));
+    const submitLabel = isSyncing
+      ? '正在同步...'
+      : direction === 'rise'
+        ? '确认完成回升任务'
+        : isLimitedCategory
+          ? '记录限时活动'
+          : direction === 'negative'
+            ? `记录${config.blankMarkName}行为`
+            : '记录正面行为';
+
+    return (
+      <MobilePage>
+        <MobileSection title="选学生" subtitle={selectedStudentIds.length > 0 ? `已选 ${selectedStudentIds.length} 人` : '可多次点击同一学生增加次数'}>
+          <div style={{ display: 'flex', gap: 6, marginBottom: 8 }}>
+            <div style={{ position: 'relative', flex: 1, minWidth: 0 }}>
+              <Search size={14} style={{ position: 'absolute', left: 10, top: 11, color: D.textDim }} />
+              <input
+                value={searchQuery}
+                onChange={event => setSearchQuery(event.target.value)}
+                placeholder="姓名或序号"
+                style={{
+                  width: '100%',
+                  height: 38,
+                  boxSizing: 'border-box',
+                  padding: '0 10px 0 32px',
+                  borderRadius: D.radiusXs,
+                  border: `1px solid ${D.border}`,
+                  background: D.bgInput,
+                  color: D.text,
+                  outline: 'none',
+                  fontFamily: "'LXGW WenKai', 'Cinzel', serif",
+                }}
+              />
+            </div>
+            <button type="button" onClick={selectAll} style={{ borderRadius: D.radiusXs, border: `1px solid ${D.border}`, background: D.bgCard, color: D.textMid, padding: '0 10px', fontSize: 12 }}>全选</button>
+            <button type="button" onClick={deselectAll} style={{ borderRadius: D.radiusXs, border: `1px solid ${D.border}`, background: D.bgCard, color: D.textDim, padding: '0 10px', fontSize: 12 }}>清空</button>
+          </div>
+
+          {selectedStudents.length > 0 && (
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 10 }}>
+              {selectedStudents.map(student => {
+                const count = studentCounts[student.id] || 1;
+                return (
+                  <span key={student.id} style={{ display: 'inline-flex', alignItems: 'center', gap: 5, maxWidth: '100%', padding: '5px 8px', borderRadius: D.radiusXs, background: D.goldDim, border: `1px solid ${D.borderGlow}`, color: D.gold, fontSize: 12 }}>
+                    <span style={{ overflowWrap: 'break-word' }}>{student.name}</span>
+                    {count > 1 && <b>×{count}</b>}
+                    {count > 1 && <button type="button" onClick={() => decrementStudentCount(student.id)} style={{ border: 0, background: 'transparent', color: D.gold, padding: 0, fontSize: 14 }}>−</button>}
+                    <button type="button" onClick={() => removeStudent(student.id)} style={{ border: 0, background: 'transparent', color: D.gold, padding: 0, display: 'flex' }}><X size={12} /></button>
+                  </span>
+                );
+              })}
+            </div>
+          )}
+
+          <div style={{ maxHeight: 264, overflowY: 'auto', display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', gap: 6, paddingRight: 2 }}>
+            {filteredStudents.map(student => {
+              const selected = selectedStudentIds.includes(student.id);
+              const count = studentCounts[student.id] || 1;
+              return (
+                <button
+                  key={student.id}
+                  type="button"
+                  onClick={() => toggleStudent(student.id)}
+                  style={{
+                    minHeight: 48,
+                    borderRadius: D.radiusXs,
+                    border: `1px solid ${selected ? D.borderGlow : D.border}`,
+                    background: selected ? D.goldDim : (student.cardSide === 'back' ? 'rgba(212,122,40,0.08)' : 'rgba(255,255,255,0.025)'),
+                    color: selected ? D.gold : D.text,
+                    fontSize: 12,
+                    fontWeight: selected ? 700 : 500,
+                    fontFamily: "'LXGW WenKai', 'Cinzel', serif",
+                    cursor: 'pointer',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 2,
+                    minWidth: 0,
+                  }}
+                >
+                  <span style={{ maxWidth: '100%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{student.name}</span>
+                  <span style={{ fontSize: 10, color: selected ? D.gold : D.textDim }}>#{student.number}{selected && count > 1 ? ` ×${count}` : ''}</span>
+                </button>
+              );
+            })}
+          </div>
+        </MobileSection>
+
+        <MobileSection title="记录人和方向">
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 10 }}>
+            {(config.committeeNames ?? ['王老师']).map(name => (
+              <button
+                key={name}
+                type="button"
+                onClick={() => setRecordedBy(name)}
+                style={{
+                  minHeight: 34,
+                  padding: '6px 10px',
+                  borderRadius: D.radiusXs,
+                  border: `1px solid ${recordedBy === name ? D.borderGlow : D.border}`,
+                  background: recordedBy === name ? D.goldDim : D.bgCard,
+                  color: recordedBy === name ? D.gold : D.textMid,
+                  fontSize: 12,
+                  fontFamily: "'LXGW WenKai', 'Cinzel', serif",
+                }}
+              >
+                {name}
+              </button>
+            ))}
+          </div>
+          <MobileSegmentedControl
+            value={direction}
+            onChange={value => {
+              setDirection(value);
+              setSelectedBehaviorId('');
+              setBatchResults(null);
+              setShieldResults(null);
+              setIsLimitedCategory(false);
+            }}
+            columns={3}
+            options={[
+              { value: 'negative', label: '负面', tone: 'red' },
+              { value: 'positive', label: '正面', tone: 'gold' },
+              { value: 'rise', label: '回升', tone: 'green' },
+            ]}
+          />
+        </MobileSection>
+
+        {direction !== 'rise' ? (
+          <MobileSection title="选行为" subtitle={selectedBehavior ? selectedBehavior.name : '先选类别，再选具体行为'}>
+            <div style={{ display: 'flex', gap: 6, overflowX: 'auto', paddingBottom: 4, marginBottom: 8 }}>
+              {config.categories.map(cat => {
+                const selected = !isLimitedCategory && selectedCategory === cat;
+                return (
+                  <button
+                    key={cat}
+                    type="button"
+                    onClick={() => { setIsLimitedCategory(false); handleCategoryChange(cat as Category); }}
+                    style={{
+                      flexShrink: 0,
+                      minHeight: 34,
+                      padding: '6px 12px',
+                      borderRadius: D.radiusXs,
+                      border: `1px solid ${selected ? D.borderGlow : D.border}`,
+                      background: selected ? D.goldDim : D.bgCard,
+                      color: selected ? D.gold : D.textMid,
+                      fontSize: 12,
+                      fontFamily: "'LXGW WenKai', 'Cinzel', serif",
+                    }}
+                  >
+                    {cat}
+                  </button>
+                );
+              })}
+              {activeLimitedEvents.filter(event => event.direction === direction).length > 0 && (
+                <button
+                  type="button"
+                  onClick={() => { setIsLimitedCategory(true); setSelectedBehaviorId(''); }}
+                  style={{
+                    flexShrink: 0,
+                    minHeight: 34,
+                    padding: '6px 12px',
+                    borderRadius: D.radiusXs,
+                    border: `1px solid ${isLimitedCategory ? 'rgba(232,160,48,0.55)' : D.border}`,
+                    background: isLimitedCategory ? 'rgba(232,160,48,0.16)' : D.bgCard,
+                    color: isLimitedCategory ? '#E8A030' : D.textMid,
+                    fontSize: 12,
+                    fontFamily: "'LXGW WenKai', 'Cinzel', serif",
+                  }}
+                >
+                  限时活动
+                </button>
+              )}
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 7 }}>
+              {behaviors.map(behavior => {
+                const selected = selectedBehaviorId === behavior.id;
+                const behaviorDirection = isLimitedCategory ? behavior.direction : direction;
+                const isNeg = behaviorDirection === 'negative';
+                const weightName = isNeg
+                  ? config.negativeWeightNames[behavior.weight as NegativeWeight]
+                  : config.positiveWeightNames[behavior.weight as PositiveWeight];
+                return (
+                  <button
+                    key={behavior.id}
+                    type="button"
+                    onClick={() => setSelectedBehaviorId(behavior.id)}
+                    style={{
+                      textAlign: 'left',
+                      borderRadius: D.radiusSm,
+                      border: `1px solid ${selected ? D.borderGlow : D.border}`,
+                      background: selected ? D.bgCardHover : D.bgCard,
+                      padding: 10,
+                      color: D.text,
+                      fontFamily: "'LXGW WenKai', 'Cinzel', serif",
+                    }}
+                  >
+                    <div style={{ display: 'flex', justifyContent: 'space-between', gap: 8, alignItems: 'flex-start', flexWrap: 'wrap' }}>
+                      <span style={{ flex: '1 1 180px', minWidth: 0, fontSize: 13, fontWeight: 700, lineHeight: 1.45, overflowWrap: 'break-word' }}>{behavior.name}</span>
+                      <span style={{ flexShrink: 0, fontSize: 11, color: isNeg ? D.cinnabar : D.blue, background: isNeg ? D.cinnabarDim : D.blueDim, borderRadius: D.radiusXs, padding: '3px 7px' }}>
+                        {weightName}
+                      </span>
+                    </div>
+                    {selected && behavior.description && behavior.description !== behavior.name && (
+                      <div style={{ marginTop: 7, paddingTop: 7, borderTop: `1px solid ${D.border}`, color: D.textMid, fontSize: 12, lineHeight: 1.55, overflowWrap: 'break-word' }}>
+                        {behavior.description}
+                      </div>
+                    )}
+                    {selected && isInverseSelectable && isNeg && (
+                      <label style={{ marginTop: 8, display: 'flex', alignItems: 'center', gap: 6, color: D.blue, fontSize: 12 }}>
+                        <input type="checkbox" checked={enableInverse} onChange={event => setEnableInverse(event.target.checked)} />
+                        本次启用反选护盾
+                      </label>
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+
+            {selectedBehaviorId && requiresTimePeriod && (
+              <div style={{ marginTop: 10 }}>
+                <div style={{ fontSize: 12, color: D.textMid, marginBottom: 6 }}>行为发生时间</div>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                  {timePeriods.map(period => (
+                    <button
+                      key={period.id}
+                      type="button"
+                      onClick={() => setSelectedTimePeriodId(period.id)}
+                      style={{
+                        minHeight: 32,
+                        padding: '5px 10px',
+                        borderRadius: D.radiusXs,
+                        border: `1px solid ${selectedTimePeriodId === period.id ? D.borderGlow : D.border}`,
+                        background: selectedTimePeriodId === period.id ? D.goldDim : D.bgCard,
+                        color: selectedTimePeriodId === period.id ? D.gold : D.textMid,
+                        fontSize: 12,
+                      }}
+                    >
+                      {period.name}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            <input
+              value={description}
+              onChange={event => setDescription(event.target.value)}
+              placeholder="备注，可选"
+              style={{
+                width: '100%',
+                boxSizing: 'border-box',
+                height: 38,
+                marginTop: 10,
+                borderRadius: D.radiusXs,
+                border: `1px solid ${D.border}`,
+                background: D.bgInput,
+                color: D.text,
+                padding: '0 10px',
+                outline: 'none',
+                fontFamily: "'LXGW WenKai', 'Cinzel', serif",
+              }}
+            />
+          </MobileSection>
+        ) : (
+          <MobileSection title="回升确认" subtitle="必须先满足零违纪天数，并手动标记任务完成">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {selectedStudents.length === 0 ? (
+                <div style={{ padding: 16, borderRadius: D.radiusXs, background: D.bgCard, border: `1px solid ${D.border}`, color: D.textDim, fontSize: 13, textAlign: 'center' }}>请先选择需要确认回升的学生</div>
+              ) : selectedStudents.map(student => {
+                const riseTask = config.riseTasks.find(task => task.side === 'front' && task.level === student.currentLevel);
+                const daysRequired = riseTask?.riseDaysRequired ?? 0;
+                const progress = daysRequired > 0 ? Math.min(100, (student.consecutiveNoViolationDays / daysRequired) * 100) : 100;
+                return (
+                  <div key={student.id} style={{ borderRadius: D.radiusSm, border: `1px solid ${D.border}`, background: D.bgCard, padding: 10 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', gap: 8, alignItems: 'flex-start' }}>
+                      <div>
+                        <div style={{ fontSize: 14, fontWeight: 700, color: D.text }}>{student.name}</div>
+                        <div style={{ fontSize: 12, color: D.textMid, marginTop: 2 }}>{riseTask?.riseTask ?? '当前等级没有回升任务'}</div>
+                      </div>
+                      <span style={{ fontSize: 11, color: student.riseTaskCompleted ? D.success : D.textDim }}>{student.riseTaskCompleted ? '任务已完成' : '任务未标记'}</span>
+                    </div>
+                    <div style={{ marginTop: 8, height: 4, borderRadius: 99, background: 'rgba(255,255,255,0.08)', overflow: 'hidden' }}>
+                      <div style={{ width: `${progress}%`, height: '100%', borderRadius: 99, background: student.consecutiveNoViolationDays >= daysRequired ? D.success : D.gold }} />
+                    </div>
+                    <div style={{ marginTop: 6, fontSize: 11, color: D.textDim }}>
+                      零违纪 {student.consecutiveNoViolationDays}/{daysRequired} 天
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </MobileSection>
+        )}
+
+        {(isSyncing || syncError) && (
+          <MobileSection style={{ borderColor: syncError ? 'rgba(196,65,37,0.35)' : 'rgba(212,168,83,0.35)', background: syncError ? D.cinnabarDim : D.goldDim }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', gap: 10, alignItems: 'center' }}>
+              <span style={{ color: syncError ? D.cinnabar : D.gold, fontSize: 13 }}>{isSyncing ? '正在同步，请不要立即关闭页面' : '同步失败，请检查网络后重试'}</span>
+              {syncError && <button type="button" onClick={retrySync} style={{ borderRadius: D.radiusXs, border: `1px solid rgba(196,65,37,0.4)`, background: 'rgba(0,0,0,0.16)', color: D.cinnabar, padding: '5px 10px' }}>重试</button>}
+            </div>
+          </MobileSection>
+        )}
+
+        {batchResults && summaryStats && (
+          <MobileSection title={`记录完成 · ${summaryStats.total}人`}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+              {batchResults.map(result => (
+                <div key={`${result.studentId}-${result.message}`} style={{ padding: 8, borderRadius: D.radiusXs, background: D.bgCard, border: `1px solid ${D.border}` }}>
+                  <div style={{ fontSize: 13, color: D.text, fontWeight: 700 }}>{result.studentName}</div>
+                  <div style={{ fontSize: 12, color: D.textMid, lineHeight: 1.5, marginTop: 3 }}>{result.message}</div>
+                  {result.flipped && (
+                    <button type="button" onClick={() => navigate(`/card/${result.studentId}?flipped=true`)} style={{ marginTop: 6, borderRadius: D.radiusXs, border: `1px solid rgba(212,122,40,0.35)`, background: 'rgba(212,122,40,0.12)', color: D.flameGold, padding: '4px 8px', fontSize: 12 }}>
+                      查看翻面仪式
+                    </button>
+                  )}
+                </div>
+              ))}
+            </div>
+          </MobileSection>
+        )}
+
+        <MobileSection title="最近记录">
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            {groupedRecords.slice(0, 20).map(group => {
+              const isNeg = group.direction === 'negative';
+              const weightName = isNeg
+                ? config.negativeWeightNames[group.weight as NegativeWeight]
+                : config.positiveWeightNames[group.weight as PositiveWeight];
+              return (
+                <MobileRecordItem
+                  key={group.key}
+                  leading={<span style={{ width: 28, height: 28, borderRadius: D.radiusXs, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: isNeg ? D.cinnabarDim : D.blueDim, color: isNeg ? D.cinnabar : D.blue }}>{isNeg ? <XCircle size={15} /> : <CheckCircle2 size={15} />}</span>}
+                  title={<><b>{group.studentNames.slice(0, 4).join('、')}{group.studentNames.length > 4 ? `等${group.studentNames.length}人` : ''}</b> · {group.description}</>}
+                  meta={`${new Date(group.createdAt).toLocaleString('zh-CN', { month: 'numeric', day: 'numeric', hour: 'numeric', minute: '2-digit' })}${group.recordedBy ? ` · ${group.recordedBy}` : ''}${group.remark ? ` · ${group.remark.replace(/^ruleId:[^,，]+[,，]\s*/, '')}` : ''}`}
+                  tags={<>
+                    <span style={{ fontSize: 10, color: isNeg ? D.cinnabar : D.blue, background: isNeg ? D.cinnabarDim : D.blueDim, borderRadius: 3, padding: '2px 5px' }}>{weightName}</span>
+                    {group.extraWeight > 0 && <span style={{ fontSize: 10, color: '#E8A030', background: 'rgba(232,160,48,0.15)', borderRadius: 3, padding: '2px 5px' }}>额外+{group.extraWeight}</span>}
+                    {group.hasShields && <span style={{ fontSize: 10, color: D.blue, background: D.blueDim, borderRadius: 3, padding: '2px 5px' }}>护盾-{group.totalShields}</span>}
+                  </>}
+                  action={canDeleteRecord && (
+                    showDeleteConfirm === group.allIds[0] ? (
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+                        <button type="button" onClick={async () => { group.allIds.forEach(id => deleteBehaviorRecord(id)); const synced = await syncAfterChange(`已删除并同步 ${group.allIds.length} 条记录`); if (synced) setShowDeleteConfirm(null); }} style={{ borderRadius: D.radiusXs, border: `1px solid rgba(196,65,37,0.4)`, background: D.cinnabarDim, color: D.cinnabar, padding: '3px 7px', fontSize: 11 }}>确认</button>
+                        <button type="button" onClick={() => setShowDeleteConfirm(null)} style={{ borderRadius: D.radiusXs, border: `1px solid ${D.border}`, background: D.bgCard, color: D.textDim, padding: '3px 7px', fontSize: 11 }}>取消</button>
+                      </div>
+                    ) : (
+                      <button type="button" onClick={() => setShowDeleteConfirm(group.allIds[0])} style={{ width: 30, height: 30, borderRadius: D.radiusXs, border: `1px solid ${D.border}`, background: D.bgCard, color: D.textDim, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <Trash2 size={14} />
+                      </button>
+                    )
+                  )}
+                />
+              );
+            })}
+          </div>
+        </MobileSection>
+
+        <MobileActionBar>
+          <button
+            type="button"
+            onClick={direction === 'rise' ? handleRiseSubmit : handleSubmit}
+            disabled={submitDisabled}
+            style={{
+              width: '100%',
+              minHeight: 48,
+              borderRadius: D.radiusSm,
+              border: 'none',
+              background: submitDisabled
+                ? D.bgCard
+                : direction === 'negative'
+                  ? `linear-gradient(135deg, #9a3820, ${D.cinnabar})`
+                  : direction === 'rise'
+                    ? 'linear-gradient(135deg, #3d8a4f, #68c87a)'
+                    : `linear-gradient(135deg, #b8942e, ${D.flameGold})`,
+              color: submitDisabled ? D.textDim : '#fff',
+              fontSize: 15,
+              fontWeight: 800,
+              fontFamily: "'LXGW WenKai', 'Cinzel', serif",
+              boxShadow: submitDisabled ? 'none' : D.goldGlow,
+            }}
+          >
+            {submitLabel}{selectedStudentIds.length > 0 ? `（${selectedStudentIds.length}人）` : ''}
+          </button>
+        </MobileActionBar>
+      </MobilePage>
+    );
+  }
 
   return (
     <div style={{ minHeight: '100vh', padding: '32px 16px 48px', position: 'relative', background: 'transparent' }}>
@@ -1936,6 +2329,11 @@ export default function RecordPage() {
                 const weightName = isNeg
                   ? config.negativeWeightNames[group.weight as NegativeWeight]
                   : config.positiveWeightNames[group.weight as PositiveWeight];
+                const effectiveGroupWeight = isNeg
+                  ? (group.records[0].studentCardSide === 'back' ? 1 + group.extraWeight : (group.weight as number) + group.extraWeight)
+                  : (group.weight as number) + group.extraWeight;
+                const negativeGroupUnit = group.records[0].studentCardSide === 'back' ? '心魔' : config.blankMarkName;
+                const positiveGroupUnit = group.records[0].studentCardSide === 'back' ? config.checkMarkName : '护盾';
                 const isExpanded = expandedGroups.has(group.key);
                 const allGroupSelected = group.allIds.every(id => selectedRecordIds.has(id));
                 const names = group.studentNames;
@@ -1965,7 +2363,7 @@ export default function RecordPage() {
                           }} style={{ cursor: 'pointer', flexShrink: 0 }} />
                         )}
                         <span style={{ padding: '2px 8px', borderRadius: D.radiusXs, fontSize: 11, fontWeight: 600, flexShrink: 0, background: isNeg ? D.cinnabarDim : D.blueDim, color: isNeg ? D.cinnabar : D.blue }}>
-                          {weightName} {isNeg ? `${group.weight}星蚀/心魔` : `${group.weight}护盾/火种`}
+                          {weightName} {isNeg ? `${effectiveGroupWeight}${negativeGroupUnit}` : `${effectiveGroupWeight}${positiveGroupUnit}`}
                         </span>
                         <span style={{ fontSize: isMobile ? 12 : 13, color: D.text, fontWeight: 500, wordBreak: isMobile ? 'break-word' : 'normal', overflow: isMobile ? 'visible' : 'hidden', textOverflow: isMobile ? 'clip' : 'ellipsis', whiteSpace: isMobile ? 'normal' : 'nowrap', maxWidth: isMobile ? '100%' : '40%', flex: isMobile ? '1 1 100%' : 'none' }}>
                           {displayNames.join('、')}

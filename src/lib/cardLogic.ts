@@ -55,8 +55,9 @@ export function processNegativeBehavior(
       levelChanged = true;
     }
   } else {
-    s.heartDemonMarks += 1;
-    s.totalHeartDemonsEverGained += 1;
+    const heartDemonGain = Math.max(1, Math.floor(weight));
+    s.heartDemonMarks += heartDemonGain;
+    s.totalHeartDemonsEverGained += heartDemonGain;
     // 不朽晨辉：传承值自动抵消心魔
     while (s.heartDemonMarks > 0 && s.heritagePoints > 0 && s.currentLevel === 6) {
       s.heartDemonMarks -= 1;
@@ -176,6 +177,7 @@ export function processRise(
     const s = { ...student };
     s.currentLevel -= 1;
     s.blanksFilled = 0;
+    s.consecutiveNoViolationDays = 0;
     // 护盾保留，以资鼓励
     s.updatedAt = new Date().toISOString();
     s.lastLevelChange = { direction: 'up', fromLevel, toLevel: s.currentLevel, fromSide, toSide: s.cardSide, timestamp: s.updatedAt };

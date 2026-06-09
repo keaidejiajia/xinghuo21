@@ -33,10 +33,12 @@ export interface ExchangeItem {
 // ===== 限时活动 =====
 export interface LimitedEvent {
   id: string;
+  seriesId?: string;
   name: string;
   direction: Direction;
   weight: NegativeWeight | PositiveWeight;
   description: string;
+  aliases?: string[];
   startDate: string;
   endDate: string;
   isActive: boolean;
@@ -115,12 +117,16 @@ export interface Student {
   updatedAt: string;
 }
 
+export type PenaltyReason = 'weekly_recorder' | 'old_habit_recurrence';
+
 // ===== 行为记录 =====
 export interface BehaviorRecord {
   id: string;
   studentId: string;
   direction: Direction;
   weight: NegativeWeight | PositiveWeight;
+  behaviorId?: string;
+  behaviorSeriesId?: string;
   category: Category;
   description: string;
   remark?: string;
@@ -129,6 +135,7 @@ export interface BehaviorRecord {
   verified: boolean;
   shieldsConsumed: number;
   extraWeight?: number;
+  penaltyReasons?: PenaltyReason[];
   isHighSensitivity: boolean;
   affectsFlag?: boolean;
   studentCardSide?: CardSide;
@@ -187,6 +194,8 @@ export interface BehaviorDefinition {
   behaviorBlacklist?: string[];
   extraWeight?: number;
   requiresTimePeriod?: boolean;
+  aliases?: string[];
+  seriesId?: string;
 }
 
 // ===== 自动触发规则 =====

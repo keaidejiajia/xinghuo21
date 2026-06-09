@@ -234,8 +234,9 @@ export function recomputeAllStudents(
         }
       } else {
         // Back side negative
-        sim.heartDemonMarks += 1;
-        sim.totalHeartDemonsEverGained += 1;
+        const heartDemonGain = 1 + (r.extraWeight || 0);
+        sim.heartDemonMarks += heartDemonGain;
+        sim.totalHeartDemonsEverGained += heartDemonGain;
         while (sim.heartDemonMarks > 0 && sim.heritagePoints > 0 && sim.currentLevel === 6) {
           sim.heartDemonMarks -= 1;
           sim.heritagePoints -= 1;
@@ -455,7 +456,8 @@ export function computeStudentLevelChanges(
           currentLevel += 1; blanksFilled = 0;
         }
       } else {
-        heartDemonMarks += 1;
+        const heartDemonGain = 1 + (r.extraWeight || 0);
+        heartDemonMarks += heartDemonGain;
         while (heartDemonMarks > 0 && heritagePoints > 0 && currentLevel === 6) { heartDemonMarks--; heritagePoints--; }
         if (cardSide === 'back' && currentLevel === 6 && heartDemonMarks >= DEMOTE_THRESH) {
           levelChangeMap.set(r.id, {

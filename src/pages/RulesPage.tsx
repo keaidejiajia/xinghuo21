@@ -251,9 +251,26 @@ export default function RulesPage() {
       {/* Content */}
       <main ref={contentRef} style={{
         flex: 1, overflowY: 'auto',
-        padding: isMobile ? '16px 16px 32px' : '24px 40px',
+        padding: isMobile ? '12px 12px calc(96px + env(safe-area-inset-bottom))' : '24px 40px',
         maxHeight: `calc(100vh - ${isMobile ? 48 : 64}px)`,
+        overflowX: 'hidden',
       }}>
+        <style>{`
+          @media (max-width: 767px) {
+            .rules-grid {
+              grid-template-columns: 1fr !important;
+            }
+            [data-section-id] {
+              margin-bottom: 28px !important;
+              overflow-wrap: break-word;
+            }
+            [data-section-id] h2 {
+              font-size: 18px !important;
+              line-height: 1.35 !important;
+              align-items: flex-start !important;
+            }
+          }
+        `}</style>
 
         {/* 1. 系统简介 */}
         <div data-section-id="intro" style={sectionStyle}>

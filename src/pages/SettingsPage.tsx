@@ -2,6 +2,7 @@ import { useState, Component } from 'react';
 import { useConfig, useConfigUpdater } from '../contexts/ConfigContext';
 import { useStudents } from '../lib/store';
 import { useToast } from '../hooks/useToast';
+import { useMobile } from '../hooks/useMobile';
 import type { BehaviorDefinition, LevelEffect, TeachingWeek, Category, ExchangeItem, LimitedEvent } from '../types';
 import { ClipboardList, Star, Calendar, Users, Settings, Plus, Trash2, RotateCcw, X, Download, Upload, ShoppingBag, Flame, BookOpen, AlertTriangle, CheckCircle2, RefreshCw } from 'lucide-react';
 import { D, INK, SCROLL_CARD, INK_INPUT, INK_OPTION } from '../data/theme';
@@ -59,6 +60,29 @@ const S = {
   grid2: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 },
   tag: (bg: string, fg: string) => ({ padding: '1px 6px', borderRadius: D.radiusXs, fontSize: 10, background: bg, color: fg, border: `1px solid ${fg}33`, fontFamily: "'LXGW WenKai', 'Cinzel', serif" }),
 };
+
+function mergeAliases(existing: string[] | undefined, ...values: Array<string | undefined>): string[] | undefined {
+  const aliases = [...(existing ?? [])];
+  for (const value of values) {
+    const text = value?.trim();
+    if (text && !aliases.includes(text)) aliases.push(text);
+  }
+  return aliases.length > 0 ? aliases : undefined;
+}
+
+function withTextAliases<T extends { name: string; description?: string; aliases?: string[] }>(
+  item: T,
+  changes: Partial<T>
+): T {
+  const nameChanged = typeof changes.name === 'string' && changes.name.trim() !== item.name.trim();
+  const oldDescription = item.description || '';
+  const nextDescription = typeof changes.description === 'string' ? changes.description : oldDescription;
+  const descriptionChanged = typeof changes.description === 'string' && nextDescription.trim() !== oldDescription.trim();
+  const aliases = (nameChanged || descriptionChanged)
+    ? mergeAliases(item.aliases, item.name, item.description)
+    : item.aliases;
+  return { ...item, ...changes, aliases };
+}
 
 function LevelOneTitleRow({ idx, title, totalWeeks, updateConfig }: {
   idx: number;
@@ -118,6 +142,7 @@ export default function SettingsPage() {
   const { updateConfig, resetConfig } = useConfigUpdater();
   const { students, updateStudent, addStudent, removeStudent, batchImportStudents, resetAllStudents, updateStudentNumber } = useStudents();
   const { showToast } = useToast();
+  const isMobile = useMobile();
   const [activeTab, setActiveTab] = useState<TabKey>('behaviors');
 
   const handleReset = () => {
@@ -135,10 +160,27 @@ export default function SettingsPage() {
   };
 
   return (
-    <div style={S.container}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
-        <h2 style={S.title}>系统设置</h2>
-        <div style={{ display: 'flex', gap: 8 }}>
+    <div className={isMobile ? 'settings-mobile' : undefined} style={{ ...S.container, padding: isMobile ? '10px 10px calc(92px + env(safe-area-inset-bottom))' : S.container.padding, overflowX: 'hidden' }}>
+      {isMobile && (
+        <style>{`
+          .settings-mobile * {
+            box-sizing: border-box;
+            max-width: 100%;
+          }
+          .settings-mobile input,
+          .settings-mobile select,
+          .settings-mobile textarea {
+            min-width: 0 !important;
+          }
+          .settings-mobile [style*="grid-template-columns: 1fr 1fr"],
+          .settings-mobile [style*="grid-template-columns: repeat(2"] {
+            grid-template-columns: 1fr !important;
+          }
+        `}</style>
+      )}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: isMobile ? 'flex-start' : 'center', marginBottom: isMobile ? 12 : 24, gap: 10 }}>
+        <h2 style={{ ...S.title, fontSize: isMobile ? 18 : S.title.fontSize, marginBottom: 0 }}>系统设置</h2>
+        <div style={{ display: 'flex', gap: 8, flexWrap: isMobile ? 'wrap' : 'nowrap', justifyContent: 'flex-end' }}>
           <button onClick={handleResetAllStudents} style={{ padding: '6px 12px', fontSize: 12, cursor: 'pointer', background: 'rgba(212,122,40,0.12)', border: '1px solid rgba(212,122,40,0.3)', color: INK.flameEmber, borderRadius: D.radiusSm, display: 'flex', alignItems: 'center', gap: 4, fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}>
             <RotateCcw size={12} /> 重置全部学生
           </button>
@@ -149,9 +191,20 @@ export default function SettingsPage() {
       </div>
 
       {/* Tab row */}
-      <div style={S.tabRow}>
+      <div style={{
+        ...S.tabRow,
+        flexWrap: isMobile ? 'nowrap' : S.tabRow.flexWrap,
+        overflowX: isMobile ? 'auto' : undefined,
+        paddingBottom: isMobile ? 10 : S.tabRow.paddingBottom,
+        marginBottom: isMobile ? 14 : S.tabRow.marginBottom,
+        position: isMobile ? 'sticky' : undefined,
+        top: isMobile ? 0 : undefined,
+        zIndex: isMobile ? 5 : undefined,
+        background: isMobile ? 'rgba(0,0,0,0.86)' : undefined,
+        backdropFilter: isMobile ? D.glassBlur : undefined,
+      }}>
         {TAB_ITEMS.map(({ key, label, icon: Icon }) => (
-          <button key={key} style={S.tab(activeTab === key)} onClick={() => setActiveTab(key)}>
+          <button key={key} style={{ ...S.tab(activeTab === key), flexShrink: 0, minHeight: isMobile ? 38 : undefined, whiteSpace: 'nowrap' }} onClick={() => setActiveTab(key)}>
             <Icon size={14} /> {label}
           </button>
         ))}
@@ -198,7 +251,7 @@ function BehaviorsTab({ config, updateConfig }: { config: ReturnType<typeof useC
     const key = subTab === 'negative' ? 'negativeBehaviors' : 'positiveBehaviors';
     updateConfig(prev => ({
       ...prev,
-      [key]: prev[key].map((b: BehaviorDefinition) => b.id === id ? { ...b, ...changes } : b),
+      [key]: prev[key].map((b: BehaviorDefinition) => b.id === id ? withTextAliases(b, changes) : b),
     }));
   };
 
@@ -995,8 +1048,10 @@ function LimitedEventsTab({ config, updateConfig }: { config: ReturnType<typeof 
 
   const addEvent = () => {
     if (!newEvent.name.trim() || !newEvent.startDate || !newEvent.endDate) return;
+    const eventId = `le-${Date.now()}`;
     const event: LimitedEvent = {
-      id: `le-${Date.now()}`,
+      id: eventId,
+      seriesId: eventId,
       name: newEvent.name.trim(),
       direction: newEvent.direction,
       weight: newEvent.weight,
@@ -1013,7 +1068,7 @@ function LimitedEventsTab({ config, updateConfig }: { config: ReturnType<typeof 
   const updateEvent = (id: string, changes: Partial<LimitedEvent>) => {
     updateConfig(prev => ({
       ...prev,
-      limitedEvents: prev.limitedEvents.map(e => e.id === id ? { ...e, ...changes } : e),
+      limitedEvents: prev.limitedEvents.map(e => e.id === id ? withTextAliases({ ...e, seriesId: e.seriesId ?? e.id }, changes) : e),
     }));
   };
 

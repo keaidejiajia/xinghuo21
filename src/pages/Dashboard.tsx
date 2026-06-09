@@ -13,6 +13,7 @@ import { useConfigUpdater } from '../contexts/ConfigContext';
 import { useMobile } from '../hooks/useMobile';
 import { LevelIcon, ShieldIcon, HeartDemonIcon, EclipseIcon, SparkIcon, StarEclipseStatIcon, HeartDemonStatIcon, ShieldStatIcon, FireSeedStatIcon, HeritageIcon, HeartDemonInlineIcon, FRONT_GRADIENTS, BACK_GRADIENTS, FRONT_BORDER_COLORS, BACK_BORDER_COLORS, FRONT_GLOWS, BACK_GLOWS } from '../components/LevelIcon';
 import ExportModal from '../components/ExportModal';
+import { MobilePage, MobileSection, MobileSegmentedControl, MobileSheet } from '../components/mobile/MobileUI';
 import { D } from '../data/theme';
 import { toLocalDateStr, isTeachingDay, recordLocalDate, calcConsecutiveNoViolationDays } from '../lib/utils';
 import LevelIllustration from '../components/LevelIllustration';
@@ -366,6 +367,8 @@ export default function Dashboard() {
   const [chartIndicator, setChartIndicator] = useState<{ key: string; label: string; color: string; icon: React.ReactNode } | null>(null);
   const [honorRollKey, setHonorRollKey] = useState<string | null>(null);
   const [showBehaviorOverview, setShowBehaviorOverview] = useState(false);
+  const [mobileSearch, setMobileSearch] = useState('');
+  const [mobileFilter, setMobileFilter] = useState<'all' | 'front' | 'back' | 'attention'>('all');
   const { updateConfig } = useConfigUpdater();
   const toast = useToast();
 
@@ -861,6 +864,200 @@ export default function Dashboard() {
       return { date: day, count: def.aggregate(dayRecords) };
     });
   }, [chartIndicator, records, students, config.teachingWeeks]);
+
+  const mobileStudents = useMemo(() => {
+    const query = mobileSearch.trim().toLowerCase();
+    return sortedStudents.filter(student => {
+      if (mobileFilter === 'front' && student.cardSide !== 'front') return false;
+      if (mobileFilter === 'back' && student.cardSide !== 'back') return false;
+      if (mobileFilter === 'attention') {
+        const needsAttention =
+          student.cardSide === 'back' ||
+          student.currentLevel >= 5 ||
+          student.blanksFilled > 0 ||
+          student.heartDemonMarks > 0 ||
+          !!(student.lastLevelChange && !student.lastLevelChange.viewed);
+        if (!needsAttention) return false;
+      }
+      if (!query) return true;
+      return student.name.toLowerCase().includes(query) || String(student.number).includes(query);
+    });
+  }, [mobileFilter, mobileSearch, sortedStudents]);
+
+  if (isMobile) {
+    const frontCount = students.filter(student => student.cardSide === 'front').length;
+    const backCount = students.length - frontCount;
+    const todayRecordCount = records.filter(record => recordLocalDate(record.createdAt) === toLocalDateStr()).length;
+    const urgentCount = students.filter(student => student.cardSide === 'back' || student.currentLevel >= 5 || student.heartDemonMarks > 0).length;
+    const statItems = [
+      { label: '全班', value: students.length, color: D.gold },
+      { label: '正面', value: frontCount, color: D.blue },
+      { label: '背面', value: backCount, color: D.ember },
+      { label: '今日记录', value: todayRecordCount, color: D.success },
+    ];
+
+    return (
+      <MobilePage>
+        <MobileSection>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, minmax(0, 1fr))', gap: 6 }}>
+            {statItems.map(item => (
+              <div key={item.label} style={{ minHeight: 58, borderRadius: D.radiusXs, background: 'rgba(255,255,255,0.035)', border: `1px solid ${D.border}`, padding: '8px 4px', textAlign: 'center' }}>
+                <div style={{ fontSize: 18, fontWeight: 800, color: item.color, lineHeight: 1.1 }}>{item.value}</div>
+                <div style={{ fontSize: 10, color: D.textDim, marginTop: 5, whiteSpace: 'nowrap' }}>{item.label}</div>
+              </div>
+            ))}
+          </div>
+          {isTeacher && (
+            <div style={{ marginTop: 10, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
+              <button
+                type="button"
+                onClick={() => setChartIndicator({ key: 'negWeight1', label: '星蚀总数', color: D.cinnabar, icon: <StarEclipseStatIcon size={14} color={D.cinnabar} /> })}
+                style={{ minHeight: 42, borderRadius: D.radiusXs, border: `1px solid ${D.border}`, background: D.cinnabarDim, color: D.cinnabar, fontSize: 12, fontWeight: 700, fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}
+              >
+                星蚀累计 {teacherStats.negWeight1Count}
+              </button>
+              <button
+                type="button"
+                onClick={() => setChartIndicator({ key: 'heartDemon', label: '心魔印记总数', color: '#8B5C8A', icon: <HeartDemonStatIcon size={14} color="#8B5C8A" /> })}
+                style={{ minHeight: 42, borderRadius: D.radiusXs, border: `1px solid ${D.border}`, background: 'rgba(139,92,138,0.14)', color: '#b985b7', fontSize: 12, fontWeight: 700, fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}
+              >
+                心魔累计 {teacherStats.heartDemonRecordCount}
+              </button>
+            </div>
+          )}
+        </MobileSection>
+
+        <MobileSection title="学生检索" subtitle={`当前筛出 ${mobileStudents.length} 人，重点关注 ${urgentCount} 人`}>
+          <input
+            value={mobileSearch}
+            onChange={event => setMobileSearch(event.target.value)}
+            placeholder="搜索姓名或序号"
+            style={{
+              width: '100%',
+              boxSizing: 'border-box',
+              height: 42,
+              borderRadius: D.radiusXs,
+              border: `1px solid ${D.border}`,
+              background: D.bgInput,
+              color: D.text,
+              padding: '0 12px',
+              outline: 'none',
+              fontSize: 14,
+              fontFamily: "'LXGW WenKai', 'Cinzel', serif",
+              marginBottom: 8,
+            }}
+          />
+          <MobileSegmentedControl
+            value={mobileFilter}
+            onChange={setMobileFilter}
+            columns={4}
+            options={[
+              { value: 'all', label: '全部', tone: 'gold' },
+              { value: 'front', label: '正面', tone: 'blue' },
+              { value: 'back', label: '背面', tone: 'red' },
+              { value: 'attention', label: '关注', tone: 'green' },
+            ]}
+          />
+        </MobileSection>
+
+        <MobileSection title="学生卡片">
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 7 }}>
+            {mobileStudents.map(student => {
+              const isFront = student.cardSide === 'front';
+              const levelName = getLevelName(student.cardSide, student.currentLevel, config.frontLevels, config.backLevels);
+              const accent = isFront ? D.blue : D.ember;
+              const progressTotal = isFront
+                ? Math.max(1, getFrontBlanks(student.currentLevel, config.frontLevels))
+                : Math.max(1, getBackChecksRequired(student.currentLevel + 1, student.heartDemonMarks, config.backLevels));
+              const progressNow = isFront ? student.blanksFilled : student.cumulativeChecks;
+              const progress = Math.min(100, (progressNow / progressTotal) * 100);
+              return (
+                <button
+                  key={student.id}
+                  type="button"
+                  onClick={() => navigate(`/card/${student.id}`)}
+                  style={{
+                    width: '100%',
+                    minHeight: 70,
+                    textAlign: 'left',
+                    borderRadius: D.radiusSm,
+                    border: `1px solid ${student.lastLevelChange && !student.lastLevelChange.viewed ? D.borderGlow : D.border}`,
+                    background: isFront ? 'rgba(123,139,181,0.07)' : 'rgba(212,122,40,0.08)',
+                    padding: 10,
+                    display: 'grid',
+                    gridTemplateColumns: '38px minmax(0, 1fr)',
+                    gap: 10,
+                    cursor: 'pointer',
+                    fontFamily: "'LXGW WenKai', 'Cinzel', serif",
+                  }}
+                >
+                  <div style={{ width: 38, height: 38, borderRadius: D.radiusXs, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0,0,0,0.24)' }}>
+                    <LevelIcon side={student.cardSide} level={student.currentLevel} size={30} />
+                  </div>
+                  <div style={{ minWidth: 0 }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', gap: 8, alignItems: 'flex-start' }}>
+                      <div style={{ minWidth: 0 }}>
+                        <div style={{ display: 'flex', alignItems: 'baseline', gap: 6, flexWrap: 'wrap' }}>
+                          <span style={{ fontSize: 15, fontWeight: 800, color: D.text }}>{student.name}</span>
+                          <span style={{ fontSize: 11, color: D.textDim }}>#{student.number}</span>
+                        </div>
+                        <div style={{ fontSize: 12, color: accent, marginTop: 2, overflowWrap: 'break-word' }}>
+                          {isFront ? '正面' : '背面'} L{student.currentLevel} · {levelName}
+                        </div>
+                      </div>
+                      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-end', gap: 4, maxWidth: 96 }}>
+                        {student.starShields > 0 && <span style={{ fontSize: 10, color: D.blue, background: D.blueDim, borderRadius: 3, padding: '2px 5px' }}>护盾{student.starShields}</span>}
+                        {student.heartDemonMarks > 0 && <span style={{ fontSize: 10, color: D.cinnabar, background: D.cinnabarDim, borderRadius: 3, padding: '2px 5px' }}>心魔{student.heartDemonMarks}</span>}
+                      </div>
+                    </div>
+                    <div style={{ marginTop: 8, height: 4, borderRadius: 99, background: 'rgba(255,255,255,0.08)', overflow: 'hidden' }}>
+                      <div style={{ width: `${progress}%`, height: '100%', background: accent, borderRadius: 99 }} />
+                    </div>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </MobileSection>
+
+        <MobileSheet open={!!chartIndicator && !!chartData} title={chartIndicator ? `${chartIndicator.label}趋势` : ''} onClose={() => setChartIndicator(null)}>
+          {chartIndicator && chartData && (
+            <div style={{ overflowX: 'auto', WebkitOverflowScrolling: 'touch' }}>
+              <SparkLineChart data={chartData} color={chartIndicator.color} label={chartIndicator.label} icon={chartIndicator.icon} />
+            </div>
+          )}
+        </MobileSheet>
+
+        <MobileSheet open={!!honorRollKey} title={honorRollKey === 'starParadigm' ? '星辉典范' : '不朽晨辉'} onClose={() => setHonorRollKey(null)}>
+          {(() => {
+            const isStar = honorRollKey === 'starParadigm';
+            const honorStudents = isStar
+              ? students.filter(student => student.cardSide === 'front' && student.currentLevel === 1)
+              : students.filter(student => student.cardSide === 'back' && student.currentLevel === 6);
+            return (
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(72px, 1fr))', gap: 6 }}>
+                {honorStudents.map(student => (
+                  <button key={student.id} type="button" onClick={() => navigate(`/card/${student.id}`)} style={{ padding: '9px 4px', borderRadius: D.radiusXs, border: `1px solid ${D.border}`, background: D.bgCard, color: D.text, fontSize: 12, fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}>
+                    {student.name}
+                  </button>
+                ))}
+              </div>
+            );
+          })()}
+        </MobileSheet>
+
+        <AnimatePresence>
+          {showExport && (
+            <ExportModal
+              students={students}
+              records={records}
+              onClose={() => setShowExport(false)}
+            />
+          )}
+        </AnimatePresence>
+      </MobilePage>
+    );
+  }
 
   return (
     <div style={{ minHeight: '100vh', padding: '24px 16px', fontFamily: "'LXGW WenKai', 'Cinzel', serif", background: 'transparent' }}>

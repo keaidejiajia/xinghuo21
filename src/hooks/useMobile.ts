@@ -29,7 +29,8 @@ export function useMobile(): boolean {
 }
 
 export function toggleMobileView(): boolean {
-  const current = localStorage.getItem('app_mobile_view') === 'true';
+  const forced = localStorage.getItem('app_mobile_view');
+  const current = forced !== null ? forced === 'true' : window.innerWidth < 768;
   const next = !current;
   localStorage.setItem('app_mobile_view', String(next));
   document.documentElement.classList.toggle('mobile-view', next);
