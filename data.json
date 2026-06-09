@@ -1502,7 +1502,7 @@
       "studentId": "34"
     }
   ],
-  "app_mobile_view": false,
+  "app_mobile_view": true,
   "demo_user": {
     "id": "demo-teacher",
     "email": "teacher@21ban",
