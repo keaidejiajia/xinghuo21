@@ -1502,7 +1502,7 @@
       "studentId": "34"
     }
   ],
-  "app_mobile_view": true,
+  "app_mobile_view": false,
   "demo_user": {
     "id": "demo-teacher",
     "email": "teacher@21ban",
@@ -32467,7 +32467,15 @@
       "createdAt": "2026-05-19T11:15:43.713Z",
       "updatedAt": "2026-06-09T02:15:23.586Z",
       "riseTaskCompleted": false,
-      "totalShieldsExchanged": 0
+      "totalShieldsExchanged": 0,
+      "lastLevelChange": {
+        "direction": "up",
+        "fromLevel": 3,
+        "toLevel": 2,
+        "fromSide": "front",
+        "toSide": "front",
+        "timestamp": "2026-06-09T02:14:11.096Z"
+      }
     },
     {
       "id": "3",
