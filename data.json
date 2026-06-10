@@ -35057,15 +35057,7 @@
       "createdAt": "2026-05-19T11:15:43.713Z",
       "updatedAt": "2026-06-10T01:51:08.390Z",
       "riseTaskCompleted": false,
-      "totalShieldsExchanged": 0,
-      "lastLevelChange": {
-        "direction": "up",
-        "fromLevel": 2,
-        "toLevel": 3,
-        "fromSide": "back",
-        "toSide": "back",
-        "timestamp": "2026-06-10T01:51:08.390Z"
-      }
+      "totalShieldsExchanged": 0
     },
     {
       "id": "14",
