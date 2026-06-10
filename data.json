@@ -35733,7 +35733,7 @@
       "name": "蒋佳骏",
       "number": 12,
       "cardSide": "back",
-      "currentLevel": 4,
+      "currentLevel": 3,
       "blanksFilled": 0,
       "cumulativeChecks": 23,
       "heartDemonMarks": 3,
@@ -35748,7 +35748,7 @@
       "totalChecksEverEarned": 23,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-10T06:45:17.818Z",
+      "updatedAt": "2026-06-10T06:45:56.736Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
