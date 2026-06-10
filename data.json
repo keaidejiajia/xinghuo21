@@ -33113,15 +33113,7 @@
       "createdAt": "2026-05-19T11:15:43.713Z",
       "updatedAt": "2026-06-10T01:38:33.257Z",
       "totalShieldsExchanged": 0,
-      "riseTaskCompleted": false,
-      "lastLevelChange": {
-        "direction": "up",
-        "fromLevel": 2,
-        "toLevel": 1,
-        "fromSide": "front",
-        "toSide": "front",
-        "timestamp": "2026-06-09T02:14:11.114Z"
-      }
+      "riseTaskCompleted": false
     },
     {
       "id": "30",
