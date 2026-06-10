@@ -984,7 +984,9 @@
       "卫生",
       "品行"
     ],
-    "committeeNames": [],
+    "committeeNames": [
+      "王老师"
+    ],
     "exchangeItems": [
       {
         "id": "ex-f-1",
