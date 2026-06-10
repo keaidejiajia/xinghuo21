@@ -33096,7 +33096,7 @@
       "name": "孙浩凯",
       "number": 28,
       "cardSide": "front",
-      "currentLevel": 1,
+      "currentLevel": 2,
       "blanksFilled": 0,
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
@@ -33111,7 +33111,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-10T01:38:33.257Z",
+      "updatedAt": "2026-06-10T01:41:39.710Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
