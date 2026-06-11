@@ -3991,6 +3991,21 @@
   },
   "behavior-records": [
     {
+      "studentId": "43",
+      "direction": "positive",
+      "weight": 1,
+      "category": "品行",
+      "description": "兑换：桌游time",
+      "remark": "消耗5护盾",
+      "recordedBy": "班主任",
+      "verified": true,
+      "shieldsConsumed": 0,
+      "isHighSensitivity": false,
+      "studentCardSide": "front",
+      "id": "2663",
+      "createdAt": "2026-06-11T10:55:34.827Z"
+    },
+    {
       "studentId": "7",
       "direction": "positive",
       "weight": 3,
@@ -35949,15 +35964,7 @@
       "createdAt": "2026-05-19T11:15:43.713Z",
       "updatedAt": "2026-06-10T08:09:30.702Z",
       "riseTaskCompleted": false,
-      "totalShieldsExchanged": 0,
-      "lastLevelChange": {
-        "direction": "up",
-        "fromLevel": 5,
-        "toLevel": 6,
-        "fromSide": "back",
-        "toSide": "back",
-        "timestamp": "2026-06-10T08:09:30.702Z"
-      }
+      "totalShieldsExchanged": 0
     },
     {
       "id": "14",
@@ -36221,15 +36228,7 @@
       "createdAt": "2026-05-19T11:15:43.713Z",
       "updatedAt": "2026-06-10T02:46:30.650Z",
       "riseTaskCompleted": false,
-      "totalShieldsExchanged": 0,
-      "lastLevelChange": {
-        "direction": "down",
-        "fromLevel": 2,
-        "toLevel": 3,
-        "fromSide": "front",
-        "toSide": "front",
-        "timestamp": "2026-06-10T01:58:13.970Z"
-      }
+      "totalShieldsExchanged": 0
     },
     {
       "id": "25",
@@ -36517,15 +36516,7 @@
       "createdAt": "2026-05-19T11:15:43.713Z",
       "updatedAt": "2026-06-10T03:39:02.370Z",
       "totalShieldsExchanged": 0,
-      "riseTaskCompleted": false,
-      "lastLevelChange": {
-        "direction": "down",
-        "fromLevel": 4,
-        "toLevel": 5,
-        "fromSide": "front",
-        "toSide": "front",
-        "timestamp": "2026-06-10T01:58:14.120Z"
-      }
+      "riseTaskCompleted": false
     },
     {
       "id": "37",
@@ -36680,7 +36671,7 @@
       "blanksFilled": 0,
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
-      "starShields": 47,
+      "starShields": 42,
       "consecutiveNoViolationDays": 4,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
@@ -36692,7 +36683,7 @@
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
       "updatedAt": "2026-06-10T01:51:08.068Z",
-      "totalShieldsExchanged": 5,
+      "totalShieldsExchanged": 10,
       "riseTaskCompleted": false
     },
     {
