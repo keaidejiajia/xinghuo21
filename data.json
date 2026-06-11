@@ -32024,7 +32024,6 @@
   "seat-data-migrated-v2": true,
   "app_last_week_settle": 15,
   "app_zoom": 1.4,
-  "seat_skipped": [],
   "itracereporter:dynamicConf:fqy8bgb3-is7w88xm": {
     "expireAt": 1780981301769
   },
@@ -36719,5 +36718,6 @@
       "seatId": "5-7",
       "studentId": "34"
     }
-  ]
+  ],
+  "seat_skipped": []
 }
