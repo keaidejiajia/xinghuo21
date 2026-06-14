@@ -31727,20 +31727,6 @@
       "createdAt": "2026-05-20T23:24:00.119Z"
     },
     {
-      "studentId": "27",
-      "direction": "negative",
-      "weight": 1,
-      "category": "纪律",
-      "description": "迟到",
-      "recordedBy": "王老师",
-      "verified": true,
-      "shieldsConsumed": 2,
-      "isHighSensitivity": false,
-      "studentCardSide": "front",
-      "id": "279",
-      "createdAt": "2026-05-20T23:24:00.117Z"
-    },
-    {
       "studentId": "40",
       "direction": "negative",
       "weight": 1,
@@ -36195,7 +36181,7 @@
       "blanksFilled": 2,
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
-      "starShields": 5,
+      "starShields": 7,
       "consecutiveNoViolationDays": 2,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
@@ -36206,7 +36192,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-14T13:22:45.002Z",
+      "updatedAt": "2026-06-14T13:25:20.521Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
