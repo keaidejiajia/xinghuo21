@@ -36231,7 +36231,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 3,
-      "consecutiveNoViolationDays": 0,
+      "consecutiveNoViolationDays": 2,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -36241,7 +36241,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-14T13:18:27.875Z",
+      "updatedAt": "2026-06-14T13:20:14.089Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
