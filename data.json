@@ -35747,7 +35747,7 @@
       "number": 6,
       "cardSide": "front",
       "currentLevel": 1,
-      "blanksFilled": 2,
+      "blanksFilled": 1,
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 38,
@@ -35761,7 +35761,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-10T08:09:30.743Z",
+      "updatedAt": "2026-06-14T13:21:10.738Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
