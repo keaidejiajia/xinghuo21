@@ -32018,7 +32018,6 @@
   "itracereporter:dynamicConf:fqy8bgb3-is7w88xm": {
     "expireAt": 1780981301769
   },
-  "seat_skipped": [],
   "seat-history": [
     {
       "date": "2026-05-25T11:51:39.911Z",
@@ -36710,5 +36709,6 @@
       "seatId": "5-7",
       "studentId": "34"
     }
-  ]
+  ],
+  "seat_skipped": []
 }
