@@ -5087,25 +5087,6 @@
       "createdAt": "2026-06-10T03:39:02.238Z"
     },
     {
-      "studentId": "27",
-      "direction": "negative",
-      "weight": 1,
-      "behaviorId": "n-d-2",
-      "category": "纪律",
-      "description": "预备铃后未按时就位",
-      "remark": "",
-      "recordedBy": "彭子媂",
-      "verified": true,
-      "shieldsConsumed": 2,
-      "extraWeight": 0,
-      "penaltyReasons": [],
-      "isHighSensitivity": false,
-      "studentCardSide": "front",
-      "timePeriodId": "tp-yingyu",
-      "id": "2634",
-      "createdAt": "2026-06-10T03:37:24.291Z"
-    },
-    {
       "studentId": "32",
       "direction": "negative",
       "weight": 1,
@@ -36230,7 +36211,7 @@
       "blanksFilled": 0,
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
-      "starShields": 3,
+      "starShields": 5,
       "consecutiveNoViolationDays": 2,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
@@ -36241,7 +36222,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-14T13:20:14.089Z",
+      "updatedAt": "2026-06-14T13:21:45.923Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
