@@ -9049,22 +9049,6 @@
       "createdAt": "2026-06-05T01:56:14.286Z"
     },
     {
-      "studentId": "27",
-      "direction": "negative",
-      "weight": 1,
-      "category": "纪律",
-      "description": "迟到",
-      "remark": "",
-      "recordedBy": "王琮睿",
-      "verified": true,
-      "shieldsConsumed": 2,
-      "extraWeight": 0,
-      "isHighSensitivity": false,
-      "studentCardSide": "front",
-      "id": "2404",
-      "createdAt": "2026-06-05T01:56:14.278Z"
-    },
-    {
       "studentId": "32",
       "direction": "negative",
       "weight": 2,
@@ -36211,7 +36195,7 @@
       "blanksFilled": 0,
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
-      "starShields": 5,
+      "starShields": 7,
       "consecutiveNoViolationDays": 2,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
@@ -36222,7 +36206,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-14T13:21:45.923Z",
+      "updatedAt": "2026-06-14T13:22:02.393Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
