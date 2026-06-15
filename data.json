@@ -36706,7 +36706,7 @@
       "name": "冉宇泽",
       "number": 26,
       "cardSide": "front",
-      "currentLevel": 2,
+      "currentLevel": 1,
       "blanksFilled": 1,
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
@@ -36721,7 +36721,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-15T13:09:39.042Z",
+      "updatedAt": "2026-06-15T13:10:22.642Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
