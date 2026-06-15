@@ -3990,180 +3990,6 @@
       }
     ]
   },
-  "seat-assignments": [
-    {
-      "seatId": "2-9",
-      "studentId": "17"
-    },
-    {
-      "seatId": "2-5",
-      "studentId": "39"
-    },
-    {
-      "seatId": "4-11",
-      "studentId": "19"
-    },
-    {
-      "seatId": "4-9",
-      "studentId": "16"
-    },
-    {
-      "seatId": "1-7",
-      "studentId": "20"
-    },
-    {
-      "seatId": "5-1",
-      "studentId": "37"
-    },
-    {
-      "seatId": "3-5",
-      "studentId": "7"
-    },
-    {
-      "seatId": "6-3",
-      "studentId": "3"
-    },
-    {
-      "seatId": "5-11",
-      "studentId": "14"
-    },
-    {
-      "seatId": "3-7",
-      "studentId": "6"
-    },
-    {
-      "seatId": "5-9",
-      "studentId": "8"
-    },
-    {
-      "seatId": "6-7",
-      "studentId": "35"
-    },
-    {
-      "seatId": "7-1",
-      "studentId": "22"
-    },
-    {
-      "seatId": "4-1",
-      "studentId": "38"
-    },
-    {
-      "seatId": "2-3",
-      "studentId": "42"
-    },
-    {
-      "seatId": "6-9",
-      "studentId": "31"
-    },
-    {
-      "seatId": "7-3",
-      "studentId": "11"
-    },
-    {
-      "seatId": "7-5",
-      "studentId": "1779204595006"
-    },
-    {
-      "seatId": "2-11",
-      "studentId": "41"
-    },
-    {
-      "seatId": "6-11",
-      "studentId": "28"
-    },
-    {
-      "seatId": "3-11",
-      "studentId": "27"
-    },
-    {
-      "seatId": "8-1",
-      "studentId": "5"
-    },
-    {
-      "seatId": "1-3",
-      "studentId": "21"
-    },
-    {
-      "seatId": "1-5",
-      "studentId": "43"
-    },
-    {
-      "seatId": "6-1",
-      "studentId": "24"
-    },
-    {
-      "seatId": "3-9",
-      "studentId": "36"
-    },
-    {
-      "seatId": "7-11",
-      "studentId": "23"
-    },
-    {
-      "seatId": "1-1",
-      "studentId": "18"
-    },
-    {
-      "seatId": "6-5",
-      "studentId": "25"
-    },
-    {
-      "seatId": "4-7",
-      "studentId": "2"
-    },
-    {
-      "seatId": "3-1",
-      "studentId": "26"
-    },
-    {
-      "seatId": "1-9",
-      "studentId": "15"
-    },
-    {
-      "seatId": "7-7",
-      "studentId": "9"
-    },
-    {
-      "seatId": "5-5",
-      "studentId": "33"
-    },
-    {
-      "seatId": "7-9",
-      "studentId": "29"
-    },
-    {
-      "seatId": "4-5",
-      "studentId": "40"
-    },
-    {
-      "seatId": "3-3",
-      "studentId": "12"
-    },
-    {
-      "seatId": "5-3",
-      "studentId": "10"
-    },
-    {
-      "seatId": "4-3",
-      "studentId": "13"
-    },
-    {
-      "seatId": "1-11",
-      "studentId": "32"
-    },
-    {
-      "seatId": "2-7",
-      "studentId": "30"
-    },
-    {
-      "seatId": "2-1",
-      "studentId": "4"
-    },
-    {
-      "seatId": "5-7",
-      "studentId": "34"
-    }
-  ],
   "behavior-records": [
     {
       "studentId": "1779204595006",
@@ -35564,6 +35390,180 @@
       "studentCardSide": "front",
       "id": "2",
       "createdAt": "2026-05-19T17:53:19.888Z"
+    }
+  ],
+  "seat-assignments": [
+    {
+      "seatId": "2-9",
+      "studentId": "17"
+    },
+    {
+      "seatId": "2-5",
+      "studentId": "39"
+    },
+    {
+      "seatId": "4-11",
+      "studentId": "19"
+    },
+    {
+      "seatId": "4-9",
+      "studentId": "16"
+    },
+    {
+      "seatId": "1-7",
+      "studentId": "20"
+    },
+    {
+      "seatId": "5-1",
+      "studentId": "37"
+    },
+    {
+      "seatId": "3-5",
+      "studentId": "7"
+    },
+    {
+      "seatId": "6-3",
+      "studentId": "3"
+    },
+    {
+      "seatId": "5-11",
+      "studentId": "14"
+    },
+    {
+      "seatId": "3-7",
+      "studentId": "6"
+    },
+    {
+      "seatId": "5-9",
+      "studentId": "8"
+    },
+    {
+      "seatId": "6-7",
+      "studentId": "35"
+    },
+    {
+      "seatId": "7-1",
+      "studentId": "22"
+    },
+    {
+      "seatId": "4-1",
+      "studentId": "38"
+    },
+    {
+      "seatId": "2-3",
+      "studentId": "42"
+    },
+    {
+      "seatId": "6-9",
+      "studentId": "31"
+    },
+    {
+      "seatId": "7-3",
+      "studentId": "11"
+    },
+    {
+      "seatId": "7-5",
+      "studentId": "1779204595006"
+    },
+    {
+      "seatId": "2-11",
+      "studentId": "41"
+    },
+    {
+      "seatId": "6-11",
+      "studentId": "28"
+    },
+    {
+      "seatId": "3-11",
+      "studentId": "27"
+    },
+    {
+      "seatId": "8-1",
+      "studentId": "5"
+    },
+    {
+      "seatId": "1-3",
+      "studentId": "21"
+    },
+    {
+      "seatId": "1-5",
+      "studentId": "43"
+    },
+    {
+      "seatId": "6-1",
+      "studentId": "24"
+    },
+    {
+      "seatId": "3-9",
+      "studentId": "36"
+    },
+    {
+      "seatId": "7-11",
+      "studentId": "23"
+    },
+    {
+      "seatId": "1-1",
+      "studentId": "18"
+    },
+    {
+      "seatId": "6-5",
+      "studentId": "25"
+    },
+    {
+      "seatId": "4-7",
+      "studentId": "2"
+    },
+    {
+      "seatId": "3-1",
+      "studentId": "26"
+    },
+    {
+      "seatId": "1-9",
+      "studentId": "15"
+    },
+    {
+      "seatId": "7-7",
+      "studentId": "9"
+    },
+    {
+      "seatId": "5-5",
+      "studentId": "33"
+    },
+    {
+      "seatId": "7-9",
+      "studentId": "29"
+    },
+    {
+      "seatId": "4-5",
+      "studentId": "40"
+    },
+    {
+      "seatId": "3-3",
+      "studentId": "12"
+    },
+    {
+      "seatId": "5-3",
+      "studentId": "10"
+    },
+    {
+      "seatId": "4-3",
+      "studentId": "13"
+    },
+    {
+      "seatId": "1-11",
+      "studentId": "32"
+    },
+    {
+      "seatId": "2-7",
+      "studentId": "30"
+    },
+    {
+      "seatId": "2-1",
+      "studentId": "4"
+    },
+    {
+      "seatId": "5-7",
+      "studentId": "34"
     }
   ],
   "seat-data-migrated-v2": true,
