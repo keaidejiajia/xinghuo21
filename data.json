@@ -2841,15 +2841,7 @@
       "weeksAtLevelOne": 0,
       "createdAt": "2026-06-16T03:04:09.026Z",
       "updatedAt": "2026-06-16T04:40:56.676Z",
-      "riseTaskCompleted": false,
-      "lastLevelChange": {
-        "direction": "flip",
-        "fromLevel": 6,
-        "toLevel": 1,
-        "fromSide": "front",
-        "toSide": "back",
-        "timestamp": "2026-06-16T04:40:56.667Z"
-      }
+      "riseTaskCompleted": false
     }
   ]
 }
