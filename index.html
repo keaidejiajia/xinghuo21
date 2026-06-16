@@ -8,24 +8,6 @@
   </head>
   <body>
     <div id="root"></div>
-    <script>
-      // 同步加载便携数据，确保在任何 app 代码之前填充 localStorage
-      // data.json 是唯一权威数据源：先清空 localStorage，再用 data.json 覆写
-      try {
-        var x = new XMLHttpRequest();
-        x.open('GET', '/api/load?' + Date.now(), false);
-        x.send();
-        if (x.status === 200) {
-          var d = JSON.parse(x.responseText.replace(/^﻿/, ''));
-          localStorage.clear();
-          for (var k in d) {
-            if (d[k] !== null && d[k] !== undefined) {
-              localStorage.setItem(k, JSON.stringify(d[k]));
-            }
-          }
-        }
-      } catch(e) {}
-    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
