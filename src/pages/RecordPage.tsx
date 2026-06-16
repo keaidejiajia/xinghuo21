@@ -1282,11 +1282,6 @@ export default function RecordPage() {
             display: 'flex', alignItems: 'center', gap: 10,
           }}>
             行为录入
-            <span style={{
-              fontSize: 11, fontWeight: 400, color: D.textDim,
-              padding: '2px 8px', borderRadius: D.radiusXs,
-              background: 'rgba(255,255,255,0.03)', border: `1px solid ${D.border}`,
-            }}>记录 · 见证 · 成长</span>
           </h2>
         </div>
 
@@ -2284,8 +2279,24 @@ export default function RecordPage() {
         {/* Behavior record history */}
         <div style={{ marginTop: 40, paddingTop: 24, borderTop: `1px solid rgba(255,255,255,0.04)` }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
-            <span style={{ fontSize: 18, opacity: 0.5 }}>📜</span>
-            <h3 style={{ fontSize: 16, fontWeight: 600, color: D.text, margin: 0, letterSpacing: '0.02em' }}>行为记录</h3>
+            <span style={{
+              width: 28,
+              height: 28,
+              borderRadius: D.radiusXs,
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              background: 'rgba(255,255,255,0.035)',
+              border: `1px solid ${D.border}`,
+              color: D.textMid,
+              flexShrink: 0,
+            }}>
+              <Edit3 size={14} />
+            </span>
+            <div style={{ minWidth: 0 }}>
+              <h3 style={{ fontSize: 16, fontWeight: 600, color: D.text, margin: 0, letterSpacing: '0.02em' }}>行为记录</h3>
+              <div style={{ fontSize: 11, color: D.textDim, marginTop: 2 }}>按时间倒序显示，删除权限仅限班主任。</div>
+            </div>
             <span style={{ fontSize: 11, color: D.textDim, padding: '1px 8px', borderRadius: 10, background: 'rgba(255,255,255,0.03)', border: `1px solid ${D.border}` }}>最近 200 条</span>
             {canDeleteRecord && displayedRecords.length > 0 && (
               <>
@@ -2318,7 +2329,9 @@ export default function RecordPage() {
               background: D.bgGlass, borderRadius: D.radiusSm,
               border: D.glassBorder,
             }}>
-              <div style={{ fontSize: 28, marginBottom: 8, opacity: 0.3 }}>📝</div>
+              <div style={{ width: 34, height: 34, margin: '0 auto 10px', borderRadius: D.radiusSm, border: `1px solid ${D.border}`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: D.textDim, background: 'rgba(255,255,255,0.03)' }}>
+                <Edit3 size={18} />
+              </div>
               暂无行为记录
               <div style={{ fontSize: 11, marginTop: 4, opacity: 0.6 }}>在上方选择学生和行为后提交，记录将显示在这里</div>
             </div>

@@ -21,7 +21,7 @@ function ParentRedirect() {
 }
 
 function ProtectedRoutes() {
-  const { user, loading } = useAuth();
+  const { user, loading, isTeacher, canRecord } = useAuth();
 
   if (loading) {
     return (
@@ -49,10 +49,10 @@ function ProtectedRoutes() {
       <Route element={<Layout />}>
         <Route path="/" element={<ParentRedirect />} />
         <Route path="/card/:id" element={<StudentCard />} />
-        <Route path="/record" element={<RecordPage />} />
+        <Route path="/record" element={canRecord ? <RecordPage /> : <Navigate to="/" replace />} />
         <Route path="/rules" element={<RulesPage />} />
         <Route path="/seats" element={<SeatPage />} />
-        <Route path="/settings" element={<SettingsPage />} />
+        <Route path="/settings" element={isTeacher ? <SettingsPage /> : <Navigate to="/" replace />} />
       </Route>
     </Routes>
   );

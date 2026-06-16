@@ -174,6 +174,7 @@ export function recomputeAllStudents(
             if (sim.cumulativeChecks >= required) {
               const oldLv = sim.currentLevel;
               sim.currentLevel = nextLv;
+              sim.cumulativeChecks = 0;
               // Record level change
               const student = students.find(s => s.id === r.studentId);
               levelChangeMap.set(r.id, {
@@ -424,6 +425,7 @@ export function computeStudentLevelChanges(
                 studentName: '', studentNumber: 0,
               });
               currentLevel = nextLv;
+              cumulativeChecks = 0;
             }
           }
         }

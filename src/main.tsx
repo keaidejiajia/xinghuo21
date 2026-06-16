@@ -33,6 +33,7 @@ declare global {
 const LOCAL_ONLY_KEYS = new Set([
   'demo_user',
   'xinghuo_auth_user',
+  'xinghuo_auth_session_user',
   'xinghuo_auth_remembered',
   'last_recorder',
   'app_mobile_view',

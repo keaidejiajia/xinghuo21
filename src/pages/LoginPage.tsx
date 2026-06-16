@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Star, Flame, GraduationCap, Users } from 'lucide-react';
+import { Star, Flame, GraduationCap, Users, ShieldCheck } from 'lucide-react';
 import type { UserRole } from '../types';
 import { D } from '../data/theme';
 import { getStudents } from '../lib/store';
@@ -10,11 +10,13 @@ import { useMobile } from '../hooks/useMobile';
 
 const ROLES: { role: UserRole; label: string; icon: typeof Star; color: string }[] = [
   { role: 'teacher', label: '班主任', icon: GraduationCap, color: D.gold },
+  { role: 'committee', label: '班委', icon: ShieldCheck, color: D.blue },
   { role: 'parent', label: '家长', icon: Users, color: D.blue },
 ];
 
 const DEMO_ACCOUNTS: Record<string, { password: string; name: string; role: UserRole }> = {
-  'teacher@21ban': { password: '123456', name: '班主任', role: 'teacher' },
+  'teacher@21ban': { password: 'XH21_Teacher_0616!', name: '班主任', role: 'teacher' },
+  'committee@21ban': { password: '210021', name: '本周班委', role: 'committee' },
 };
 
 export default function LoginPage() {
@@ -26,6 +28,8 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const isMobile = useMobile();
+  const roleMeta = ROLES.find(r => r.role === selectedRole) ?? ROLES[0];
+  const SelectedRoleIcon = roleMeta.icon;
 
   const handleLogin = () => {
     setError('');
@@ -246,14 +250,14 @@ export default function LoginPage() {
               <div style={{
                 display: 'inline-flex', alignItems: 'center', gap: 8,
                 padding: '6px 14px', borderRadius: 20,
-                background: `${selectedRole === 'parent' ? D.blue : D.gold}10`,
-                border: `1px solid ${selectedRole === 'parent' ? D.blue : D.gold}22`,
+                background: `${roleMeta.color}10`,
+                border: `1px solid ${roleMeta.color}22`,
                 marginBottom: 24, fontSize: 13,
-                color: selectedRole === 'parent' ? D.blue : D.gold,
+                color: roleMeta.color,
                 fontWeight: 500,
               }}>
-                {selectedRole === 'parent' ? <Users size={14} /> : <GraduationCap size={14} />}
-                {selectedRole === 'parent' ? '家长登录' : '班主任登录'}
+                <SelectedRoleIcon size={14} />
+                {roleMeta.label}登录
               </div>
 
               <div style={{ marginBottom: 16 }}>
@@ -268,6 +272,10 @@ export default function LoginPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder={selectedRole === 'parent' ? '输入学生姓名' : '输入账号'}
+                  autoComplete={selectedRole === 'committee' ? 'username' : 'off'}
+                  autoCorrect="off"
+                  spellCheck={false}
+                  name={`xinghuo-${selectedRole}-account`}
                   style={{
                     width: '100%', padding: '14px 16px', borderRadius: 12,
                     background: 'rgba(255,255,255,0.03)',
@@ -301,6 +309,10 @@ export default function LoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder={selectedRole === 'parent' ? '输入身份证后6位' : '输入密码'}
+                  autoComplete={selectedRole === 'committee' ? 'current-password' : selectedRole === 'parent' ? 'one-time-code' : 'new-password'}
+                  autoCorrect="off"
+                  spellCheck={false}
+                  name={`xinghuo-${selectedRole}-password`}
                   onKeyDown={(e) => e.key === 'Enter' && handleLogin()}
                   style={{
                     width: '100%', padding: '14px 16px', borderRadius: 12,
@@ -339,10 +351,12 @@ export default function LoginPage() {
                   width: '100%', padding: '15px', borderRadius: 12,
                   background: selectedRole === 'parent'
                     ? `linear-gradient(135deg, rgba(123,139,181,0.6), ${D.blue})`
+                    : selectedRole === 'committee'
+                      ? `linear-gradient(135deg, rgba(123,139,181,0.6), ${D.blue})`
                     : `linear-gradient(135deg, rgba(212,168,83,0.6), ${D.gold})`,
                   border: 'none', color: '#000000', fontSize: 15, fontWeight: 700,
                   cursor: 'pointer',
-                  boxShadow: selectedRole === 'parent'
+                  boxShadow: selectedRole === 'parent' || selectedRole === 'committee'
                     ? '0 0 20px rgba(123,139,181,0.2)'
                     : D.goldGlowStrong,
                   transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
@@ -350,13 +364,13 @@ export default function LoginPage() {
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = 'translateY(-1px)';
-                  e.currentTarget.style.boxShadow = selectedRole === 'parent'
+                  e.currentTarget.style.boxShadow = selectedRole === 'parent' || selectedRole === 'committee'
                     ? '0 0 28px rgba(123,139,181,0.35)'
                     : D.goldGlowStrong + ', 0 0 40px rgba(212,168,83,0.25)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = selectedRole === 'parent'
+                  e.currentTarget.style.boxShadow = selectedRole === 'parent' || selectedRole === 'committee'
                     ? '0 0 20px rgba(123,139,181,0.2)'
                     : D.goldGlowStrong;
                 }}
@@ -370,6 +384,8 @@ export default function LoginPage() {
               }}>
                 {selectedRole === 'parent'
                   ? '家长登录：输入学生姓名和身份证后6位'
+                  : selectedRole === 'committee'
+                    ? '班委登录：可录入行为，但不能删除记录或修改系统设置'
                   : '请输入班主任账号和密码'}
               </div>
             </div>

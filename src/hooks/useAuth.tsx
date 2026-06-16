@@ -25,34 +25,60 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 const AUTH_STORAGE_KEY = 'xinghuo_auth_user';
+const AUTH_SESSION_KEY = 'xinghuo_auth_session_user';
 const LEGACY_AUTH_STORAGE_KEY = 'demo_user';
+
+function parseStoredUser(value: string | null): User | null {
+  if (!value) return null;
+  try {
+    return JSON.parse(value) as User;
+  } catch {
+    return null;
+  }
+}
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const sessionUser = parseStoredUser(sessionStorage.getItem(AUTH_SESSION_KEY));
+    if (sessionUser) {
+      setUser(sessionUser);
+      setLoading(false);
+      return;
+    }
+
     const stored = localStorage.getItem(AUTH_STORAGE_KEY);
     const legacyStored = localStorage.getItem(LEGACY_AUTH_STORAGE_KEY);
-    const valueToLoad = stored || legacyStored;
-    if (valueToLoad) {
-      try {
-        const parsed = JSON.parse(valueToLoad);
+    const parsed = parseStoredUser(stored || legacyStored);
+    if (parsed) {
+      if (parsed.role === 'teacher') {
+        localStorage.removeItem(AUTH_STORAGE_KEY);
+        localStorage.removeItem('xinghuo_auth_remembered');
+      } else {
         setUser(parsed);
         if (!stored && legacyStored) {
           localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(parsed));
         }
-      } catch {
-        localStorage.removeItem(AUTH_STORAGE_KEY);
       }
+    } else if (stored || legacyStored) {
+      localStorage.removeItem(AUTH_STORAGE_KEY);
     }
     localStorage.removeItem(LEGACY_AUTH_STORAGE_KEY);
     setLoading(false);
   }, []);
 
   const signIn = (userData: User) => {
-    localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(userData));
-    localStorage.setItem('xinghuo_auth_remembered', 'true');
+    if (userData.role === 'teacher') {
+      sessionStorage.setItem(AUTH_SESSION_KEY, JSON.stringify(userData));
+      localStorage.removeItem(AUTH_STORAGE_KEY);
+      localStorage.removeItem('xinghuo_auth_remembered');
+    } else {
+      localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(userData));
+      localStorage.setItem('xinghuo_auth_remembered', 'true');
+      sessionStorage.removeItem(AUTH_SESSION_KEY);
+    }
     localStorage.removeItem(LEGACY_AUTH_STORAGE_KEY);
     setUser(userData);
   };
@@ -61,6 +87,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     localStorage.removeItem(AUTH_STORAGE_KEY);
     localStorage.removeItem('xinghuo_auth_remembered');
     localStorage.removeItem(LEGACY_AUTH_STORAGE_KEY);
+    sessionStorage.removeItem(AUTH_SESSION_KEY);
     setUser(null);
   };
 

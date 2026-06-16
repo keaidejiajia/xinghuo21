@@ -141,6 +141,7 @@ export function processPositiveBehavior(
       const required = getBackChecksRequired(nextLevel, s.heartDemonMarks, backLevels);
       if (s.cumulativeChecks >= required) {
         s.currentLevel = nextLevel;
+        s.cumulativeChecks = 0;
         levelChanged = true;
         if (nextLevel === 6) {
           reachedImmortal = true;
