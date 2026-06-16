@@ -35,6 +35,7 @@ const LOCAL_ONLY_KEYS = new Set([
   'xinghuo_auth_user',
   'xinghuo_auth_session_user',
   'xinghuo_auth_remembered',
+  'xinghuo_teacher_password',
   'last_recorder',
   'app_mobile_view',
   'app_version_seen',

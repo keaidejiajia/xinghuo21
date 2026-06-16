@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Star, Flame, GraduationCap, Users, ShieldCheck } from 'lucide-react';
+import { Star, Flame, GraduationCap, Users, ShieldCheck, KeyRound } from 'lucide-react';
 import type { UserRole } from '../types';
 import { D } from '../data/theme';
 import { getStudents } from '../lib/store';
 import { PARENT_AUTH_DATA } from '../data/parentAuth';
 import { useAuth } from '../hooks/useAuth';
 import { useMobile } from '../hooks/useMobile';
+import { changeTeacherPassword, verifyTeacherPassword } from '../lib/authPasswords';
 
 const ROLES: { role: UserRole; label: string; icon: typeof Star; color: string }[] = [
   { role: 'teacher', label: '班主任', icon: GraduationCap, color: D.gold },
@@ -15,58 +16,113 @@ const ROLES: { role: UserRole; label: string; icon: typeof Star; color: string }
 ];
 
 const DEMO_ACCOUNTS: Record<string, { password: string; name: string; role: UserRole }> = {
-  'teacher@21ban': { password: 'XH21_Teacher_0616!', name: '班主任', role: 'teacher' },
+  'teacher@21ban': { password: '', name: '班主任', role: 'teacher' },
   'committee@21ban': { password: '210021', name: '本周班委', role: 'committee' },
 };
 
 export default function LoginPage() {
   const navigate = useNavigate();
   const { signIn } = useAuth();
-  const [mode, setMode] = useState<'select' | 'login'>('select');
+  const [mode, setMode] = useState<'select' | 'login' | 'changePassword'>('select');
   const [selectedRole, setSelectedRole] = useState<UserRole>('teacher');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [oldPassword, setOldPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const isMobile = useMobile();
   const roleMeta = ROLES.find(r => r.role === selectedRole) ?? ROLES[0];
   const SelectedRoleIcon = roleMeta.icon;
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     setError('');
+    setSuccess('');
+    setIsSubmitting(true);
 
-    if (selectedRole === 'parent') {
-      const inputSuffix = password.trim().toUpperCase();
-      const match = PARENT_AUTH_DATA.find(
-        d => d.name === email.trim() && d.idSuffix.toUpperCase() === inputSuffix
-      );
-      if (match) {
-        const students = getStudents();
-        const student = students.find(s => s.name === match.name);
+    try {
+      if (selectedRole === 'parent') {
+        const inputSuffix = password.trim().toUpperCase();
+        const match = PARENT_AUTH_DATA.find(
+          d => d.name === email.trim() && d.idSuffix.toUpperCase() === inputSuffix
+        );
+        if (match) {
+          const students = getStudents();
+          const student = students.find(s => s.name === match.name);
+          signIn({
+            id: `parent-${match.name}`,
+            email: match.name,
+            role: 'parent' as UserRole,
+            name: `${match.name}家长`,
+            linkedStudentId: student?.id ?? undefined,
+          });
+          navigate('/');
+          return;
+        }
+        setError('姓名或身份证后6位不匹配');
+        return;
+      }
+
+      const account = DEMO_ACCOUNTS[email.trim()];
+      if (!account) {
+        setError('账号或密码错误');
+        return;
+      }
+
+      const passwordCheck = account.role === 'teacher'
+        ? await verifyTeacherPassword(password)
+        : { ok: account.password === password, message: '账号或密码错误' };
+
+      if (passwordCheck.ok) {
         signIn({
-          id: `parent-${match.name}`,
-          email: match.name,
-          role: 'parent' as UserRole,
-          name: `${match.name}家长`,
-          linkedStudentId: student?.id ?? undefined,
+          id: `demo-${account.role}`,
+          email: email.trim(),
+          role: account.role,
+          name: account.name,
         });
         navigate('/');
         return;
       }
-      setError('姓名或身份证后6位不匹配');
-      return;
-    }
 
-    const account = DEMO_ACCOUNTS[email];
-    if (account && account.password === password) {
-      signIn({
-        id: `demo-${account.role}`,
-        email,
-        role: account.role,
-        name: account.name,
+      setError(passwordCheck.message || '账号或密码错误');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const resetChangePasswordFields = () => {
+    setOldPassword('');
+    setNewPassword('');
+    setConfirmPassword('');
+  };
+
+  const handleChangeTeacherPassword = async () => {
+    setError('');
+    setSuccess('');
+    setIsSubmitting(true);
+
+    try {
+      const result = await changeTeacherPassword({
+        currentPassword: oldPassword,
+        newPassword,
+        confirmPassword,
       });
-      navigate('/');
-    } else {
-      setError('账号或密码错误');
+
+      if (!result.ok) {
+        setError(result.message);
+        return;
+      }
+
+      resetChangePasswordFields();
+      setPassword('');
+      setMode('login');
+      setSuccess(`${result.message}，其他设备刷新后生效`);
+    } catch {
+      setError('无法连接认证服务，密码未修改');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -174,6 +230,9 @@ export default function LoginPage() {
                     onClick={() => {
                       setSelectedRole(role);
                       setMode('login');
+                      setError('');
+                      setSuccess('');
+                      resetChangePasswordFields();
                       if (role === 'parent') {
                         setEmail('');
                         setPassword('');
@@ -233,7 +292,12 @@ export default function LoginPage() {
           {mode === 'login' && (
             <div>
               <button
-                onClick={() => setMode('select')}
+                onClick={() => {
+                  setMode('select');
+                  setError('');
+                  setSuccess('');
+                  resetChangePasswordFields();
+                }}
                 style={{
                   background: 'none', border: 'none',
                   color: D.textDim, fontSize: 12, cursor: 'pointer',
@@ -344,9 +408,19 @@ export default function LoginPage() {
                   {error}
                 </div>
               )}
+              {success && (
+                <div style={{
+                  color: D.success, fontSize: 12, marginBottom: 14,
+                  textAlign: 'center', padding: '8px 14px', borderRadius: 8,
+                  background: D.successDim, border: '1px solid rgba(139,170,122,0.18)',
+                }}>
+                  {success}
+                </div>
+              )}
 
               <button
                 onClick={handleLogin}
+                disabled={isSubmitting}
                 style={{
                   width: '100%', padding: '15px', borderRadius: 12,
                   background: selectedRole === 'parent'
@@ -375,7 +449,7 @@ export default function LoginPage() {
                     : D.goldGlowStrong;
                 }}
               >
-                登 录
+                {isSubmitting ? '验证中...' : '登 录'}
               </button>
 
               <div style={{
@@ -387,6 +461,146 @@ export default function LoginPage() {
                   : selectedRole === 'committee'
                     ? '班委登录：可录入行为，但不能删除记录或修改系统设置'
                   : '请输入班主任账号和密码'}
+              </div>
+              {selectedRole === 'teacher' && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMode('changePassword');
+                    setError('');
+                    setSuccess('');
+                    resetChangePasswordFields();
+                  }}
+                  style={{
+                    margin: '14px auto 0',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 6,
+                    padding: '7px 10px',
+                    borderRadius: D.radiusXs,
+                    border: `1px solid ${D.border}`,
+                    background: 'rgba(255,255,255,0.025)',
+                    color: D.textMid,
+                    fontSize: 12,
+                    cursor: 'pointer',
+                    fontFamily: "'LXGW WenKai', 'Cinzel', serif",
+                  }}
+                >
+                  <KeyRound size={13} />
+                  修改密码
+                </button>
+              )}
+            </div>
+          )}
+
+          {mode === 'changePassword' && (
+            <div>
+              <button
+                onClick={() => {
+                  setMode('login');
+                  setError('');
+                  resetChangePasswordFields();
+                }}
+                style={{
+                  background: 'none', border: 'none',
+                  color: D.textDim, fontSize: 12, cursor: 'pointer',
+                  marginBottom: 24, display: 'inline-flex', alignItems: 'center', gap: 4,
+                  transition: 'color 0.2s', letterSpacing: '0.04em',
+                }}
+                onMouseEnter={(e) => { e.currentTarget.style.color = D.gold; }}
+                onMouseLeave={(e) => { e.currentTarget.style.color = D.textDim; }}
+              >
+                ← 返回登录
+              </button>
+
+              <div style={{
+                display: 'inline-flex', alignItems: 'center', gap: 8,
+                padding: '6px 14px', borderRadius: 20,
+                background: `${D.gold}10`,
+                border: `1px solid ${D.gold}22`,
+                marginBottom: 20, fontSize: 13,
+                color: D.gold,
+                fontWeight: 500,
+              }}>
+                <KeyRound size={14} />
+                修改班主任密码
+              </div>
+
+              {[
+                { label: '原密码', value: oldPassword, setter: setOldPassword, name: 'xinghuo-teacher-old-password' },
+                { label: '新密码', value: newPassword, setter: setNewPassword, name: 'xinghuo-teacher-new-password' },
+                { label: '确认新密码', value: confirmPassword, setter: setConfirmPassword, name: 'xinghuo-teacher-confirm-password' },
+              ].map((field, index) => (
+                <div key={field.name} style={{ marginBottom: index === 2 ? 18 : 14 }}>
+                  <label style={{
+                    display: 'block', fontSize: 11, color: D.textDim, marginBottom: 6,
+                    letterSpacing: '0.06em', textTransform: 'uppercase',
+                  }}>
+                    {field.label}
+                  </label>
+                  <input
+                    type="password"
+                    value={field.value}
+                    onChange={(e) => field.setter(e.target.value)}
+                    autoComplete="new-password"
+                    autoCorrect="off"
+                    spellCheck={false}
+                    name={field.name}
+                    onKeyDown={(e) => e.key === 'Enter' && handleChangeTeacherPassword()}
+                    style={{
+                      width: '100%', padding: '14px 16px', borderRadius: 12,
+                      background: 'rgba(255,255,255,0.03)',
+                      border: '1px solid rgba(255,255,255,0.06)',
+                      color: D.text, fontSize: 15, outline: 'none',
+                      transition: 'all 0.25s ease',
+                      fontFamily: "'LXGW WenKai', 'Cinzel', serif",
+                    }}
+                    onFocus={(e) => {
+                      e.currentTarget.style.borderColor = `${D.borderGlow}`;
+                      e.currentTarget.style.boxShadow = '0 0 0 3px rgba(212,168,83,0.06)';
+                      e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
+                    }}
+                    onBlur={(e) => {
+                      e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)';
+                      e.currentTarget.style.boxShadow = 'none';
+                      e.currentTarget.style.background = 'rgba(255,255,255,0.03)';
+                    }}
+                  />
+                </div>
+              ))}
+
+              {error && (
+                <div style={{
+                  color: D.cinnabar, fontSize: 12, marginBottom: 14,
+                  textAlign: 'center', padding: '8px 14px', borderRadius: 8,
+                  background: 'rgba(196,65,37,0.08)', border: '1px solid rgba(196,65,37,0.15)',
+                }}>
+                  {error}
+                </div>
+              )}
+
+              <button
+                onClick={handleChangeTeacherPassword}
+                disabled={isSubmitting}
+                style={{
+                  width: '100%', padding: '15px', borderRadius: 12,
+                  background: `linear-gradient(135deg, rgba(212,168,83,0.62), ${D.gold})`,
+                  border: 'none', color: '#000000', fontSize: 15, fontWeight: 700,
+                  cursor: isSubmitting ? 'wait' : 'pointer',
+                  opacity: isSubmitting ? 0.72 : 1,
+                  boxShadow: D.goldGlowStrong,
+                  transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
+                  letterSpacing: '0.06em',
+                }}
+              >
+                {isSubmitting ? '正在保存...' : '保存新密码'}
+              </button>
+
+              <div style={{
+                marginTop: 14, fontSize: 11, color: D.textDim, textAlign: 'center',
+                lineHeight: 1.6, letterSpacing: '0.03em',
+              }}>
+                修改成功后，所有设备刷新页面即可使用新密码；班委登录不受影响。
               </div>
             </div>
           )}
