@@ -21,11 +21,16 @@ export default async function handler(req, res) {
   const token = process.env.GITHUB_TOKEN;
   if (!token) return res.status(500).json({ error: 'GITHUB_TOKEN not set' });
 
+  const startedAt = Date.now();
   try {
     const newData = req.body;
+    const dataKeys = newData && typeof newData === 'object' ? Object.keys(newData) : [];
+    const payloadText = JSON.stringify(newData, null, 2);
+    const payloadBytes = Buffer.byteLength(payloadText, 'utf-8');
+    console.log('[api/save] started', { dataKeys, payloadBytes });
     const getUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}?ref=${BRANCH}`;
     const putUrl = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`;
-    const content = Buffer.from(JSON.stringify(newData, null, 2), 'utf-8').toString('base64');
+    const content = Buffer.from(payloadText, 'utf-8').toString('base64');
 
     for (let attempt = 0; attempt < 3; attempt++) {
       // 获取当前文件的 SHA（如果存在）
@@ -36,6 +41,10 @@ export default async function handler(req, res) {
       if (getRes.ok) {
         const ghData = await getRes.json();
         sha = ghData.sha;
+      } else if (getRes.status !== 404) {
+        const errText = await getRes.text().catch(() => '');
+        console.error('[api/save] get sha failed', { status: getRes.status, body: errText.slice(0, 300) });
+        return res.status(502).json({ error: 'GitHub SHA lookup failed', detail: { status: getRes.status, body: errText.slice(0, 300) } });
       }
       // 404 意味着文件不存在（首次保存），不带 SHA 即可创建
 
@@ -44,30 +53,29 @@ export default async function handler(req, res) {
 
       const putRes = await fetch(putUrl, {
         method: 'PUT',
-        headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3+json' },
+        headers: { Authorization: `token ${token}`, Accept: 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
         body: JSON.stringify(putBody),
       });
 
       if (putRes.ok) {
-        return res.status(200).json({ ok: true, message: 'Saved', time: new Date().toISOString() });
+        const ms = Date.now() - startedAt;
+        console.log('[api/save] saved', { attempt: attempt + 1, ms, payloadBytes });
+        return res.status(200).json({ ok: true, message: 'Saved', time: new Date().toISOString(), ms, bytes: payloadBytes });
       }
 
       // 409 = conflict (SHA 不匹配)，重试
       if (putRes.status !== 409) {
         const errText = await putRes.text();
+        console.error('[api/save] put failed', { status: putRes.status, body: errText.slice(0, 300), ms: Date.now() - startedAt });
         return res.status(500).json({ error: 'GitHub API failed', detail: { status: putRes.status, body: errText.slice(0, 200) } });
       }
-      // 404 on PUT = branch doesn't exist, try without branch first to create file on default branch
-      // Then retry with branch specification
-      if (putRes.status === 404 && !sha) {
-        const errText = await putRes.text();
-        // If the data branch doesn't exist, create it by pushing to main first then we'll handle it
-        return res.status(500).json({ error: 'Branch may not exist', detail: { status: putRes.status, body: errText.slice(0, 200) } });
-      }
+      console.warn('[api/save] conflict, retrying', { attempt: attempt + 1, ms: Date.now() - startedAt });
       await new Promise(r => setTimeout(r, 600));
     }
+    console.error('[api/save] conflict after retries', { ms: Date.now() - startedAt });
     return res.status(500).json({ error: 'Conflict after 3 retries' });
   } catch (e) {
+    console.error('[api/save] crashed', { message: e.message, ms: Date.now() - startedAt });
     return res.status(500).json({ error: e.message });
   }
 }

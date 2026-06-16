@@ -16,9 +16,19 @@ const LEVEL_NAMES: Record<string, string[]> = {
 
 export default function LevelIllustration({ side, level, size = 200, style }: LevelIllustrationProps) {
   const [failed, setFailed] = useState(false);
+  const [ext, setExt] = useState<'webp' | 'png'>('webp');
   const idx = Math.min(Math.max(level - 1, 0), 5);
   const prefix = side === 'front' ? 'front' : 'back';
   const name = LEVEL_NAMES[side]?.[idx] ?? '';
+  const src = `levels/${prefix}-${level}.${ext}`;
+
+  const handleError = () => {
+    if (ext === 'webp') {
+      setExt('png');
+      return;
+    }
+    setFailed(true);
+  };
 
   if (failed) return null;
 
@@ -29,7 +39,7 @@ export default function LevelIllustration({ side, level, size = 200, style }: Le
       style={{
         width: size,
         height: size,
-        backgroundImage: `url(levels/${prefix}-${level}.png)`,
+        backgroundImage: `url(${src})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         borderRadius: D.radiusSm,
@@ -40,10 +50,10 @@ export default function LevelIllustration({ side, level, size = 200, style }: Le
     >
       {/* Hidden img to detect load failure — background-image has no onError */}
       <img
-        src={`levels/${prefix}-${level}.png`}
+        src={src}
         alt=""
         style={{ display: 'none' }}
-        onError={() => setFailed(true)}
+        onError={handleError}
       />
     </div>
   );

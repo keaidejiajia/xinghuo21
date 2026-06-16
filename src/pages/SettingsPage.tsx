@@ -3,7 +3,7 @@ import { useConfig, useConfigUpdater } from '../contexts/ConfigContext';
 import { useStudents } from '../lib/store';
 import { useToast } from '../hooks/useToast';
 import { useMobile } from '../hooks/useMobile';
-import type { BehaviorDefinition, LevelEffect, TeachingWeek, Category, ExchangeItem, LimitedEvent } from '../types';
+import type { BehaviorDefinition, LevelEffect, TeachingWeek, Category, ExchangeItem, LimitedEvent, BehaviorRecord } from '../types';
 import { ClipboardList, Star, Calendar, Users, Settings, Plus, Trash2, RotateCcw, X, Download, Upload, ShoppingBag, Flame, BookOpen, AlertTriangle, CheckCircle2, RefreshCw } from 'lucide-react';
 import { D, INK, SCROLL_CARD, INK_INPUT, INK_OPTION } from '../data/theme';
 import { toLocalDateStr } from '../lib/utils';
@@ -1460,7 +1460,7 @@ function TimePeriodInput({ onAdd }: { onAdd: (name: string, group: 'course' | 'o
 
 // ===== System Tab =====
 function DataAuditSection() {
-  const { students, records, updateStudent, updateBehaviorRecord } = useStudents();
+  const { students, records, batchApplyCorrections } = useStudents();
   const config = useConfig();
   const { showToast } = useToast();
   const [auditResult, setAuditResult] = useState<AuditResult | null>(null);
@@ -1487,26 +1487,47 @@ function DataAuditSection() {
     }, 50);
   };
 
-  const fixAll = () => {
-    if (!auditResult) return;
+  const fixAll = async () => {
+    if (!auditResult || isFixing) return;
     setIsFixing(true);
-    setTimeout(() => {
-      let fixedStudents = 0;
-      let fixedRecords = 0;
-      // Fix student states
-      for (const [studentId, corrections] of auditResult.correctedStudents) {
-        updateStudent(studentId, (s: any) => ({ ...s, ...corrections }));
-        fixedStudents++;
-      }
-      // Fix record shieldsConsumed
+    try {
+      const createdAt = new Date().toISOString();
+      const backupKey = `xinghuo_audit_backup_${createdAt.replace(/[:.]/g, '-')}`;
+      localStorage.setItem(backupKey, JSON.stringify({
+        createdAt,
+        reason: 'data-audit-before-fix',
+        students,
+        behaviorRecords: records,
+        appConfig: config,
+        auditSummary: {
+          totalStudents: auditResult.totalStudents,
+          totalRecords: auditResult.totalRecords,
+          studentsWithIssues: auditResult.studentsWithIssues,
+          discrepancies: auditResult.discrepancies.length,
+        },
+        discrepancies: auditResult.discrepancies,
+      }));
+
+      const recordCorrections = new Map<string, Partial<BehaviorRecord>>();
       for (const [recordId, correction] of auditResult.recordCorrections) {
-        updateBehaviorRecord(recordId, (r) => ({ ...r, shieldsConsumed: correction.shieldsConsumed }));
-        fixedRecords++;
+        recordCorrections.set(recordId, { shieldsConsumed: correction.shieldsConsumed });
       }
-      showToast(`已修正 ${fixedStudents} 名学生、${fixedRecords} 条记录`);
+
+      const { fixedStudents, fixedRecords } = batchApplyCorrections(
+        auditResult.correctedStudents,
+        recordCorrections,
+      );
+
+      await window.xinghuoSync?.saveNow();
+      showToast(`已备份并修正 ${fixedStudents} 名学生、${fixedRecords} 条记录，且同步成功`);
       setAuditResult(null);
+      setShowDetails(false);
+    } catch (e: any) {
+      const message = e instanceof Error ? e.message : String(e);
+      showToast(`修正或同步失败，请检查后重试：${message.slice(0, 120)}`);
+    } finally {
       setIsFixing(false);
-    }, 100);
+    }
   };
 
   // Group discrepancies by student
@@ -1528,7 +1549,7 @@ function DataAuditSection() {
             <RefreshCw size={14} style={{ color: INK.starGold }} /> 数据校验
           </div>
           <p style={{ color: INK.textMuted, fontSize: 11, marginTop: 2, fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}>
-            将行为记录逐条重放，验证学生状态是否与历史一致
+            将行为记录逐条重放，先备份，再批量修正并同步
           </p>
         </div>
         <div style={{ display: 'flex', gap: 6 }}>

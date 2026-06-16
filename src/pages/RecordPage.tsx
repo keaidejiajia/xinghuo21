@@ -925,7 +925,7 @@ export default function RecordPage() {
                 const count = studentCounts[student.id] || 1;
                 return (
                   <span key={student.id} style={{ display: 'inline-flex', alignItems: 'center', gap: 5, maxWidth: '100%', padding: '5px 8px', borderRadius: D.radiusXs, background: D.goldDim, border: `1px solid ${D.borderGlow}`, color: D.gold, fontSize: 12 }}>
-                    <span style={{ overflowWrap: 'break-word' }}>{student.name}</span>
+                    <span className="student-name" style={{ overflowWrap: 'break-word' }}>{student.name}</span>
                     {count > 1 && <b>×{count}</b>}
                     {count > 1 && <button type="button" onClick={() => decrementStudentCount(student.id)} style={{ border: 0, background: 'transparent', color: D.gold, padding: 0, fontSize: 14 }}>−</button>}
                     <button type="button" onClick={() => removeStudent(student.id)} style={{ border: 0, background: 'transparent', color: D.gold, padding: 0, display: 'flex' }}><X size={12} /></button>
@@ -962,7 +962,7 @@ export default function RecordPage() {
                     minWidth: 0,
                   }}
                 >
-                  <span style={{ maxWidth: '100%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{student.name}</span>
+                  <span className="student-name" style={{ maxWidth: '100%', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{student.name}</span>
                   <span style={{ fontSize: 10, color: selected ? D.gold : D.textDim }}>#{student.number}{selected && count > 1 ? ` ×${count}` : ''}</span>
                 </button>
               );
@@ -1160,7 +1160,7 @@ export default function RecordPage() {
                   <div key={student.id} style={{ borderRadius: D.radiusSm, border: `1px solid ${D.border}`, background: D.bgCard, padding: 10 }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', gap: 8, alignItems: 'flex-start' }}>
                       <div>
-                        <div style={{ fontSize: 14, fontWeight: 700, color: D.text }}>{student.name}</div>
+                        <div className="student-name" style={{ fontSize: 14, fontWeight: 700, color: D.text }}>{student.name}</div>
                         <div style={{ fontSize: 12, color: D.textMid, marginTop: 2 }}>{riseTask?.riseTask ?? '当前等级没有回升任务'}</div>
                       </div>
                       <span style={{ fontSize: 11, color: student.riseTaskCompleted ? D.success : D.textDim }}>{student.riseTaskCompleted ? '任务已完成' : '任务未标记'}</span>
@@ -1192,7 +1192,7 @@ export default function RecordPage() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
               {batchResults.map(result => (
                 <div key={`${result.studentId}-${result.message}`} style={{ padding: 8, borderRadius: D.radiusXs, background: D.bgCard, border: `1px solid ${D.border}` }}>
-                  <div style={{ fontSize: 13, color: D.text, fontWeight: 700 }}>{result.studentName}</div>
+                  <div className="student-name" style={{ fontSize: 13, color: D.text, fontWeight: 700 }}>{result.studentName}</div>
                   <div style={{ fontSize: 12, color: D.textMid, lineHeight: 1.5, marginTop: 3 }}>{result.message}</div>
                   {result.flipped && (
                     <button type="button" onClick={() => navigate(`/card/${result.studentId}?flipped=true`)} style={{ marginTop: 6, borderRadius: D.radiusXs, border: `1px solid rgba(212,122,40,0.35)`, background: 'rgba(212,122,40,0.12)', color: D.flameGold, padding: '4px 8px', fontSize: 12 }}>
@@ -1365,7 +1365,7 @@ export default function RecordPage() {
                         boxShadow: isBlacklisted ? 'none' : (isSelected ? D.goldGlow : 'none'),
                         position: 'relative',
                       }}>
-                        {s.number}.{s.name}
+                        <span className="student-name">{s.number}.{s.name}</span>
                         {isSelected && count > 1 && (
                           <span style={{
                             position: 'absolute', top: -6, right: -6,
@@ -1391,7 +1391,7 @@ export default function RecordPage() {
                 const count = studentCounts[id] || 1;
                 return (
                   <span key={id} style={{ display: 'inline-flex', alignItems: 'center', gap: 4, padding: '4px 8px', borderRadius: D.radiusSm, fontSize: 12, background: D.goldDim, border: `1px solid ${D.borderHover}`, color: D.gold }}>
-                    {s.name}
+                    <span className="student-name">{s.name}</span>
                     {count > 1 && <span style={{ background: D.cinnabar, color: '#fff', borderRadius: '50%', width: 16, height: 16, fontSize: 10, fontWeight: 700, display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>×{count}</span>}
                     {count > 1 && (
                       <button onClick={() => decrementStudentCount(id)} style={{ background: 'none', border: 'none', color: D.gold, cursor: 'pointer', padding: 0, display: 'flex', fontSize: 14, lineHeight: 1 }} title="减少次数">
@@ -1794,7 +1794,7 @@ export default function RecordPage() {
                 }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
                     <div>
-                      <span style={{ fontWeight: 500, color: D.text }}>{student.name}</span>
+                      <span className="student-name" style={{ fontWeight: 500, color: D.text }}>{student.name}</span>
                       <span style={{ fontSize: 12, color: D.textMid, marginLeft: 8 }}>
                         {getLevelName(student.cardSide, student.currentLevel, config.frontLevels, config.backLevels)}
                       </span>
@@ -1913,7 +1913,7 @@ export default function RecordPage() {
               {batchResults.map((r, i) => (
                 <div key={i} style={{ padding: '2px 0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                   <div>
-                    <span style={{ color: D.text, fontWeight: 500 }}>{r.studentName}</span>: {r.message}
+                    <span className="student-name" style={{ color: D.text, fontWeight: 500 }}>{r.studentName}</span>: {r.message}
                   </div>
                   {r.flipped && (
                     <button
@@ -1941,7 +1941,7 @@ export default function RecordPage() {
             </div>
             <div style={{ maxHeight: 80, overflowY: 'auto', fontSize: 12, color: D.textDim }}>
               {shieldResults.map((r, i) => (
-                <span key={i}>{r.studentName}{i < shieldResults.length - 1 ? '、' : ''}</span>
+                <span key={i} className="student-name">{r.studentName}{i < shieldResults.length - 1 ? '、' : ''}</span>
               ))}
             </div>
           </div>
@@ -2065,7 +2065,7 @@ export default function RecordPage() {
                             color: heritageDonorId === s.id ? '#E8A030' : D.textMid,
                             transition: 'all 0.15s ease',
                           }}>
-                          {s.name} <span style={{ color: '#E8A030', display: 'inline-flex', alignItems: 'center', gap: 1 }}><HeritageIcon size={10} />{s.heritagePoints}</span>
+                          <span className="student-name">{s.name}</span> <span style={{ color: '#E8A030', display: 'inline-flex', alignItems: 'center', gap: 1 }}><HeritageIcon size={10} />{s.heritagePoints}</span>
                         </button>
                       ))}
                     </div>
@@ -2093,7 +2093,7 @@ export default function RecordPage() {
                               color: heritageRecipientId === s.id ? '#8B5C8A' : D.textMid,
                               transition: 'all 0.15s ease',
                             }}>
-                            {s.name} <span style={{ color: '#e07060', display: 'inline-flex', alignItems: 'center', gap: 1 }}><HeartDemonInlineIcon size={10} />{s.heartDemonMarks}</span>
+                            <span className="student-name">{s.name}</span> <span style={{ color: '#e07060', display: 'inline-flex', alignItems: 'center', gap: 1 }}><HeartDemonInlineIcon size={10} />{s.heartDemonMarks}</span>
                           </button>
                         ))}
                       </div>
@@ -2363,8 +2363,9 @@ export default function RecordPage() {
                   onMouseEnter={() => !allGroupSelected && setHoveredGroupKey(group.key)}
                   onMouseLeave={() => setHoveredGroupKey(null)}
                 >
-                    <div style={{ padding: isMobile ? '10px 12px' : '10px 14px', display: 'flex', flexDirection: isMobile ? 'column' : 'row', justifyContent: isMobile ? 'flex-start' : 'space-between', alignItems: isMobile ? 'stretch' : 'center', gap: isMobile ? 6 : 0 }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? 8 : 10, minWidth: 0, flex: 1, flexWrap: isMobile ? 'wrap' : 'nowrap' }}>
+                    <div className="record-history-main" style={{ padding: isMobile ? '10px 12px' : '11px 14px', display: 'grid', gap: isMobile ? 8 : 9 }}>
+                      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 10, flexWrap: 'wrap', minWidth: 0 }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? 8 : 10, minWidth: 0, flex: '1 1 260px', flexWrap: 'wrap' }}>
                         {canDeleteRecord && (
                           <input type="checkbox" checked={allGroupSelected} onChange={() => {
                             setSelectedRecordIds(prev => {
@@ -2378,7 +2379,7 @@ export default function RecordPage() {
                         <span style={{ padding: '2px 8px', borderRadius: D.radiusXs, fontSize: 11, fontWeight: 600, flexShrink: 0, background: isNeg ? D.cinnabarDim : D.blueDim, color: isNeg ? D.cinnabar : D.blue }}>
                           {weightName} {isNeg ? `${effectiveGroupWeight}${negativeGroupUnit}` : `${effectiveGroupWeight}${positiveGroupUnit}`}
                         </span>
-                        <span style={{ fontSize: isMobile ? 12 : 13, color: D.text, fontWeight: 500, wordBreak: isMobile ? 'break-word' : 'normal', overflow: isMobile ? 'visible' : 'hidden', textOverflow: isMobile ? 'clip' : 'ellipsis', whiteSpace: isMobile ? 'normal' : 'nowrap', maxWidth: isMobile ? '100%' : '40%', flex: isMobile ? '1 1 100%' : 'none' }}>
+                        <span className="student-name" style={{ fontSize: isMobile ? 12 : 13, color: D.text, fontWeight: 500, lineHeight: 1.45, minWidth: 0, flex: '1 1 180px', whiteSpace: 'normal', overflowWrap: 'break-word' }}>
                           {displayNames.join('、')}
                         </span>
                         {showExpand && !isExpanded && (
@@ -2389,7 +2390,17 @@ export default function RecordPage() {
                             等{names.length}人 ▾
                           </span>
                         )}
-                        <span style={{ fontSize: isMobile ? 12 : 12, color: D.textMid, flex: isMobile ? '1 1 100%' : 'none', wordBreak: isMobile ? 'break-word' : 'normal', overflow: isMobile ? 'visible' : 'hidden', textOverflow: isMobile ? 'clip' : 'ellipsis', whiteSpace: isMobile ? 'normal' : 'nowrap' }}>
+                        </div>
+                        {group.hasHighSensitivity && (
+                          <span style={{ fontSize: 11, color: D.cinnabar, flexShrink: 0, display: 'inline-flex', alignItems: 'center', gap: 2, padding: '2px 6px', borderRadius: D.radiusXs, background: D.cinnabarDim }}>
+                            <AlertTriangle size={10} /> 敏感
+                          </span>
+                        )}
+                      </div>
+
+                      <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'minmax(0, 1fr) auto', gap: isMobile ? 8 : 12, alignItems: 'end', minWidth: 0 }}>
+                        <div style={{ minWidth: 0 }}>
+                        <div style={{ fontSize: isMobile ? 12 : 12, color: D.textMid, lineHeight: 1.55, whiteSpace: 'normal', wordBreak: 'keep-all', overflowWrap: 'break-word' }}>
                           {group.description}
                           {group.remark && <span style={{ color: D.textDim, marginLeft: 6 }}>({group.remark.replace(/^ruleId:[^,，]+[,，]\s*/, "")})</span>}
                           {group.records[0].timePeriodId && (
@@ -2397,17 +2408,14 @@ export default function RecordPage() {
                               @{timePeriods.find(tp => tp.id === group.records[0].timePeriodId)?.name}
                             </span>
                           )}
-                        </span>
+                        </div>
                         {group.hasShields && (
-                          <span style={{ fontSize: 11, color: D.blue, flexShrink: 0 }}>消耗{group.totalShields}护盾</span>
-                        )}
-                        {group.hasHighSensitivity && (
-                          <span style={{ fontSize: 11, color: D.cinnabar, flexShrink: 0, display: 'flex', alignItems: 'center', gap: 2 }}>
-                            <AlertTriangle size={10} />
-                          </span>
+                          <div style={{ marginTop: 4, display: 'flex', flexWrap: 'wrap', gap: 5 }}>
+                            <span style={{ fontSize: 11, color: D.blue, padding: '1px 6px', borderRadius: D.radiusXs, background: D.blueDim }}>消耗{group.totalShields}护盾</span>
+                          </div>
                         )}
                       </div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexShrink: 0, marginLeft: isMobile ? 0 : 8 }}>
+                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: isMobile ? 'flex-start' : 'flex-end', gap: 8, flexShrink: 0, flexWrap: 'wrap', minWidth: isMobile ? 0 : 180 }}>
                         <span style={{ fontSize: 11, color: D.textDim }}>
                           {new Date(group.createdAt).toLocaleDateString('zh-CN', { month: 'numeric', day: 'numeric', hour: 'numeric', minute: '2-digit' })}
                           {group.recordedBy && ` · ${group.recordedBy}`}
@@ -2428,6 +2436,7 @@ export default function RecordPage() {
                             </button>
                           )
                         )}
+                      </div>
                       </div>
                     </div>
                     {isExpanded && showExpand && (

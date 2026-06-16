@@ -1068,6 +1068,7 @@ function LevelChangeCeremony({ direction, fromName, toName, studentName, fromSid
         <AnimatePresence>
           {(phase === 'enter_new' || phase === 'hold') && (
             <motion.div
+              className="student-name"
               key="name"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -1311,7 +1312,7 @@ function FlipCeremony({ studentName, newLevelName, onComplete }: { studentName: 
           position: 'absolute', bottom: '12%', textAlign: 'center',
         }}
       >
-        <div style={{
+        <div className="student-name" style={{
           fontSize: 18, fontWeight: 600, letterSpacing: 3,
           fontFamily: "'LXGW WenKai', 'Cinzel', serif",
           background: `linear-gradient(135deg, ${INK.flameGold}, ${INK.starGold})`,
@@ -1782,7 +1783,7 @@ export default function StudentCard() {
             {student.number}
           </div>
           <div>
-            <div style={{ fontSize: 22, fontWeight: 700, fontFamily: "'LXGW WenKai', 'Cinzel', serif", color: INK.textPrimary }}>
+            <div className="student-name" style={{ fontSize: 22, fontWeight: 700, fontFamily: "'LXGW WenKai', 'Cinzel', serif", color: INK.textPrimary }}>
               {student.name}
             </div>
             <div
@@ -2116,7 +2117,7 @@ export default function StudentCard() {
                             color: heritageRecipientId === s.id ? '#8B5C8A' : D.textMid,
                             transition: 'all 0.15s ease',
                           }}>
-                          {s.name} <span style={{ color: '#e07060', display: 'inline-flex', alignItems: 'center', gap: 1 }}><HeartDemonInlineIcon size={10} />{s.heartDemonMarks}</span>
+                          <span className="student-name">{s.name}</span> <span style={{ color: '#e07060', display: 'inline-flex', alignItems: 'center', gap: 1 }}><HeartDemonInlineIcon size={10} />{s.heartDemonMarks}</span>
                         </button>
                       ))}
                     </div>

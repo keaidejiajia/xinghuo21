@@ -256,6 +256,36 @@ export function updateBehaviorRecord(id: string, updater: (r: BehaviorRecord) =>
   return true;
 }
 
+export function batchApplyCorrections(
+  studentCorrections: Map<string, Partial<Student>>,
+  recordCorrections: Map<string, Partial<BehaviorRecord>>,
+): { fixedStudents: number; fixedRecords: number } {
+  const now = new Date().toISOString();
+  let fixedStudents = 0;
+  let fixedRecords = 0;
+
+  if (studentCorrections.size > 0) {
+    studentsState = studentsState.map(student => {
+      const correction = studentCorrections.get(student.id);
+      if (!correction) return student;
+      fixedStudents++;
+      return { ...student, ...correction, updatedAt: now };
+    });
+  }
+
+  if (recordCorrections.size > 0) {
+    behaviorRecordsState = behaviorRecordsState.map(record => {
+      const correction = recordCorrections.get(record.id);
+      if (!correction) return record;
+      fixedRecords++;
+      return { ...record, ...correction };
+    });
+  }
+
+  if (fixedStudents > 0 || fixedRecords > 0) notify();
+  return { fixedStudents, fixedRecords };
+}
+
 export function deleteBehaviorRecord(id: string): boolean {
   const record = behaviorRecordsState.find(r => r.id === id);
   if (!record) return false;
@@ -357,6 +387,7 @@ export function reinitializeFromStorage() {
     totalShieldsExchanged: s.totalShieldsExchanged ?? 0,
     totalHeritageEarned: s.totalHeritageEarned ?? s.heritagePoints,
     totalHeritageDonated: s.totalHeritageDonated ?? 0,
+    riseTaskCompleted: s.riseTaskCompleted ?? false,
   }));
   nextRecordId = behaviorRecordsState.reduce((max, r) => {
     const id = Number(r.id);
@@ -380,7 +411,7 @@ export function useStudents() {
   }, [refresh]);
 
   return {
-    students, records, updateStudent, addBehaviorRecord, updateBehaviorRecord, deleteBehaviorRecord, refresh,
+    students, records, updateStudent, addBehaviorRecord, updateBehaviorRecord, deleteBehaviorRecord, batchApplyCorrections, refresh,
     addStudent, removeStudent, batchImportStudents, resetAllStudents, updateStudentNumber,
   };
 }

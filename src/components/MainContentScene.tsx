@@ -7,6 +7,15 @@ interface Props {
 
 export default React.memo(function MainContentScene({ bgShift = 0 }: Props) {
   const [imgFailed, setImgFailed] = useState(false);
+  const [imgSrc, setImgSrc] = useState('main-bg.webp');
+
+  const handleImageError = () => {
+    if (imgSrc.endsWith('.webp')) {
+      setImgSrc('main-bg.png');
+      return;
+    }
+    setImgFailed(true);
+  };
 
   return (
     <div style={{
@@ -24,7 +33,7 @@ export default React.memo(function MainContentScene({ bgShift = 0 }: Props) {
         height: '110%',
         backgroundImage: imgFailed
           ? 'linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%)'
-          : 'url(main-bg.png)',
+          : `url(${imgSrc})`,
         backgroundPosition: 'center center',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
@@ -36,10 +45,10 @@ export default React.memo(function MainContentScene({ bgShift = 0 }: Props) {
         {/* Hidden img to detect load failure */}
         {!imgFailed && (
           <img
-            src="main-bg.png"
+            src={imgSrc}
             alt=""
             style={{ display: 'none' }}
-            onError={() => setImgFailed(true)}
+            onError={handleImageError}
           />
         )}
       </div>

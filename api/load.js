@@ -15,10 +15,23 @@ export default async function handler(req, res) {
     return res.status(200).end();
   }
 
-  const token = process.env.GITHUB_TOKEN;
-  if (!token) return res.status(500).json({ error: 'GITHUB_TOKEN not set' });
-
   try {
+    // Fast path: raw content avoids GitHub Contents API base64 overhead.
+    const rawRes = await fetch(
+      `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/${BRANCH}/${FILE_PATH}?t=${Date.now()}`,
+      { headers: { Accept: 'application/json' }, cache: 'no-store' }
+    );
+    if (rawRes.ok) {
+      const data = await rawRes.text();
+      res.setHeader('Content-Type', 'application/json; charset=utf-8');
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.setHeader('Cache-Control', 'no-store');
+      return res.status(200).send(data);
+    }
+
+    const token = process.env.GITHUB_TOKEN;
+    if (!token) return res.status(500).json({ error: 'GITHUB_TOKEN not set', rawStatus: rawRes.status });
+
     // Use standard Contents API (returns Base64 content) to avoid encoding corruption
     const ghRes = await fetch(
       `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}?ref=${BRANCH}`,

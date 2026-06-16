@@ -140,7 +140,7 @@ function StudentCardThumbnail({ student }: { student: Student }) {
           <div style={{ fontSize: 11, color: D.textDim, marginBottom: 1, fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}>
             #{student.number}
           </div>
-          <div style={{
+          <div className="student-name" style={{
             fontSize: 15, fontWeight: 600,
             color: isFront ? D.text : D.gold,
             whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
@@ -998,7 +998,7 @@ export default function Dashboard() {
                     <div style={{ display: 'flex', justifyContent: 'space-between', gap: 8, alignItems: 'flex-start' }}>
                       <div style={{ minWidth: 0 }}>
                         <div style={{ display: 'flex', alignItems: 'baseline', gap: 6, flexWrap: 'wrap' }}>
-                          <span style={{ fontSize: 15, fontWeight: 800, color: D.text }}>{student.name}</span>
+                          <span className="student-name" style={{ fontSize: 15, fontWeight: 800, color: D.text }}>{student.name}</span>
                           <span style={{ fontSize: 11, color: D.textDim }}>#{student.number}</span>
                         </div>
                         <div style={{ fontSize: 12, color: accent, marginTop: 2, overflowWrap: 'break-word' }}>
@@ -1037,7 +1037,7 @@ export default function Dashboard() {
             return (
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(72px, 1fr))', gap: 6 }}>
                 {honorStudents.map(student => (
-                  <button key={student.id} type="button" onClick={() => navigate(`/card/${student.id}`)} style={{ padding: '9px 4px', borderRadius: D.radiusXs, border: `1px solid ${D.border}`, background: D.bgCard, color: D.text, fontSize: 12, fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}>
+                  <button key={student.id} type="button" onClick={() => navigate(`/card/${student.id}`)} className="student-name" style={{ padding: '9px 4px', borderRadius: D.radiusXs, border: `1px solid ${D.border}`, background: D.bgCard, color: D.text, fontSize: 12, fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}>
                     {student.name}
                   </button>
                 ))}
@@ -1914,7 +1914,7 @@ export default function Dashboard() {
                     </div>
 
                     {/* Student name - centered */}
-                    <div style={{ position: 'relative', zIndex: 1, fontSize: 26, fontWeight: 700, color: isFront ? D.text : D.gold, fontFamily: "'LXGW WenKai', 'Cinzel', serif", marginBottom: 2 }}>
+                    <div className="student-name" style={{ position: 'relative', zIndex: 1, fontSize: 26, fontWeight: 700, color: isFront ? D.text : D.gold, fontFamily: "'LXGW WenKai', 'Cinzel', serif", marginBottom: 2 }}>
                       {student.name}
                     </div>
                     <div style={{ position: 'relative', zIndex: 1, fontSize: 13, color: isFront ? 'rgba(123,139,181,0.6)' : 'rgba(212,122,40,0.6)', fontFamily: "'LXGW WenKai', 'Cinzel', serif", marginBottom: 16 }}>
@@ -2222,7 +2222,7 @@ export default function Dashboard() {
                 ) : (
                   <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(70px, 1fr))', gap: 6 }}>
                     {honorStudents.sort((a, b) => a.number - b.number).map(s => (
-                      <div key={s.id} style={{
+                      <div key={s.id} className="student-name" style={{
                         padding: '8px 0', borderRadius: D.radiusSm,
                         background: isStar ? D.goldDim : 'rgba(232,160,48,0.1)',
                         border: `1px solid ${isStar ? 'rgba(212,168,83,0.3)' : 'rgba(232,160,48,0.3)'}`,

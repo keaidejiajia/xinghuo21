@@ -3,15 +3,24 @@ import { INK } from '../data/theme';
 
 export default function SidebarScene() {
   const [imgFailed, setImgFailed] = useState(false);
+  const [imgSrc, setImgSrc] = useState('sidebar-scene.webp');
+
+  const handleImageError = () => {
+    if (imgSrc.endsWith('.webp')) {
+      setImgSrc('sidebar-scene.png');
+      return;
+    }
+    setImgFailed(true);
+  };
 
   return (
     <div style={{ position: 'absolute', inset: 0, overflow: 'hidden', background: 'linear-gradient(180deg, #0f172a 0%, #1e1b4b 100%)' }}>
       {/* AI-generated background image — fallback: gradient above */}
       {!imgFailed && (
         <img
-          src="sidebar-scene.png"
+          src={imgSrc}
           alt=""
-          onError={() => setImgFailed(true)}
+          onError={handleImageError}
           style={{
             position: 'absolute',
             inset: 0,
