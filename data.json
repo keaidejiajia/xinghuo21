@@ -1,5 +1,602 @@
 {
   "app_last_week_settle": 18,
+  "seat-data-migrated-v2": true,
+  "seat-grid-layout": [
+    {
+      "id": "1-1",
+      "row": 0,
+      "col": 0,
+      "active": true,
+      "mergedWith": "right"
+    },
+    {
+      "id": "1-2",
+      "row": 0,
+      "col": 1,
+      "active": true,
+      "mergedWith": "left"
+    },
+    {
+      "id": "1-3",
+      "row": 0,
+      "col": 2,
+      "active": false
+    },
+    {
+      "id": "1-4",
+      "row": 0,
+      "col": 3,
+      "active": true,
+      "mergedWith": "right"
+    },
+    {
+      "id": "1-5",
+      "row": 0,
+      "col": 4,
+      "active": true,
+      "mergedWith": "left"
+    },
+    {
+      "id": "1-6",
+      "row": 0,
+      "col": 5,
+      "active": false
+    },
+    {
+      "id": "1-7",
+      "row": 0,
+      "col": 6,
+      "active": true,
+      "mergedWith": "right"
+    },
+    {
+      "id": "1-8",
+      "row": 0,
+      "col": 7,
+      "active": true,
+      "mergedWith": "left"
+    },
+    {
+      "id": "1-9",
+      "row": 0,
+      "col": 8,
+      "active": false
+    },
+    {
+      "id": "1-10",
+      "row": 0,
+      "col": 9,
+      "active": true,
+      "mergedWith": "right"
+    },
+    {
+      "id": "1-11",
+      "row": 0,
+      "col": 10,
+      "active": true,
+      "mergedWith": "left"
+    },
+    {
+      "id": "1-12",
+      "row": 0,
+      "col": 11,
+      "active": false
+    },
+    {
+      "id": "1-13",
+      "row": 0,
+      "col": 12,
+      "active": true
+    },
+    {
+      "id": "2-1",
+      "row": 1,
+      "col": 0,
+      "active": true,
+      "mergedWith": "right"
+    },
+    {
+      "id": "2-2",
+      "row": 1,
+      "col": 1,
+      "active": true,
+      "mergedWith": "left"
+    },
+    {
+      "id": "2-3",
+      "row": 1,
+      "col": 2,
+      "active": false
+    },
+    {
+      "id": "2-4",
+      "row": 1,
+      "col": 3,
+      "active": true,
+      "mergedWith": "right"
+    },
+    {
+      "id": "2-5",
+      "row": 1,
+      "col": 4,
+      "active": true,
+      "mergedWith": "left"
+    },
+    {
+      "id": "2-6",
+      "row": 1,
+      "col": 5,
+      "active": false
+    },
+    {
+      "id": "2-7",
+      "row": 1,
+      "col": 6,
+      "active": true,
+      "mergedWith": "right"
+    },
+    {
+      "id": "2-8",
+      "row": 1,
+      "col": 7,
+      "active": true,
+      "mergedWith": "left"
+    },
+    {
+      "id": "2-9",
+      "row": 1,
+      "col": 8,
+      "active": false
+    },
+    {
+      "id": "2-10",
+      "row": 1,
+      "col": 9,
+      "active": true,
+      "mergedWith": "right"
+    },
+    {
+      "id": "2-11",
+      "row": 1,
+      "col": 10,
+      "active": true,
+      "mergedWith": "left"
+    },
+    {
+      "id": "2-12",
+      "row": 1,
+      "col": 11,
+      "active": false
+    },
+    {
+      "id": "2-13",
+      "row": 1,
+      "col": 12,
+      "active": true
+    },
+    {
+      "id": "3-1",
+      "row": 2,
+      "col": 0,
+      "active": true,
+      "mergedWith": "right"
+    },
+    {
+      "id": "3-2",
+      "row": 2,
+      "col": 1,
+      "active": true,
+      "mergedWith": "left"
+    },
+    {
+      "id": "3-3",
+      "row": 2,
+      "col": 2,
+      "active": false
+    },
+    {
+      "id": "3-4",
+      "row": 2,
+      "col": 3,
+      "active": true,
+      "mergedWith": "right"
+    },
+    {
+      "id": "3-5",
+      "row": 2,
+      "col": 4,
+      "active": true,
+      "mergedWith": "left"
+    },
+    {
+      "id": "3-6",
+      "row": 2,
+      "col": 5,
+      "active": false
+    },
+    {
+      "id": "3-7",
+      "row": 2,
+      "col": 6,
+      "active": true,
+      "mergedWith": "right"
+    },
+    {
+      "id": "3-8",
+      "row": 2,
+      "col": 7,
+      "active": true,
+      "mergedWith": "left"
+    },
+    {
+      "id": "3-9",
+      "row": 2,
+      "col": 8,
+      "active": false
+    },
+    {
+      "id": "3-10",
+      "row": 2,
+      "col": 9,
+      "active": true,
+      "mergedWith": "right"
+    },
+    {
+      "id": "3-11",
+      "row": 2,
+      "col": 10,
+      "active": true,
+      "mergedWith": "left"
+    },
+    {
+      "id": "3-12",
+      "row": 2,
+      "col": 11,
+      "active": false
+    },
+    {
+      "id": "3-13",
+      "row": 2,
+      "col": 12,
+      "active": true
+    },
+    {
+      "id": "4-1",
+      "row": 3,
+      "col": 0,
+      "active": true,
+      "mergedWith": "right"
+    },
+    {
+      "id": "4-2",
+      "row": 3,
+      "col": 1,
+      "active": true,
+      "mergedWith": "left"
+    },
+    {
+      "id": "4-3",
+      "row": 3,
+      "col": 2,
+      "active": false
+    },
+    {
+      "id": "4-4",
+      "row": 3,
+      "col": 3,
+      "active": true,
+      "mergedWith": "right"
+    },
+    {
+      "id": "4-5",
+      "row": 3,
+      "col": 4,
+      "active": true,
+      "mergedWith": "left"
+    },
+    {
+      "id": "4-6",
+      "row": 3,
+      "col": 5,
+      "active": false
+    },
+    {
+      "id": "4-7",
+      "row": 3,
+      "col": 6,
+      "active": true,
+      "mergedWith": "right"
+    },
+    {
+      "id": "4-8",
+      "row": 3,
+      "col": 7,
+      "active": true,
+      "mergedWith": "left"
+    },
+    {
+      "id": "4-9",
+      "row": 3,
+      "col": 8,
+      "active": false
+    },
+    {
+      "id": "4-10",
+      "row": 3,
+      "col": 9,
+      "active": true,
+      "mergedWith": "right"
+    },
+    {
+      "id": "4-11",
+      "row": 3,
+      "col": 10,
+      "active": true,
+      "mergedWith": "left"
+    },
+    {
+      "id": "4-12",
+      "row": 3,
+      "col": 11,
+      "active": false
+    },
+    {
+      "id": "4-13",
+      "row": 3,
+      "col": 12,
+      "active": true
+    },
+    {
+      "id": "5-1",
+      "row": 4,
+      "col": 0,
+      "active": true,
+      "mergedWith": "right"
+    },
+    {
+      "id": "5-2",
+      "row": 4,
+      "col": 1,
+      "active": true,
+      "mergedWith": "left"
+    },
+    {
+      "id": "5-3",
+      "row": 4,
+      "col": 2,
+      "active": false
+    },
+    {
+      "id": "5-4",
+      "row": 4,
+      "col": 3,
+      "active": true,
+      "mergedWith": "right"
+    },
+    {
+      "id": "5-5",
+      "row": 4,
+      "col": 4,
+      "active": true,
+      "mergedWith": "left"
+    },
+    {
+      "id": "5-6",
+      "row": 4,
+      "col": 5,
+      "active": false
+    },
+    {
+      "id": "5-7",
+      "row": 4,
+      "col": 6,
+      "active": true,
+      "mergedWith": "right"
+    },
+    {
+      "id": "5-8",
+      "row": 4,
+      "col": 7,
+      "active": true,
+      "mergedWith": "left"
+    },
+    {
+      "id": "5-9",
+      "row": 4,
+      "col": 8,
+      "active": false
+    },
+    {
+      "id": "5-10",
+      "row": 4,
+      "col": 9,
+      "active": true,
+      "mergedWith": "right"
+    },
+    {
+      "id": "5-11",
+      "row": 4,
+      "col": 10,
+      "active": true,
+      "mergedWith": "left"
+    },
+    {
+      "id": "5-12",
+      "row": 4,
+      "col": 11,
+      "active": false
+    },
+    {
+      "id": "5-13",
+      "row": 4,
+      "col": 12,
+      "active": true
+    },
+    {
+      "id": "6-1",
+      "row": 5,
+      "col": 0,
+      "active": true,
+      "mergedWith": "right"
+    },
+    {
+      "id": "6-2",
+      "row": 5,
+      "col": 1,
+      "active": true,
+      "mergedWith": "left"
+    },
+    {
+      "id": "6-3",
+      "row": 5,
+      "col": 2,
+      "active": false
+    },
+    {
+      "id": "6-4",
+      "row": 5,
+      "col": 3,
+      "active": true,
+      "mergedWith": "right"
+    },
+    {
+      "id": "6-5",
+      "row": 5,
+      "col": 4,
+      "active": true,
+      "mergedWith": "left"
+    },
+    {
+      "id": "6-6",
+      "row": 5,
+      "col": 5,
+      "active": false
+    },
+    {
+      "id": "6-7",
+      "row": 5,
+      "col": 6,
+      "active": true,
+      "mergedWith": "right"
+    },
+    {
+      "id": "6-8",
+      "row": 5,
+      "col": 7,
+      "active": true,
+      "mergedWith": "left"
+    },
+    {
+      "id": "6-9",
+      "row": 5,
+      "col": 8,
+      "active": false
+    },
+    {
+      "id": "6-10",
+      "row": 5,
+      "col": 9,
+      "active": true,
+      "mergedWith": "right"
+    },
+    {
+      "id": "6-11",
+      "row": 5,
+      "col": 10,
+      "active": true,
+      "mergedWith": "left"
+    },
+    {
+      "id": "6-12",
+      "row": 5,
+      "col": 11,
+      "active": false
+    },
+    {
+      "id": "6-13",
+      "row": 5,
+      "col": 12,
+      "active": true
+    },
+    {
+      "id": "7-1",
+      "row": 6,
+      "col": 0,
+      "active": false
+    },
+    {
+      "id": "7-2",
+      "row": 6,
+      "col": 1,
+      "active": false
+    },
+    {
+      "id": "7-3",
+      "row": 6,
+      "col": 2,
+      "active": false
+    },
+    {
+      "id": "7-4",
+      "row": 6,
+      "col": 3,
+      "active": false
+    },
+    {
+      "id": "7-5",
+      "row": 6,
+      "col": 4,
+      "active": false
+    },
+    {
+      "id": "7-6",
+      "row": 6,
+      "col": 5,
+      "active": false
+    },
+    {
+      "id": "7-7",
+      "row": 6,
+      "col": 6,
+      "active": true
+    },
+    {
+      "id": "7-8",
+      "row": 6,
+      "col": 7,
+      "active": false
+    },
+    {
+      "id": "7-9",
+      "row": 6,
+      "col": 8,
+      "active": false
+    },
+    {
+      "id": "7-10",
+      "row": 6,
+      "col": 9,
+      "active": false
+    },
+    {
+      "id": "7-11",
+      "row": 6,
+      "col": 10,
+      "active": false
+    },
+    {
+      "id": "7-12",
+      "row": 6,
+      "col": 11,
+      "active": false
+    },
+    {
+      "id": "7-13",
+      "row": 6,
+      "col": 12,
+      "active": false
+    }
+  ],
   "app-config": {
     "version": 13,
     "frontLevels": [
@@ -1810,6 +2407,7 @@
       "createdAt": "2026-06-16T04:40:56.660Z"
     }
   ],
+  "seat-assignments": [],
   "students": [
     {
       "id": "1",
