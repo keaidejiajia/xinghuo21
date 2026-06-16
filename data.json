@@ -45,7 +45,8 @@
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
       "updatedAt": "2026-06-16T00:44:57.327Z",
-      "totalShieldsExchanged": 0
+      "totalShieldsExchanged": 0,
+      "riseTaskCompleted": false
     },
     {
       "id": "4",
@@ -116,7 +117,8 @@
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
       "updatedAt": "2026-06-16T00:44:57.369Z",
-      "totalShieldsExchanged": 0
+      "totalShieldsExchanged": 0,
+      "riseTaskCompleted": false
     },
     {
       "id": "7",
@@ -139,7 +141,8 @@
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
       "updatedAt": "2026-06-16T00:44:57.378Z",
-      "totalShieldsExchanged": 0
+      "totalShieldsExchanged": 0,
+      "riseTaskCompleted": false
     },
     {
       "id": "8",
@@ -162,7 +165,8 @@
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
       "updatedAt": "2026-06-16T00:44:57.388Z",
-      "totalShieldsExchanged": 0
+      "totalShieldsExchanged": 0,
+      "riseTaskCompleted": false
     },
     {
       "id": "9",
@@ -265,9 +269,9 @@
       "name": "蒋佳骏",
       "number": 12,
       "cardSide": "back",
-      "currentLevel": 3,
+      "currentLevel": 2,
       "blanksFilled": 0,
-      "cumulativeChecks": 18,
+      "cumulativeChecks": 4,
       "heartDemonMarks": 3,
       "starShields": 0,
       "consecutiveNoViolationDays": 7,
@@ -280,7 +284,7 @@
       "totalChecksEverEarned": 18,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-16T00:44:57.437Z",
+      "updatedAt": "2026-06-16T12:49:46.360Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -305,7 +309,8 @@
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
       "updatedAt": "2026-06-16T00:44:57.445Z",
-      "totalShieldsExchanged": 0
+      "totalShieldsExchanged": 0,
+      "riseTaskCompleted": false
     },
     {
       "id": "15",
@@ -352,7 +357,8 @@
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
       "updatedAt": "2026-06-16T00:44:57.460Z",
-      "totalShieldsExchanged": 0
+      "totalShieldsExchanged": 0,
+      "riseTaskCompleted": false
     },
     {
       "id": "17",
@@ -375,7 +381,8 @@
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
       "updatedAt": "2026-06-16T00:44:57.467Z",
-      "totalShieldsExchanged": 56
+      "totalShieldsExchanged": 56,
+      "riseTaskCompleted": false
     },
     {
       "id": "18",
@@ -422,7 +429,8 @@
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
       "updatedAt": "2026-06-16T00:44:57.483Z",
-      "totalShieldsExchanged": 5
+      "totalShieldsExchanged": 5,
+      "riseTaskCompleted": false
     },
     {
       "id": "20",
@@ -445,7 +453,8 @@
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
       "updatedAt": "2026-06-16T00:44:57.489Z",
-      "totalShieldsExchanged": 5
+      "totalShieldsExchanged": 5,
+      "riseTaskCompleted": false
     },
     {
       "id": "21",
@@ -468,7 +477,8 @@
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
       "updatedAt": "2026-06-16T00:44:57.497Z",
-      "totalShieldsExchanged": 0
+      "totalShieldsExchanged": 0,
+      "riseTaskCompleted": false
     },
     {
       "id": "22",
@@ -707,7 +717,8 @@
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
       "updatedAt": "2026-06-16T00:44:57.568Z",
-      "totalShieldsExchanged": 0
+      "totalShieldsExchanged": 0,
+      "riseTaskCompleted": false
     },
     {
       "id": "32",
@@ -778,7 +789,8 @@
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
       "updatedAt": "2026-06-16T00:44:57.589Z",
-      "totalShieldsExchanged": 0
+      "totalShieldsExchanged": 0,
+      "riseTaskCompleted": false
     },
     {
       "id": "35",
@@ -801,15 +813,16 @@
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
       "updatedAt": "2026-06-16T00:44:57.595Z",
-      "totalShieldsExchanged": 0
+      "totalShieldsExchanged": 0,
+      "riseTaskCompleted": false
     },
     {
       "id": "36",
       "name": "徐浚卜",
       "number": 35,
       "cardSide": "front",
-      "currentLevel": 2,
-      "blanksFilled": 0,
+      "currentLevel": 3,
+      "blanksFilled": 3,
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 9,
@@ -823,7 +836,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-16T04:48:29.556Z",
+      "updatedAt": "2026-06-16T12:49:46.360Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false,
       "lastLevelChange": {
@@ -904,7 +917,8 @@
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
       "updatedAt": "2026-06-16T00:44:57.622Z",
-      "totalShieldsExchanged": 0
+      "totalShieldsExchanged": 0,
+      "riseTaskCompleted": false
     },
     {
       "id": "40",
@@ -951,7 +965,8 @@
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
       "updatedAt": "2026-06-16T00:44:57.636Z",
-      "totalShieldsExchanged": 0
+      "totalShieldsExchanged": 0,
+      "riseTaskCompleted": false
     },
     {
       "id": "42",
@@ -974,7 +989,8 @@
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
       "updatedAt": "2026-06-16T00:44:57.644Z",
-      "totalShieldsExchanged": 0
+      "totalShieldsExchanged": 0,
+      "riseTaskCompleted": false
     },
     {
       "id": "43",
