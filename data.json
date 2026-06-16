@@ -1,4 +1,5 @@
 {
+  "app_last_week_settle": 18,
   "app-config": {
     "version": 13,
     "frontLevels": [
@@ -1245,7 +1246,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 0,
-      "consecutiveNoViolationDays": 0,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -1256,7 +1257,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-06-16T03:04:09.026Z",
-      "updatedAt": "2026-06-16T03:04:09.026Z",
+      "updatedAt": "2026-06-16T04:22:26.935Z",
       "riseTaskCompleted": false
     },
     {
@@ -1269,7 +1270,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 0,
-      "consecutiveNoViolationDays": 0,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -1280,7 +1281,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-06-16T03:04:09.026Z",
-      "updatedAt": "2026-06-16T03:04:09.026Z",
+      "updatedAt": "2026-06-16T04:22:26.935Z",
       "riseTaskCompleted": false
     },
     {
@@ -1293,7 +1294,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 0,
-      "consecutiveNoViolationDays": 0,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -1304,7 +1305,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-06-16T03:04:09.026Z",
-      "updatedAt": "2026-06-16T03:04:09.026Z",
+      "updatedAt": "2026-06-16T04:22:26.935Z",
       "riseTaskCompleted": false
     },
     {
@@ -1317,7 +1318,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 0,
-      "consecutiveNoViolationDays": 0,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -1328,7 +1329,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-06-16T03:04:09.026Z",
-      "updatedAt": "2026-06-16T03:04:09.026Z",
+      "updatedAt": "2026-06-16T04:22:26.937Z",
       "riseTaskCompleted": false
     },
     {
@@ -1341,7 +1342,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 0,
-      "consecutiveNoViolationDays": 0,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -1352,7 +1353,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-06-16T03:04:09.026Z",
-      "updatedAt": "2026-06-16T03:04:09.026Z",
+      "updatedAt": "2026-06-16T04:22:26.937Z",
       "riseTaskCompleted": false
     },
     {
@@ -1365,7 +1366,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 0,
-      "consecutiveNoViolationDays": 0,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -1376,7 +1377,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-06-16T03:04:09.026Z",
-      "updatedAt": "2026-06-16T03:04:09.026Z",
+      "updatedAt": "2026-06-16T04:22:26.937Z",
       "riseTaskCompleted": false
     },
     {
@@ -1389,7 +1390,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 0,
-      "consecutiveNoViolationDays": 0,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -1400,7 +1401,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-06-16T03:04:09.026Z",
-      "updatedAt": "2026-06-16T03:04:09.026Z",
+      "updatedAt": "2026-06-16T04:22:26.937Z",
       "riseTaskCompleted": false
     },
     {
@@ -1413,7 +1414,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 0,
-      "consecutiveNoViolationDays": 0,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -1424,7 +1425,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-06-16T03:04:09.026Z",
-      "updatedAt": "2026-06-16T03:04:09.026Z",
+      "updatedAt": "2026-06-16T04:22:26.938Z",
       "riseTaskCompleted": false
     },
     {
@@ -1437,7 +1438,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 0,
-      "consecutiveNoViolationDays": 0,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -1448,7 +1449,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-06-16T03:04:09.026Z",
-      "updatedAt": "2026-06-16T03:04:09.026Z",
+      "updatedAt": "2026-06-16T04:22:26.938Z",
       "riseTaskCompleted": false
     },
     {
@@ -1461,7 +1462,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 0,
-      "consecutiveNoViolationDays": 0,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -1472,7 +1473,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-06-16T03:04:09.026Z",
-      "updatedAt": "2026-06-16T03:04:09.026Z",
+      "updatedAt": "2026-06-16T04:22:26.938Z",
       "riseTaskCompleted": false
     },
     {
@@ -1485,7 +1486,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 0,
-      "consecutiveNoViolationDays": 0,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -1496,7 +1497,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-06-16T03:04:09.026Z",
-      "updatedAt": "2026-06-16T03:04:09.026Z",
+      "updatedAt": "2026-06-16T04:22:26.938Z",
       "riseTaskCompleted": false
     },
     {
@@ -1509,7 +1510,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 0,
-      "consecutiveNoViolationDays": 0,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -1520,7 +1521,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-06-16T03:04:09.026Z",
-      "updatedAt": "2026-06-16T03:04:09.026Z",
+      "updatedAt": "2026-06-16T04:22:26.938Z",
       "riseTaskCompleted": false
     },
     {
@@ -1533,7 +1534,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 0,
-      "consecutiveNoViolationDays": 0,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -1544,7 +1545,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-06-16T03:04:09.026Z",
-      "updatedAt": "2026-06-16T03:04:09.026Z",
+      "updatedAt": "2026-06-16T04:22:26.938Z",
       "riseTaskCompleted": false
     },
     {
@@ -1557,7 +1558,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 0,
-      "consecutiveNoViolationDays": 0,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -1568,7 +1569,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-06-16T03:04:09.026Z",
-      "updatedAt": "2026-06-16T03:04:09.026Z",
+      "updatedAt": "2026-06-16T04:22:26.938Z",
       "riseTaskCompleted": false
     },
     {
@@ -1581,7 +1582,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 0,
-      "consecutiveNoViolationDays": 0,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -1592,7 +1593,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-06-16T03:04:09.026Z",
-      "updatedAt": "2026-06-16T03:04:09.026Z",
+      "updatedAt": "2026-06-16T04:22:26.938Z",
       "riseTaskCompleted": false
     },
     {
@@ -1605,7 +1606,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 0,
-      "consecutiveNoViolationDays": 0,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -1616,7 +1617,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-06-16T03:04:09.026Z",
-      "updatedAt": "2026-06-16T03:04:09.026Z",
+      "updatedAt": "2026-06-16T04:22:26.939Z",
       "riseTaskCompleted": false
     },
     {
@@ -1629,7 +1630,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 0,
-      "consecutiveNoViolationDays": 0,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -1640,7 +1641,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-06-16T03:04:09.026Z",
-      "updatedAt": "2026-06-16T03:04:09.026Z",
+      "updatedAt": "2026-06-16T04:22:26.939Z",
       "riseTaskCompleted": false
     },
     {
@@ -1653,7 +1654,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 0,
-      "consecutiveNoViolationDays": 0,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -1664,7 +1665,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-06-16T03:04:09.026Z",
-      "updatedAt": "2026-06-16T03:04:09.026Z",
+      "updatedAt": "2026-06-16T04:22:26.939Z",
       "riseTaskCompleted": false
     },
     {
@@ -1677,7 +1678,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 0,
-      "consecutiveNoViolationDays": 0,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -1688,7 +1689,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-06-16T03:04:09.026Z",
-      "updatedAt": "2026-06-16T03:04:09.026Z",
+      "updatedAt": "2026-06-16T04:22:26.939Z",
       "riseTaskCompleted": false
     },
     {
@@ -1701,7 +1702,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 0,
-      "consecutiveNoViolationDays": 0,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -1712,7 +1713,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-06-16T03:04:09.026Z",
-      "updatedAt": "2026-06-16T03:04:09.026Z",
+      "updatedAt": "2026-06-16T04:22:26.940Z",
       "riseTaskCompleted": false
     },
     {
@@ -1725,7 +1726,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 0,
-      "consecutiveNoViolationDays": 0,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -1736,7 +1737,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-06-16T03:04:09.026Z",
-      "updatedAt": "2026-06-16T03:04:09.026Z",
+      "updatedAt": "2026-06-16T04:22:26.940Z",
       "riseTaskCompleted": false
     },
     {
@@ -1749,7 +1750,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 0,
-      "consecutiveNoViolationDays": 0,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -1760,7 +1761,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-06-16T03:04:09.026Z",
-      "updatedAt": "2026-06-16T03:04:09.026Z",
+      "updatedAt": "2026-06-16T04:22:26.940Z",
       "riseTaskCompleted": false
     },
     {
@@ -1773,7 +1774,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 0,
-      "consecutiveNoViolationDays": 0,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -1784,7 +1785,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-06-16T03:04:09.026Z",
-      "updatedAt": "2026-06-16T03:04:09.026Z",
+      "updatedAt": "2026-06-16T04:22:26.940Z",
       "riseTaskCompleted": false
     },
     {
@@ -1797,7 +1798,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 0,
-      "consecutiveNoViolationDays": 0,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -1808,7 +1809,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-06-16T03:04:09.026Z",
-      "updatedAt": "2026-06-16T03:04:09.026Z",
+      "updatedAt": "2026-06-16T04:22:26.940Z",
       "riseTaskCompleted": false
     },
     {
@@ -1821,7 +1822,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 0,
-      "consecutiveNoViolationDays": 0,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -1832,7 +1833,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-06-16T03:04:09.026Z",
-      "updatedAt": "2026-06-16T03:04:09.026Z",
+      "updatedAt": "2026-06-16T04:22:26.940Z",
       "riseTaskCompleted": false
     },
     {
@@ -1845,7 +1846,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 0,
-      "consecutiveNoViolationDays": 0,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -1856,7 +1857,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-06-16T03:04:09.026Z",
-      "updatedAt": "2026-06-16T03:04:09.026Z",
+      "updatedAt": "2026-06-16T04:22:26.940Z",
       "riseTaskCompleted": false
     },
     {
@@ -1869,7 +1870,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 0,
-      "consecutiveNoViolationDays": 0,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -1880,7 +1881,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-06-16T03:04:09.026Z",
-      "updatedAt": "2026-06-16T03:04:09.026Z",
+      "updatedAt": "2026-06-16T04:22:26.940Z",
       "riseTaskCompleted": false
     },
     {
@@ -1893,7 +1894,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 0,
-      "consecutiveNoViolationDays": 0,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -1904,7 +1905,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-06-16T03:04:09.026Z",
-      "updatedAt": "2026-06-16T03:04:09.026Z",
+      "updatedAt": "2026-06-16T04:22:26.940Z",
       "riseTaskCompleted": false
     },
     {
@@ -1917,7 +1918,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 0,
-      "consecutiveNoViolationDays": 0,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -1928,7 +1929,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-06-16T03:04:09.026Z",
-      "updatedAt": "2026-06-16T03:04:09.026Z",
+      "updatedAt": "2026-06-16T04:22:26.941Z",
       "riseTaskCompleted": false
     },
     {
@@ -1941,7 +1942,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 0,
-      "consecutiveNoViolationDays": 0,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -1952,7 +1953,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-06-16T03:04:09.026Z",
-      "updatedAt": "2026-06-16T03:04:09.026Z",
+      "updatedAt": "2026-06-16T04:22:26.941Z",
       "riseTaskCompleted": false
     },
     {
@@ -1965,7 +1966,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 0,
-      "consecutiveNoViolationDays": 0,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -1976,7 +1977,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-06-16T03:04:09.026Z",
-      "updatedAt": "2026-06-16T03:04:09.026Z",
+      "updatedAt": "2026-06-16T04:22:26.941Z",
       "riseTaskCompleted": false
     },
     {
@@ -1989,7 +1990,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 0,
-      "consecutiveNoViolationDays": 0,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -2000,7 +2001,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-06-16T03:04:09.026Z",
-      "updatedAt": "2026-06-16T03:04:09.026Z",
+      "updatedAt": "2026-06-16T04:22:26.941Z",
       "riseTaskCompleted": false
     },
     {
@@ -2013,7 +2014,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 0,
-      "consecutiveNoViolationDays": 0,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -2024,7 +2025,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-06-16T03:04:09.026Z",
-      "updatedAt": "2026-06-16T03:04:09.026Z",
+      "updatedAt": "2026-06-16T04:22:26.941Z",
       "riseTaskCompleted": false
     },
     {
@@ -2037,7 +2038,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 0,
-      "consecutiveNoViolationDays": 0,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -2048,7 +2049,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-06-16T03:04:09.026Z",
-      "updatedAt": "2026-06-16T03:04:09.026Z",
+      "updatedAt": "2026-06-16T04:22:26.941Z",
       "riseTaskCompleted": false
     },
     {
@@ -2061,7 +2062,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 0,
-      "consecutiveNoViolationDays": 0,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -2072,7 +2073,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-06-16T03:04:09.026Z",
-      "updatedAt": "2026-06-16T03:04:09.026Z",
+      "updatedAt": "2026-06-16T04:22:26.941Z",
       "riseTaskCompleted": false
     },
     {
@@ -2085,7 +2086,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 0,
-      "consecutiveNoViolationDays": 0,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -2096,7 +2097,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-06-16T03:04:09.026Z",
-      "updatedAt": "2026-06-16T03:04:09.026Z",
+      "updatedAt": "2026-06-16T04:22:26.941Z",
       "riseTaskCompleted": false
     },
     {
@@ -2109,7 +2110,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 0,
-      "consecutiveNoViolationDays": 0,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -2120,7 +2121,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-06-16T03:04:09.026Z",
-      "updatedAt": "2026-06-16T03:04:09.026Z",
+      "updatedAt": "2026-06-16T04:22:26.941Z",
       "riseTaskCompleted": false
     },
     {
@@ -2133,7 +2134,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 0,
-      "consecutiveNoViolationDays": 0,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -2144,7 +2145,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-06-16T03:04:09.026Z",
-      "updatedAt": "2026-06-16T03:04:09.026Z",
+      "updatedAt": "2026-06-16T04:22:26.942Z",
       "riseTaskCompleted": false
     },
     {
@@ -2157,7 +2158,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 0,
-      "consecutiveNoViolationDays": 0,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -2168,7 +2169,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-06-16T03:04:09.026Z",
-      "updatedAt": "2026-06-16T03:04:09.026Z",
+      "updatedAt": "2026-06-16T04:22:26.942Z",
       "riseTaskCompleted": false
     },
     {
@@ -2181,7 +2182,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 0,
-      "consecutiveNoViolationDays": 0,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -2192,7 +2193,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-06-16T03:04:09.026Z",
-      "updatedAt": "2026-06-16T03:04:09.026Z",
+      "updatedAt": "2026-06-16T04:22:26.942Z",
       "riseTaskCompleted": false
     },
     {
@@ -2205,7 +2206,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 0,
-      "consecutiveNoViolationDays": 0,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -2216,7 +2217,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-06-16T03:04:09.026Z",
-      "updatedAt": "2026-06-16T03:04:09.026Z",
+      "updatedAt": "2026-06-16T04:22:26.942Z",
       "riseTaskCompleted": false
     },
     {
@@ -2229,7 +2230,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 0,
-      "consecutiveNoViolationDays": 0,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -2240,7 +2241,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-06-16T03:04:09.026Z",
-      "updatedAt": "2026-06-16T03:04:09.026Z",
+      "updatedAt": "2026-06-16T04:22:26.942Z",
       "riseTaskCompleted": false
     },
     {
@@ -2253,7 +2254,7 @@
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 0,
-      "consecutiveNoViolationDays": 0,
+      "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -2264,7 +2265,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-06-16T03:04:09.026Z",
-      "updatedAt": "2026-06-16T03:04:09.026Z",
+      "updatedAt": "2026-06-16T04:22:26.942Z",
       "riseTaskCompleted": false
     }
   ]
