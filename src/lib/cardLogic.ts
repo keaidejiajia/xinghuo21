@@ -1,5 +1,5 @@
 import type { Student, CardSide, FrontLevel, BackLevel, LevelChange, BehaviorRecord, TeachingWeek } from '../types';
-import { toLocalDateStr, recordLocalDate } from './utils';
+import { toLocalDateStr, recordLocalDate, addDays, isTeachingDay } from './utils';
 
 // ===== 核心卡片逻辑引擎 =====
 
@@ -75,6 +75,7 @@ export function processNegativeBehavior(
   }
 
   s.consecutiveNoViolationDays = 0;
+  s.weeksAtLevelOne = 0;
   s.updatedAt = new Date().toISOString();
 
   if (levelChanged) {
@@ -179,6 +180,7 @@ export function processRise(
     s.currentLevel -= 1;
     s.blanksFilled = 0;
     s.consecutiveNoViolationDays = 0;
+    s.weeksAtLevelOne = 0;
     // 护盾保留，以资鼓励
     s.updatedAt = new Date().toISOString();
     s.lastLevelChange = { direction: 'up', fromLevel, toLevel: s.currentLevel, fromSide, toSide: s.cardSide, timestamp: s.updatedAt };
@@ -225,6 +227,56 @@ export function getLevelOneTitle(weeksAtLevelOne: number, levelOneTitles: Array<
     }
   }
   return result;
+}
+
+function countTeachingDaysInRange(startDate: string, endDate: string, teachingWeeks: Array<{ startDate: string; endDate: string }>): number {
+  let count = 0;
+  let current = startDate;
+  while (current <= endDate) {
+    if (isTeachingDay(current, teachingWeeks)) count += 1;
+    current = addDays(current, 1);
+  }
+  return count;
+}
+
+function countCompletedTeachingWeeksFromDays(
+  consecutiveTeachingDays: number,
+  teachingWeeks: Array<{ weekNumber: number; startDate: string; endDate: string }>,
+  today: string,
+): number {
+  if (consecutiveTeachingDays <= 0 || teachingWeeks.length === 0) return 0;
+
+  let remainingDays = consecutiveTeachingDays;
+  const currentWeek = teachingWeeks.find(w => today >= w.startDate && today <= w.endDate);
+  if (currentWeek && today < currentWeek.endDate) {
+    remainingDays = Math.max(0, remainingDays - countTeachingDaysInRange(currentWeek.startDate, today, teachingWeeks));
+  }
+
+  let completedWeeks = 0;
+  const settledWeeks = [...teachingWeeks]
+    .filter(w => w.endDate <= today)
+    .sort((a, b) => b.endDate.localeCompare(a.endDate));
+
+  for (const week of settledWeeks) {
+    const daysInWeek = countTeachingDaysInRange(week.startDate, week.endDate, teachingWeeks);
+    if (daysInWeek <= 0) continue;
+    if (remainingDays < daysInWeek) break;
+    completedWeeks += 1;
+    remainingDays -= daysInWeek;
+  }
+
+  return completedWeeks;
+}
+
+/** 获取星辉典范称号使用的周数：兼容旧数据，用连续无违纪教学日按教学周折算 */
+export function getLevelOneTitleWeeks(
+  student: Pick<Student, 'weeksAtLevelOne' | 'consecutiveNoViolationDays'>,
+  teachingWeeks: Array<{ weekNumber: number; startDate: string; endDate: string }>,
+  today: string = toLocalDateStr(),
+): number {
+  const storedWeeks = student.weeksAtLevelOne ?? 0;
+  const weeksFromNoViolationDays = countCompletedTeachingWeeksFromDays(student.consecutiveNoViolationDays ?? 0, teachingWeeks, today);
+  return Math.max(storedWeeks, weeksFromNoViolationDays);
 }
 
 /** 获取学生的等级名称 */

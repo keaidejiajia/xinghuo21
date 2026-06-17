@@ -23,6 +23,7 @@ import {
   getFrontProgress,
   getBackProgress,
   getLevelOneTitle,
+  getLevelOneTitleWeeks,
   getImmortalTitle,
   donateHeritage,
   processRise,
@@ -203,7 +204,7 @@ function CardFace({
   const isLevelOne = student.currentLevel === 1 && isFront;
   const isImmortal = !isFront && student.currentLevel === 6;
 
-  const levelTitle = isFront && isLevelOne ? getLevelOneTitle(student.weeksAtLevelOne, config.levelOneTitles) : null;
+  const levelTitle = isFront && isLevelOne ? getLevelOneTitle(getLevelOneTitleWeeks(student, config.teachingWeeks), config.levelOneTitles) : null;
   const totalHeritageEarned = Math.max(student.totalHeritageEarned || 0, student.heritagePoints + (student.totalHeritageDonated || 0));
   const immortalTitle = isImmortal ? getImmortalTitle(totalHeritageEarned, config.immortalTitles) : null;
 
