@@ -617,7 +617,7 @@
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
       "updatedAt": "2026-06-17T09:54:24.874Z",
-      "riseTaskCompleted": false,
+      "riseTaskCompleted": true,
       "totalShieldsExchanged": 0
     },
     {
