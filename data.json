@@ -958,7 +958,7 @@
       "blanksFilled": 4,
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
-      "starShields": 7,
+      "starShields": 3,
       "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
@@ -969,7 +969,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-17T09:39:34.873Z",
+      "updatedAt": "2026-06-17T09:41:48.064Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -1071,6 +1071,27 @@
     }
   ],
   "behavior-records": [
+    {
+      "studentId": "40",
+      "direction": "negative",
+      "weight": 1,
+      "behaviorId": "n-l-2",
+      "category": "学习",
+      "description": "课上不记笔记、做与学习无关的事情、睡觉/趴桌",
+      "remark": "本周记录人：星蚀+1",
+      "recordedBy": "龚雅琪",
+      "verified": true,
+      "shieldsConsumed": 4,
+      "extraWeight": 1,
+      "penaltyReasons": [
+        "weekly_recorder"
+      ],
+      "isHighSensitivity": false,
+      "studentCardSide": "front",
+      "timePeriodId": "tp-yingyu",
+      "id": "2868",
+      "createdAt": "2026-06-17T09:41:48.070Z"
+    },
     {
       "studentId": "16",
       "direction": "negative",
