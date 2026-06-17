@@ -127,13 +127,14 @@ function ChecksVisualization({ student }: { student: Student }) {
 
 function ImmortalHeritageDisplay({ student }: { student: Student }) {
   const config = useConfig();
-  const title = getImmortalTitle(student.totalHeritageEarned, config.immortalTitles);
+  const totalHeritageEarned = Math.max(student.totalHeritageEarned || 0, student.heritagePoints + (student.totalHeritageDonated || 0));
+  const title = getImmortalTitle(totalHeritageEarned, config.immortalTitles);
 
   // Calculate progress to next title
-  const nextTitle = config.immortalTitles.find(t => t.heritageRequired > student.totalHeritageEarned);
-  const currentThreshold = config.immortalTitles.filter(t => t.heritageRequired <= student.totalHeritageEarned).pop()?.heritageRequired ?? 0;
+  const nextTitle = config.immortalTitles.find(t => t.heritageRequired > totalHeritageEarned);
+  const currentThreshold = config.immortalTitles.filter(t => t.heritageRequired <= totalHeritageEarned).pop()?.heritageRequired ?? 0;
   const progressPercent = nextTitle
-    ? Math.min(100, ((student.totalHeritageEarned - currentThreshold) / (nextTitle.heritageRequired - currentThreshold)) * 100)
+    ? Math.min(100, ((totalHeritageEarned - currentThreshold) / (nextTitle.heritageRequired - currentThreshold)) * 100)
     : 100;
 
   return (
@@ -173,13 +174,13 @@ function ImmortalHeritageDisplay({ student }: { student: Student }) {
         </div>
       </div>
       <div style={{ fontSize: 12, color: D.textMid, fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}>
-        累计传承值：{student.totalHeritageEarned}　已捐赠：{student.totalHeritageDonated}
+        累计传承值：{totalHeritageEarned}　已捐赠：{student.totalHeritageDonated}
       </div>
       {nextTitle && (
         <div style={{ width: '100%' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: D.textDim, fontFamily: "'LXGW WenKai', 'Cinzel', serif", marginBottom: 3 }}>
             <span>下一称号：<HeritageIcon size={10} /> {nextTitle.name}</span>
-            <span>{student.totalHeritageEarned}/{nextTitle.heritageRequired}</span>
+            <span>{totalHeritageEarned}/{nextTitle.heritageRequired}</span>
           </div>
           <div style={{ height: 6, borderRadius: 3, background: 'rgba(255,255,255,0.06)', overflow: 'hidden' }}>
             <div style={{ width: `${progressPercent}%`, height: '100%', borderRadius: 3, background: 'linear-gradient(90deg, #E8A030, #FFF0D0)', transition: 'width 0.3s ease' }} />
@@ -200,8 +201,11 @@ function CardFace({
   const levelName = getLevelName(student.cardSide, student.currentLevel, config.frontLevels, config.backLevels);
   const description = getLevelDescription(student.cardSide, student.currentLevel, config.frontLevels, config.backLevels);
   const isLevelOne = student.currentLevel === 1 && isFront;
+  const isImmortal = !isFront && student.currentLevel === 6;
 
   const levelTitle = isFront && isLevelOne ? getLevelOneTitle(student.weeksAtLevelOne, config.levelOneTitles) : null;
+  const totalHeritageEarned = Math.max(student.totalHeritageEarned || 0, student.heritagePoints + (student.totalHeritageDonated || 0));
+  const immortalTitle = isImmortal ? getImmortalTitle(totalHeritageEarned, config.immortalTitles) : null;
 
   // Title tier colors by index: tier 0=pale gold, 1=bright gold, 2=red gold, 3+=platinum
   const TITLE_TIER_COLORS = [
@@ -212,6 +216,9 @@ function CardFace({
   ];
   const titleIdx = levelTitle ? config.levelOneTitles.findIndex(t => t.name === levelTitle) : -1;
   const titleStyle = titleIdx >= 0 ? TITLE_TIER_COLORS[Math.min(titleIdx, TITLE_TIER_COLORS.length - 1)] : null;
+  const immortalTitleStyle = { color: '#E8A030', border: 'rgba(232,160,48,0.45)', glow: '0 0 16px rgba(232,160,48,0.25)', bg: 'rgba(232,160,48,0.10)' };
+  const honorTitle = levelTitle || immortalTitle;
+  const honorStyle = titleStyle || (immortalTitle ? immortalTitleStyle : null);
 
   return (
     <div
@@ -224,8 +231,8 @@ function CardFace({
         position: 'relative',
         overflow: 'hidden',
         background: isFront ? FRONT_GRADIENTS[student.currentLevel] : BACK_GRADIENTS[student.currentLevel],
-        border: `1px solid ${levelTitle && titleStyle ? titleStyle.border : (isFront ? FRONT_BORDER_COLORS[student.currentLevel] : BACK_BORDER_COLORS[student.currentLevel])}`,
-        boxShadow: levelTitle && titleStyle ? titleStyle.glow : (isFront ? FRONT_GLOWS[student.currentLevel] : BACK_GLOWS[student.currentLevel]),
+        border: `1px solid ${honorTitle && honorStyle ? honorStyle.border : (isFront ? FRONT_BORDER_COLORS[student.currentLevel] : BACK_BORDER_COLORS[student.currentLevel])}`,
+        boxShadow: honorTitle && honorStyle ? honorStyle.glow : (isFront ? FRONT_GLOWS[student.currentLevel] : BACK_GLOWS[student.currentLevel]),
       }}
     >
       {/* Level illustration background — fills entire card */}
@@ -283,17 +290,19 @@ function CardFace({
           >
             {levelName}
           </div>
-          {levelTitle && titleStyle && (
+          {honorTitle && honorStyle && (
             <div
               style={{
                 display: 'inline-flex', alignItems: 'center', gap: 5,
+                maxWidth: '100%',
                 padding: '3px 12px', borderRadius: D.radiusSm,
-                background: titleStyle.bg, border: `1px solid ${titleStyle.border}`,
-                fontSize: 13, fontWeight: 600, fontFamily: "'LXGW WenKai', 'Cinzel', serif", color: titleStyle.color,
-                marginTop: 4, boxShadow: titleStyle.glow,
+                background: honorStyle.bg, border: `1px solid ${honorStyle.border}`,
+                fontSize: 13, fontWeight: 600, fontFamily: "'LXGW WenKai', 'Cinzel', serif", color: honorStyle.color,
+                marginTop: 4, boxShadow: honorStyle.glow,
+                whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
               }}
             >
-              <Award size={13} /> {levelTitle}
+              <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>✦ {honorTitle}</span>
             </div>
           )}
         </div>

@@ -1,9 +1,9 @@
 import { useMemo, useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Star, Flame, Users, BarChart3, TrendingUp, AlertCircle, CheckCircle, Play, Pause, ChevronLeft, ChevronRight, ChevronDown, ChevronUp, X, Download, Award } from 'lucide-react';
+import { Star, Flame, Users, BarChart3, TrendingUp, AlertCircle, CheckCircle, Play, Pause, ChevronLeft, ChevronRight, ChevronDown, ChevronUp, X, Download } from 'lucide-react';
 import type { Student, BehaviorRecord, PositiveWeight } from '../types';
-import { getLevelName, getFrontBlanks, getBackChecksRequired, getLevelOneTitle, getLevelDescription, processPositiveBehaviorFront, processPositiveBehavior, processNegativeBehavior } from '../lib/cardLogic';
+import { getLevelName, getFrontBlanks, getBackChecksRequired, getLevelOneTitle, getImmortalTitle, getLevelDescription, processPositiveBehaviorFront, processPositiveBehavior, processNegativeBehavior } from '../lib/cardLogic';
 import { getSeatPriority, APP_VERSION } from '../data/config';
 import { useStudents, updateStudent, addBehaviorRecord } from '../lib/store';
 import { useAuth } from '../hooks/useAuth';
@@ -55,6 +55,28 @@ function ProgressDots({ filled, total, type }: { filled: number; total: number; 
   return <div style={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>{items}</div>;
 }
 
+function HonorTitleBadge({ title, color, fontSize = 10, padding = '1px 7px', marginBottom = 8 }: {
+  title: string;
+  color: string;
+  fontSize?: number;
+  padding?: string;
+  marginBottom?: number;
+}) {
+  return (
+    <div style={{
+      display: 'inline-flex', alignItems: 'center', gap: 3,
+      maxWidth: '100%',
+      padding, borderRadius: D.radiusXs,
+      background: `${color}15`, border: `1px solid ${color}44`,
+      fontSize, fontWeight: 600, fontFamily: "'LXGW WenKai', 'Cinzel', serif",
+      color, marginBottom,
+      whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
+    }}>
+      <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>✦ {title}</span>
+    </div>
+  );
+}
+
 function StudentCardThumbnail({ student }: { student: Student }) {
   const navigate = useNavigate();
   const config = useConfig();
@@ -77,9 +99,13 @@ function StudentCardThumbnail({ student }: { student: Student }) {
 
   const isLevelOne = isFront && lvl === 1;
   const levelTitle = isLevelOne ? getLevelOneTitle(student.weeksAtLevelOne, config.levelOneTitles) : null;
+  const totalHeritageEarned = Math.max(student.totalHeritageEarned || 0, student.heritagePoints + (student.totalHeritageDonated || 0));
+  const immortalTitle = isImmortal ? getImmortalTitle(totalHeritageEarned, config.immortalTitles) : null;
   const TITLE_TIER_COLORS = ['#d4c080', '#e8c55a', '#e8a040', '#f0e8d8'];
   const titleIdx = levelTitle ? config.levelOneTitles.findIndex(t => t.name === levelTitle) : -1;
   const titleColor = titleIdx >= 0 ? TITLE_TIER_COLORS[Math.min(titleIdx, TITLE_TIER_COLORS.length - 1)] : null;
+  const honorTitle = levelTitle || immortalTitle;
+  const honorColor = titleColor || (immortalTitle ? '#E8A030' : null);
 
   return (
     <div
@@ -170,17 +196,7 @@ function StudentCardThumbnail({ student }: { student: Student }) {
       </div>
 
       {/* Title badge */}
-      {levelTitle && titleColor && (
-        <div style={{
-          display: 'inline-flex', alignItems: 'center', gap: 3,
-          padding: '1px 7px', borderRadius: D.radiusXs,
-          background: `${titleColor}15`, border: `1px solid ${titleColor}44`,
-          fontSize: 10, fontWeight: 600, fontFamily: "'LXGW WenKai', 'Cinzel', serif",
-          color: titleColor, marginBottom: 8,
-        }}>
-          <Award size={9} /> {levelTitle}
-        </div>
-      )}
+      {honorTitle && honorColor && <HonorTitleBadge title={honorTitle} color={honorColor} />}
 
       {/* Progress dots / Progress bar / Immortal heritage info */}
       {isImmortal ? (
@@ -971,6 +987,16 @@ export default function Dashboard() {
                 : Math.max(1, getBackChecksRequired(student.currentLevel + 1, student.heartDemonMarks, config.backLevels));
               const progressNow = isFront ? student.blanksFilled : student.cumulativeChecks;
               const progress = Math.min(100, (progressNow / progressTotal) * 100);
+              const isLevelOne = isFront && student.currentLevel === 1;
+              const isImmortal = !isFront && student.currentLevel === 6;
+              const levelTitle = isLevelOne ? getLevelOneTitle(student.weeksAtLevelOne, config.levelOneTitles) : null;
+              const totalHeritageEarned = Math.max(student.totalHeritageEarned || 0, student.heritagePoints + (student.totalHeritageDonated || 0));
+              const immortalTitle = isImmortal ? getImmortalTitle(totalHeritageEarned, config.immortalTitles) : null;
+              const TITLE_TIER_COLORS = ['#d4c080', '#e8c55a', '#e8a040', '#f0e8d8'];
+              const titleIdx = levelTitle ? config.levelOneTitles.findIndex(t => t.name === levelTitle) : -1;
+              const titleColor = titleIdx >= 0 ? TITLE_TIER_COLORS[Math.min(titleIdx, TITLE_TIER_COLORS.length - 1)] : null;
+              const honorTitle = levelTitle || immortalTitle;
+              const honorColor = titleColor || (immortalTitle ? '#E8A030' : null);
               return (
                 <button
                   key={student.id}
@@ -1004,6 +1030,11 @@ export default function Dashboard() {
                         <div style={{ fontSize: 12, color: accent, marginTop: 2, overflowWrap: 'break-word' }}>
                           {isFront ? '正面' : '背面'} L{student.currentLevel} · {levelName}
                         </div>
+                        {honorTitle && honorColor && (
+                          <div style={{ marginTop: 4, maxWidth: '100%' }}>
+                            <HonorTitleBadge title={honorTitle} color={honorColor} fontSize={10} padding="1px 6px" marginBottom={0} />
+                          </div>
+                        )}
                       </div>
                       <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-end', gap: 4, maxWidth: 96 }}>
                         {student.starShields > 0 && <span style={{ fontSize: 10, color: D.blue, background: D.blueDim, borderRadius: 3, padding: '2px 5px' }}>护盾{student.starShields}</span>}
@@ -1811,9 +1842,13 @@ export default function Dashboard() {
           const currentFilled = isFront ? student.blanksFilled : student.cumulativeChecks;
           const isLevelOne = isFront && lvl === 1;
           const levelTitle = isLevelOne ? getLevelOneTitle(student.weeksAtLevelOne, config.levelOneTitles) : null;
+          const totalHeritageEarned = Math.max(student.totalHeritageEarned || 0, student.heritagePoints + (student.totalHeritageDonated || 0));
+          const immortalTitle = isImmortal ? getImmortalTitle(totalHeritageEarned, config.immortalTitles) : null;
           const TITLE_TIER_COLORS = ['#d4c080', '#e8c55a', '#e8a040', '#f0e8d8'];
           const titleIdx = levelTitle ? config.levelOneTitles.findIndex(t => t.name === levelTitle) : -1;
           const titleColor = titleIdx >= 0 ? TITLE_TIER_COLORS[Math.min(titleIdx, TITLE_TIER_COLORS.length - 1)] : null;
+          const honorTitle = levelTitle || immortalTitle;
+          const honorColor = titleColor || (immortalTitle ? '#E8A030' : null);
           const progress = maxBlanks > 0 ? currentFilled / maxBlanks : 0;
 
           return (
@@ -1936,10 +1971,10 @@ export default function Dashboard() {
                       {getLevelDescription(student.cardSide, lvl, config.frontLevels, config.backLevels)}
                     </div>
 
-                    {/* Title badge */}
-                    {levelTitle && titleColor && (
-                      <div style={{ position: 'relative', zIndex: 1, display: 'inline-flex', alignItems: 'center', gap: 3, padding: '3px 10px', borderRadius: D.radiusXs, background: `${titleColor}15`, border: `1px solid ${titleColor}44`, fontSize: 12, fontWeight: 600, fontFamily: "'LXGW WenKai', 'Cinzel', serif", color: titleColor, marginBottom: 10 }}>
-                        <Award size={11} /> {levelTitle}
+                    {/* Honor title badge */}
+                    {honorTitle && honorColor && (
+                      <div style={{ position: 'relative', zIndex: 1 }}>
+                        <HonorTitleBadge title={honorTitle} color={honorColor} fontSize={12} padding="3px 10px" marginBottom={10} />
                       </div>
                     )}
 
