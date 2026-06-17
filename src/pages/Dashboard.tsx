@@ -226,8 +226,8 @@ function StudentCardThumbnail({ student }: { student: Student }) {
 
       {/* Rise task progress bar for front level 2-6 */}
       {(() => {
-        // Show consecutive no-violation days progress for front 2-6 (with rise target) or back side
-        if (isFront && lvl < 2) return null;
+        // Show consecutive no-violation days progress only for front level 2-6.
+        if (!isFront || lvl < 2) return null;
         const riseTask = isFront ? config.riseTasks?.find(t => t.side === 'front' && t.level === lvl) : null;
         const daysRequired = riseTask?.riseDaysRequired ?? 5;
         const currentDays = student.consecutiveNoViolationDays;
