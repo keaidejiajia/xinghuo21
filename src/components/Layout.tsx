@@ -225,6 +225,27 @@ export default function Layout() {
               {user.name.charAt(0)}
             </div>
             )}
+            <button
+              onClick={() => setShowUpdatePopup(true)}
+              title="查看版本公告"
+              style={{
+                width: isMobile ? 28 : 34,
+                height: isMobile ? 28 : 34,
+                padding: 0,
+                borderRadius: D.radiusXs,
+                background: 'rgba(212,168,83,0.08)',
+                border: `1px solid ${D.borderGlow}`,
+                color: D.gold,
+                cursor: 'pointer',
+                transition: 'all 0.2s ease',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexShrink: 0,
+              }}
+            >
+              <BookOpen size={isMobile ? 14 : 16} />
+            </button>
             {/* View toggle — always visible */}
             <button onClick={() => { toggleMobileView(); }}
               title={isMobile ? '切换到桌面视图' : '切换到手机视图'}

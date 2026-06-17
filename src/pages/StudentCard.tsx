@@ -1600,6 +1600,7 @@ export default function StudentCard() {
   const [activeTab, setActiveTab] = useState<'level' | 'effects' | 'history'>('level');
   const [isSyncing, setIsSyncing] = useState(false);
   const isMobile = useMobile();
+  const canModifyCard = canDeleteRecord;
 
   const student = students.find((s) => s.id === id);
 
@@ -1920,7 +1921,18 @@ export default function StudentCard() {
                   <span style={{ fontSize: 12, fontFamily: "'LXGW WenKai', 'Cinzel', serif", color: taskDone ? '#68c87a' : INK.textSecondary }}>
                     {riseTask.riseTask}
                   </span>
-                  {taskDone ? (
+                  {!canModifyCard ? (
+                    <span style={{
+                      padding: '2px 8px', borderRadius: D.radiusXs, fontSize: 11,
+                      background: taskDone ? 'rgba(100,200,130,0.08)' : 'rgba(255,255,255,0.04)',
+                      border: taskDone ? '1px solid rgba(100,200,130,0.25)' : `1px solid ${INK.border}`,
+                      color: taskDone ? '#68c87a' : INK.textMuted,
+                      whiteSpace: 'nowrap',
+                      fontFamily: "'LXGW WenKai', 'Cinzel', serif",
+                    }}>
+                      {taskDone ? '已完成' : '未完成'}
+                    </span>
+                  ) : taskDone ? (
                     <button
                       disabled={isSyncing}
                       onClick={async () => {
@@ -1984,7 +1996,7 @@ export default function StudentCard() {
         })()}
 
         {/* Exchange section — only for front level 1 (星辉典范) or back level 6 (不朽晨辉) */}
-        {((student.cardSide === 'front' && student.currentLevel === 1) || (student.cardSide === 'back' && student.currentLevel === 6)) && (
+        {canModifyCard && ((student.cardSide === 'front' && student.currentLevel === 1) || (student.cardSide === 'back' && student.currentLevel === 6)) && (
           <div style={{ marginBottom: 20, padding: 14, borderRadius: D.radius, background: D.bgGlass, border: D.glassBorder }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: showExchangePanel ? 10 : 0 }}>
               <div style={{ fontSize: 13, color: student.cardSide === 'front' ? INK.starGold : '#E8A030', fontWeight: 600, display: 'flex', alignItems: 'center', gap: 6, fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}>
@@ -2094,7 +2106,7 @@ export default function StudentCard() {
         )}
 
         {/* 薪火传承 — only for immortal students with heritage */}
-        {student.cardSide === 'back' && student.currentLevel === 6 && student.heritagePoints > 0 && (
+        {canModifyCard && student.cardSide === 'back' && student.currentLevel === 6 && student.heritagePoints > 0 && (
           <div style={{ marginBottom: 20, padding: 14, borderRadius: D.radius, background: D.bgGlass, border: D.glassBorder }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: showHeritageDonate ? 10 : 0 }}>
               <div style={{ fontSize: 13, color: '#E8A030', fontWeight: 600, display: 'flex', alignItems: 'center', gap: 6, fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}>

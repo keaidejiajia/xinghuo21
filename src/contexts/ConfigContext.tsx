@@ -4,6 +4,24 @@ import { DEFAULT_APP_CONFIG, CURRENT_CONFIG_VERSION } from '../data/config';
 
 const CONFIG_STORAGE_KEY = 'app-config';
 
+function mergeSystemVersionLogs(savedLogs: AppConfig['versionLogs'] | undefined): AppConfig['versionLogs'] {
+  const saved = Array.isArray(savedLogs) ? savedLogs : [];
+  const savedByVersion = new Map(saved.map(log => [log.version, log]));
+  const systemVersions = new Set(DEFAULT_APP_CONFIG.versionLogs.map(log => log.version));
+
+  return [
+    ...DEFAULT_APP_CONFIG.versionLogs.map(log => savedByVersion.get(log.version) ?? log),
+    ...saved.filter(log => !systemVersions.has(log.version)),
+  ];
+}
+
+function normalizeConfig(config: AppConfig): AppConfig {
+  return {
+    ...config,
+    versionLogs: mergeSystemVersionLogs(config.versionLogs),
+  };
+}
+
 function loadConfig(): AppConfig {
   try {
     const saved = localStorage.getItem(CONFIG_STORAGE_KEY);
@@ -11,7 +29,7 @@ function loadConfig(): AppConfig {
       const parsed = JSON.parse(saved);
       if (parsed.version === CURRENT_CONFIG_VERSION) {
         // Merge with defaults to pick up any newly added fields
-        return { ...DEFAULT_APP_CONFIG, ...parsed };
+        return normalizeConfig({ ...DEFAULT_APP_CONFIG, ...parsed });
       }
       // Migration from v1: preserve user customizations, update level defaults
       if (parsed.version === 1) {
@@ -162,12 +180,18 @@ function loadConfig(): AppConfig {
         localStorage.setItem(CONFIG_STORAGE_KEY, JSON.stringify(migrated));
         return migrated;
       }
+      // Migration from v13: add V1.3.0 announcement while preserving user settings
+      if (parsed.version === 13) {
+        const migrated = normalizeConfig({ ...DEFAULT_APP_CONFIG, ...parsed, version: CURRENT_CONFIG_VERSION });
+        localStorage.setItem(CONFIG_STORAGE_KEY, JSON.stringify(migrated));
+        return migrated;
+      }
     }
   } catch {
     // Corrupted data, reset to defaults
   }
   // First load or version mismatch: use defaults
-  const defaults = DEFAULT_APP_CONFIG;
+  const defaults = normalizeConfig(DEFAULT_APP_CONFIG);
   localStorage.setItem(CONFIG_STORAGE_KEY, JSON.stringify(defaults));
   return defaults;
 }

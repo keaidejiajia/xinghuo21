@@ -333,9 +333,21 @@ function generateDefaultTeachingWeeks(startDate: string): TeachingWeek[] {
 
 // ===== 可编辑配置默认值 =====
 // ===== 版本信息 =====
-export const APP_VERSION = '1.2.0';
+export const APP_VERSION = '1.3.0';
 
 export const VERSION_LOGS: import('../types').VersionLog[] = [
+  {
+    version: '1.3.0',
+    date: '2026-06-17',
+    changes: [
+      { title: '登记规则更完整：旧习复发与记录人惩罚加一', detail: '行为登记现在能更好地处理“旧习复发”等连续性问题；记录人相关惩罚也纳入规则链条，谁登记、怎么登记、后续如何追踪，都比之前更清楚。' },
+      { title: '班委登录界面上线', detail: '班委入口从老师入口中拆分出来，登录身份更明确，日常登记更顺手，也减少了误进教师管理页面的可能。' },
+      { title: '手机端全面适配与优化', detail: '全班总览、规则说明、行为录入、个人卡片等页面都重新照顾了手机宽度：按钮更适合触摸，卡片内容会自然换行，弹窗和列表不再像桌面网页硬缩小。' },
+      { title: '数据同步链路加固', detail: '网页版读写数据改为通过 Vercel 接口与 GitHub 数据文件同步，减少不同浏览器、不同终端看到的数据不一致的问题。' },
+      { title: '荣誉称号展示升级', detail: '星辉典范和不朽晨辉的进阶称号现在会在缩略图与个人卡片中以轻量徽章呈现；星辉典范周数按系统设置的教学日和教学周计算，不把未完成的本周提前算入。' },
+      { title: '公告入口回归', detail: '右上角新增版本公告按钮。即使自动弹窗已经关闭，也可以随时手动打开，查看当前版本更新内容。' },
+    ],
+  },
   {
     version: '1.2.0',
     date: '2026-06-02',
@@ -430,10 +442,10 @@ export const DEFAULT_TIME_PERIODS = [
   { id: 'tp-jiti', name: '集体活动期间', group: 'other' as const },
 ];
 
-export const CURRENT_CONFIG_VERSION = 13;
+export const CURRENT_CONFIG_VERSION = 14;
 
 export const DEFAULT_APP_CONFIG: AppConfig = {
-  version: 13,
+  version: 14,
   frontLevels: FRONT_LEVELS,
   backLevels: BACK_LEVELS,
   frontLevelEffects: FRONT_LEVEL_EFFECTS,

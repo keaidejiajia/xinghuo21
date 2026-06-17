@@ -4,7 +4,7 @@ import { useStudents } from '../lib/store';
 import { useToast } from '../hooks/useToast';
 import { useMobile } from '../hooks/useMobile';
 import type { BehaviorDefinition, LevelEffect, TeachingWeek, Category, ExchangeItem, LimitedEvent, BehaviorRecord } from '../types';
-import { ClipboardList, Star, Calendar, Users, Settings, Plus, Trash2, RotateCcw, X, Download, Upload, ShoppingBag, Flame, BookOpen, AlertTriangle, CheckCircle2, RefreshCw } from 'lucide-react';
+import { ClipboardList, Star, Calendar, Users, Settings, Plus, Trash2, RotateCcw, X, Download, Upload, ShoppingBag, Flame, BookOpen, AlertTriangle, CheckCircle2, RefreshCw, Edit3 } from 'lucide-react';
 import { D, INK, SCROLL_CARD, INK_INPUT, INK_OPTION } from '../data/theme';
 import { toLocalDateStr } from '../lib/utils';
 import { recomputeAllStudents, type AuditResult } from '../lib/audit';
@@ -461,11 +461,35 @@ function BehaviorsTab({ config, updateConfig }: { config: ReturnType<typeof useC
               {b.isInverseSelectable && <span style={S.tag('rgba(123,139,181,0.15)', INK.starBlue)}>反选</span>}
               {b.isHighSensitivity && <span style={S.tag(INK.flameFaint, INK.flameCinnabar)}>高敏感</span>}
             </div>
-            <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
-              <button onClick={() => setEditingId(editingId === b.id ? null : b.id)} style={{ ...S.btnPrimary, padding: '4px 8px', flex: isMobile ? '1 1 100px' : undefined }}>
-                {editingId === b.id ? '收起' : '编辑'}
+            <div style={{ display: 'flex', gap: 6, flexWrap: 'nowrap', alignSelf: isMobile ? 'flex-start' : undefined }}>
+              <button
+                title={editingId === b.id ? '收起编辑' : '编辑行为'}
+                onClick={() => setEditingId(editingId === b.id ? null : b.id)}
+                style={{
+                  ...S.btnPrimary,
+                  width: isMobile ? 34 : undefined,
+                  height: isMobile ? 30 : undefined,
+                  minWidth: isMobile ? 34 : undefined,
+                  padding: isMobile ? 0 : '4px 8px',
+                  fontSize: 11,
+                  boxShadow: editingId === b.id ? D.goldGlow : 'none',
+                }}
+              >
+                {editingId === b.id ? <X size={13} /> : <Edit3 size={13} />}
+                {!isMobile && (editingId === b.id ? '收起' : '编辑')}
               </button>
-              <button onClick={() => deleteBehavior(b.id)} style={{ ...S.btnDanger, flex: isMobile ? '0 0 44px' : undefined, justifyContent: 'center' }}><Trash2 size={10} /></button>
+              <button
+                title="删除行为"
+                onClick={() => deleteBehavior(b.id)}
+                style={{
+                  ...S.btnDanger,
+                  width: isMobile ? 34 : undefined,
+                  height: isMobile ? 30 : undefined,
+                  minWidth: isMobile ? 34 : undefined,
+                  padding: isMobile ? 0 : '4px 8px',
+                  justifyContent: 'center',
+                }}
+              ><Trash2 size={13} /></button>
             </div>
           </div>
           {editingId === b.id && (
