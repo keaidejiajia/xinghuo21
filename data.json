@@ -130,7 +130,7 @@
       "blanksFilled": 2,
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
-      "starShields": 34,
+      "starShields": 36,
       "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
@@ -141,7 +141,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-17T09:50:56.856Z",
+      "updatedAt": "2026-06-17T09:50:58.034Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -2516,24 +2516,6 @@
       "studentCardSide": "front",
       "id": "2818",
       "createdAt": "2026-06-17T09:38:37.378Z"
-    },
-    {
-      "studentId": "7",
-      "direction": "negative",
-      "weight": 1,
-      "behaviorId": "n-l-1",
-      "category": "学习",
-      "description": "作业/定时任务未按时上交，或未按要求完成",
-      "remark": "第4次",
-      "recordedBy": "龚雅琪",
-      "verified": true,
-      "shieldsConsumed": 2,
-      "extraWeight": 0,
-      "penaltyReasons": [],
-      "isHighSensitivity": false,
-      "studentCardSide": "front",
-      "id": "2816",
-      "createdAt": "2026-06-17T09:38:37.340Z"
     },
     {
       "studentId": "7",
