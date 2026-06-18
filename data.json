@@ -56,19 +56,19 @@
       "currentLevel": 1,
       "blanksFilled": 0,
       "cumulativeChecks": 17,
-      "heartDemonMarks": 31,
+      "heartDemonMarks": 35,
       "starShields": 0,
       "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
       "totalBlanksEverFilled": 35,
-      "totalHeartDemonsEverGained": 33,
+      "totalHeartDemonsEverGained": 37,
       "totalShieldsEverEarned": 14,
       "totalChecksEverEarned": 17,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-18T01:46:35.635Z",
+      "updatedAt": "2026-06-18T01:48:23.945Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0,
       "lastHeartDemonClearDate": "2026-06-17"
@@ -1063,6 +1063,48 @@
     }
   ],
   "behavior-records": [
+    {
+      "studentId": "4",
+      "direction": "negative",
+      "weight": 1,
+      "behaviorId": "n-l-2",
+      "category": "学习",
+      "description": "课上不记笔记、做与学习无关的事情、睡觉/趴桌",
+      "remark": "第2次；旧习复发：心魔+1",
+      "recordedBy": "龚雅琪",
+      "verified": true,
+      "shieldsConsumed": 0,
+      "extraWeight": 1,
+      "penaltyReasons": [
+        "old_habit_recurrence"
+      ],
+      "isHighSensitivity": false,
+      "studentCardSide": "back",
+      "timePeriodId": "tp-yuwen",
+      "id": "2936",
+      "createdAt": "2026-06-18T01:48:23.958Z"
+    },
+    {
+      "studentId": "4",
+      "direction": "negative",
+      "weight": 1,
+      "behaviorId": "n-l-2",
+      "category": "学习",
+      "description": "课上不记笔记、做与学习无关的事情、睡觉/趴桌",
+      "remark": "第1次；旧习复发：心魔+1",
+      "recordedBy": "龚雅琪",
+      "verified": true,
+      "shieldsConsumed": 0,
+      "extraWeight": 1,
+      "penaltyReasons": [
+        "old_habit_recurrence"
+      ],
+      "isHighSensitivity": false,
+      "studentCardSide": "back",
+      "timePeriodId": "tp-yuwen",
+      "id": "2935",
+      "createdAt": "2026-06-18T01:48:23.932Z"
+    },
     {
       "studentId": "26",
       "direction": "negative",
