@@ -36756,6 +36756,17 @@
         "startDate": "2026-06-12",
         "endDate": "2026-06-19",
         "isActive": true
+      },
+      {
+        "id": "le-1781747566244",
+        "seriesId": "le-1781747566244",
+        "name": "地理课录制",
+        "direction": "positive",
+        "weight": 1,
+        "description": "",
+        "startDate": "2026-06-16",
+        "endDate": "2026-06-18",
+        "isActive": true
       }
     ],
     "timePeriods": [
