@@ -290,7 +290,15 @@
       "updatedAt": "2026-06-18T01:51:10.736Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0,
-      "lastHeartDemonClearDate": "2026-06-17"
+      "lastHeartDemonClearDate": "2026-06-17",
+      "lastLevelChange": {
+        "direction": "up",
+        "fromLevel": 2,
+        "toLevel": 3,
+        "fromSide": "back",
+        "toSide": "back",
+        "timestamp": "2026-06-18T01:51:10.736Z"
+      }
     },
     {
       "id": "14",
@@ -848,7 +856,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-18T01:41:01.660Z",
+      "updatedAt": "2026-06-18T01:56:17.914Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": true
     },
