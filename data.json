@@ -998,7 +998,7 @@
       "blanksFilled": 0,
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
-      "starShields": 52,
+      "starShields": 49,
       "consecutiveNoViolationDays": 9,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
@@ -1010,7 +1010,7 @@
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
       "updatedAt": "2026-06-18T01:53:09.901Z",
-      "totalShieldsExchanged": 5,
+      "totalShieldsExchanged": 8,
       "riseTaskCompleted": false
     },
     {
@@ -1039,6 +1039,21 @@
     }
   ],
   "behavior-records": [
+    {
+      "studentId": "43",
+      "direction": "positive",
+      "weight": 1,
+      "category": "品行",
+      "description": "兑换：课间点歌一首",
+      "remark": "消耗3护盾",
+      "recordedBy": "班主任",
+      "verified": true,
+      "shieldsConsumed": 0,
+      "isHighSensitivity": false,
+      "studentCardSide": "front",
+      "id": "2946",
+      "createdAt": "2026-06-18T09:08:01.631Z"
+    },
     {
       "studentId": "15",
       "direction": "negative",
