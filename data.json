@@ -290,15 +290,7 @@
       "updatedAt": "2026-06-18T01:51:10.736Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0,
-      "lastHeartDemonClearDate": "2026-06-17",
-      "lastLevelChange": {
-        "direction": "up",
-        "fromLevel": 2,
-        "toLevel": 3,
-        "fromSide": "back",
-        "toSide": "back",
-        "timestamp": "2026-06-18T01:51:10.736Z"
-      }
+      "lastHeartDemonClearDate": "2026-06-17"
     },
     {
       "id": "14",
