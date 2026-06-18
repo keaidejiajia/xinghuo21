@@ -405,8 +405,8 @@
       "blanksFilled": 1,
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
-      "starShields": 5,
-      "consecutiveNoViolationDays": 1,
+      "starShields": 3,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -416,7 +416,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-18T01:41:01.474Z",
+      "updatedAt": "2026-06-18T01:43:07.791Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -1055,6 +1055,25 @@
     }
   ],
   "behavior-records": [
+    {
+      "studentId": "18",
+      "direction": "negative",
+      "weight": 1,
+      "behaviorId": "n-l-2",
+      "category": "学习",
+      "description": "课上不记笔记、做与学习无关的事情、睡觉/趴桌",
+      "remark": "",
+      "recordedBy": "喻叶函",
+      "verified": true,
+      "shieldsConsumed": 2,
+      "extraWeight": 0,
+      "penaltyReasons": [],
+      "isHighSensitivity": false,
+      "studentCardSide": "front",
+      "timePeriodId": "tp-shuxue",
+      "id": "2902",
+      "createdAt": "2026-06-18T01:43:07.798Z"
+    },
     {
       "studentId": "38",
       "direction": "negative",
