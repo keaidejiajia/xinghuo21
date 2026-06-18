@@ -325,8 +325,8 @@
       "blanksFilled": 2,
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
-      "starShields": 10,
-      "consecutiveNoViolationDays": 1,
+      "starShields": 6,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -336,7 +336,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-18T01:41:01.435Z",
+      "updatedAt": "2026-06-18T04:57:44.977Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -506,15 +506,7 @@
       "createdAt": "2026-05-19T11:15:43.713Z",
       "updatedAt": "2026-06-18T01:41:01.514Z",
       "totalShieldsExchanged": 0,
-      "riseTaskCompleted": false,
-      "lastLevelChange": {
-        "direction": "up",
-        "fromLevel": 3,
-        "toLevel": 2,
-        "fromSide": "front",
-        "toSide": "front",
-        "timestamp": "2026-06-17T04:25:54.443Z"
-      }
+      "riseTaskCompleted": false
     },
     {
       "id": "23",
@@ -1047,6 +1039,24 @@
     }
   ],
   "behavior-records": [
+    {
+      "studentId": "15",
+      "direction": "negative",
+      "weight": 2,
+      "behaviorId": "n-h-3",
+      "category": "卫生",
+      "description": "将零食饮料带入教学区",
+      "remark": "",
+      "recordedBy": "王老师",
+      "verified": true,
+      "shieldsConsumed": 4,
+      "extraWeight": 0,
+      "penaltyReasons": [],
+      "isHighSensitivity": false,
+      "studentCardSide": "front",
+      "id": "2945",
+      "createdAt": "2026-06-18T04:57:44.993Z"
+    },
     {
       "studentId": "39",
       "direction": "positive",
