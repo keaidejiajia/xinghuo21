@@ -42819,6 +42819,10 @@
     {
       "seatId": "1-7",
       "studentId": "17"
+    },
+    {
+      "seatId": "1-5",
+      "studentId": "20"
     }
   ],
   "seat-grid-layout": [
