@@ -613,7 +613,7 @@
       "blanksFilled": 2,
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
-      "starShields": 9,
+      "starShields": 7,
       "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
@@ -624,7 +624,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-18T09:52:55.644Z",
+      "updatedAt": "2026-06-21T10:15:49.868Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -1039,6 +1039,24 @@
     }
   ],
   "behavior-records": [
+    {
+      "studentId": "27",
+      "direction": "negative",
+      "weight": 1,
+      "behaviorId": "n-d-1",
+      "category": "纪律",
+      "description": "迟到",
+      "remark": "周日晚自习",
+      "recordedBy": "王老师",
+      "verified": true,
+      "shieldsConsumed": 2,
+      "extraWeight": 0,
+      "penaltyReasons": [],
+      "isHighSensitivity": false,
+      "studentCardSide": "front",
+      "id": "2961",
+      "createdAt": "2026-06-21T10:15:49.884Z"
+    },
     {
       "studentId": "33",
       "direction": "negative",
