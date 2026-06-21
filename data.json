@@ -42954,6 +42954,10 @@
     {
       "seatId": "4-11",
       "studentId": "38"
+    },
+    {
+      "seatId": "3-1",
+      "studentId": "30"
     }
   ],
   "seat-grid-layout": [
