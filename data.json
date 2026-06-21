@@ -42811,7 +42811,12 @@
   ],
   "seat-data-migrated-v2": true,
   "seat_skipped": [],
-  "seat-assignments": [],
+  "seat-assignments": [
+    {
+      "seatId": "2-5",
+      "studentId": "39"
+    }
+  ],
   "seat-grid-layout": [
     {
       "id": "1-1",
