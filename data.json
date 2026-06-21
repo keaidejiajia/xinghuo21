@@ -42920,10 +42920,6 @@
       "studentId": "11"
     },
     {
-      "seatId": "8-1",
-      "studentId": "23"
-    },
-    {
       "seatId": "4-1",
       "studentId": "36"
     },
@@ -42978,6 +42974,10 @@
     {
       "seatId": "6-7",
       "studentId": "4"
+    },
+    {
+      "seatId": "6-9",
+      "studentId": "23"
     }
   ],
   "seat-grid-layout": [
