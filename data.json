@@ -36603,6 +36603,19 @@
         "isComposite": false,
         "isInverseSelectable": false,
         "affectsFlag": false
+      },
+      {
+        "id": "n-custom-1782040070404",
+        "direction": "negative",
+        "category": "学习",
+        "weight": 2,
+        "name": "携带违禁书籍",
+        "description": "携带违禁书籍",
+        "isHighSensitivity": false,
+        "isComposite": false,
+        "isInverseSelectable": false,
+        "affectsFlag": false,
+        "requiresTimePeriod": false
       }
     ],
     "positiveBehaviors": [
