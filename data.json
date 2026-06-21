@@ -682,21 +682,21 @@
       "number": 29,
       "cardSide": "front",
       "currentLevel": 6,
-      "blanksFilled": 6,
+      "blanksFilled": 5,
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
-      "starShields": 0,
+      "starShields": 2,
       "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
-      "totalBlanksEverFilled": 32,
+      "totalBlanksEverFilled": 31,
       "totalHeartDemonsEverGained": 0,
       "totalShieldsEverEarned": 52,
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-21T11:09:08.379Z",
+      "updatedAt": "2026-06-18T01:43:59.911Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -1039,25 +1039,6 @@
     }
   ],
   "behavior-records": [
-    {
-      "studentId": "30",
-      "direction": "negative",
-      "weight": 2,
-      "behaviorId": "n-custom-1782040070404",
-      "category": "学习",
-      "description": "携带违禁书籍",
-      "remark": "周日晚自习政史考试前，未上交",
-      "recordedBy": "王老师",
-      "verified": true,
-      "shieldsConsumed": 2,
-      "extraWeight": 0,
-      "penaltyReasons": [],
-      "isHighSensitivity": false,
-      "studentCardSide": "front",
-      "affectsFlag": false,
-      "id": "2963",
-      "createdAt": "2026-06-21T11:09:08.397Z"
-    },
     {
       "studentId": "26",
       "direction": "negative",
@@ -36622,19 +36603,6 @@
         "isComposite": false,
         "isInverseSelectable": false,
         "affectsFlag": false
-      },
-      {
-        "id": "n-custom-1782040070404",
-        "direction": "negative",
-        "category": "学习",
-        "weight": 2,
-        "name": "携带违禁书籍",
-        "description": "携带违禁书籍",
-        "isHighSensitivity": false,
-        "isComposite": false,
-        "isInverseSelectable": false,
-        "affectsFlag": false,
-        "requiresTimePeriod": false
       }
     ],
     "positiveBehaviors": [
@@ -44278,10 +44246,6 @@
     {
       "seatId": "4-1",
       "studentId": "36"
-    },
-    {
-      "seatId": "1-11",
-      "studentId": "18"
     },
     {
       "seatId": "3-3",
