@@ -42811,7 +42811,8 @@
   ],
   "seat-data-migrated-v2": true,
   "seat_skipped": [
-    "6"
+    "6",
+    "5"
   ],
   "seat-assignments": [
     {
@@ -42881,6 +42882,10 @@
     {
       "seatId": "1-9",
       "studentId": "41"
+    },
+    {
+      "seatId": "2-1",
+      "studentId": "24"
     }
   ],
   "seat-grid-layout": [
