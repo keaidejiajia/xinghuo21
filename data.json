@@ -42810,10 +42810,7 @@
     }
   ],
   "seat-data-migrated-v2": true,
-  "seat_skipped": [
-    "6",
-    "5"
-  ],
+  "seat_skipped": [],
   "seat-assignments": [
     {
       "seatId": "2-5",
