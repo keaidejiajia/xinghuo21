@@ -42930,6 +42930,10 @@
     {
       "seatId": "1-11",
       "studentId": "18"
+    },
+    {
+      "seatId": "3-3",
+      "studentId": "40"
     }
   ],
   "seat-grid-layout": [
