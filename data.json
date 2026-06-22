@@ -37922,7 +37922,7 @@
     }
   ],
   "app-config": {
-    "version": 14,
+    "version": 15,
     "frontLevels": [
       {
         "level": 1,
@@ -38169,7 +38169,8 @@
         "isComposite": true,
         "isInverseSelectable": false,
         "compositeThreshold": 3,
-        "compositePenalty": 1
+        "compositePenalty": 1,
+        "requiresHomeworkDetail": true
       },
       {
         "id": "n-l-2",
@@ -38298,6 +38299,32 @@
         "isInverseSelectable": false
       },
       {
+        "id": "n-custom-1782094301198",
+        "direction": "negative",
+        "category": "纪律",
+        "weight": 2,
+        "name": "携带或阅读网络小说等与学习无关的课外书",
+        "description": "携带或阅读网络小说等与学习无关的课外书",
+        "isHighSensitivity": false,
+        "isComposite": false,
+        "isInverseSelectable": false,
+        "affectsFlag": false,
+        "requiresTimePeriod": false
+      },
+      {
+        "id": "n-custom-1782098209600",
+        "direction": "negative",
+        "category": "纪律",
+        "weight": 2,
+        "name": "午休期间不睡觉，打扰其他同学休息",
+        "description": "午休期间不睡觉，打扰其他同学休息",
+        "isHighSensitivity": false,
+        "isComposite": false,
+        "isInverseSelectable": false,
+        "affectsFlag": false,
+        "requiresTimePeriod": false
+      },
+      {
         "id": "n-d-5",
         "direction": "negative",
         "category": "纪律",
@@ -38415,32 +38442,6 @@
         "isComposite": false,
         "isInverseSelectable": false,
         "affectsFlag": false
-      },
-      {
-        "id": "n-custom-1782094301198",
-        "direction": "negative",
-        "category": "纪律",
-        "weight": 2,
-        "name": "携带或阅读网络小说等与学习无关的课外书",
-        "description": "携带或阅读网络小说等与学习无关的课外书",
-        "isHighSensitivity": false,
-        "isComposite": false,
-        "isInverseSelectable": false,
-        "affectsFlag": false,
-        "requiresTimePeriod": false
-      },
-      {
-        "id": "n-custom-1782098209600",
-        "direction": "negative",
-        "category": "纪律",
-        "weight": 2,
-        "name": "午休期间不睡觉，打扰其他同学休息",
-        "description": "午休期间不睡觉，打扰其他同学休息",
-        "isHighSensitivity": false,
-        "isComposite": false,
-        "isInverseSelectable": false,
-        "affectsFlag": false,
-        "requiresTimePeriod": false
       }
     ],
     "positiveBehaviors": [
@@ -38546,6 +38547,19 @@
         "isInverseSelectable": false
       },
       {
+        "id": "p-custom-1782093820498",
+        "direction": "positive",
+        "category": "学习",
+        "weight": 1,
+        "name": "背面1-3等级的同学在大课间到办公室完成自习任务",
+        "description": "背面1-3等级的同学在大课间到办公室完成自习任务",
+        "isHighSensitivity": false,
+        "isComposite": false,
+        "isInverseSelectable": false,
+        "affectsFlag": false,
+        "requiresTimePeriod": false
+      },
+      {
         "id": "p-d-2",
         "direction": "positive",
         "category": "纪律",
@@ -38637,19 +38651,6 @@
         "isHighSensitivity": false,
         "isComposite": false,
         "isInverseSelectable": false
-      },
-      {
-        "id": "p-custom-1782093820498",
-        "direction": "positive",
-        "category": "学习",
-        "weight": 1,
-        "name": "背面1-3等级的同学在大课间到办公室完成自习任务",
-        "description": "背面1-3等级的同学在大课间到办公室完成自习任务",
-        "isHighSensitivity": false,
-        "isComposite": false,
-        "isInverseSelectable": false,
-        "affectsFlag": false,
-        "requiresTimePeriod": false
       }
     ],
     "negativeWeightNames": {
