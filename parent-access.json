@@ -6,11 +6,11 @@
       "studentId": "26",
       "parentName": "冉家鳌家长",
       "firstAccessAt": "2026-06-22T09:54:47.839Z",
-      "lastAccessAt": "2026-06-22T09:55:02.351Z",
+      "lastAccessAt": "2026-06-22T12:52:36.489Z",
       "loginCount": 0,
-      "viewCount": 1,
+      "viewCount": 2,
       "lastDevice": "mobile",
-      "lastCountedViewAt": "2026-06-22T09:54:47.839Z"
+      "lastCountedViewAt": "2026-06-22T12:52:36.489Z"
     },
     {
       "id": "2026-06-22-8",
@@ -47,5 +47,5 @@
       "lastDevice": "desktop"
     }
   ],
-  "updatedAt": "2026-06-22T09:55:02.351Z"
+  "updatedAt": "2026-06-22T12:52:36.489Z"
 }
