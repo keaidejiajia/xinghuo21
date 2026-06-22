@@ -731,6 +731,7 @@ function BehaviorHistory({ student, onDeleteRecord }: { student: Student; onDele
     );
   };
   const timePeriods = config.timePeriods || [];
+  const homeworkSubjects = config.homeworkSubjects || [];
 
   const displayRecords = showAll ? studentRecords : studentRecords.slice(0, 200);
 
@@ -801,7 +802,7 @@ function BehaviorHistory({ student, onDeleteRecord }: { student: Student; onDele
                     {weightName} {symbol}
                   </span>
                   <span style={{ fontSize: 13, color: INK.textPrimary, flex: 1, minWidth: 0, lineHeight: 1.5, wordBreak: 'break-word' }}>
-                    {formatBehaviorRecordTitle(record, timePeriods)}
+                    {formatBehaviorRecordTitle(record, homeworkSubjects)}
                     {record.remark && <span style={{ color: INK.textMuted, marginLeft: 4 }}>({record.remark.replace(/^ruleId:[^,，]+[,，]\s*/, '')})</span>}
                   </span>
                 </div>
@@ -855,7 +856,7 @@ function BehaviorHistory({ student, onDeleteRecord }: { student: Student; onDele
                     {weightName} {symbol}
                   </span>
                   <span style={{ fontSize: 12, fontFamily: "'LXGW WenKai', 'Cinzel', serif", color: INK.textPrimary, overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' as any, flex: 1, minWidth: 0, marginRight: 8 }}>
-                    {formatBehaviorRecordTitle(record, timePeriods)}
+                    {formatBehaviorRecordTitle(record, homeworkSubjects)}
                     {record.remark && <span style={{ color: INK.textMuted, marginLeft: 6 }}>({record.remark.replace(/^ruleId:[^,，]+[,，]\s*/, '')})</span>}
                   </span>
                   {record.timePeriodId && <span style={{ fontSize: 10, color: INK.starGold, flexShrink: 0, opacity: 0.7 }}>@{timePeriods.find(tp => tp.id === record.timePeriodId)?.name || record.timePeriodId}</span>}

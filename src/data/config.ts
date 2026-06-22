@@ -442,10 +442,28 @@ export const DEFAULT_TIME_PERIODS = [
   { id: 'tp-jiti', name: '集体活动期间', group: 'other' as const },
 ];
 
-export const CURRENT_CONFIG_VERSION = 15;
+export const DEFAULT_HOMEWORK_SUBJECTS = [
+  { id: 'hw-yuwen', name: '语文' },
+  { id: 'hw-shuxue', name: '数学' },
+  { id: 'hw-yingyu', name: '英语' },
+  { id: 'hw-zhengzhi', name: '政治' },
+  { id: 'hw-lishi', name: '历史' },
+  { id: 'hw-tiyu', name: '体育' },
+  { id: 'hw-dili', name: '地理' },
+  { id: 'hw-shengwu', name: '生物' },
+  { id: 'hw-meishu', name: '美术' },
+  { id: 'hw-yinyue', name: '音乐' },
+  { id: 'hw-xinxi', name: '信息' },
+  { id: 'hw-xinli', name: '心理' },
+  { id: 'hw-zixi', name: '自习' },
+  { id: 'hw-banhui', name: '班会' },
+  { id: 'hw-kouyu', name: '英语口语' },
+];
+
+export const CURRENT_CONFIG_VERSION = 16;
 
 export const DEFAULT_APP_CONFIG: AppConfig = {
-  version: 15,
+  version: 16,
   frontLevels: FRONT_LEVELS,
   backLevels: BACK_LEVELS,
   frontLevelEffects: FRONT_LEVEL_EFFECTS,
@@ -471,5 +489,6 @@ export const DEFAULT_APP_CONFIG: AppConfig = {
   exchangeItems: DEFAULT_EXCHANGE_ITEMS,
   limitedEvents: [],
   timePeriods: DEFAULT_TIME_PERIODS,
+  homeworkSubjects: DEFAULT_HOMEWORK_SUBJECTS,
   versionLogs: VERSION_LOGS,
 };

@@ -21,11 +21,15 @@ function normalizeConfig(config: AppConfig): AppConfig {
     behavior.id === 'n-l-1' ? { ...behavior, requiresHomeworkDetail: true } : behavior
   ));
   const positiveBehaviors = sortBehaviorsForDisplay(config.positiveBehaviors);
+  const homeworkSubjects = Array.isArray(config.homeworkSubjects) && config.homeworkSubjects.length > 0
+    ? config.homeworkSubjects
+    : DEFAULT_APP_CONFIG.homeworkSubjects;
 
   return {
     ...config,
     negativeBehaviors,
     positiveBehaviors,
+    homeworkSubjects,
     versionLogs: mergeSystemVersionLogs(config.versionLogs),
   };
 }
@@ -197,6 +201,13 @@ function loadConfig(): AppConfig {
       // Migration from v14: add homework detail requirement and normalize behavior order
       if (parsed.version === 14) {
         const migrated = normalizeConfig({ ...DEFAULT_APP_CONFIG, ...parsed, version: CURRENT_CONFIG_VERSION });
+        localStorage.setItem(CONFIG_STORAGE_KEY, JSON.stringify(migrated));
+        return migrated;
+      }
+      // Migration from v15: split homework subjects from behavior time periods
+      if (parsed.version === 15) {
+        const migrated = normalizeConfig({ ...DEFAULT_APP_CONFIG, ...parsed, version: CURRENT_CONFIG_VERSION });
+        migrated.homeworkSubjects = DEFAULT_APP_CONFIG.homeworkSubjects;
         localStorage.setItem(CONFIG_STORAGE_KEY, JSON.stringify(migrated));
         return migrated;
       }

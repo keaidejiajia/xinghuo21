@@ -53,6 +53,12 @@ export interface TimePeriod {
   group: TimePeriodGroup;  // course=学科课程, other=其他时段
 }
 
+// ===== 未交作业学科 =====
+export interface HomeworkSubject {
+  id: string;
+  name: string;
+}
+
 // ===== 版本更新日志 =====
 export interface VersionLog {
   version: string;
@@ -374,6 +380,8 @@ export interface AppConfig {
   limitedEvents: LimitedEvent[];
   // 行为时间段
   timePeriods: TimePeriod[];
+  // 未交作业学科
+  homeworkSubjects: HomeworkSubject[];
   // 版本公告
   versionLogs: VersionLog[];
 }

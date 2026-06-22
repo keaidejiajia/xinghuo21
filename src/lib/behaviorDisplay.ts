@@ -1,4 +1,4 @@
-import type { BehaviorDefinition, BehaviorRecord, TimePeriod } from '../types/index.js';
+import type { BehaviorDefinition, BehaviorRecord, HomeworkSubject } from '../types/index.js';
 
 export function sortBehaviorsForDisplay<T extends Pick<BehaviorDefinition, 'weight'>>(behaviors: T[]): T[] {
   return behaviors
@@ -19,17 +19,39 @@ function normalizeSubjectName(name: string): string {
   return name.replace(/课$/, '').trim();
 }
 
-export function getHomeworkSubjectName(subjectId: string | undefined, timePeriods: TimePeriod[]): string {
-  if (!subjectId) return '';
-  const period = timePeriods.find(item => item.id === subjectId);
-  return period ? normalizeSubjectName(period.name) : subjectId;
+function fallbackSubjectNameFromId(subjectId: string): string {
+  const text = subjectId.replace(/^tp-/, '').replace(/^hw-/, '');
+  const known: Record<string, string> = {
+    yuwen: '语文',
+    shuxue: '数学',
+    yingyu: '英语',
+    zhengzhi: '政治',
+    lishi: '历史',
+    tiyu: '体育',
+    dili: '地理',
+    shengwu: '生物',
+    meishu: '美术',
+    yinyue: '音乐',
+    xinxi: '信息',
+    xinli: '心理',
+    zixi: '自习',
+    banhui: '班会',
+    kouyu: '英语口语',
+  };
+  return known[text] ?? subjectId;
 }
 
-export function formatBehaviorRecordTitle(record: BehaviorRecord, timePeriods: TimePeriod[]): string {
+export function getHomeworkSubjectName(subjectId: string | undefined, homeworkSubjects: HomeworkSubject[]): string {
+  if (!subjectId) return '';
+  const subject = homeworkSubjects.find(item => item.id === subjectId);
+  return subject ? normalizeSubjectName(subject.name) : fallbackSubjectNameFromId(subjectId);
+}
+
+export function formatBehaviorRecordTitle(record: BehaviorRecord, homeworkSubjects: HomeworkSubject[]): string {
   const homeworkTitle = normalizeHomeworkText(record.homeworkTitle);
   if (!homeworkTitle) return record.description;
 
-  const subject = getHomeworkSubjectName(record.homeworkSubjectId, timePeriods);
+  const subject = getHomeworkSubjectName(record.homeworkSubjectId, homeworkSubjects);
   return subject ? `作业未交：${subject} · ${homeworkTitle}` : `作业未交：${homeworkTitle}`;
 }
 

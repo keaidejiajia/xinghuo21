@@ -140,6 +140,7 @@ export default function RecordPage() {
   const [isSyncing, setIsSyncing] = useState(false);
   const [syncError, setSyncError] = useState('');
   const timePeriods = config.timePeriods || [];
+  const homeworkSubjects = config.homeworkSubjects || [];
 
   // Directional sliding transition
   const [slideDirection, setSlideDirection] = useState<'left' | 'right'>('right');
@@ -192,7 +193,7 @@ export default function RecordPage() {
       key,
       records: recs,
       studentNames: recs.map(r => students.find(s => s.id === r.studentId)?.name ?? '未知'),
-      description: formatBehaviorRecordTitle(recs[0], timePeriods),
+      description: formatBehaviorRecordTitle(recs[0], homeworkSubjects),
       direction: recs[0].direction,
       weight: recs[0].weight,
       extraWeight: recs[0].extraWeight ?? 0,
@@ -204,7 +205,7 @@ export default function RecordPage() {
       allIds: recs.map(r => r.id),
       recordedBy: recs[0].recordedBy,
     }));
-  }, [displayedRecords, students, timePeriods]);
+  }, [displayedRecords, students, homeworkSubjects]);
 
   const allDisplayedSelected = displayedRecords.length > 0 && displayedRecords.every(r => selectedRecordIds.has(r.id));
 
@@ -296,7 +297,6 @@ export default function RecordPage() {
   const isInverseSelectable = selectedBehavior?.isInverseSelectable ?? false;
   const requiresTimePeriod = selectedBehavior?.requiresTimePeriod ?? false;
   const requiresHomeworkDetail = selectedBehavior?.requiresHomeworkDetail ?? false;
-  const homeworkSubjectPeriods = timePeriods.filter(period => period.group !== 'other');
 
   // Reset behavior-specific detail fields when behavior changes
   useEffect(() => {
@@ -1157,22 +1157,22 @@ export default function RecordPage() {
                 </div>
                 <div style={{ fontSize: 12, color: D.textMid, marginBottom: 6 }}>学科</div>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 8 }}>
-                  {homeworkSubjectPeriods.map(period => (
+                  {homeworkSubjects.map(subject => (
                     <button
-                      key={period.id}
+                      key={subject.id}
                       type="button"
-                      onClick={() => setSelectedHomeworkSubjectId(period.id)}
+                      onClick={() => setSelectedHomeworkSubjectId(subject.id)}
                       style={{
                         minHeight: 30,
                         padding: '5px 9px',
                         borderRadius: D.radiusXs,
-                        border: `1px solid ${selectedHomeworkSubjectId === period.id ? 'rgba(139,170,122,0.65)' : D.border}`,
-                        background: selectedHomeworkSubjectId === period.id ? 'rgba(139,170,122,0.16)' : D.bgCard,
-                        color: selectedHomeworkSubjectId === period.id ? '#cbe6b8' : D.textMid,
+                        border: `1px solid ${selectedHomeworkSubjectId === subject.id ? 'rgba(139,170,122,0.65)' : D.border}`,
+                        background: selectedHomeworkSubjectId === subject.id ? 'rgba(139,170,122,0.16)' : D.bgCard,
+                        color: selectedHomeworkSubjectId === subject.id ? '#cbe6b8' : D.textMid,
                         fontSize: 12,
                       }}
                     >
-                      {period.name.replace(/课$/, '')}
+                      {subject.name}
                     </button>
                   ))}
                 </div>
@@ -1971,12 +1971,12 @@ export default function RecordPage() {
             学科
           </div>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 12 }}>
-            {homeworkSubjectPeriods.map(tp => {
-              const isSelected = selectedHomeworkSubjectId === tp.id;
+            {homeworkSubjects.map(subject => {
+              const isSelected = selectedHomeworkSubjectId === subject.id;
               return (
                 <span
-                  key={tp.id}
-                  onClick={() => setSelectedHomeworkSubjectId(tp.id)}
+                  key={subject.id}
+                  onClick={() => setSelectedHomeworkSubjectId(subject.id)}
                   style={{
                     padding: '7px 14px',
                     borderRadius: D.radiusXs,
@@ -1989,7 +1989,7 @@ export default function RecordPage() {
                     boxShadow: isSelected ? '0 0 12px rgba(139,170,122,0.12)' : 'none',
                   }}
                 >
-                  {tp.name.replace(/课$/, '')}
+                  {subject.name}
                 </span>
               );
             })}

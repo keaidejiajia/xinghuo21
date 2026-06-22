@@ -1479,13 +1479,30 @@ function TimePeriodInput({ onAdd }: { onAdd: (name: string, group: 'course' | 'o
     setGroup('course');
   };
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '100px 72px auto', gap: 6, alignItems: 'center', width: '100%', marginTop: 8 }}>
+    <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'minmax(0, 1fr) 112px 38px' : 'minmax(120px, 220px) 96px 34px', gap: 6, alignItems: 'center', width: '100%', maxWidth: isMobile ? '100%' : 380, marginTop: 8 }}>
       <input value={value} onChange={e => setValue(e.target.value)} placeholder="时间段名" style={{ ...S.input, width: '100%', padding: isMobile ? '9px 10px' : '4px 8px', fontSize: isMobile ? 14 : 12 }} onKeyDown={e => e.key === 'Enter' && handleAdd()} />
       <select value={group} onChange={e => setGroup(e.target.value as any)} style={{ ...S.input, width: '100%', padding: isMobile ? '9px 10px' : '4px 4px', fontSize: isMobile ? 14 : 11, fontFamily: "'LXGW WenKai','Cinzel',serif" }}>
         <option value="course">学科课程</option>
         <option value="other">其他时段</option>
       </select>
-      <button onClick={handleAdd} style={{ ...S.btnPrimary, padding: isMobile ? '8px 12px' : '4px 8px', fontSize: isMobile ? 12 : 11 }}><Plus size={10} /></button>
+      <button onClick={handleAdd} title="添加时间段" style={{ ...S.btnPrimary, width: isMobile ? 38 : 34, height: isMobile ? 38 : 34, padding: 0, borderRadius: D.radiusXs, fontSize: isMobile ? 12 : 11, justifySelf: 'start' }}><Plus size={14} /></button>
+    </div>
+  );
+}
+
+function HomeworkSubjectInput({ onAdd }: { onAdd: (name: string) => void }) {
+  const [value, setValue] = useState('');
+  const isMobile = useMobile();
+  const handleAdd = () => {
+    const name = value.trim();
+    if (!name) return;
+    onAdd(name);
+    setValue('');
+  };
+  return (
+    <div style={{ display: 'grid', gridTemplateColumns: isMobile ? 'minmax(0, 1fr) 38px' : 'minmax(120px, 220px) 34px', gap: 6, alignItems: 'center', width: '100%', maxWidth: isMobile ? '100%' : 270, marginTop: 8 }}>
+      <input value={value} onChange={e => setValue(e.target.value)} placeholder="学科名" style={{ ...S.input, width: '100%', padding: isMobile ? '9px 10px' : '4px 8px', fontSize: isMobile ? 14 : 12 }} onKeyDown={e => e.key === 'Enter' && handleAdd()} />
+      <button onClick={handleAdd} title="添加作业学科" style={{ ...S.btnPrimary, width: isMobile ? 38 : 34, height: isMobile ? 38 : 34, padding: 0, borderRadius: D.radiusXs, justifySelf: 'start' }}><Plus size={14} /></button>
     </div>
   );
 }
@@ -1812,6 +1829,28 @@ function SystemTab({ config, updateConfig }: { config: ReturnType<typeof useConf
         </div>
       </div>
 
+      {/* Homework subjects */}
+      <div style={S.card}>
+        <div style={{ fontSize: 13, fontWeight: 600, color: INK.textPrimary, marginBottom: 8, fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}>未交作业学科</div>
+        <div style={{ fontSize: 11, color: INK.textMuted, marginBottom: 10, fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}>用于“作业未按时上交”记录。这里配置的是家长能看到的作业学科，不影响“行为时间段”。</div>
+        <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap', alignItems: 'center', marginBottom: 4 }}>
+          {(config.homeworkSubjects ?? []).map(subject => (
+            <span key={subject.id} style={{ display: 'inline-flex', alignItems: 'center', gap: 4, padding: '4px 10px', borderRadius: D.radiusXs, background: 'rgba(139,170,122,0.12)', border: '1px solid rgba(139,170,122,0.3)', color: '#b7d1a8', fontSize: 12, fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}>
+              {subject.name}
+              <button
+                title="删除作业学科"
+                onClick={() => updateConfig(prev => ({ ...prev, homeworkSubjects: (prev.homeworkSubjects ?? []).filter(item => item.id !== subject.id) }))}
+                style={{ background: 'none', border: 'none', color: '#b7d1a8', cursor: 'pointer', padding: 0, opacity: 0.65 }}
+              >
+                <X size={10} />
+              </button>
+            </span>
+          ))}
+          {(config.homeworkSubjects ?? []).length === 0 && <span style={{ fontSize: 11, color: INK.textMuted }}>暂无</span>}
+        </div>
+        <HomeworkSubjectInput onAdd={(name) => updateConfig(prev => ({ ...prev, homeworkSubjects: [...(prev.homeworkSubjects ?? []), { id: `hw-${Date.now()}`, name }] }))} />
+      </div>
+
       {/* Time period management */}
       <div style={S.card}>
         <div style={{ fontSize: 13, fontWeight: 600, color: INK.textPrimary, marginBottom: 8, fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}>行为时间段</div>
@@ -1823,28 +1862,28 @@ function SystemTab({ config, updateConfig }: { config: ReturnType<typeof useConf
             <>
               <div style={{ fontSize: 10, color: INK.textMuted, marginBottom: 4, textTransform: 'uppercase', letterSpacing: 1 }}>📚 学科课程</div>
               <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap', alignItems: 'center', marginBottom: 10 }}>
-                {courses.map((tp, i) => (
+                {courses.map((tp) => (
                   <span key={tp.id} style={{ display: 'inline-flex', alignItems: 'center', gap: 4, padding: '4px 10px', borderRadius: D.radiusXs, background: `${INK.starGold}15`, border: `1px solid ${INK.starGold}33`, color: INK.starGold, fontSize: 12, fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}>
                     {tp.name}
                     <button title="移到其他时段" onClick={() => updateConfig(prev => ({
                       ...prev,
                       timePeriods: prev.timePeriods.map(t => t.id === tp.id ? { ...t, group: 'other' as const } : t)
                     }))} style={{ background: 'none', border: 'none', color: INK.textSecondary, cursor: 'pointer', padding: 0, opacity: 0.5, fontSize: 10 }}>→</button>
-                    <button onClick={() => updateConfig(prev => ({ ...prev, timePeriods: prev.timePeriods.filter((_, j) => j !== i) }))} style={{ background: 'none', border: 'none', color: INK.starGold, cursor: 'pointer', padding: 0, opacity: 0.6 }}><X size={10} /></button>
+                    <button onClick={() => updateConfig(prev => ({ ...prev, timePeriods: prev.timePeriods.filter(item => item.id !== tp.id) }))} style={{ background: 'none', border: 'none', color: INK.starGold, cursor: 'pointer', padding: 0, opacity: 0.6 }}><X size={10} /></button>
                   </span>
                 ))}
                 {(config.timePeriods ?? []).length === 0 && <span style={{ fontSize: 11, color: INK.textMuted }}>暂无</span>}
               </div>
               <div style={{ fontSize: 10, color: INK.textMuted, marginBottom: 4, textTransform: 'uppercase', letterSpacing: 1 }}>📋 其他时段</div>
               <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap', alignItems: 'center', marginBottom: 4 }}>
-                {others.map((tp, i) => (
+                {others.map((tp) => (
                   <span key={tp.id} style={{ display: 'inline-flex', alignItems: 'center', gap: 4, padding: '4px 10px', borderRadius: D.radiusXs, background: `${INK.starBlue}15`, border: `1px solid ${INK.starBlue}33`, color: INK.starBlue, fontSize: 12, fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}>
                     {tp.name}
                     <button title="移到学科课程" onClick={() => updateConfig(prev => ({
                       ...prev,
                       timePeriods: prev.timePeriods.map(t => t.id === tp.id ? { ...t, group: 'course' as const } : t)
                     }))} style={{ background: 'none', border: 'none', color: INK.textSecondary, cursor: 'pointer', padding: 0, opacity: 0.5, fontSize: 10 }}>←</button>
-                    <button onClick={() => updateConfig(prev => ({ ...prev, timePeriods: prev.timePeriods.filter((_, j) => j !== i) }))} style={{ background: 'none', border: 'none', color: INK.starBlue, cursor: 'pointer', padding: 0, opacity: 0.6 }}><X size={10} /></button>
+                    <button onClick={() => updateConfig(prev => ({ ...prev, timePeriods: prev.timePeriods.filter(item => item.id !== tp.id) }))} style={{ background: 'none', border: 'none', color: INK.starBlue, cursor: 'pointer', padding: 0, opacity: 0.6 }}><X size={10} /></button>
                   </span>
                 ))}
                 {others.length === 0 && <span style={{ fontSize: 11, color: INK.textMuted }}>暂无</span>}

@@ -3,6 +3,7 @@ import { AlertCircle, Clock, Eye, Monitor, RefreshCw, Smartphone, Users } from '
 import type { ParentAccessData, ParentAccessDailyEntry } from '../types';
 import { useStudents } from '../lib/store';
 import { getParentAccessDailySummary } from '../lib/parentAccess';
+import { flushPendingParentAccessEvents } from '../lib/parentAccessClient';
 import { useMobile } from '../hooks/useMobile';
 import { D, INK } from '../data/theme';
 
@@ -51,6 +52,7 @@ export default function ParentAccessPage() {
     setLoading(true);
     setError('');
     try {
+      await flushPendingParentAccessEvents();
       const response = await fetch(`/api/parent-access?t=${Date.now()}`, { cache: 'no-store' });
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const payload = await response.json();

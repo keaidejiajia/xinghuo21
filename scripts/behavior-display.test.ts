@@ -4,7 +4,7 @@ import {
   formatBehaviorRecordTitle,
   sortBehaviorsForDisplay,
 } from '../src/lib/behaviorDisplay.js';
-import type { BehaviorDefinition, BehaviorRecord, TimePeriod } from '../src/types/index.js';
+import type { BehaviorDefinition, BehaviorRecord, HomeworkSubject } from '../src/types/index.js';
 
 const behaviors = [
   { id: 'b3', direction: 'negative', category: '学习', weight: 3, name: '三级', description: '三级', isHighSensitivity: false, isComposite: false, isInverseSelectable: false },
@@ -18,10 +18,10 @@ assert.deepEqual(
   'behaviors should be sorted by weight before display',
 );
 
-const timePeriods = [
-  { id: 'tp-yuwen', name: '语文课', group: 'course' },
-  { id: 'tp-shuxue', name: '数学课', group: 'course' },
-] satisfies TimePeriod[];
+const homeworkSubjects = [
+  { id: 'hw-yuwen', name: '语文' },
+  { id: 'hw-shuxue', name: '数学' },
+] satisfies HomeworkSubject[];
 
 const baseRecord: BehaviorRecord = {
   id: '1',
@@ -35,15 +35,15 @@ const baseRecord: BehaviorRecord = {
   verified: true,
   shieldsConsumed: 0,
   isHighSensitivity: false,
-  homeworkSubjectId: 'tp-yuwen',
+  homeworkSubjectId: 'hw-yuwen',
   homeworkTitle: '练习册第12页',
   createdAt: '2026-06-22T08:00:00.000Z',
 };
 
 assert.equal(
-  formatBehaviorRecordTitle(baseRecord, timePeriods),
+  formatBehaviorRecordTitle(baseRecord, homeworkSubjects),
   '作业未交：语文 · 练习册第12页',
-  'homework records should expose subject and homework title',
+  'homework records should expose independently configured homework subject and homework title',
 );
 
 assert.notEqual(
