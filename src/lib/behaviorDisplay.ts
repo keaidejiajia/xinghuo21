@@ -1,11 +1,21 @@
 import type { BehaviorDefinition, BehaviorRecord, HomeworkSubject } from '../types/index.js';
 
-export function sortBehaviorsForDisplay<T extends Pick<BehaviorDefinition, 'weight'>>(behaviors: T[]): T[] {
+const CATEGORY_DISPLAY_ORDER = ['纪律', '学习', '卫生', '品行'];
+
+function getCategoryRank(category: unknown): number {
+  if (typeof category !== 'string') return CATEGORY_DISPLAY_ORDER.length;
+  const rank = CATEGORY_DISPLAY_ORDER.indexOf(category);
+  return rank === -1 ? CATEGORY_DISPLAY_ORDER.length : rank;
+}
+
+export function sortBehaviorsForDisplay<T extends Pick<BehaviorDefinition, 'weight'> & Partial<Pick<BehaviorDefinition, 'category'>>>(behaviors: T[]): T[] {
   return behaviors
     .map((behavior, index) => ({ behavior, index }))
     .sort((a, b) => {
       const weightDiff = Number(a.behavior.weight) - Number(b.behavior.weight);
       if (weightDiff !== 0) return weightDiff;
+      const categoryDiff = getCategoryRank(a.behavior.category) - getCategoryRank(b.behavior.category);
+      if (categoryDiff !== 0) return categoryDiff;
       return a.index - b.index;
     })
     .map(item => item.behavior);

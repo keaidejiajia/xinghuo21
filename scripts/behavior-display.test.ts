@@ -10,12 +10,15 @@ const behaviors = [
   { id: 'b3', direction: 'negative', category: '学习', weight: 3, name: '三级', description: '三级', isHighSensitivity: false, isComposite: false, isInverseSelectable: false },
   { id: 'b1', direction: 'negative', category: '纪律', weight: 1, name: '一级', description: '一级', isHighSensitivity: false, isComposite: false, isInverseSelectable: false },
   { id: 'b2', direction: 'negative', category: '学习', weight: 2, name: '二级', description: '二级', isHighSensitivity: false, isComposite: false, isInverseSelectable: false },
+  { id: 'b1-hygiene', direction: 'negative', category: '卫生', weight: 1, name: '一级卫生', description: '一级卫生', isHighSensitivity: false, isComposite: false, isInverseSelectable: false },
+  { id: 'b1-study', direction: 'negative', category: '学习', weight: 1, name: '一级学习', description: '一级学习', isHighSensitivity: false, isComposite: false, isInverseSelectable: false },
+  { id: 'b1-conduct', direction: 'negative', category: '品行', weight: 1, name: '一级品行', description: '一级品行', isHighSensitivity: false, isComposite: false, isInverseSelectable: false },
 ] satisfies BehaviorDefinition[];
 
 assert.deepEqual(
   sortBehaviorsForDisplay(behaviors).map(b => b.id),
-  ['b1', 'b2', 'b3'],
-  'behaviors should be sorted by weight before display',
+  ['b1', 'b1-study', 'b1-hygiene', 'b1-conduct', 'b2', 'b3'],
+  'behaviors should be sorted by weight and then by category order before display',
 );
 
 const homeworkSubjects = [
