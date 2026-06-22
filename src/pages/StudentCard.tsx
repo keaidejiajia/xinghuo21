@@ -14,7 +14,7 @@ import {
   Save,
   ShoppingBag,
 } from 'lucide-react';
-import type { Student, CardSide, NegativeWeight, PositiveWeight } from '../types';
+import type { Student, CardSide, NegativeWeight, PositiveWeight, BehaviorRecord } from '../types';
 import {
   getLevelName,
   getLevelDescription,
@@ -23,7 +23,7 @@ import {
   getFrontProgress,
   getBackProgress,
   getLevelOneTitle,
-  getLevelOneTitleWeeks,
+  getLevelOneTitleWeeksFromHistory,
   getImmortalTitle,
   donateHeritage,
   processRise,
@@ -194,8 +194,10 @@ function ImmortalHeritageDisplay({ student }: { student: Student }) {
 
 function CardFace({
   student,
+  records,
 }: {
   student: Student;
+  records: BehaviorRecord[];
 }) {
   const config = useConfig();
   const isFront = student.cardSide === 'front';
@@ -204,7 +206,7 @@ function CardFace({
   const isLevelOne = student.currentLevel === 1 && isFront;
   const isImmortal = !isFront && student.currentLevel === 6;
 
-  const levelTitle = isFront && isLevelOne ? getLevelOneTitle(getLevelOneTitleWeeks(student, config.teachingWeeks), config.levelOneTitles) : null;
+  const levelTitle = isFront && isLevelOne ? getLevelOneTitle(getLevelOneTitleWeeksFromHistory(student, records, config), config.levelOneTitles) : null;
   const totalHeritageEarned = Math.max(student.totalHeritageEarned || 0, student.heritagePoints + (student.totalHeritageDonated || 0));
   const immortalTitle = isImmortal ? getImmortalTitle(totalHeritageEarned, config.immortalTitles) : null;
 
@@ -1587,7 +1589,7 @@ export default function StudentCard() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const config = useConfig();
-  const { students, updateStudent, deleteBehaviorRecord, addBehaviorRecord } = useStudents();
+  const { students, records, updateStudent, deleteBehaviorRecord, addBehaviorRecord } = useStudents();
   const { canDeleteRecord, canRecord, isParent } = useAuth();
   const { showToast } = useToast();
   const [showFlipCeremony, setShowFlipCeremony] = useState(false);
@@ -1816,7 +1818,7 @@ export default function StudentCard() {
 
         {/* Card face */}
         <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 20 }}>
-          <CardFace student={student} />
+          <CardFace student={student} records={records} />
         </div>
 
         {/* Tab bar */}

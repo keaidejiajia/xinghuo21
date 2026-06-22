@@ -279,6 +279,154 @@ export function getLevelOneTitleWeeks(
   return Math.max(storedWeeks, weeksFromNoViolationDays);
 }
 
+/** 星辉典范称号历史重放需要的最小记录字段。 */
+type LevelOneHistoryRecord = Pick<BehaviorRecord, 'id' | 'studentId' | 'direction' | 'weight' | 'extraWeight' | 'description' | 'remark' | 'createdAt'>;
+
+interface LevelOneTitleHistoryConfig {
+  teachingWeeks: Array<{ weekNumber: number; startDate: string; endDate: string }>;
+  frontLevels: FrontLevel[];
+  backLevels: BackLevel[];
+  shieldOffsetRatio?: number;
+  immortalDemotionThreshold?: number;
+}
+
+function countCompletedTeachingWeeksSince(
+  startDate: string,
+  teachingWeeks: Array<{ weekNumber: number; startDate: string; endDate: string }>,
+  today: string,
+): number {
+  if (!startDate || startDate > today) return 0;
+  const teachingDays = countTeachingDaysInRange(startDate, today, teachingWeeks);
+  return countCompletedTeachingWeeksFromDays(teachingDays, teachingWeeks, today);
+}
+
+function isRiseRecord(description: string): boolean {
+  return description.includes('回升任务') || description.includes('自动回升');
+}
+
+function parseShieldExchangeCost(record: Pick<LevelOneHistoryRecord, 'description' | 'remark'>): number {
+  const text = `${record.description || ''} ${record.remark || ''}`;
+  const match = text.match(/消耗\s*(\d+)\s*护盾/) || text.match(/兑换.*?(\d+)\s*护盾/);
+  return match ? Math.max(0, Number(match[1]) || 0) : 0;
+}
+
+/** 从个人行为历史重放“连续保持星辉典范”的教学周数。 */
+export function getLevelOneTitleWeeksFromHistory(
+  student: Pick<Student, 'id' | 'cardSide' | 'currentLevel' | 'createdAt' | 'weeksAtLevelOne' | 'consecutiveNoViolationDays'>,
+  records: LevelOneHistoryRecord[],
+  config: LevelOneTitleHistoryConfig,
+  today: string = toLocalDateStr(),
+): number {
+  if (student.cardSide !== 'front' || student.currentLevel !== 1) return 0;
+
+  const sorted = records
+    .filter(r => String(r.studentId) === String(student.id))
+    .sort((a, b) => {
+      const ta = a.createdAt || '';
+      const tb = b.createdAt || '';
+      if (ta !== tb) return ta.localeCompare(tb);
+      return String(a.id).localeCompare(String(b.id));
+    });
+
+  let cardSide: CardSide = 'front';
+  let currentLevel = 1;
+  let blanksFilled = 0;
+  let cumulativeChecks = 0;
+  let heartDemonMarks = 0;
+  let starShields = 0;
+  let heritagePoints = 0;
+  let levelOneSinceDate: string | null = recordLocalDate(student.createdAt);
+
+  const shieldRatio = config.shieldOffsetRatio ?? 2;
+  const immortalDemotionThreshold = config.immortalDemotionThreshold ?? 3;
+
+  for (const record of sorted) {
+    const wasLevelOne = cardSide === 'front' && currentLevel === 1;
+    const weight = (record.weight || 0) + (record.extraWeight || 0);
+
+    if (record.direction === 'positive') {
+      if (cardSide === 'front') {
+        if (isRiseRecord(record.description || '') && currentLevel > 1) {
+          currentLevel -= 1;
+          blanksFilled = 0;
+          starShields += weight;
+        } else {
+          starShields += weight;
+          const exchangeCost = parseShieldExchangeCost(record);
+          if (exchangeCost > 0) starShields = Math.max(0, starShields - exchangeCost);
+        }
+      } else {
+        if (weight >= 3 && heartDemonMarks > 0) heartDemonMarks -= 1;
+        cumulativeChecks += weight;
+
+        if (currentLevel === 6) {
+          heritagePoints += weight;
+          while (heartDemonMarks > 0 && heritagePoints > 0) {
+            heartDemonMarks -= 1;
+            heritagePoints -= 1;
+          }
+        } else {
+          const nextLevel = currentLevel + 1;
+          if (nextLevel <= 6) {
+            const required = getBackChecksRequired(nextLevel, heartDemonMarks, config.backLevels);
+            if (cumulativeChecks >= required) {
+              currentLevel = nextLevel;
+              cumulativeChecks = 0;
+            }
+          }
+        }
+      }
+    } else {
+      if (cardSide === 'front') {
+        const maxOffset = Math.floor(starShields / shieldRatio);
+        const actualFill = Math.max(0, weight - maxOffset);
+        const shieldsConsumed = Math.min(starShields, (weight - actualFill) * shieldRatio);
+        starShields -= shieldsConsumed;
+        blanksFilled += actualFill;
+
+        const level6Blanks = config.frontLevels[5]?.blanks ?? 8;
+        if (currentLevel === 6 && blanksFilled >= level6Blanks) {
+          cardSide = 'back';
+          currentLevel = 1;
+          blanksFilled = 0;
+          cumulativeChecks = 0;
+        } else if (currentLevel < 6 && blanksFilled >= getFrontBlanks(currentLevel, config.frontLevels)) {
+          currentLevel += 1;
+          blanksFilled = 0;
+        }
+      } else {
+        heartDemonMarks += Math.max(1, Math.floor(weight));
+        while (heartDemonMarks > 0 && heritagePoints > 0 && currentLevel === 6) {
+          heartDemonMarks -= 1;
+          heritagePoints -= 1;
+        }
+        if (currentLevel === 6 && heartDemonMarks >= immortalDemotionThreshold) {
+          currentLevel = 5;
+          heartDemonMarks = 0;
+          heritagePoints = 0;
+          cumulativeChecks = 0;
+        }
+      }
+    }
+
+    const isLevelOne = cardSide === 'front' && currentLevel === 1;
+    if (wasLevelOne && !isLevelOne) {
+      levelOneSinceDate = null;
+    } else if (!wasLevelOne && isLevelOne) {
+      levelOneSinceDate = recordLocalDate(record.createdAt);
+    }
+  }
+
+  if (cardSide !== 'front' || currentLevel !== 1 || !levelOneSinceDate) {
+    return getLevelOneTitleWeeks(student, config.teachingWeeks, today);
+  }
+
+  return Math.max(
+    student.weeksAtLevelOne ?? 0,
+    countCompletedTeachingWeeksSince(levelOneSinceDate, config.teachingWeeks, today),
+  );
+}
+
 /** 获取学生的等级名称 */
 export function getLevelName(cardSide: CardSide, level: number, frontLevels: FrontLevel[], backLevels: BackLevel[]): string {
   if (cardSide === 'front') {

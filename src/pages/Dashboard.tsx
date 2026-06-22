@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Star, Flame, Users, BarChart3, TrendingUp, AlertCircle, CheckCircle, Play, Pause, ChevronLeft, ChevronRight, ChevronDown, ChevronUp, X, Download } from 'lucide-react';
 import type { Student, BehaviorRecord, PositiveWeight } from '../types';
-import { getLevelName, getFrontBlanks, getBackChecksRequired, getLevelOneTitle, getLevelOneTitleWeeks, getImmortalTitle, getLevelDescription, processPositiveBehaviorFront, processPositiveBehavior, processNegativeBehavior } from '../lib/cardLogic';
+import { getLevelName, getFrontBlanks, getBackChecksRequired, getLevelOneTitle, getLevelOneTitleWeeksFromHistory, getImmortalTitle, getLevelDescription, processPositiveBehaviorFront, processPositiveBehavior, processNegativeBehavior } from '../lib/cardLogic';
 import { getSeatPriority, APP_VERSION } from '../data/config';
 import { useStudents, updateStudent, addBehaviorRecord } from '../lib/store';
 import { useAuth } from '../hooks/useAuth';
@@ -70,6 +70,7 @@ function HonorTitleBadge({ title, color, fontSize = 10, padding = '1px 7px', mar
       background: `${color}15`, border: `1px solid ${color}44`,
       fontSize, fontWeight: 600, fontFamily: "'LXGW WenKai', 'Cinzel', serif",
       color, marginBottom,
+      position: 'relative', zIndex: 2,
       whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis',
     }}>
       <span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>✦ {title}</span>
@@ -77,7 +78,7 @@ function HonorTitleBadge({ title, color, fontSize = 10, padding = '1px 7px', mar
   );
 }
 
-function StudentCardThumbnail({ student }: { student: Student }) {
+function StudentCardThumbnail({ student, records }: { student: Student; records: BehaviorRecord[] }) {
   const navigate = useNavigate();
   const config = useConfig();
   const isFront = student.cardSide === 'front';
@@ -98,7 +99,7 @@ function StudentCardThumbnail({ student }: { student: Student }) {
   const glow = isFront ? FRONT_GLOWS[lvl] : BACK_GLOWS[lvl];
 
   const isLevelOne = isFront && lvl === 1;
-  const levelTitle = isLevelOne ? getLevelOneTitle(getLevelOneTitleWeeks(student, config.teachingWeeks), config.levelOneTitles) : null;
+  const levelTitle = isLevelOne ? getLevelOneTitle(getLevelOneTitleWeeksFromHistory(student, records, config), config.levelOneTitles) : null;
   const totalHeritageEarned = Math.max(student.totalHeritageEarned || 0, student.heritagePoints + (student.totalHeritageDonated || 0));
   const immortalTitle = isImmortal ? getImmortalTitle(totalHeritageEarned, config.immortalTitles) : null;
   const TITLE_TIER_COLORS = ['#d4c080', '#e8c55a', '#e8a040', '#f0e8d8'];
@@ -989,7 +990,7 @@ export default function Dashboard() {
               const progress = Math.min(100, (progressNow / progressTotal) * 100);
               const isLevelOne = isFront && student.currentLevel === 1;
               const isImmortal = !isFront && student.currentLevel === 6;
-              const levelTitle = isLevelOne ? getLevelOneTitle(getLevelOneTitleWeeks(student, config.teachingWeeks), config.levelOneTitles) : null;
+              const levelTitle = isLevelOne ? getLevelOneTitle(getLevelOneTitleWeeksFromHistory(student, records, config), config.levelOneTitles) : null;
               const totalHeritageEarned = Math.max(student.totalHeritageEarned || 0, student.heritagePoints + (student.totalHeritageDonated || 0));
               const immortalTitle = isImmortal ? getImmortalTitle(totalHeritageEarned, config.immortalTitles) : null;
               const TITLE_TIER_COLORS = ['#d4c080', '#e8c55a', '#e8a040', '#f0e8d8'];
@@ -1819,7 +1820,7 @@ export default function Dashboard() {
         display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16,
       }}>
         {sortedStudents.map(student => (
-          <StudentCardThumbnail key={student.id} student={student} />
+          <StudentCardThumbnail key={student.id} student={student} records={records} />
         ))}
       </div>
 
@@ -1841,7 +1842,7 @@ export default function Dashboard() {
             : getBackChecksRequired(lvl + 1, student.heartDemonMarks, config.backLevels);
           const currentFilled = isFront ? student.blanksFilled : student.cumulativeChecks;
           const isLevelOne = isFront && lvl === 1;
-          const levelTitle = isLevelOne ? getLevelOneTitle(getLevelOneTitleWeeks(student, config.teachingWeeks), config.levelOneTitles) : null;
+          const levelTitle = isLevelOne ? getLevelOneTitle(getLevelOneTitleWeeksFromHistory(student, records, config), config.levelOneTitles) : null;
           const totalHeritageEarned = Math.max(student.totalHeritageEarned || 0, student.heritagePoints + (student.totalHeritageDonated || 0));
           const immortalTitle = isImmortal ? getImmortalTitle(totalHeritageEarned, config.immortalTitles) : null;
           const TITLE_TIER_COLORS = ['#d4c080', '#e8c55a', '#e8a040', '#f0e8d8'];
