@@ -37922,7 +37922,7 @@
     }
   ],
   "app-config": {
-    "version": 15,
+    "version": 16,
     "frontLevels": [
       {
         "level": 1,
@@ -39211,6 +39211,68 @@
         "id": "tp-1780400777113",
         "name": "午休期间",
         "group": "other"
+      }
+    ],
+    "homeworkSubjects": [
+      {
+        "id": "hw-yuwen",
+        "name": "语文"
+      },
+      {
+        "id": "hw-shuxue",
+        "name": "数学"
+      },
+      {
+        "id": "hw-yingyu",
+        "name": "英语"
+      },
+      {
+        "id": "hw-zhengzhi",
+        "name": "政治"
+      },
+      {
+        "id": "hw-lishi",
+        "name": "历史"
+      },
+      {
+        "id": "hw-tiyu",
+        "name": "体育"
+      },
+      {
+        "id": "hw-dili",
+        "name": "地理"
+      },
+      {
+        "id": "hw-shengwu",
+        "name": "生物"
+      },
+      {
+        "id": "hw-meishu",
+        "name": "美术"
+      },
+      {
+        "id": "hw-yinyue",
+        "name": "音乐"
+      },
+      {
+        "id": "hw-xinxi",
+        "name": "信息"
+      },
+      {
+        "id": "hw-xinli",
+        "name": "心理"
+      },
+      {
+        "id": "hw-zixi",
+        "name": "自习"
+      },
+      {
+        "id": "hw-banhui",
+        "name": "班会"
+      },
+      {
+        "id": "hw-kouyu",
+        "name": "英语口语"
       }
     ],
     "versionLogs": [
