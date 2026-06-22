@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useCallback, useEffect, type ReactNode } from 'react';
 import type { AppConfig } from '../types';
 import { DEFAULT_APP_CONFIG, CURRENT_CONFIG_VERSION } from '../data/config';
+import { sortBehaviorsForDisplay } from '../lib/behaviorDisplay';
 
 const CONFIG_STORAGE_KEY = 'app-config';
 
@@ -16,8 +17,15 @@ function mergeSystemVersionLogs(savedLogs: AppConfig['versionLogs'] | undefined)
 }
 
 function normalizeConfig(config: AppConfig): AppConfig {
+  const negativeBehaviors = sortBehaviorsForDisplay(config.negativeBehaviors.map(behavior =>
+    behavior.id === 'n-l-1' ? { ...behavior, requiresHomeworkDetail: true } : behavior
+  ));
+  const positiveBehaviors = sortBehaviorsForDisplay(config.positiveBehaviors);
+
   return {
     ...config,
+    negativeBehaviors,
+    positiveBehaviors,
     versionLogs: mergeSystemVersionLogs(config.versionLogs),
   };
 }
@@ -182,6 +190,12 @@ function loadConfig(): AppConfig {
       }
       // Migration from v13: add V1.3.0 announcement while preserving user settings
       if (parsed.version === 13) {
+        const migrated = normalizeConfig({ ...DEFAULT_APP_CONFIG, ...parsed, version: CURRENT_CONFIG_VERSION });
+        localStorage.setItem(CONFIG_STORAGE_KEY, JSON.stringify(migrated));
+        return migrated;
+      }
+      // Migration from v14: add homework detail requirement and normalize behavior order
+      if (parsed.version === 14) {
         const migrated = normalizeConfig({ ...DEFAULT_APP_CONFIG, ...parsed, version: CURRENT_CONFIG_VERSION });
         localStorage.setItem(CONFIG_STORAGE_KEY, JSON.stringify(migrated));
         return migrated;

@@ -11,6 +11,7 @@ import LoginPage from './pages/LoginPage';
 import RulesPage from './pages/RulesPage';
 import SeatPage from './pages/SeatPage';
 import SettingsPage from './pages/SettingsPage';
+import ParentAccessPage from './pages/ParentAccessPage';
 
 function ParentRedirect() {
   const { user } = useAuth();
@@ -52,6 +53,7 @@ function ProtectedRoutes() {
         <Route path="/record" element={canRecord ? <RecordPage /> : <Navigate to="/" replace />} />
         <Route path="/rules" element={<RulesPage />} />
         <Route path="/seats" element={<SeatPage />} />
+        <Route path="/parent-access" element={isTeacher ? <ParentAccessPage /> : <Navigate to="/" replace />} />
         <Route path="/settings" element={isTeacher ? <SettingsPage /> : <Navigate to="/" replace />} />
       </Route>
     </Routes>

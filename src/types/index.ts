@@ -60,6 +60,36 @@ export interface VersionLog {
   changes: { title: string; detail: string }[];
 }
 
+export type ParentAccessEventType = 'login' | 'view';
+export type ParentAccessDevice = 'mobile' | 'desktop';
+
+export interface ParentAccessEvent {
+  type: ParentAccessEventType;
+  studentId: string;
+  parentName: string;
+  occurredAt: string;
+  date?: string;
+  device: ParentAccessDevice;
+}
+
+export interface ParentAccessDailyEntry {
+  id: string;
+  date: string;
+  studentId: string;
+  parentName: string;
+  firstAccessAt: string;
+  lastAccessAt: string;
+  loginCount: number;
+  viewCount: number;
+  lastDevice: ParentAccessDevice;
+  lastCountedViewAt?: string;
+}
+
+export interface ParentAccessData {
+  entries: ParentAccessDailyEntry[];
+  updatedAt?: string;
+}
+
 // ===== 正面等级配置 =====
 export interface FrontLevel {
   level: number;
@@ -141,6 +171,8 @@ export interface BehaviorRecord {
   studentCardSide?: CardSide;
   isAutoRule?: boolean;
   timePeriodId?: string;
+  homeworkSubjectId?: string;
+  homeworkTitle?: string;
   createdAt: string;
 }
 
@@ -194,6 +226,7 @@ export interface BehaviorDefinition {
   behaviorBlacklist?: string[];
   extraWeight?: number;
   requiresTimePeriod?: boolean;
+  requiresHomeworkDetail?: boolean;
   aliases?: string[];
   seriesId?: string;
 }

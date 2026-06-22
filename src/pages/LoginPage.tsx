@@ -8,6 +8,7 @@ import { PARENT_AUTH_DATA } from '../data/parentAuth';
 import { useAuth } from '../hooks/useAuth';
 import { useMobile } from '../hooks/useMobile';
 import { changeTeacherPassword, verifyTeacherPassword } from '../lib/authPasswords';
+import { recordParentAccess } from '../lib/parentAccessClient';
 
 const ROLES: { role: UserRole; label: string; icon: typeof Star; color: string }[] = [
   { role: 'teacher', label: '班主任', icon: GraduationCap, color: D.gold },
@@ -51,13 +52,15 @@ export default function LoginPage() {
         if (match) {
           const students = getStudents();
           const student = students.find(s => s.name === match.name);
-          signIn({
+          const parentUser = {
             id: `parent-${match.name}`,
             email: match.name,
             role: 'parent' as UserRole,
             name: `${match.name}家长`,
             linkedStudentId: student?.id ?? undefined,
-          });
+          };
+          signIn(parentUser);
+          void recordParentAccess('login', parentUser);
           navigate('/');
           return;
         }

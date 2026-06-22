@@ -8,6 +8,7 @@ import { ClipboardList, Star, Calendar, Users, Settings, Plus, Trash2, RotateCcw
 import { D, INK, SCROLL_CARD, INK_INPUT, INK_OPTION } from '../data/theme';
 import { toLocalDateStr } from '../lib/utils';
 import { recomputeAllStudents, type AuditResult } from '../lib/audit';
+import { sortBehaviorsForDisplay } from '../lib/behaviorDisplay';
 
 // Error boundary to catch render errors
 class ErrorBoundary extends Component<{ children: React.ReactNode }, { error: Error | null }> {
@@ -313,7 +314,7 @@ function BehaviorsTab({ config, updateConfig }: { config: ReturnType<typeof useC
   const [showAddForm, setShowAddForm] = useState(false);
   const [newBehavior, setNewBehavior] = useState<Partial<BehaviorDefinition>>({
     direction: 'negative', category: config.categories[0] as Category, weight: 1,
-    name: '', description: '', isHighSensitivity: false, isComposite: false, isInverseSelectable: false, requiresTimePeriod: false,
+    name: '', description: '', isHighSensitivity: false, isComposite: false, isInverseSelectable: false, requiresTimePeriod: false, requiresHomeworkDetail: false,
   });
   const isMobile = useMobile();
 
@@ -323,15 +324,15 @@ function BehaviorsTab({ config, updateConfig }: { config: ReturnType<typeof useC
   const weightNames = subTab === 'negative' ? config.negativeWeightNames : config.positiveWeightNames;
   const nextId = subTab === 'negative' ? `n-custom-${Date.now()}` : `p-custom-${Date.now()}`;
 
-  const displayedBehaviors = categoryFilter === 'all'
-    ? [...behaviors].sort((a, b) => a.weight - b.weight)
-    : behaviors.filter(b => b.category === categoryFilter).sort((a, b) => a.weight - b.weight);
+  const displayedBehaviors = sortBehaviorsForDisplay(categoryFilter === 'all'
+    ? behaviors
+    : behaviors.filter(b => b.category === categoryFilter));
 
   const updateBehavior = (id: string, changes: Partial<BehaviorDefinition>) => {
     const key = subTab === 'negative' ? 'negativeBehaviors' : 'positiveBehaviors';
     updateConfig(prev => ({
       ...prev,
-      [key]: prev[key].map((b: BehaviorDefinition) => b.id === id ? withTextAliases(b, changes) : b),
+      [key]: sortBehaviorsForDisplay(prev[key].map((b: BehaviorDefinition) => b.id === id ? withTextAliases(b, changes) : b)),
     }));
   };
 
@@ -361,9 +362,10 @@ function BehaviorsTab({ config, updateConfig }: { config: ReturnType<typeof useC
       compositePenalty: newBehavior.compositePenalty,
       affectsFlag: newBehavior.affectsFlag || false,
       requiresTimePeriod: newBehavior.requiresTimePeriod || false,
+      requiresHomeworkDetail: newBehavior.requiresHomeworkDetail || false,
     };
-    updateConfig(prev => ({ ...prev, [key]: [...prev[key], behavior] }));
-    setNewBehavior({ direction: subTab, category: config.categories[0] as Category, weight: 1, name: '', description: '', isHighSensitivity: false, isComposite: false, isInverseSelectable: false, affectsFlag: false, requiresTimePeriod: false });
+    updateConfig(prev => ({ ...prev, [key]: sortBehaviorsForDisplay([...prev[key], behavior]) }));
+    setNewBehavior({ direction: subTab, category: config.categories[0] as Category, weight: 1, name: '', description: '', isHighSensitivity: false, isComposite: false, isInverseSelectable: false, affectsFlag: false, requiresTimePeriod: false, requiresHomeworkDetail: false });
     setShowAddForm(false);
   };
 
@@ -579,6 +581,9 @@ function BehaviorsTab({ config, updateConfig }: { config: ReturnType<typeof useC
                 <label style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 12, color: '#E8A030', cursor: 'pointer', fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}>
                   <input type="checkbox" checked={!!b.requiresTimePeriod} onChange={e => updateBehavior(b.id, { requiresTimePeriod: e.target.checked })} /> 需选择时间
                 </label>
+                <label style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 12, color: '#8baa7a', cursor: 'pointer', fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}>
+                  <input type="checkbox" checked={!!b.requiresHomeworkDetail} onChange={e => updateBehavior(b.id, { requiresHomeworkDetail: e.target.checked })} /> 需填写作业详情
+                </label>
                 <label style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 12, color: '#dc503c', cursor: 'pointer', fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}>
                   <input type="checkbox" checked={!!b.affectsFlag} onChange={e => updateBehavior(b.id, { affectsFlag: e.target.checked })} /> 影响流动红旗
                 </label>
@@ -631,6 +636,9 @@ function BehaviorsTab({ config, updateConfig }: { config: ReturnType<typeof useC
           <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 8 }}>
             <label style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 12, color: '#E8A030', cursor: 'pointer', fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}>
               <input type="checkbox" checked={!!newBehavior.requiresTimePeriod} onChange={e => setNewBehavior(p => ({ ...p, requiresTimePeriod: e.target.checked }))} /> 需选择时间
+            </label>
+            <label style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 12, color: '#8baa7a', cursor: 'pointer', fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}>
+              <input type="checkbox" checked={!!newBehavior.requiresHomeworkDetail} onChange={e => setNewBehavior(p => ({ ...p, requiresHomeworkDetail: e.target.checked }))} /> 需填写作业详情
             </label>
             <label style={{ display: 'flex', alignItems: 'center', gap: 4, fontSize: 12, color: '#dc503c', cursor: 'pointer', fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}>
               <input type="checkbox" checked={!!newBehavior.affectsFlag} onChange={e => setNewBehavior(p => ({ ...p, affectsFlag: e.target.checked }))} /> 影响流动红旗

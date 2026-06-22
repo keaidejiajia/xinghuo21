@@ -237,7 +237,7 @@ function StudentCardThumbnail({ student, records }: { student: Student; records:
 
       {/* Stats row */}
       <div style={{ display: 'flex', gap: 8, alignItems: 'center', position: 'relative', zIndex: 1 }}>
-        <ShieldIcon count={isFront && lvl === 1 ? student.starShields + (student.totalShieldsExchanged || 0) : student.starShields} size={14} />
+        {isFront && <ShieldIcon count={lvl === 1 ? student.starShields + (student.totalShieldsExchanged || 0) : student.starShields} size={14} />}
         {!isFront && !isImmortal && <HeartDemonIcon count={student.heartDemonMarks} size={14} />}
       </div>
 
@@ -370,7 +370,7 @@ function SparkLineChart({ data, color }: {
 export default function Dashboard() {
   const navigate = useNavigate();
   const { students, records } = useStudents();
-  const { isTeacher } = useAuth();
+  const { isTeacher, canRecord } = useAuth();
   const config = useConfig();
   const isMobile = useMobile();
   const [showSlideshow, setShowSlideshow] = useState(false);
@@ -942,6 +942,30 @@ export default function Dashboard() {
               </button>
             </div>
           )}
+          {canRecord && (
+            <button
+              type="button"
+              onClick={() => setShowSlideshow(true)}
+              style={{
+                width: '100%',
+                minHeight: 42,
+                marginTop: 10,
+                borderRadius: D.radiusXs,
+                border: `1px solid ${D.borderGlow}`,
+                background: D.goldDim,
+                color: D.gold,
+                fontSize: 13,
+                fontWeight: 700,
+                fontFamily: "'LXGW WenKai', 'Cinzel', serif",
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: 6,
+              }}
+            >
+              <Play size={14} /> 逐个展示
+            </button>
+          )}
         </MobileSection>
 
         <MobileSection title="学生检索" subtitle={`当前筛出 ${mobileStudents.length} 人，重点关注 ${urgentCount} 人`}>
@@ -1038,7 +1062,7 @@ export default function Dashboard() {
                         )}
                       </div>
                       <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'flex-end', gap: 4, maxWidth: 96 }}>
-                        {student.starShields > 0 && <span style={{ fontSize: 10, color: D.blue, background: D.blueDim, borderRadius: 3, padding: '2px 5px' }}>护盾{student.starShields}</span>}
+                        {isFront && student.starShields > 0 && <span style={{ fontSize: 10, color: D.blue, background: D.blueDim, borderRadius: 3, padding: '2px 5px' }}>护盾{student.starShields}</span>}
                         {student.heartDemonMarks > 0 && <span style={{ fontSize: 10, color: D.cinnabar, background: D.cinnabarDim, borderRadius: 3, padding: '2px 5px' }}>心魔{student.heartDemonMarks}</span>}
                       </div>
                     </div>
@@ -1169,7 +1193,7 @@ export default function Dashboard() {
           >
             <Flame size={14} /> 背面 {backCount} 人
           </div>
-          {isTeacher && (
+          {canRecord && (
             <>
               <button
                 onClick={() => setShowSlideshow(true)}
@@ -1195,6 +1219,7 @@ export default function Dashboard() {
               >
                 <Play size={14} /> 逐个展示
               </button>
+              {isTeacher && (
               <button
                 onClick={() => setShowExport(true)}
                 style={{
@@ -1219,6 +1244,7 @@ export default function Dashboard() {
               >
                 <Download size={14} /> 导出数据
               </button>
+              )}
             </>
           )}
         </div>

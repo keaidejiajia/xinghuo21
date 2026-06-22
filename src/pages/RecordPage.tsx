@@ -13,6 +13,7 @@ import { MobileActionBar, MobilePage, MobileRecordItem, MobileSection, MobileSeg
 import { processNegativeBehavior, processPositiveBehavior, processPositiveBehaviorFront, processRise, addStarShield, getLevelName, donateHeritage, checkHeartDemonAutoClear } from '../lib/cardLogic';
 import { calculateNegativePenalty } from '../lib/negativePenalty';
 import { toLocalDateStr, recordLocalDate } from '../lib/utils';
+import { buildBehaviorGroupSignature, formatBehaviorRecordTitle, sortBehaviorsForDisplay } from '../lib/behaviorDisplay';
 import type { BehaviorRecord, Category, NegativeWeight, PositiveWeight } from '../types';
 
 function getPinyinInitial(name: string): string {
@@ -134,8 +135,11 @@ export default function RecordPage() {
   const [selectedInitial, setSelectedInitial] = useState<string>('');
   const [isLimitedCategory, setIsLimitedCategory] = useState(false);
   const [selectedTimePeriodId, setSelectedTimePeriodId] = useState('');
+  const [selectedHomeworkSubjectId, setSelectedHomeworkSubjectId] = useState('');
+  const [homeworkTitle, setHomeworkTitle] = useState('');
   const [isSyncing, setIsSyncing] = useState(false);
   const [syncError, setSyncError] = useState('');
+  const timePeriods = config.timePeriods || [];
 
   // Directional sliding transition
   const [slideDirection, setSlideDirection] = useState<'left' | 'right'>('right');
@@ -180,7 +184,7 @@ export default function RecordPage() {
     for (const record of displayedRecords) {
       const date = new Date(record.createdAt);
       const minuteKey = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}-${date.getHours()}-${date.getMinutes()}`;
-      const groupKey = `${record.description}|${record.direction}|${record.weight}|${record.extraWeight ?? 0}|${record.penaltyReasons?.join(',') ?? ''}|${record.studentCardSide ?? ''}|${record.recordedBy}|${minuteKey}`;
+      const groupKey = `${buildBehaviorGroupSignature(record)}|${record.direction}|${record.weight}|${record.extraWeight ?? 0}|${record.penaltyReasons?.join(',') ?? ''}|${record.studentCardSide ?? ''}|${record.recordedBy}|${minuteKey}`;
       if (!groupMap.has(groupKey)) groupMap.set(groupKey, []);
       groupMap.get(groupKey)!.push(record);
     }
@@ -188,7 +192,7 @@ export default function RecordPage() {
       key,
       records: recs,
       studentNames: recs.map(r => students.find(s => s.id === r.studentId)?.name ?? '未知'),
-      description: recs[0].description,
+      description: formatBehaviorRecordTitle(recs[0], timePeriods),
       direction: recs[0].direction,
       weight: recs[0].weight,
       extraWeight: recs[0].extraWeight ?? 0,
@@ -200,7 +204,7 @@ export default function RecordPage() {
       allIds: recs.map(r => r.id),
       recordedBy: recs[0].recordedBy,
     }));
-  }, [displayedRecords, students]);
+  }, [displayedRecords, students, timePeriods]);
 
   const allDisplayedSelected = displayedRecords.length > 0 && displayedRecords.every(r => selectedRecordIds.has(r.id));
 
@@ -268,8 +272,8 @@ export default function RecordPage() {
         extraWeight: 0,
       }))
     : direction === 'negative'
-      ? config.negativeBehaviors.filter(b => b.category === selectedCategory)
-      : config.positiveBehaviors.filter(b => b.category === selectedCategory);
+      ? sortBehaviorsForDisplay(config.negativeBehaviors.filter(b => b.category === selectedCategory))
+      : sortBehaviorsForDisplay(config.positiveBehaviors.filter(b => b.category === selectedCategory));
 
   const selectedLimitedEvent = isLimitedCategory ? activeLimitedEvents.find(e => e.id === selectedBehaviorId) : undefined;
   const selectedBehavior = isLimitedCategory && selectedLimitedEvent
@@ -291,10 +295,16 @@ export default function RecordPage() {
 
   const isInverseSelectable = selectedBehavior?.isInverseSelectable ?? false;
   const requiresTimePeriod = selectedBehavior?.requiresTimePeriod ?? false;
-  const timePeriods = config.timePeriods || [];
+  const requiresHomeworkDetail = selectedBehavior?.requiresHomeworkDetail ?? false;
+  const homeworkSubjectPeriods = timePeriods.filter(period => period.group !== 'other');
 
-  // Reset inverse toggle and time period when behavior changes
-  useEffect(() => { setEnableInverse(true); setSelectedTimePeriodId(''); }, [selectedBehaviorId]);
+  // Reset behavior-specific detail fields when behavior changes
+  useEffect(() => {
+    setEnableInverse(true);
+    setSelectedTimePeriodId('');
+    setSelectedHomeworkSubjectId('');
+    setHomeworkTitle('');
+  }, [selectedBehaviorId]);
 
   const sortedStudents = useMemo(
     () => [...students].sort((a, b) => {
@@ -406,6 +416,12 @@ export default function RecordPage() {
     if (selectedStudentIds.length === 0 || !selectedBehaviorId) return;
     if (!recordedBy) { showToast('请选择记录人'); return; }
     if (requiresTimePeriod && !selectedTimePeriodId) { showToast('请选择行为发生时间'); return; }
+    if (requiresHomeworkDetail && !selectedHomeworkSubjectId) { showToast('请选择未交作业学科'); return; }
+    const homeworkTitleText = homeworkTitle.trim();
+    if (requiresHomeworkDetail && !homeworkTitleText) { showToast('请填写未交作业名称'); return; }
+    const homeworkRecordFields = requiresHomeworkDetail
+      ? { homeworkSubjectId: selectedHomeworkSubjectId, homeworkTitle: homeworkTitleText }
+      : {};
 
     const results: BatchResult[] = [];
     const autoShieldResults: BatchResult[] = [];
@@ -493,6 +509,7 @@ export default function RecordPage() {
             studentCardSide: currentStudent.cardSide,
             affectsFlag: selectedBehavior.affectsFlag,
             timePeriodId: selectedTimePeriodId || undefined,
+            ...homeworkRecordFields,
           });
           sessionNegativeRecords.push(newRecord);
 
@@ -539,7 +556,8 @@ export default function RecordPage() {
               extraWeight: selectedBehavior.extraWeight ?? 0,
               isHighSensitivity: false,
               studentCardSide: currentStudent.cardSide,
-            timePeriodId: selectedTimePeriodId || undefined,
+              timePeriodId: selectedTimePeriodId || undefined,
+              ...homeworkRecordFields,
             });
 
             currentStudent = updated;
@@ -565,7 +583,8 @@ export default function RecordPage() {
               extraWeight: selectedBehavior.extraWeight ?? 0,
               isHighSensitivity: false,
               studentCardSide: currentStudent.cardSide,
-            timePeriodId: selectedTimePeriodId || undefined,
+              timePeriodId: selectedTimePeriodId || undefined,
+              ...homeworkRecordFields,
             });
 
             // 心魔消除记录
@@ -799,6 +818,8 @@ export default function RecordPage() {
     setSelectedBehaviorId('');
     setDescription('');
     setSelectedTimePeriodId('');
+    setSelectedHomeworkSubjectId('');
+    setHomeworkTitle('');
     setStudentCounts({});
     setSelectedStudentIds([]);
   };
@@ -880,7 +901,7 @@ export default function RecordPage() {
       .filter(Boolean) as typeof students;
     const submitDisabled = isSyncing || (direction === 'rise'
       ? selectedStudentIds.length === 0
-      : (selectedStudentIds.length === 0 || !selectedBehaviorId || (requiresTimePeriod && !selectedTimePeriodId)));
+      : (selectedStudentIds.length === 0 || !selectedBehaviorId || (requiresTimePeriod && !selectedTimePeriodId) || (requiresHomeworkDetail && (!selectedHomeworkSubjectId || !homeworkTitle.trim()))));
     const submitLabel = isSyncing
       ? '正在同步...'
       : direction === 'rise'
@@ -1125,6 +1146,53 @@ export default function RecordPage() {
                     </button>
                   ))}
                 </div>
+              </div>
+            )}
+
+            {selectedBehaviorId && requiresHomeworkDetail && (
+              <div style={{ marginTop: 10, padding: 10, borderRadius: D.radiusSm, background: 'rgba(139,170,122,0.08)', border: '1px solid rgba(139,170,122,0.25)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8, marginBottom: 8, flexWrap: 'wrap' }}>
+                  <span style={{ fontSize: 12, color: '#b7d1a8', fontWeight: 700 }}>未交作业详情</span>
+                  <span style={{ fontSize: 10, color: '#b7d1a8', padding: '2px 6px', borderRadius: D.radiusXs, background: 'rgba(139,170,122,0.12)' }}>必填</span>
+                </div>
+                <div style={{ fontSize: 12, color: D.textMid, marginBottom: 6 }}>学科</div>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 8 }}>
+                  {homeworkSubjectPeriods.map(period => (
+                    <button
+                      key={period.id}
+                      type="button"
+                      onClick={() => setSelectedHomeworkSubjectId(period.id)}
+                      style={{
+                        minHeight: 30,
+                        padding: '5px 9px',
+                        borderRadius: D.radiusXs,
+                        border: `1px solid ${selectedHomeworkSubjectId === period.id ? 'rgba(139,170,122,0.65)' : D.border}`,
+                        background: selectedHomeworkSubjectId === period.id ? 'rgba(139,170,122,0.16)' : D.bgCard,
+                        color: selectedHomeworkSubjectId === period.id ? '#cbe6b8' : D.textMid,
+                        fontSize: 12,
+                      }}
+                    >
+                      {period.name.replace(/课$/, '')}
+                    </button>
+                  ))}
+                </div>
+                <input
+                  value={homeworkTitle}
+                  onChange={event => setHomeworkTitle(event.target.value)}
+                  placeholder="作业名称，例如：练习册第12页"
+                  style={{
+                    width: '100%',
+                    boxSizing: 'border-box',
+                    height: 38,
+                    borderRadius: D.radiusXs,
+                    border: `1px solid ${D.border}`,
+                    background: D.bgInput,
+                    color: D.text,
+                    padding: '0 10px',
+                    outline: 'none',
+                    fontFamily: "'LXGW WenKai', 'Cinzel', serif",
+                  }}
+                />
               </div>
             )}
 
@@ -1883,6 +1951,56 @@ export default function RecordPage() {
               );
             });
           })()}
+        </div>
+        )}
+        {direction !== 'rise' && selectedBehaviorId && requiresHomeworkDetail && (
+        <div style={{
+          marginBottom: 20,
+          padding: '18px 18px 16px',
+          borderRadius: D.radiusSm,
+          background: 'linear-gradient(135deg, rgba(139,170,122,0.08), rgba(139,170,122,0.02))',
+          border: '1px solid rgba(139,170,122,0.28)',
+          boxShadow: '0 0 26px rgba(139,170,122,0.05)',
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12, flexWrap: 'wrap' }}>
+            <span style={{ fontSize: 18, lineHeight: 1 }}>📘</span>
+            <span style={{ fontSize: 14, color: D.text, fontWeight: 600 }}>未交作业详情</span>
+            <span style={{ fontSize: 10, fontWeight: 700, padding: '2px 7px', borderRadius: D.radiusXs, background: 'rgba(139,170,122,0.14)', border: '1px solid rgba(139,170,122,0.28)', color: '#cbe6b8' }}>必填</span>
+          </div>
+          <div style={{ fontSize: 10, color: D.textDim, letterSpacing: '0.08em', marginBottom: 7, textTransform: 'uppercase' }}>
+            学科
+          </div>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 12 }}>
+            {homeworkSubjectPeriods.map(tp => {
+              const isSelected = selectedHomeworkSubjectId === tp.id;
+              return (
+                <span
+                  key={tp.id}
+                  onClick={() => setSelectedHomeworkSubjectId(tp.id)}
+                  style={{
+                    padding: '7px 14px',
+                    borderRadius: D.radiusXs,
+                    fontSize: 13,
+                    cursor: 'pointer',
+                    userSelect: 'none',
+                    background: isSelected ? 'rgba(139,170,122,0.16)' : 'rgba(255,255,255,0.02)',
+                    border: isSelected ? '1px solid rgba(139,170,122,0.55)' : `1px solid ${D.border}`,
+                    color: isSelected ? '#cbe6b8' : D.textMid,
+                    boxShadow: isSelected ? '0 0 12px rgba(139,170,122,0.12)' : 'none',
+                  }}
+                >
+                  {tp.name.replace(/课$/, '')}
+                </span>
+              );
+            })}
+          </div>
+          <input
+            type="text"
+            value={homeworkTitle}
+            onChange={(e) => setHomeworkTitle(e.target.value)}
+            placeholder="作业名称，例如：练习册第12页、默写订正"
+            style={{ width: '100%', boxSizing: 'border-box', padding: '10px 14px', borderRadius: D.radiusSm, background: D.bgInput, border: `1px solid ${D.border}`, color: D.text, fontSize: 14, outline: 'none', fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}
+          />
         </div>
         )}
         {direction !== 'rise' && (

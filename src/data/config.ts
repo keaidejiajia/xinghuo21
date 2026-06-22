@@ -100,7 +100,7 @@ export const NEGATIVE_BEHAVIORS: BehaviorDefinition[] = [
   { id: 'n-d-1', direction: 'negative', category: '纪律', weight: 1, name: '迟到', description: '迟到', isHighSensitivity: false, isComposite: true, isInverseSelectable: true, compositeThreshold: 3, compositePenalty: 1 },
   { id: 'n-d-2', direction: 'negative', category: '纪律', weight: 1, name: '预备铃后未就位', description: '预备铃后未按时就位', isHighSensitivity: false, isComposite: false, isInverseSelectable: false, requiresTimePeriod: true },
   // 学习
-  { id: 'n-l-1', direction: 'negative', category: '学习', weight: 1, name: '作业未按时上交', description: '作业未按时上交或未按要求完成', isHighSensitivity: false, isComposite: true, isInverseSelectable: true, compositeThreshold: 3, compositePenalty: 1 },
+  { id: 'n-l-1', direction: 'negative', category: '学习', weight: 1, name: '作业未按时上交', description: '作业未按时上交或未按要求完成', isHighSensitivity: false, isComposite: true, isInverseSelectable: true, compositeThreshold: 3, compositePenalty: 1, requiresHomeworkDetail: true },
   { id: 'n-l-2', direction: 'negative', category: '学习', weight: 1, name: '课上做无关的事', description: '课上做与学习无关的事情', isHighSensitivity: false, isComposite: false, isInverseSelectable: false, requiresTimePeriod: true },
   // 卫生
   { id: 'n-h-1', direction: 'negative', category: '卫生', weight: 1, name: '个人区域脏乱', description: '个人区域脏乱，有明显垃圾', isHighSensitivity: false, isComposite: false, isInverseSelectable: false },
@@ -442,10 +442,10 @@ export const DEFAULT_TIME_PERIODS = [
   { id: 'tp-jiti', name: '集体活动期间', group: 'other' as const },
 ];
 
-export const CURRENT_CONFIG_VERSION = 14;
+export const CURRENT_CONFIG_VERSION = 15;
 
 export const DEFAULT_APP_CONFIG: AppConfig = {
-  version: 14,
+  version: 15,
   frontLevels: FRONT_LEVELS,
   backLevels: BACK_LEVELS,
   frontLevelEffects: FRONT_LEVEL_EFFECTS,

@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { NavLink, Outlet, useLocation } from 'react-router-dom';
-import { LayoutDashboard, ClipboardList, LogOut, Star, BookOpen, Armchair, Settings, CreditCard, X, Monitor, Smartphone } from 'lucide-react';
+import { LayoutDashboard, ClipboardList, LogOut, Star, BookOpen, Armchair, Settings, CreditCard, X, Monitor, Smartphone, Eye } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth';
 import { useMobile, toggleMobileView } from '../hooks/useMobile';
 import type { UserRole } from '../types';
@@ -15,6 +15,7 @@ const NAV_ITEMS: { to: string; icon: typeof LayoutDashboard; label: string; role
   { to: '/card/me', icon: CreditCard, label: '个人卡片', parentOnly: true },
   { to: '/record', icon: ClipboardList, label: '行为录入', roles: ['teacher', 'committee'] },
   { to: '/seats', icon: Armchair, label: '座位编排', roles: ['teacher', 'committee', 'student'] },
+  { to: '/parent-access', icon: Eye, label: '家长关注', roles: ['teacher'] },
   { to: '/rules', icon: BookOpen, label: '规则说明' },
   { to: '/settings', icon: Settings, label: '系统设置', roles: ['teacher'] },
 ];
@@ -44,6 +45,7 @@ const BG_SHIFT_MAP: Record<string, number> = {
   '/': 0,
   '/record': -40,
   '/seats': -80,
+  '/parent-access': -120,
   '/rules': -120,
   '/settings': -160,
 };

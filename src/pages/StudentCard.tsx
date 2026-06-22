@@ -32,6 +32,8 @@ import { toLocalDateStr } from '../lib/utils';
 import { useStudents } from '../lib/store';
 import { computeStudentLevelChanges } from '../lib/audit';
 import { formatLevelChangeDisplay } from '../lib/levelChangeDisplay';
+import { formatBehaviorRecordTitle } from '../lib/behaviorDisplay';
+import { recordParentAccess } from '../lib/parentAccessClient';
 import { useAuth } from '../hooks/useAuth';
 import { useToast } from '../hooks/useToast';
 import { useMobile } from '../hooks/useMobile';
@@ -799,7 +801,7 @@ function BehaviorHistory({ student, onDeleteRecord }: { student: Student; onDele
                     {weightName} {symbol}
                   </span>
                   <span style={{ fontSize: 13, color: INK.textPrimary, flex: 1, minWidth: 0, lineHeight: 1.5, wordBreak: 'break-word' }}>
-                    {record.description}
+                    {formatBehaviorRecordTitle(record, timePeriods)}
                     {record.remark && <span style={{ color: INK.textMuted, marginLeft: 4 }}>({record.remark.replace(/^ruleId:[^,，]+[,，]\s*/, '')})</span>}
                   </span>
                 </div>
@@ -853,7 +855,7 @@ function BehaviorHistory({ student, onDeleteRecord }: { student: Student; onDele
                     {weightName} {symbol}
                   </span>
                   <span style={{ fontSize: 12, fontFamily: "'LXGW WenKai', 'Cinzel', serif", color: INK.textPrimary, overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' as any, flex: 1, minWidth: 0, marginRight: 8 }}>
-                    {record.description}
+                    {formatBehaviorRecordTitle(record, timePeriods)}
                     {record.remark && <span style={{ color: INK.textMuted, marginLeft: 6 }}>({record.remark.replace(/^ruleId:[^,，]+[,，]\s*/, '')})</span>}
                   </span>
                   {record.timePeriodId && <span style={{ fontSize: 10, color: INK.starGold, flexShrink: 0, opacity: 0.7 }}>@{timePeriods.find(tp => tp.id === record.timePeriodId)?.name || record.timePeriodId}</span>}
@@ -1590,7 +1592,7 @@ export default function StudentCard() {
   const [searchParams] = useSearchParams();
   const config = useConfig();
   const { students, records, updateStudent, deleteBehaviorRecord, addBehaviorRecord } = useStudents();
-  const { canDeleteRecord, canRecord, isParent } = useAuth();
+  const { user, canDeleteRecord, canRecord, isParent } = useAuth();
   const { showToast } = useToast();
   const [showFlipCeremony, setShowFlipCeremony] = useState(false);
   const [showLevelChangeCeremony, setShowLevelChangeCeremony] = useState(false);
@@ -1605,6 +1607,12 @@ export default function StudentCard() {
   const canModifyCard = canDeleteRecord;
 
   const student = students.find((s) => s.id === id);
+
+  useEffect(() => {
+    if (user?.role === 'parent' && student && user.linkedStudentId === student.id) {
+      void recordParentAccess('view', user);
+    }
+  }, [user?.role, user?.linkedStudentId, user?.name, student?.id]);
 
   // Check for flip ceremony trigger from URL params
   useEffect(() => {
