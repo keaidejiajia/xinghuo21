@@ -38410,6 +38410,19 @@
         "isInverseSelectable": false,
         "affectsFlag": false,
         "requiresTimePeriod": false
+      },
+      {
+        "id": "n-custom-1782098209600",
+        "direction": "negative",
+        "category": "纪律",
+        "weight": 2,
+        "name": "午休期间不睡觉，打扰其他同学休息",
+        "description": "午休期间不睡觉，打扰其他同学休息",
+        "isHighSensitivity": false,
+        "isComposite": false,
+        "isInverseSelectable": false,
+        "affectsFlag": false,
+        "requiresTimePeriod": false
       }
     ],
     "positiveBehaviors": [
