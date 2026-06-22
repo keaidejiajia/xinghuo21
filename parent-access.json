@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "id": "2026-06-22-43",
+      "date": "2026-06-22",
+      "studentId": "43",
+      "parentName": "邹梓航家长",
+      "firstAccessAt": "2026-06-22T15:29:36.203Z",
+      "lastAccessAt": "2026-06-22T15:29:36.203Z",
+      "loginCount": 0,
+      "viewCount": 1,
+      "lastDevice": "mobile",
+      "lastCountedViewAt": "2026-06-22T15:29:36.203Z"
+    },
+    {
       "id": "2026-06-22-30",
       "date": "2026-06-22",
       "studentId": "30",
@@ -117,5 +129,5 @@
       "lastDevice": "desktop"
     }
   ],
-  "updatedAt": "2026-06-22T14:21:18.439Z"
+  "updatedAt": "2026-06-22T15:29:36.203Z"
 }
