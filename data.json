@@ -38350,6 +38350,19 @@
         "isComposite": false,
         "isInverseSelectable": false,
         "affectsFlag": false
+      },
+      {
+        "id": "n-custom-1782094301198",
+        "direction": "negative",
+        "category": "纪律",
+        "weight": 1,
+        "name": "携带或阅读网络小说等与学习无关的课外书",
+        "description": "携带或阅读网络小说等与学习无关的课外书",
+        "isHighSensitivity": false,
+        "isComposite": false,
+        "isInverseSelectable": false,
+        "affectsFlag": false,
+        "requiresTimePeriod": false
       }
     ],
     "positiveBehaviors": [
