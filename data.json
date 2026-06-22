@@ -38295,14 +38295,17 @@
         "direction": "negative",
         "category": "纪律",
         "weight": 3,
-        "name": "不交违规使用电子设备",
+        "name": "不交手机手表或违规使用电子设备",
         "description": "由纪律委员和班主任日常记录，违规者，其电子设备将被班主任没收一个学期",
         "isHighSensitivity": true,
         "isComposite": false,
         "isInverseSelectable": false,
         "aliases": [
           "违规使用电子设备",
-          "由纪律委员和班主任日常记录，违规者，其电子设备将被班主任没收一个学期"
+          "由纪律委员和班主任日常记录，违规者，其电子设备将被班主任没收一个学期",
+          "不交违规使用电子设备",
+          "不交手机违规使用电子设备",
+          "不交手机手表违规使用电子设备"
         ]
       },
       {
