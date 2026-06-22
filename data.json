@@ -38495,6 +38495,19 @@
         "isHighSensitivity": false,
         "isComposite": false,
         "isInverseSelectable": false
+      },
+      {
+        "id": "p-custom-1782093820498",
+        "direction": "positive",
+        "category": "学习",
+        "weight": 1,
+        "name": "背面1-3等级的同学在大课间到办公室完成自习任务",
+        "description": "背面1-3等级的同学在大课间到办公室完成自习任务",
+        "isHighSensitivity": false,
+        "isComposite": false,
+        "isInverseSelectable": false,
+        "affectsFlag": false,
+        "requiresTimePeriod": false
       }
     ],
     "negativeWeightNames": {
