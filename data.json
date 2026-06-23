@@ -201,19 +201,19 @@
       "currentLevel": 2,
       "blanksFilled": 0,
       "cumulativeChecks": 11,
-      "heartDemonMarks": 24,
+      "heartDemonMarks": 26,
       "starShields": 0,
       "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
       "totalBlanksEverFilled": 35,
-      "totalHeartDemonsEverGained": 27,
+      "totalHeartDemonsEverGained": 29,
       "totalShieldsEverEarned": 12,
       "totalChecksEverEarned": 34,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-23T01:49:17.619Z",
+      "updatedAt": "2026-06-23T01:51:09.960Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0,
       "lastHeartDemonClearDate": "2026-06-17"
@@ -1071,6 +1071,28 @@
     }
   ],
   "behavior-records": [
+    {
+      "studentId": "10",
+      "direction": "negative",
+      "weight": 1,
+      "behaviorId": "n-l-2",
+      "category": "学习",
+      "description": "课上不记笔记、做与学习无关的事情、睡觉/趴桌",
+      "remark": "旧习复发：心魔+1",
+      "recordedBy": "袁俪玮",
+      "verified": true,
+      "shieldsConsumed": 0,
+      "extraWeight": 1,
+      "penaltyReasons": [
+        "old_habit_recurrence"
+      ],
+      "isHighSensitivity": false,
+      "studentCardSide": "back",
+      "timePeriodId": "tp-shengwu",
+      "occurredDate": "2026-06-22",
+      "id": "3158",
+      "createdAt": "2026-06-23T01:51:09.974Z"
+    },
     {
       "studentId": "36",
       "direction": "negative",
