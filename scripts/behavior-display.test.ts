@@ -1,6 +1,8 @@
 import assert from 'node:assert/strict';
 import {
   buildBehaviorGroupSignature,
+  formatBehaviorBaseEffectLabel,
+  summarizeBehaviorRecordImpacts,
   formatBehaviorRecordTitle,
   sortBehaviorsForDisplay,
 } from '../src/lib/behaviorDisplay.js';
@@ -53,6 +55,52 @@ assert.notEqual(
   buildBehaviorGroupSignature(baseRecord),
   buildBehaviorGroupSignature({ ...baseRecord, id: '2', homeworkTitle: '默写订正' }),
   'different homework titles should not be grouped together',
+);
+
+const impactOptions = {
+  blankMarkName: '星蚀',
+  checkMarkName: '晨辉',
+  negativeWeightNames: { 1: '蒙尘', 2: '褪色', 3: '失格' },
+  positiveWeightNames: { 1: '微芒', 2: '星光', 3: '闪耀' },
+} as const;
+
+const speakingRecord: BehaviorRecord = {
+  ...baseRecord,
+  id: 'talk-1',
+  studentId: 's1',
+  weight: 2,
+  behaviorId: 'n-d-3',
+  category: '纪律',
+  description: '课上随意讲话',
+  homeworkSubjectId: undefined,
+  homeworkTitle: undefined,
+  extraWeight: 1,
+  penaltyReasons: ['weekly_recorder'],
+  studentCardSide: 'front',
+};
+
+assert.equal(
+  formatBehaviorBaseEffectLabel(speakingRecord, impactOptions),
+  '褪色 2星蚀',
+  'base behavior label should describe configured behavior level, not inflated penalty result',
+);
+
+const impactSummary = summarizeBehaviorRecordImpacts([
+  speakingRecord,
+  { ...speakingRecord, id: 'talk-2', studentId: 's2', extraWeight: 0, penaltyReasons: undefined, studentCardSide: 'front' },
+  { ...speakingRecord, id: 'talk-3', studentId: 's3', extraWeight: 0, penaltyReasons: undefined, studentCardSide: 'back' },
+], impactOptions, (id: string) => ({ s1: '徐小乔', s2: '胡荣耀', s3: '蓝义皓' }[id as 's1' | 's2' | 's3'] ?? id));
+
+assert.deepEqual(
+  impactSummary.summaryLabels,
+  ['记录人加罚 1次', '背面心魔 1次'],
+  'collapsed summary should call out special impacts without inventing extra behavior levels',
+);
+
+assert.deepEqual(
+  impactSummary.detailRows.map(row => `${row.label}：${row.names.join('、')}`),
+  ['记录人加罚 +1星蚀：徐小乔', '背面卡片 1心魔：蓝义皓'],
+  'expanded details should identify who received recorder penalties and who received heart demon marks',
 );
 
 console.log('behavior-display tests passed');

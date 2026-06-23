@@ -1,4 +1,4 @@
-import type { BehaviorDefinition, BehaviorRecord, HomeworkSubject } from '../types/index.js';
+import type { BehaviorDefinition, BehaviorRecord, HomeworkSubject, NegativeWeight, PositiveWeight } from '../types/index.js';
 
 const CATEGORY_DISPLAY_ORDER = ['纪律', '学习', '卫生', '品行'];
 
@@ -71,4 +71,108 @@ export function buildBehaviorGroupSignature(record: BehaviorRecord): string {
     record.homeworkSubjectId ?? '',
     normalizeHomeworkText(record.homeworkTitle),
   ].join('|');
+}
+
+export interface BehaviorImpactDisplayOptions {
+  blankMarkName: string;
+  checkMarkName: string;
+  negativeWeightNames: Record<NegativeWeight, string>;
+  positiveWeightNames: Record<PositiveWeight, string>;
+}
+
+export interface BehaviorImpactDetailRow {
+  label: string;
+  names: string[];
+  tone: 'warning' | 'back';
+}
+
+export interface BehaviorImpactSummary {
+  summaryLabels: string[];
+  detailRows: BehaviorImpactDetailRow[];
+}
+
+function countNames(names: string[]): string[] {
+  const counts = new Map<string, number>();
+  for (const name of names) counts.set(name, (counts.get(name) ?? 0) + 1);
+  return Array.from(counts.entries()).map(([name, count]) => count > 1 ? `${name}×${count}` : name);
+}
+
+function addImpact(map: Map<string, string[]>, label: string, name: string) {
+  if (!map.has(label)) map.set(label, []);
+  map.get(label)!.push(name);
+}
+
+function getWeightName(record: BehaviorRecord, options: BehaviorImpactDisplayOptions): string {
+  return record.direction === 'negative'
+    ? options.negativeWeightNames[record.weight as NegativeWeight]
+    : options.positiveWeightNames[record.weight as PositiveWeight];
+}
+
+export function formatBehaviorBaseEffectLabel(record: BehaviorRecord, options: BehaviorImpactDisplayOptions): string {
+  const unit = record.direction === 'negative' ? options.blankMarkName : '护盾';
+  return `${getWeightName(record, options)} ${record.weight}${unit}`;
+}
+
+export function summarizeBehaviorRecordImpacts(
+  records: BehaviorRecord[],
+  options: BehaviorImpactDisplayOptions,
+  getStudentName: (studentId: string) => string,
+): BehaviorImpactSummary {
+  const penaltyRows = new Map<string, string[]>();
+  const backRows = new Map<string, string[]>();
+  let recorderPenaltyCount = 0;
+  let oldHabitCount = 0;
+  let otherPenaltyCount = 0;
+  let backImpactCount = 0;
+
+  for (const record of records) {
+    const name = getStudentName(record.studentId);
+    const extraWeight = record.extraWeight ?? 0;
+    const actualUnit = record.direction === 'negative'
+      ? (record.studentCardSide === 'back' ? '心魔' : options.blankMarkName)
+      : (record.studentCardSide === 'back' ? options.checkMarkName : '护盾');
+
+    if (extraWeight > 0) {
+      if (record.penaltyReasons?.includes('weekly_recorder')) {
+        recorderPenaltyCount += 1;
+        addImpact(penaltyRows, `记录人加罚 +${extraWeight}${actualUnit}`, name);
+      } else if (record.penaltyReasons?.includes('old_habit_recurrence')) {
+        oldHabitCount += 1;
+        addImpact(penaltyRows, `旧习复发 +${extraWeight}${actualUnit}`, name);
+      } else {
+        otherPenaltyCount += 1;
+        addImpact(penaltyRows, `额外加罚 +${extraWeight}${actualUnit}`, name);
+      }
+    }
+
+    if (record.studentCardSide === 'back') {
+      backImpactCount += 1;
+      const actualValue = record.direction === 'negative'
+        ? 1 + extraWeight
+        : (record.weight as number) + extraWeight;
+      addImpact(backRows, `背面卡片 ${actualValue}${actualUnit}`, name);
+    }
+  }
+
+  const summaryLabels = [
+    recorderPenaltyCount > 0 ? `记录人加罚 ${recorderPenaltyCount}次` : '',
+    oldHabitCount > 0 ? `旧习复发 ${oldHabitCount}次` : '',
+    otherPenaltyCount > 0 ? `额外加罚 ${otherPenaltyCount}次` : '',
+    backImpactCount > 0 ? `背面${records[0]?.direction === 'negative' ? '心魔' : options.checkMarkName} ${backImpactCount}次` : '',
+  ].filter(Boolean);
+
+  const detailRows: BehaviorImpactDetailRow[] = [
+    ...Array.from(penaltyRows.entries()).map(([label, names]) => ({
+      label,
+      names: countNames(names),
+      tone: 'warning' as const,
+    })),
+    ...Array.from(backRows.entries()).map(([label, names]) => ({
+      label,
+      names: countNames(names),
+      tone: 'back' as const,
+    })),
+  ];
+
+  return { summaryLabels, detailRows };
 }

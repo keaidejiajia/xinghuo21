@@ -14,7 +14,7 @@ import { processNegativeBehavior, processPositiveBehavior, processPositiveBehavi
 import { calculateNegativePenalty } from '../lib/negativePenalty';
 import { behaviorRecordLocalDate, toLocalDateStr } from '../lib/utils';
 import { buildWeekdayOptions, findBehaviorTeachingWeek, formatBehaviorRecordDateLabel } from '../lib/behaviorDate';
-import { buildBehaviorGroupSignature, formatBehaviorRecordTitle, sortBehaviorsForDisplay } from '../lib/behaviorDisplay';
+import { buildBehaviorGroupSignature, formatBehaviorBaseEffectLabel, formatBehaviorRecordTitle, sortBehaviorsForDisplay, summarizeBehaviorRecordImpacts } from '../lib/behaviorDisplay';
 import type { BehaviorRecord, Category, NegativeWeight, PositiveWeight } from '../types';
 
 function getPinyinInitial(name: string): string {
@@ -75,6 +75,12 @@ function getPinyinInitial(name: string): string {
   if (PINYIN_MAP[char]) return PINYIN_MAP[char];
   if (/[A-Za-z]/.test(char)) return char.toUpperCase();
   return '#';
+}
+
+function compactRepeatedNames(names: string[]): string[] {
+  const counts = new Map<string, number>();
+  for (const name of names) counts.set(name, (counts.get(name) ?? 0) + 1);
+  return Array.from(counts.entries()).map(([name, count]) => count > 1 ? `${name}×${count}` : name);
 }
 
 const CATEGORY_COLORS: Record<string, string> = {
@@ -196,31 +202,29 @@ export default function RecordPage() {
       groupMap.get(groupKey)!.push(record);
     }
     return Array.from(groupMap.entries()).map(([key, recs]) => {
-      const effectCounts = new Map<string, number>();
-      for (const record of recs) {
-        const isNegRecord = record.direction === 'negative';
-        const weightName = isNegRecord
-          ? config.negativeWeightNames[record.weight as NegativeWeight]
-          : config.positiveWeightNames[record.weight as PositiveWeight];
-        const effectiveWeight = isNegRecord
-          ? (record.studentCardSide === 'back' ? 1 + (record.extraWeight ?? 0) : (record.weight as number) + (record.extraWeight ?? 0))
-          : (record.weight as number) + (record.extraWeight ?? 0);
-        const unit = isNegRecord
-          ? (record.studentCardSide === 'back' ? '心魔' : config.blankMarkName)
-          : (record.studentCardSide === 'back' ? config.checkMarkName : '护盾');
-        const label = `${weightName} ${effectiveWeight}${unit}`;
-        effectCounts.set(label, (effectCounts.get(label) ?? 0) + 1);
-      }
+      const getStudentName = (studentId: string) => students.find(s => s.id === studentId)?.name ?? '未知';
+      const studentNames = recs.map(r => getStudentName(r.studentId));
+      const impactOptions = {
+        blankMarkName: config.blankMarkName,
+        checkMarkName: config.checkMarkName,
+        negativeWeightNames: config.negativeWeightNames,
+        positiveWeightNames: config.positiveWeightNames,
+      };
+      const impactSummary = summarizeBehaviorRecordImpacts(recs, impactOptions, getStudentName);
       const recorders = [...new Set(recs.map(r => r.recordedBy).filter(Boolean))];
       return {
         key,
         records: recs,
-        studentNames: recs.map(r => students.find(s => s.id === r.studentId)?.name ?? '未知'),
+        studentNames,
+        compactStudentNames: compactRepeatedNames(studentNames),
+        uniqueStudentCount: new Set(recs.map(r => r.studentId)).size,
         description: formatBehaviorRecordTitle(recs[0], homeworkSubjects),
         direction: recs[0].direction,
         weight: recs[0].weight,
         extraWeight: recs[0].extraWeight ?? 0,
-        effectLabels: Array.from(effectCounts.entries()).map(([label, count]) => `${label} ×${count}`),
+        baseEffectLabel: formatBehaviorBaseEffectLabel(recs[0], impactOptions),
+        impactSummaryLabels: impactSummary.summaryLabels,
+        impactDetailRows: impactSummary.detailRows,
         createdAt: recs[0].createdAt,
         occurredDate: behaviorRecordLocalDate(recs[0]),
         remark: recs[0].remark,
@@ -1444,10 +1448,11 @@ export default function RecordPage() {
                   key={group.key}
                   leading={<span style={{ width: 28, height: 28, borderRadius: D.radiusXs, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: isNeg ? D.cinnabarDim : D.blueDim, color: isNeg ? D.cinnabar : D.blue }}>{isNeg ? <XCircle size={15} /> : <CheckCircle2 size={15} />}</span>}
                   title={<><b>{group.studentNames.slice(0, 4).join('、')}{group.studentNames.length > 4 ? `等${group.studentNames.length}人` : ''}</b> · {group.description}</>}
-                  meta={renderRecordTimeChips(group.records[0], group.createdAt, group.recordedBy, group.remark)}
+                  meta={renderRecordTimeChips(group.records[0], group.createdAt, group.recordedBy, group.impactDetailRows.length > 0 ? undefined : group.remark)}
                   tags={<>
-                    {group.effectLabels.map(label => (
-                      <span key={label} style={{ fontSize: 10, color: isNeg ? D.cinnabar : D.blue, background: isNeg ? D.cinnabarDim : D.blueDim, borderRadius: 3, padding: '2px 5px' }}>{label}</span>
+                    <span style={{ fontSize: 10, color: isNeg ? D.cinnabar : D.blue, background: isNeg ? D.cinnabarDim : D.blueDim, borderRadius: 3, padding: '2px 5px' }}>{group.baseEffectLabel}</span>
+                    {group.impactSummaryLabels.map(label => (
+                      <span key={label} style={{ fontSize: 10, color: D.gold, background: 'rgba(212,168,83,0.1)', borderRadius: 3, padding: '2px 5px' }}>{label}</span>
                     ))}
                     {group.hasShields && <span style={{ fontSize: 10, color: D.blue, background: D.blueDim, borderRadius: 3, padding: '2px 5px' }}>护盾-{group.totalShields}</span>}
                   </>}
@@ -2638,9 +2643,9 @@ export default function RecordPage() {
                 const isNeg = group.direction === 'negative';
                 const isExpanded = expandedGroups.has(group.key);
                 const allGroupSelected = group.allIds.every(id => selectedRecordIds.has(id));
-                const names = group.studentNames;
-                const showExpand = names.length > 5;
-                const displayNames = showExpand && !isExpanded ? names.slice(0, 3) : names;
+                const names = group.compactStudentNames;
+                const showExpand = names.length > 5 || group.impactDetailRows.length > 0;
+                const displayNames = showExpand && !isExpanded ? names.slice(0, 4) : names;
 
                 return (
                   <div key={group.key} style={{
@@ -2666,8 +2671,11 @@ export default function RecordPage() {
                           }} style={{ cursor: 'pointer', flexShrink: 0 }} />
                         )}
                         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5, flexShrink: 0 }}>
-                          {group.effectLabels.map(label => (
-                            <span key={label} style={{ padding: '2px 8px', borderRadius: D.radiusXs, fontSize: 11, fontWeight: 600, background: isNeg ? D.cinnabarDim : D.blueDim, color: isNeg ? D.cinnabar : D.blue }}>
+                          <span style={{ padding: '2px 8px', borderRadius: D.radiusXs, fontSize: 11, fontWeight: 600, background: isNeg ? D.cinnabarDim : D.blueDim, color: isNeg ? D.cinnabar : D.blue }}>
+                            {group.baseEffectLabel}
+                          </span>
+                          {group.impactSummaryLabels.map(label => (
+                            <span key={label} style={{ padding: '2px 7px', borderRadius: D.radiusXs, fontSize: 11, fontWeight: 600, background: 'rgba(212,168,83,0.09)', color: D.gold, border: '1px solid rgba(212,168,83,0.16)' }}>
                               {label}
                             </span>
                           ))}
@@ -2680,7 +2688,7 @@ export default function RecordPage() {
                             onClick={() => setExpandedGroups(prev => new Set(prev).add(group.key))}
                             style={{ fontSize: 12, color: D.gold, cursor: 'pointer', fontWeight: 600, flexShrink: 0, display: 'inline-flex', alignItems: 'center', gap: 2 }}
                           >
-                            等{names.length}人 ▾
+                            共{group.records.length}次 / {group.uniqueStudentCount}人 ▾
                           </span>
                         )}
                         </div>
@@ -2695,7 +2703,7 @@ export default function RecordPage() {
                         <div style={{ minWidth: 0 }}>
                         <div style={{ fontSize: isMobile ? 12 : 12, color: D.textMid, lineHeight: 1.55, whiteSpace: 'normal', wordBreak: 'keep-all', overflowWrap: 'break-word' }}>
                           {group.description}
-                          {group.remark && <span style={{ color: D.textDim, marginLeft: 6 }}>({group.remark.replace(/^ruleId:[^,，]+[,，]\s*/, "")})</span>}
+                          {group.remark && group.impactDetailRows.length === 0 && <span style={{ color: D.textDim, marginLeft: 6 }}>({group.remark.replace(/^ruleId:[^,，]+[,，]\s*/, "")})</span>}
                           {group.records[0].timePeriodId && (
                             <span style={{ fontSize: 10, color: D.gold, marginLeft: 4, opacity: 0.8 }}>
                               @{timePeriods.find(tp => tp.id === group.records[0].timePeriodId)?.name}
@@ -2731,16 +2739,17 @@ export default function RecordPage() {
                     </div>
                     {isExpanded && showExpand && (
                       <div style={{ padding: '0 14px 10px 14px' }}>
-                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
-                          {names.map((name, i) => (
-                            <span key={i} style={{
-                              padding: '3px 8px', borderRadius: D.radiusXs, fontSize: 12,
-                              background: D.bgGlass, border: D.glassBorder, color: D.text,
-                            }}>
-                              {name}
-                            </span>
-                          ))}
-                        </div>
+                        {group.impactDetailRows.length > 0 && (
+                          <div style={{ display: 'grid', gap: 6, padding: '8px 10px', borderRadius: D.radiusXs, background: 'rgba(255,255,255,0.025)', border: `1px solid ${D.border}` }}>
+                            <div style={{ fontSize: 11, color: D.textDim, letterSpacing: 0 }}>影响明细</div>
+                            {group.impactDetailRows.map(row => (
+                              <div key={row.label} style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '130px minmax(0, 1fr)', gap: isMobile ? 4 : 8, alignItems: 'start', fontSize: 12, lineHeight: 1.5 }}>
+                                <span style={{ color: row.tone === 'warning' ? D.gold : D.cinnabar, fontWeight: 600 }}>{row.label}</span>
+                                <span style={{ color: D.text, minWidth: 0, overflowWrap: 'break-word' }}>{row.names.join('、')}</span>
+                              </div>
+                            ))}
+                          </div>
+                        )}
                         <span
                           onClick={() => setExpandedGroups(prev => { const n = new Set(prev); n.delete(group.key); return n; })}
                           style={{ fontSize: 11, color: D.gold, cursor: 'pointer', marginTop: 4, display: 'inline-block' }}
