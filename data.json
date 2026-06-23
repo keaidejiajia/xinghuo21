@@ -40922,13 +40922,23 @@
         "direction": "negative",
         "category": "纪律",
         "weight": 2,
-        "name": "午休期间不睡觉，打扰其他同学休息",
+        "name": "午休期间不睡觉，",
         "description": "午休期间不睡觉，打扰其他同学休息",
         "isHighSensitivity": false,
         "isComposite": false,
         "isInverseSelectable": false,
         "affectsFlag": false,
-        "requiresTimePeriod": false
+        "requiresTimePeriod": false,
+        "aliases": [
+          "午休期间不睡觉，打扰其他同学休息",
+          "午休期间不睡觉，打扰其他同学休",
+          "午休期间不睡觉，打扰其他同学",
+          "午休期间不睡觉，打扰其他同",
+          "午休期间不睡觉，打扰其他",
+          "午休期间不睡觉，打扰其",
+          "午休期间不睡觉，打扰",
+          "午休期间不睡觉，打"
+        ]
       },
       {
         "id": "n-l-3",
