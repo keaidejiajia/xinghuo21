@@ -32,7 +32,7 @@ import { toLocalDateStr } from '../lib/utils';
 import { useStudents } from '../lib/store';
 import { computeStudentLevelChanges } from '../lib/audit';
 import { formatLevelChangeDisplay } from '../lib/levelChangeDisplay';
-import { formatBehaviorBaseEffectLabel, formatBehaviorRecordTitle, summarizeBehaviorRecordImpacts } from '../lib/behaviorDisplay';
+import { formatBehaviorBaseEffectLabel, formatBehaviorConsequence, formatBehaviorRecordTitle, stripConsequenceRemarkParts } from '../lib/behaviorDisplay';
 import { formatBehaviorRecordDateLabel } from '../lib/behaviorDate';
 import { recordParentAccess } from '../lib/parentAccessClient';
 import { useAuth } from '../hooks/useAuth';
@@ -740,26 +740,6 @@ function BehaviorHistory({ student, onDeleteRecord }: { student: Student; onDele
     positiveWeightNames: config.positiveWeightNames,
   };
 
-  const cleanRecordRemark = (remark?: string) => remark?.replace(/^ruleId:[^,，]+[,，]\s*/, '').trim();
-
-  const getRecordImpactRows = (record: BehaviorRecord) => summarizeBehaviorRecordImpacts(
-    [record],
-    impactDisplayOptions,
-    () => student.name,
-  ).detailRows;
-
-  const getActualImpactLabel = (record: BehaviorRecord) => {
-    const extraWeight = record.extraWeight ?? 0;
-    if (record.direction === 'negative') {
-      return record.studentCardSide === 'back'
-        ? `实际 ${1 + extraWeight}心魔`
-        : `实际 ${(record.weight as number) + extraWeight}${config.blankMarkName}`;
-    }
-    return record.studentCardSide === 'back'
-      ? `实际 ${(record.weight as number) + extraWeight}${config.checkMarkName}`
-      : `实际 ${(record.weight as number) + extraWeight}护盾`;
-  };
-
   const renderRecordTimeChips = (record: BehaviorRecord) => (
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: isMobile ? 'flex-start' : 'flex-end', gap: 5, flexWrap: 'wrap', minWidth: 0 }}>
       <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, padding: '2px 7px', borderRadius: D.radiusXs, border: '1px solid rgba(212,168,83,0.24)', background: 'rgba(212,168,83,0.08)', color: INK.starGold, fontSize: 10, lineHeight: 1.35, whiteSpace: 'nowrap' }}>
@@ -774,65 +754,77 @@ function BehaviorHistory({ student, onDeleteRecord }: { student: Student; onDele
     </div>
   );
 
+  const renderDeleteControls = (record: BehaviorRecord) => {
+    if (!canDeleteRecord) return null;
+
+    return showDeleteConfirm === record.id ? (
+      <div style={{ display: 'flex', gap: 3, justifyContent: 'flex-end', flexWrap: 'wrap' }}>
+        <button disabled={deletingRecordId === record.id} onClick={async () => {
+          setDeletingRecordId(record.id);
+          const synced = await onDeleteRecord(record.id);
+          if (synced) setShowDeleteConfirm(null);
+          setDeletingRecordId(null);
+        }} style={{ padding: isMobile ? '3px 8px' : '2px 7px', borderRadius: D.radiusXs, fontSize: isMobile ? 11 : 10, cursor: deletingRecordId === record.id ? 'wait' : 'pointer', opacity: deletingRecordId === record.id ? 0.65 : 1, fontFamily: "'LXGW WenKai', 'Cinzel', serif", background: 'rgba(196,65,37,0.15)', border: '1px solid rgba(196,65,37,0.35)', color: INK.flameCinnabar }}>{deletingRecordId === record.id ? '同步中' : '确认'}</button>
+        <button onClick={() => setShowDeleteConfirm(null)} style={{ padding: isMobile ? '3px 8px' : '2px 7px', borderRadius: D.radiusXs, fontSize: isMobile ? 11 : 10, cursor: 'pointer', fontFamily: "'LXGW WenKai', 'Cinzel', serif", background: 'rgba(74,83,112,0.15)', border: `1px solid ${INK.border}`, color: INK.textSecondary }}>取消</button>
+      </div>
+    ) : (
+      <button onClick={() => setShowDeleteConfirm(record.id)} aria-label="删除记录" style={{ width: isMobile ? 26 : 24, height: isMobile ? 26 : 24, borderRadius: D.radiusXs, cursor: 'pointer', background: 'rgba(0,0,0,0.08)', border: '1px solid rgba(196,65,37,0.2)', color: INK.textMuted, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+        <Trash2 size={isMobile ? 12 : 11} />
+      </button>
+    );
+  };
+
   const renderRecordCard = (record: BehaviorRecord) => {
-    const isNeg = record.direction === 'negative';
-    const baseLabel = formatBehaviorBaseEffectLabel(record, impactDisplayOptions);
-    const actualLabel = getActualImpactLabel(record);
-    const impactRows = getRecordImpactRows(record);
+    const consequence = formatBehaviorConsequence(record, impactDisplayOptions);
+    const baseEffectLabel = formatBehaviorBaseEffectLabel(record, impactDisplayOptions);
     const title = formatBehaviorRecordTitle(record, homeworkSubjects);
-    const remark = cleanRecordRemark(record.remark);
+    const remark = stripConsequenceRemarkParts(record.remark);
     const timePeriod = record.timePeriodId ? timePeriods.find(tp => tp.id === record.timePeriodId)?.name || record.timePeriodId : '';
     const levelChange = levelChangeMap.get(record.id);
-    const showActualLabel = impactRows.length > 0 || record.shieldsConsumed > 0;
+    const isNeg = record.direction === 'negative';
+    const deleteSpace = canDeleteRecord
+      ? showDeleteConfirm === record.id
+        ? (isMobile ? 96 : 88)
+        : (isMobile ? 32 : 30)
+      : 0;
 
     return (
       <div
         key={record.id}
         style={{
+          position: 'relative',
           display: 'grid',
-          gridTemplateColumns: isMobile ? '1fr' : 'auto minmax(0, 1fr) auto',
-          gap: isMobile ? 8 : 12,
+          gridTemplateColumns: '1fr',
+          gap: isMobile ? 8 : 7,
           alignItems: 'start',
-          padding: isMobile ? '11px 12px' : '10px 12px',
+          padding: isMobile ? '12px 12px' : '10px 12px',
           borderRadius: D.radiusSm,
           background: D.bgCard,
           border: D.glassBorder,
         }}
       >
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5, alignItems: 'center', minWidth: 0 }}>
-          <span style={{
-            padding: '2px 8px',
-            borderRadius: D.radiusXs,
-            fontSize: 11,
-            fontWeight: 700,
-            lineHeight: 1.35,
-            fontFamily: "'LXGW WenKai', 'Cinzel', serif",
-            background: isNeg ? 'rgba(196,65,37,0.1)' : 'rgba(123,139,181,0.1)',
-            color: isNeg ? '#e07060' : INK.starBlue,
-            border: `1px solid ${isNeg ? 'rgba(196,65,37,0.18)' : 'rgba(123,139,181,0.2)'}`,
-            whiteSpace: 'nowrap',
-          }}>
-            {baseLabel}
-          </span>
-          {showActualLabel && (
-            <span style={{
-              padding: '2px 7px',
-              borderRadius: D.radiusXs,
-              fontSize: 11,
-              fontWeight: 600,
-              lineHeight: 1.35,
-              background: record.studentCardSide === 'back' ? 'rgba(196,65,37,0.08)' : 'rgba(212,168,83,0.08)',
-              color: record.studentCardSide === 'back' ? INK.flameCinnabar : INK.starGold,
-              border: `1px solid ${record.studentCardSide === 'back' ? 'rgba(196,65,37,0.18)' : 'rgba(212,168,83,0.18)'}`,
-              whiteSpace: 'nowrap',
-            }}>
-              {actualLabel}
-            </span>
-          )}
-        </div>
-
-        <div style={{ minWidth: 0, display: 'grid', gap: 6 }}>
+        {canDeleteRecord && (
+          <div style={{ position: 'absolute', top: isMobile ? 12 : 10, right: isMobile ? 12 : 12, zIndex: 2 }}>
+            {renderDeleteControls(record)}
+          </div>
+        )}
+        <div style={{ minWidth: 0, paddingRight: deleteSpace }}>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: 6, flexWrap: 'wrap', minWidth: 0 }}>
+            <span style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              padding: '0 1px',
+              border: 'none',
+              background: 'transparent',
+              color: isNeg ? 'rgba(229,91,62,0.82)' : 'rgba(134,153,199,0.82)',
+              fontSize: isMobile ? 12 : 10,
+              fontWeight: 700,
+              lineHeight: 1.45,
+              whiteSpace: 'nowrap',
+              flexShrink: 0,
+            }}>
+              {baseEffectLabel}
+            </span>
             <span style={{
               fontSize: isMobile ? 13 : 13,
               fontFamily: "'LXGW WenKai', 'Cinzel', serif",
@@ -852,60 +844,24 @@ function BehaviorHistory({ student, onDeleteRecord }: { student: Student; onDele
             )}
             {record.isHighSensitivity && <AlertTriangle size={12} style={{ color: INK.flameCinnabar, flexShrink: 0 }} />}
           </div>
-
-          {remark && (
-            <div style={{ fontSize: 12, color: INK.textMuted, lineHeight: 1.5, wordBreak: 'keep-all', overflowWrap: 'break-word' }}>
-              {remark}
-            </div>
-          )}
-
-          {(impactRows.length > 0 || record.shieldsConsumed > 0 || levelChange) && (
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5, alignItems: 'center' }}>
-              {impactRows.map(row => (
-                <span
-                  key={row.label}
-                  style={{
-                    fontSize: 11,
-                    color: row.tone === 'warning' ? INK.starGold : INK.flameCinnabar,
-                    background: row.tone === 'warning' ? 'rgba(212,168,83,0.08)' : 'rgba(196,65,37,0.08)',
-                    border: `1px solid ${row.tone === 'warning' ? 'rgba(212,168,83,0.18)' : 'rgba(196,65,37,0.18)'}`,
-                    borderRadius: D.radiusXs,
-                    padding: '2px 7px',
-                    lineHeight: 1.35,
-                  }}
-                >
-                  {row.label}
-                </span>
-              ))}
-              {record.shieldsConsumed > 0 && (
-                <span style={{ fontSize: 11, color: INK.starBlue, background: 'rgba(123,139,181,0.08)', border: '1px solid rgba(123,139,181,0.18)', borderRadius: D.radiusXs, padding: '2px 7px', lineHeight: 1.35 }}>
-                  消耗{record.shieldsConsumed}护盾
-                </span>
-              )}
-              {levelChange && renderLevelChangeBadge(levelChange, true)}
-            </div>
-          )}
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: isMobile ? 'space-between' : 'flex-end', gap: 6, flexWrap: 'wrap', minWidth: isMobile ? 0 : 260 }}>
-          {renderRecordTimeChips(record)}
-          {canDeleteRecord && (
-            showDeleteConfirm === record.id ? (
-              <div style={{ display: 'flex', gap: 3 }}>
-                <button disabled={deletingRecordId === record.id} onClick={async () => {
-                  setDeletingRecordId(record.id);
-                  const synced = await onDeleteRecord(record.id);
-                  if (synced) setShowDeleteConfirm(null);
-                  setDeletingRecordId(null);
-                }} style={{ padding: isMobile ? '2px 8px' : '1px 6px', borderRadius: D.radiusXs, fontSize: isMobile ? 11 : 10, cursor: deletingRecordId === record.id ? 'wait' : 'pointer', opacity: deletingRecordId === record.id ? 0.65 : 1, fontFamily: "'LXGW WenKai', 'Cinzel', serif", background: 'rgba(196,65,37,0.15)', border: '1px solid rgba(196,65,37,0.35)', color: INK.flameCinnabar }}>{deletingRecordId === record.id ? '同步中' : '确认'}</button>
-                <button onClick={() => setShowDeleteConfirm(null)} style={{ padding: isMobile ? '2px 8px' : '1px 6px', borderRadius: D.radiusXs, fontSize: isMobile ? 11 : 10, cursor: 'pointer', fontFamily: "'LXGW WenKai', 'Cinzel', serif", background: 'rgba(74,83,112,0.15)', border: `1px solid ${INK.border}`, color: INK.textSecondary }}>取消</button>
-              </div>
-            ) : (
-              <button onClick={() => setShowDeleteConfirm(record.id)} style={{ width: isMobile ? 28 : 26, height: isMobile ? 28 : 26, borderRadius: D.radiusXs, cursor: 'pointer', background: 'transparent', border: '1px solid rgba(196,65,37,0.2)', color: INK.textMuted, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                <Trash2 size={isMobile ? 12 : 10} />
-              </button>
-            )
-          )}
+        {remark && (
+          <div style={{ fontSize: 12, color: INK.textMuted, lineHeight: 1.5, wordBreak: 'keep-all', overflowWrap: 'break-word' }}>
+            {remark}
+          </div>
+        )}
+
+        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'minmax(0, 1fr) auto', gap: isMobile ? 7 : 12, alignItems: 'center', minWidth: 0 }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5, alignItems: 'center', minWidth: 0 }}>
+            <span style={{ fontSize: 11, color: isNeg ? INK.flameCinnabar : INK.starBlue, background: isNeg ? 'rgba(196,65,37,0.08)' : 'rgba(123,139,181,0.08)', border: `1px solid ${isNeg ? 'rgba(196,65,37,0.18)' : 'rgba(123,139,181,0.18)'}`, borderRadius: D.radiusXs, padding: '2px 7px', lineHeight: 1.45, maxWidth: '100%', overflowWrap: 'break-word' }}>
+              {consequence.fullLabel}
+            </span>
+            {levelChange && renderLevelChangeBadge(levelChange, true)}
+          </div>
+          <div style={{ justifySelf: isMobile ? 'start' : 'end', minWidth: 0 }}>
+            {renderRecordTimeChips(record)}
+          </div>
         </div>
       </div>
     );

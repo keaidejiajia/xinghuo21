@@ -217,12 +217,14 @@ export function MobileRecordItem({
   title,
   meta,
   tags,
+  details,
   action,
 }: {
   leading?: ReactNode;
   title: ReactNode;
   meta?: ReactNode;
   tags?: ReactNode;
+  details?: ReactNode;
   action?: ReactNode;
 }) {
   return (
@@ -241,6 +243,7 @@ export function MobileRecordItem({
         <div style={{ fontSize: 13, color: D.text, lineHeight: 1.45, overflowWrap: 'break-word' }}>{title}</div>
         {meta && <div style={{ fontSize: 11, color: D.textDim, lineHeight: 1.4, marginTop: 4 }}>{meta}</div>}
         {tags && <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5, marginTop: 6 }}>{tags}</div>}
+        {details && <div style={{ marginTop: 7 }}>{details}</div>}
       </div>
       {action && <div style={{ flexShrink: 0 }}>{action}</div>}
     </div>

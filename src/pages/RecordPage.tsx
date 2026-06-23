@@ -9,12 +9,12 @@ import { useMobile } from '../hooks/useMobile';
 import { D, INK } from '../data/theme';
 import { getSeatPriority } from '../data/config';
 import { HeritageIcon, HeartDemonInlineIcon } from '../components/LevelIcon';
-import { MobileActionBar, MobilePage, MobileRecordItem, MobileSection, MobileSegmentedControl } from '../components/mobile/MobileUI';
+import { MobileActionBar, MobilePage, MobileSection, MobileSegmentedControl } from '../components/mobile/MobileUI';
 import { processNegativeBehavior, processPositiveBehavior, processPositiveBehaviorFront, processRise, addStarShield, getLevelName, donateHeritage, checkHeartDemonAutoClear } from '../lib/cardLogic';
 import { calculateNegativePenalty } from '../lib/negativePenalty';
 import { behaviorRecordLocalDate, toLocalDateStr } from '../lib/utils';
 import { buildWeekdayOptions, findBehaviorTeachingWeek, formatBehaviorRecordDateLabel } from '../lib/behaviorDate';
-import { buildBehaviorGroupSignature, formatBehaviorBaseEffectLabel, formatBehaviorRecordTitle, sortBehaviorsForDisplay, summarizeBehaviorRecordImpacts } from '../lib/behaviorDisplay';
+import { buildBehaviorGroupSignature, formatBehaviorBaseEffectLabel, formatBehaviorRecordTitle, formatRecordGroupExpandLabel, sortBehaviorsForDisplay, stripConsequenceRemarkParts, summarizeStudentBehaviorConsequences } from '../lib/behaviorDisplay';
 import type { BehaviorRecord, Category, NegativeWeight, PositiveWeight } from '../types';
 
 function getPinyinInitial(name: string): string {
@@ -210,7 +210,7 @@ export default function RecordPage() {
         negativeWeightNames: config.negativeWeightNames,
         positiveWeightNames: config.positiveWeightNames,
       };
-      const impactSummary = summarizeBehaviorRecordImpacts(recs, impactOptions, getStudentName);
+      const specialConsequenceRows = summarizeStudentBehaviorConsequences(recs, impactOptions, getStudentName);
       const recorders = [...new Set(recs.map(r => r.recordedBy).filter(Boolean))];
       return {
         key,
@@ -223,11 +223,11 @@ export default function RecordPage() {
         weight: recs[0].weight,
         extraWeight: recs[0].extraWeight ?? 0,
         baseEffectLabel: formatBehaviorBaseEffectLabel(recs[0], impactOptions),
-        impactSummaryLabels: impactSummary.summaryLabels,
-        impactDetailRows: impactSummary.detailRows,
+        specialConsequenceRows,
         createdAt: recs[0].createdAt,
         occurredDate: behaviorRecordLocalDate(recs[0]),
         remark: recs[0].remark,
+        cleanRemark: stripConsequenceRemarkParts(recs[0].remark),
         hasShields: recs.some(r => r.shieldsConsumed > 0),
         totalShields: recs.reduce((s, r) => s + r.shieldsConsumed, 0),
         hasHighSensitivity: recs.some(r => r.isHighSensitivity),
@@ -1443,32 +1443,119 @@ export default function RecordPage() {
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             {groupedRecords.slice(0, 20).map(group => {
               const isNeg = group.direction === 'negative';
+              const isExpanded = expandedGroups.has(group.key);
+              const names = group.compactStudentNames;
+              const hasHiddenNames = names.length > 4;
+              const showExpand = hasHiddenNames || group.specialConsequenceRows.length > 0;
+              const displayNames = hasHiddenNames && !isExpanded ? names.slice(0, 4) : names;
+              const timePeriodName = group.records[0].timePeriodId ? timePeriods.find(tp => tp.id === group.records[0].timePeriodId)?.name : '';
+              const effectColor = isNeg ? D.cinnabar : D.blue;
+              const effectBg = isNeg ? 'rgba(196,65,37,0.10)' : 'rgba(123,139,181,0.10)';
+              const expandLabel = group.specialConsequenceRows.length > 0
+                ? (isExpanded ? '收起明细' : '查看处理明细')
+                : (isExpanded ? '收起名单' : `查看全部${group.uniqueStudentCount}人`);
               return (
-                <MobileRecordItem
+                <div
                   key={group.key}
-                  leading={<span style={{ width: 28, height: 28, borderRadius: D.radiusXs, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: isNeg ? D.cinnabarDim : D.blueDim, color: isNeg ? D.cinnabar : D.blue }}>{isNeg ? <XCircle size={15} /> : <CheckCircle2 size={15} />}</span>}
-                  title={<><b>{group.studentNames.slice(0, 4).join('、')}{group.studentNames.length > 4 ? `等${group.studentNames.length}人` : ''}</b> · {group.description}</>}
-                  meta={renderRecordTimeChips(group.records[0], group.createdAt, group.recordedBy, group.impactDetailRows.length > 0 ? undefined : group.remark)}
-                  tags={<>
-                    <span style={{ fontSize: 10, color: isNeg ? D.cinnabar : D.blue, background: isNeg ? D.cinnabarDim : D.blueDim, borderRadius: 3, padding: '2px 5px' }}>{group.baseEffectLabel}</span>
-                    {group.impactSummaryLabels.map(label => (
-                      <span key={label} style={{ fontSize: 10, color: D.gold, background: 'rgba(212,168,83,0.1)', borderRadius: 3, padding: '2px 5px' }}>{label}</span>
-                    ))}
-                    {group.hasShields && <span style={{ fontSize: 10, color: D.blue, background: D.blueDim, borderRadius: 3, padding: '2px 5px' }}>护盾-{group.totalShields}</span>}
-                  </>}
-                  action={canDeleteRecord && (
-                    showDeleteConfirm === group.allIds[0] ? (
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-                        <button type="button" onClick={async () => { group.allIds.forEach(id => deleteBehaviorRecord(id)); const synced = await syncAfterChange(`已删除并同步 ${group.allIds.length} 条记录`); if (synced) setShowDeleteConfirm(null); }} style={{ borderRadius: D.radiusXs, border: `1px solid rgba(196,65,37,0.4)`, background: D.cinnabarDim, color: D.cinnabar, padding: '3px 7px', fontSize: 11 }}>确认</button>
-                        <button type="button" onClick={() => setShowDeleteConfirm(null)} style={{ borderRadius: D.radiusXs, border: `1px solid ${D.border}`, background: D.bgCard, color: D.textDim, padding: '3px 7px', fontSize: 11 }}>取消</button>
+                  style={{
+                    position: 'relative',
+                    display: 'grid',
+                    gridTemplateColumns: '28px minmax(0, 1fr)',
+                    gap: 10,
+                    alignItems: 'start',
+                    padding: '12px 0',
+                    borderBottom: `1px solid ${D.border}`,
+                    minWidth: 0,
+                  }}
+                >
+                  <span style={{ width: 28, height: 28, borderRadius: D.radiusXs, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: isNeg ? D.cinnabarDim : D.blueDim, color: effectColor }}>
+                    {isNeg ? <XCircle size={15} /> : <CheckCircle2 size={15} />}
+                  </span>
+
+                  <div style={{ display: 'grid', gap: 6, minWidth: 0 }}>
+                    <div style={{ display: 'grid', gap: 3, minWidth: 0, paddingRight: canDeleteRecord ? 40 : 0 }}>
+                      <div style={{ fontSize: 14, fontWeight: 700, color: D.text, lineHeight: 1.45, wordBreak: 'keep-all', overflowWrap: 'break-word' }}>
+                        {group.description}
+                        {timePeriodName && <span style={{ color: D.gold, fontSize: 12, marginLeft: 5, whiteSpace: 'nowrap' }}>@{timePeriodName}</span>}
+                      </div>
+                      <div className="student-name" style={{ fontSize: 13, color: D.textMid, lineHeight: 1.45, wordBreak: 'keep-all', overflowWrap: 'break-word' }}>
+                        <span style={{ display: 'inline-flex', alignItems: 'center', padding: '1px 6px', marginRight: 6, borderRadius: D.radiusXs, border: `1px solid ${isNeg ? 'rgba(196,65,37,0.16)' : 'rgba(123,139,181,0.16)'}`, background: effectBg, color: effectColor, fontSize: 11, lineHeight: 1.35, fontWeight: 600, verticalAlign: 'baseline' }}>
+                          {group.baseEffectLabel}
+                        </span>
+                        {displayNames.join('、')}{hasHiddenNames && !isExpanded ? ` 等${group.uniqueStudentCount}人` : ''}
+                      </div>
+                    </div>
+
+                    <div style={{ fontSize: 12, color: D.textDim, lineHeight: 1.45 }}>
+                      {renderRecordTimeChips(group.records[0], group.createdAt, group.recordedBy)}
+                    </div>
+                    {group.cleanRemark && (
+                      <div style={{ fontSize: 12, color: D.textMid, lineHeight: 1.45, wordBreak: 'keep-all', overflowWrap: 'break-word' }}>
+                        备注：{group.cleanRemark}
+                      </div>
+                    )}
+
+                    {(group.hasShields || showExpand) && (
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: group.hasShields ? 'space-between' : 'flex-end', gap: 10, flexWrap: 'wrap', minWidth: 0, lineHeight: 1.45 }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap', minWidth: 0 }}>
+                        {group.hasShields && <span style={{ fontSize: 11, color: D.blue, background: 'rgba(123,139,181,0.10)', border: '1px solid rgba(123,139,181,0.16)', borderRadius: D.radiusXs, padding: '1px 6px', lineHeight: 1.45 }}>护盾-{group.totalShields}</span>}
+                      </div>
+                      {showExpand && (
+                        <span
+                          tabIndex={0}
+                          onClick={() => setExpandedGroups(prev => {
+                            const next = new Set(prev);
+                            if (next.has(group.key)) next.delete(group.key);
+                            else next.add(group.key);
+                            return next;
+                          })}
+                          onKeyDown={event => {
+                            if (event.key !== 'Enter' && event.key !== ' ') return;
+                            event.preventDefault();
+                            setExpandedGroups(prev => {
+                              const next = new Set(prev);
+                              if (next.has(group.key)) next.delete(group.key);
+                              else next.add(group.key);
+                              return next;
+                            });
+                          }}
+                          style={{ color: D.gold, fontSize: 12, lineHeight: 1.45, cursor: 'pointer', whiteSpace: 'nowrap', outline: 'none' }}
+                        >
+                          {expandLabel}
+                        </span>
+                      )}
+                    </div>
+                    )}
+
+                    {isExpanded && group.specialConsequenceRows.length > 0 && (
+                      <div style={{ display: 'grid', gap: 6, padding: '8px 9px', borderRadius: D.radiusXs, background: 'rgba(255,255,255,0.025)', border: `1px solid ${D.border}`, lineHeight: 1.45 }}>
+                        <div style={{ fontSize: 11, color: D.textDim, lineHeight: 1.45 }}>处理明细</div>
+                        {group.specialConsequenceRows.map(row => (
+                          <div key={`${row.studentId}-${row.consequence.fullLabel}`} style={{ display: 'grid', gridTemplateColumns: '58px minmax(0, 1fr)', gap: 8, alignItems: 'baseline', fontSize: 12, lineHeight: 1.45 }}>
+                            <span className="student-name" style={{ color: D.text, fontWeight: 600, minWidth: 0 }}>{row.name}</span>
+                            <span style={{ color: row.consequence.resultLabel.includes('心魔') ? D.cinnabar : D.gold, minWidth: 0, overflowWrap: 'break-word' }}>{row.consequence.fullLabel}</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  {canDeleteRecord && (
+                    <div style={{ position: 'absolute', top: 12, right: 0, zIndex: 2 }}>
+                    {showDeleteConfirm === group.allIds[0] ? (
+                      <div style={{ display: 'grid', gap: 4, justifyItems: 'end' }}>
+                        <span onClick={async () => { group.allIds.forEach(id => deleteBehaviorRecord(id)); const synced = await syncAfterChange(`已删除并同步 ${group.allIds.length} 条记录`); if (synced) setShowDeleteConfirm(null); }} style={{ borderRadius: D.radiusXs, border: `1px solid rgba(196,65,37,0.4)`, background: D.cinnabarDim, color: D.cinnabar, padding: '2px 6px', fontSize: 11, lineHeight: 1.45, cursor: 'pointer', whiteSpace: 'nowrap' }}>确认</span>
+                        <span onClick={() => setShowDeleteConfirm(null)} style={{ borderRadius: D.radiusXs, border: `1px solid ${D.border}`, background: D.bgCard, color: D.textDim, padding: '2px 6px', fontSize: 11, lineHeight: 1.45, cursor: 'pointer', whiteSpace: 'nowrap' }}>取消</span>
                       </div>
                     ) : (
-                      <button type="button" onClick={() => setShowDeleteConfirm(group.allIds[0])} style={{ width: 30, height: 30, borderRadius: D.radiusXs, border: `1px solid ${D.border}`, background: D.bgCard, color: D.textDim, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                      <button type="button" onClick={() => setShowDeleteConfirm(group.allIds[0])} style={{ width: 30, height: 30, minWidth: 30, minHeight: 30, padding: 0, borderRadius: D.radiusXs, border: `1px solid ${D.border}`, background: D.bgCard, color: D.textDim, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                         <Trash2 size={14} />
                       </button>
                     )
+                    }
+                    </div>
                   )}
-                />
+                </div>
               );
             })}
           </div>
@@ -2644,7 +2731,7 @@ export default function RecordPage() {
                 const isExpanded = expandedGroups.has(group.key);
                 const allGroupSelected = group.allIds.every(id => selectedRecordIds.has(id));
                 const names = group.compactStudentNames;
-                const showExpand = names.length > 5 || group.impactDetailRows.length > 0;
+                const showExpand = names.length > 5 || group.specialConsequenceRows.length > 0;
                 const displayNames = showExpand && !isExpanded ? names.slice(0, 4) : names;
 
                 return (
@@ -2674,11 +2761,6 @@ export default function RecordPage() {
                           <span style={{ padding: '2px 8px', borderRadius: D.radiusXs, fontSize: 11, fontWeight: 600, background: isNeg ? D.cinnabarDim : D.blueDim, color: isNeg ? D.cinnabar : D.blue }}>
                             {group.baseEffectLabel}
                           </span>
-                          {group.impactSummaryLabels.map(label => (
-                            <span key={label} style={{ padding: '2px 7px', borderRadius: D.radiusXs, fontSize: 11, fontWeight: 600, background: 'rgba(212,168,83,0.09)', color: D.gold, border: '1px solid rgba(212,168,83,0.16)' }}>
-                              {label}
-                            </span>
-                          ))}
                         </div>
                         <span className="student-name" style={{ fontSize: isMobile ? 12 : 13, color: D.text, fontWeight: 500, lineHeight: 1.45, minWidth: 0, flex: '1 1 180px', whiteSpace: 'normal', overflowWrap: 'break-word' }}>
                           {displayNames.join('、')}
@@ -2688,7 +2770,7 @@ export default function RecordPage() {
                             onClick={() => setExpandedGroups(prev => new Set(prev).add(group.key))}
                             style={{ fontSize: 12, color: D.gold, cursor: 'pointer', fontWeight: 600, flexShrink: 0, display: 'inline-flex', alignItems: 'center', gap: 2 }}
                           >
-                            共{group.records.length}次 / {group.uniqueStudentCount}人 ▾
+                            {formatRecordGroupExpandLabel(group.uniqueStudentCount)} ▾
                           </span>
                         )}
                         </div>
@@ -2703,7 +2785,7 @@ export default function RecordPage() {
                         <div style={{ minWidth: 0 }}>
                         <div style={{ fontSize: isMobile ? 12 : 12, color: D.textMid, lineHeight: 1.55, whiteSpace: 'normal', wordBreak: 'keep-all', overflowWrap: 'break-word' }}>
                           {group.description}
-                          {group.remark && group.impactDetailRows.length === 0 && <span style={{ color: D.textDim, marginLeft: 6 }}>({group.remark.replace(/^ruleId:[^,，]+[,，]\s*/, "")})</span>}
+                          {group.cleanRemark && <span style={{ color: D.textDim, marginLeft: 6 }}>({group.cleanRemark})</span>}
                           {group.records[0].timePeriodId && (
                             <span style={{ fontSize: 10, color: D.gold, marginLeft: 4, opacity: 0.8 }}>
                               @{timePeriods.find(tp => tp.id === group.records[0].timePeriodId)?.name}
@@ -2739,13 +2821,13 @@ export default function RecordPage() {
                     </div>
                     {isExpanded && showExpand && (
                       <div style={{ padding: '0 14px 10px 14px' }}>
-                        {group.impactDetailRows.length > 0 && (
+                        {group.specialConsequenceRows.length > 0 && (
                           <div style={{ display: 'grid', gap: 6, padding: '8px 10px', borderRadius: D.radiusXs, background: 'rgba(255,255,255,0.025)', border: `1px solid ${D.border}` }}>
-                            <div style={{ fontSize: 11, color: D.textDim, letterSpacing: 0 }}>影响明细</div>
-                            {group.impactDetailRows.map(row => (
-                              <div key={row.label} style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '130px minmax(0, 1fr)', gap: isMobile ? 4 : 8, alignItems: 'start', fontSize: 12, lineHeight: 1.5 }}>
-                                <span style={{ color: row.tone === 'warning' ? D.gold : D.cinnabar, fontWeight: 600 }}>{row.label}</span>
-                                <span style={{ color: D.text, minWidth: 0, overflowWrap: 'break-word' }}>{row.names.join('、')}</span>
+                            <div style={{ fontSize: 11, color: D.textDim, letterSpacing: 0 }}>处理明细</div>
+                            {group.specialConsequenceRows.map(row => (
+                              <div key={`${row.studentId}-${row.consequence.fullLabel}`} style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '92px minmax(0, 1fr)', gap: isMobile ? 3 : 8, alignItems: 'start', fontSize: 12, lineHeight: 1.5 }}>
+                                <span style={{ color: D.text, fontWeight: 600 }}>{row.name}</span>
+                                <span style={{ color: row.consequence.resultLabel.includes('心魔') ? D.cinnabar : D.gold, minWidth: 0, overflowWrap: 'break-word' }}>{row.consequence.fullLabel}</span>
                               </div>
                             ))}
                           </div>

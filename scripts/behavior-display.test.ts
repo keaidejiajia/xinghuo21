@@ -2,7 +2,10 @@ import assert from 'node:assert/strict';
 import {
   buildBehaviorGroupSignature,
   formatBehaviorBaseEffectLabel,
-  summarizeBehaviorRecordImpacts,
+  formatBehaviorConsequence,
+  formatRecordGroupExpandLabel,
+  summarizeStudentBehaviorConsequences,
+  stripConsequenceRemarkParts,
   formatBehaviorRecordTitle,
   sortBehaviorsForDisplay,
 } from '../src/lib/behaviorDisplay.js';
@@ -81,26 +84,62 @@ const speakingRecord: BehaviorRecord = {
 
 assert.equal(
   formatBehaviorBaseEffectLabel(speakingRecord, impactOptions),
-  '褪色 2星蚀',
-  'base behavior label should describe configured behavior level, not inflated penalty result',
+  '褪色',
+  'base behavior label should only show the ceremonial level name without repeating points or units',
 );
 
-const impactSummary = summarizeBehaviorRecordImpacts([
-  speakingRecord,
-  { ...speakingRecord, id: 'talk-2', studentId: 's2', extraWeight: 0, penaltyReasons: undefined, studentCardSide: 'front' },
-  { ...speakingRecord, id: 'talk-3', studentId: 's3', extraWeight: 0, penaltyReasons: undefined, studentCardSide: 'back' },
-], impactOptions, (id: string) => ({ s1: '徐小乔', s2: '胡荣耀', s3: '蓝义皓' }[id as 's1' | 's2' | 's3'] ?? id));
+assert.equal(
+  formatBehaviorBaseEffectLabel({ ...baseRecord, direction: 'positive', weight: 3, extraWeight: 0, description: '突出贡献' }, impactOptions),
+  '闪耀',
+  'positive behavior label should also only show the level name',
+);
+
+const oldHabitBackRecord: BehaviorRecord = {
+  ...speakingRecord,
+  id: 'talk-back-old-habit',
+  studentId: 's1',
+  extraWeight: 1,
+  penaltyReasons: ['old_habit_recurrence'],
+  studentCardSide: 'back',
+  remark: '第2次；被老师点名；旧习复发：心魔+1',
+};
 
 assert.deepEqual(
-  impactSummary.summaryLabels,
-  ['记录人加罚 1次', '背面心魔 1次'],
-  'collapsed summary should call out special impacts without inventing extra behavior levels',
+  formatBehaviorConsequence(oldHabitBackRecord, impactOptions),
+  {
+    resultLabel: '增加2心魔',
+    reasonLabels: ['旧习复发+1'],
+    fullLabel: '增加2心魔（旧习复发+1）',
+    isSpecial: true,
+  },
+  'student card consequence should omit redundant back-card wording while keeping actual penalty reasons',
 );
 
-assert.deepEqual(
-  impactSummary.detailRows.map(row => `${row.label}：${row.names.join('、')}`),
-  ['记录人加罚 +1星蚀：徐小乔', '背面卡片 1心魔：蓝义皓'],
-  'expanded details should identify who received recorder penalties and who received heart demon marks',
+assert.equal(
+  stripConsequenceRemarkParts(oldHabitBackRecord.remark),
+  '被老师点名',
+  'remarks should keep teacher-written context but remove automatic count prefixes and represented consequence phrases',
 );
+
+assert.equal(
+  stripConsequenceRemarkParts('第1次：被老师点名'),
+  '被老师点名',
+  'inline automatic count prefixes should be removed without deleting the useful remark',
+);
+
+const studentConsequenceRows = summarizeStudentBehaviorConsequences([
+  oldHabitBackRecord,
+  { ...speakingRecord, id: 'talk-weekly-recorder', studentId: 's4', extraWeight: 1, penaltyReasons: ['weekly_recorder'], studentCardSide: 'front' },
+  { ...speakingRecord, id: 'talk-normal', studentId: 's2', extraWeight: 0, penaltyReasons: undefined, studentCardSide: 'front' },
+], impactOptions, (id: string) => ({ s1: '徐小乔', s2: '胡荣耀', s4: '袁俪玮' }[id as 's1' | 's2' | 's4'] ?? id));
+
+assert.deepEqual(
+  studentConsequenceRows.map(row => `${row.name}：${row.consequence.fullLabel}`),
+  ['徐小乔：增加2心魔（旧习复发+1）', '袁俪玮：增加3星蚀（记录人惩罚+1）'],
+  'record-page expanded details should be organized by student and omit normal students',
+);
+
+assert.equal(formatRecordGroupExpandLabel(1), '共1人');
+assert.equal(formatRecordGroupExpandLabel(3), '共3人');
 
 console.log('behavior-display tests passed');

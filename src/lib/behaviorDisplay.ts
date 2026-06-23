@@ -80,26 +80,17 @@ export interface BehaviorImpactDisplayOptions {
   positiveWeightNames: Record<PositiveWeight, string>;
 }
 
-export interface BehaviorImpactDetailRow {
-  label: string;
-  names: string[];
-  tone: 'warning' | 'back';
+export interface BehaviorConsequenceDisplay {
+  resultLabel: string;
+  reasonLabels: string[];
+  fullLabel: string;
+  isSpecial: boolean;
 }
 
-export interface BehaviorImpactSummary {
-  summaryLabels: string[];
-  detailRows: BehaviorImpactDetailRow[];
-}
-
-function countNames(names: string[]): string[] {
-  const counts = new Map<string, number>();
-  for (const name of names) counts.set(name, (counts.get(name) ?? 0) + 1);
-  return Array.from(counts.entries()).map(([name, count]) => count > 1 ? `${name}×${count}` : name);
-}
-
-function addImpact(map: Map<string, string[]>, label: string, name: string) {
-  if (!map.has(label)) map.set(label, []);
-  map.get(label)!.push(name);
+export interface StudentBehaviorConsequenceRow {
+  studentId: string;
+  name: string;
+  consequence: BehaviorConsequenceDisplay;
 }
 
 function getWeightName(record: BehaviorRecord, options: BehaviorImpactDisplayOptions): string {
@@ -109,70 +100,86 @@ function getWeightName(record: BehaviorRecord, options: BehaviorImpactDisplayOpt
 }
 
 export function formatBehaviorBaseEffectLabel(record: BehaviorRecord, options: BehaviorImpactDisplayOptions): string {
-  const unit = record.direction === 'negative' ? options.blankMarkName : '护盾';
-  return `${getWeightName(record, options)} ${record.weight}${unit}`;
+  return getWeightName(record, options);
 }
 
-export function summarizeBehaviorRecordImpacts(
+export function formatRecordGroupExpandLabel(uniqueStudentCount: number): string {
+  return `共${uniqueStudentCount}人`;
+}
+
+function getKnownPenaltyReasonCount(record: BehaviorRecord): number {
+  let count = 0;
+  if (record.penaltyReasons?.includes('weekly_recorder')) count += 1;
+  if (record.penaltyReasons?.includes('old_habit_recurrence')) count += 1;
+  return count;
+}
+
+function getConsequenceReasons(record: BehaviorRecord): string[] {
+  const extraWeight = record.extraWeight ?? 0;
+  const reasons: string[] = [];
+  const knownReasonCount = getKnownPenaltyReasonCount(record);
+  const otherExtraWeight = Math.max(0, extraWeight - knownReasonCount);
+
+  if (record.penaltyReasons?.includes('old_habit_recurrence')) reasons.push('旧习复发+1');
+  if (record.penaltyReasons?.includes('weekly_recorder')) reasons.push('记录人惩罚+1');
+  if (otherExtraWeight > 0) reasons.push(`额外+${otherExtraWeight}`);
+  if (record.shieldsConsumed > 0) reasons.push(`消耗${record.shieldsConsumed}护盾`);
+
+  return reasons;
+}
+
+export function formatBehaviorConsequence(record: BehaviorRecord, options: BehaviorImpactDisplayOptions): BehaviorConsequenceDisplay {
+  const extraWeight = record.extraWeight ?? 0;
+  const baseAmount = (record.weight as number) + extraWeight;
+  let resultLabel: string;
+
+  if (record.direction === 'negative') {
+    if (record.studentCardSide === 'back') {
+      resultLabel = `增加${1 + extraWeight}心魔`;
+    } else {
+      const shieldOffset = record.shieldsConsumed > 0 ? Math.floor(record.shieldsConsumed / 2) : 0;
+      const actualAmount = Math.max(0, baseAmount - shieldOffset);
+      resultLabel = `增加${actualAmount}${options.blankMarkName}`;
+    }
+  } else {
+    resultLabel = record.studentCardSide === 'back'
+      ? `获得${baseAmount}${options.checkMarkName}`
+      : `获得${baseAmount}护盾`;
+  }
+
+  const reasonLabels = getConsequenceReasons(record);
+  return {
+    resultLabel,
+    reasonLabels,
+    fullLabel: reasonLabels.length > 0 ? `${resultLabel}（${reasonLabels.join('；')}）` : resultLabel,
+    isSpecial: reasonLabels.length > 0,
+  };
+}
+
+export function summarizeStudentBehaviorConsequences(
   records: BehaviorRecord[],
   options: BehaviorImpactDisplayOptions,
   getStudentName: (studentId: string) => string,
-): BehaviorImpactSummary {
-  const penaltyRows = new Map<string, string[]>();
-  const backRows = new Map<string, string[]>();
-  let recorderPenaltyCount = 0;
-  let oldHabitCount = 0;
-  let otherPenaltyCount = 0;
-  let backImpactCount = 0;
+): StudentBehaviorConsequenceRow[] {
+  return records
+    .map(record => ({
+      studentId: record.studentId,
+      name: getStudentName(record.studentId),
+      consequence: formatBehaviorConsequence(record, options),
+    }))
+    .filter(row => row.consequence.isSpecial);
+}
 
-  for (const record of records) {
-    const name = getStudentName(record.studentId);
-    const extraWeight = record.extraWeight ?? 0;
-    const actualUnit = record.direction === 'negative'
-      ? (record.studentCardSide === 'back' ? '心魔' : options.blankMarkName)
-      : (record.studentCardSide === 'back' ? options.checkMarkName : '护盾');
-
-    if (extraWeight > 0) {
-      if (record.penaltyReasons?.includes('weekly_recorder')) {
-        recorderPenaltyCount += 1;
-        addImpact(penaltyRows, `记录人加罚 +${extraWeight}${actualUnit}`, name);
-      } else if (record.penaltyReasons?.includes('old_habit_recurrence')) {
-        oldHabitCount += 1;
-        addImpact(penaltyRows, `旧习复发 +${extraWeight}${actualUnit}`, name);
-      } else {
-        otherPenaltyCount += 1;
-        addImpact(penaltyRows, `额外加罚 +${extraWeight}${actualUnit}`, name);
-      }
-    }
-
-    if (record.studentCardSide === 'back') {
-      backImpactCount += 1;
-      const actualValue = record.direction === 'negative'
-        ? 1 + extraWeight
-        : (record.weight as number) + extraWeight;
-      addImpact(backRows, `背面卡片 ${actualValue}${actualUnit}`, name);
-    }
-  }
-
-  const summaryLabels = [
-    recorderPenaltyCount > 0 ? `记录人加罚 ${recorderPenaltyCount}次` : '',
-    oldHabitCount > 0 ? `旧习复发 ${oldHabitCount}次` : '',
-    otherPenaltyCount > 0 ? `额外加罚 ${otherPenaltyCount}次` : '',
-    backImpactCount > 0 ? `背面${records[0]?.direction === 'negative' ? '心魔' : options.checkMarkName} ${backImpactCount}次` : '',
-  ].filter(Boolean);
-
-  const detailRows: BehaviorImpactDetailRow[] = [
-    ...Array.from(penaltyRows.entries()).map(([label, names]) => ({
-      label,
-      names: countNames(names),
-      tone: 'warning' as const,
-    })),
-    ...Array.from(backRows.entries()).map(([label, names]) => ({
-      label,
-      names: countNames(names),
-      tone: 'back' as const,
-    })),
-  ];
-
-  return { summaryLabels, detailRows };
+export function stripConsequenceRemarkParts(remark: string | undefined): string {
+  return (remark ?? '')
+    .replace(/^ruleId:[^,，]+[,，]\s*/, '')
+    .split(/[；;]/)
+    .map(part => part.trim())
+    .map(part => part.replace(/^第\d+次[:：]\s*/, '').trim())
+    .filter(part => part.length > 0)
+    .filter(part => !/^第\d+次$/.test(part))
+    .filter(part => !/^旧习复发[:：]/.test(part))
+    .filter(part => !/^本周记录人[:：]/.test(part))
+    .filter(part => !/^额外\+\d+/.test(part))
+    .join('；');
 }
