@@ -6,11 +6,11 @@
       "studentId": "1779204595006",
       "parentName": "曾馨家长",
       "firstAccessAt": "2026-06-23T01:33:31.080Z",
-      "lastAccessAt": "2026-06-23T13:58:10.324Z",
+      "lastAccessAt": "2026-06-23T13:58:23.151Z",
       "loginCount": 1,
-      "viewCount": 1,
+      "viewCount": 2,
       "lastDevice": "mobile",
-      "lastCountedViewAt": "2026-06-23T01:33:31.080Z"
+      "lastCountedViewAt": "2026-06-23T13:58:23.151Z"
     },
     {
       "id": "2026-06-23-30",
@@ -272,5 +272,5 @@
       "lastDevice": "desktop"
     }
   ],
-  "updatedAt": "2026-06-23T13:58:10.324Z"
+  "updatedAt": "2026-06-23T13:58:23.151Z"
 }
