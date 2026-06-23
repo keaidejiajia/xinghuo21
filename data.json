@@ -178,7 +178,7 @@
       "blanksFilled": 0,
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
-      "starShields": 10,
+      "starShields": 4,
       "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
@@ -189,7 +189,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-23T01:49:18.000Z",
+      "updatedAt": "2026-06-23T09:03:36.497Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -1055,6 +1055,25 @@
     }
   ],
   "behavior-records": [
+    {
+      "studentId": "9",
+      "direction": "negative",
+      "weight": 3,
+      "behaviorId": "n-d-5",
+      "category": "纪律",
+      "description": "集体活动中擅自行动或表现失格",
+      "remark": "政治课擅自换座位",
+      "recordedBy": "王老师",
+      "verified": true,
+      "shieldsConsumed": 6,
+      "extraWeight": 0,
+      "penaltyReasons": [],
+      "isHighSensitivity": false,
+      "studentCardSide": "front",
+      "occurredDate": "2026-06-23",
+      "id": "3223",
+      "createdAt": "2026-06-23T09:03:36.514Z"
+    },
     {
       "studentId": "42",
       "direction": "positive",
