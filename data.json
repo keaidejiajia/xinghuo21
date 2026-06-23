@@ -41173,7 +41173,7 @@
           "由学习委员日常记录，如果此行为已经在负面行为中反选，则不再重复记录",
           "按时、按要求完成作业或"
         ],
-        "requiresHomeworkDetail": true
+        "requiresHomeworkDetail": false
       },
       {
         "id": "p-l-2",
