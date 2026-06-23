@@ -191,28 +191,47 @@ export default function RecordPage() {
     for (const record of displayedRecords) {
       const date = new Date(record.createdAt);
       const minuteKey = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}-${date.getHours()}-${date.getMinutes()}`;
-      const groupKey = `${buildBehaviorGroupSignature(record)}|${behaviorRecordLocalDate(record)}|${record.direction}|${record.weight}|${record.extraWeight ?? 0}|${record.penaltyReasons?.join(',') ?? ''}|${record.studentCardSide ?? ''}|${record.recordedBy}|${minuteKey}`;
+      const groupKey = `${buildBehaviorGroupSignature(record)}|${behaviorRecordLocalDate(record)}|${record.direction}|${minuteKey}`;
       if (!groupMap.has(groupKey)) groupMap.set(groupKey, []);
       groupMap.get(groupKey)!.push(record);
     }
-    return Array.from(groupMap.entries()).map(([key, recs]) => ({
-      key,
-      records: recs,
-      studentNames: recs.map(r => students.find(s => s.id === r.studentId)?.name ?? '未知'),
-      description: formatBehaviorRecordTitle(recs[0], homeworkSubjects),
-      direction: recs[0].direction,
-      weight: recs[0].weight,
-      extraWeight: recs[0].extraWeight ?? 0,
-      createdAt: recs[0].createdAt,
-      occurredDate: behaviorRecordLocalDate(recs[0]),
-      remark: recs[0].remark,
-      hasShields: recs.some(r => r.shieldsConsumed > 0),
-      totalShields: recs.reduce((s, r) => s + r.shieldsConsumed, 0),
-      hasHighSensitivity: recs.some(r => r.isHighSensitivity),
-      allIds: recs.map(r => r.id),
-      recordedBy: recs[0].recordedBy,
-    }));
-  }, [displayedRecords, students, homeworkSubjects]);
+    return Array.from(groupMap.entries()).map(([key, recs]) => {
+      const effectCounts = new Map<string, number>();
+      for (const record of recs) {
+        const isNegRecord = record.direction === 'negative';
+        const weightName = isNegRecord
+          ? config.negativeWeightNames[record.weight as NegativeWeight]
+          : config.positiveWeightNames[record.weight as PositiveWeight];
+        const effectiveWeight = isNegRecord
+          ? (record.studentCardSide === 'back' ? 1 + (record.extraWeight ?? 0) : (record.weight as number) + (record.extraWeight ?? 0))
+          : (record.weight as number) + (record.extraWeight ?? 0);
+        const unit = isNegRecord
+          ? (record.studentCardSide === 'back' ? '心魔' : config.blankMarkName)
+          : (record.studentCardSide === 'back' ? config.checkMarkName : '护盾');
+        const label = `${weightName} ${effectiveWeight}${unit}`;
+        effectCounts.set(label, (effectCounts.get(label) ?? 0) + 1);
+      }
+      const recorders = [...new Set(recs.map(r => r.recordedBy).filter(Boolean))];
+      return {
+        key,
+        records: recs,
+        studentNames: recs.map(r => students.find(s => s.id === r.studentId)?.name ?? '未知'),
+        description: formatBehaviorRecordTitle(recs[0], homeworkSubjects),
+        direction: recs[0].direction,
+        weight: recs[0].weight,
+        extraWeight: recs[0].extraWeight ?? 0,
+        effectLabels: Array.from(effectCounts.entries()).map(([label, count]) => `${label} ×${count}`),
+        createdAt: recs[0].createdAt,
+        occurredDate: behaviorRecordLocalDate(recs[0]),
+        remark: recs[0].remark,
+        hasShields: recs.some(r => r.shieldsConsumed > 0),
+        totalShields: recs.reduce((s, r) => s + r.shieldsConsumed, 0),
+        hasHighSensitivity: recs.some(r => r.isHighSensitivity),
+        allIds: recs.map(r => r.id),
+        recordedBy: recorders.join('、'),
+      };
+    });
+  }, [displayedRecords, students, homeworkSubjects, config.negativeWeightNames, config.positiveWeightNames, config.blankMarkName, config.checkMarkName]);
 
   const allDisplayedSelected = displayedRecords.length > 0 && displayedRecords.every(r => selectedRecordIds.has(r.id));
 
@@ -1004,6 +1023,33 @@ export default function RecordPage() {
     </select>
   );
 
+  const renderRecordTimeChips = (
+    record: Pick<BehaviorRecord, 'createdAt' | 'occurredDate'>,
+    createdAt: string,
+    recordedBy?: string,
+    remark?: string,
+  ) => {
+    const cleanedRemark = remark?.replace(/^ruleId:[^,，]+[,，]\s*/, '');
+    return (
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: isMobile ? 'flex-start' : 'flex-end', gap: 5, flexWrap: 'wrap', minWidth: 0 }}>
+        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, padding: '2px 7px', borderRadius: D.radiusXs, border: '1px solid rgba(212,168,83,0.24)', background: 'rgba(212,168,83,0.08)', color: D.gold, fontSize: 11, lineHeight: 1.35, whiteSpace: 'nowrap' }}>
+          <span style={{ color: D.textDim }}>行为日期</span>
+          <span>{formatBehaviorRecordDateLabel(record, config.teachingWeeks)}</span>
+        </span>
+        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, padding: '2px 7px', borderRadius: D.radiusXs, border: `1px solid ${D.border}`, background: 'rgba(255,255,255,0.03)', color: D.textMid, fontSize: 11, lineHeight: 1.35, whiteSpace: 'nowrap' }}>
+          <span style={{ color: D.textDim }}>登记</span>
+          <span>{new Date(createdAt).toLocaleDateString('zh-CN', { month: 'numeric', day: 'numeric', hour: 'numeric', minute: '2-digit' })}</span>
+          {recordedBy && <span style={{ color: D.text }}>{recordedBy}</span>}
+        </span>
+        {cleanedRemark && (
+          <span style={{ color: D.textDim, fontSize: 11, lineHeight: 1.35 }}>
+            {cleanedRemark}
+          </span>
+        )}
+      </div>
+    );
+  };
+
   if (isMobile) {
     const selectedStudents = selectedStudentIds
       .map(id => students.find(student => student.id === id))
@@ -1393,18 +1439,16 @@ export default function RecordPage() {
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             {groupedRecords.slice(0, 20).map(group => {
               const isNeg = group.direction === 'negative';
-              const weightName = isNeg
-                ? config.negativeWeightNames[group.weight as NegativeWeight]
-                : config.positiveWeightNames[group.weight as PositiveWeight];
               return (
                 <MobileRecordItem
                   key={group.key}
                   leading={<span style={{ width: 28, height: 28, borderRadius: D.radiusXs, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: isNeg ? D.cinnabarDim : D.blueDim, color: isNeg ? D.cinnabar : D.blue }}>{isNeg ? <XCircle size={15} /> : <CheckCircle2 size={15} />}</span>}
                   title={<><b>{group.studentNames.slice(0, 4).join('、')}{group.studentNames.length > 4 ? `等${group.studentNames.length}人` : ''}</b> · {group.description}</>}
-                  meta={`${formatBehaviorRecordDateLabel(group.records[0], config.teachingWeeks)} · 登记：${new Date(group.createdAt).toLocaleString('zh-CN', { month: 'numeric', day: 'numeric', hour: 'numeric', minute: '2-digit' })}${group.recordedBy ? ` · ${group.recordedBy}` : ''}${group.remark ? ` · ${group.remark.replace(/^ruleId:[^,，]+[,，]\s*/, '')}` : ''}`}
+                  meta={renderRecordTimeChips(group.records[0], group.createdAt, group.recordedBy, group.remark)}
                   tags={<>
-                    <span style={{ fontSize: 10, color: isNeg ? D.cinnabar : D.blue, background: isNeg ? D.cinnabarDim : D.blueDim, borderRadius: 3, padding: '2px 5px' }}>{weightName}</span>
-                    {group.extraWeight > 0 && <span style={{ fontSize: 10, color: '#E8A030', background: 'rgba(232,160,48,0.15)', borderRadius: 3, padding: '2px 5px' }}>额外+{group.extraWeight}</span>}
+                    {group.effectLabels.map(label => (
+                      <span key={label} style={{ fontSize: 10, color: isNeg ? D.cinnabar : D.blue, background: isNeg ? D.cinnabarDim : D.blueDim, borderRadius: 3, padding: '2px 5px' }}>{label}</span>
+                    ))}
                     {group.hasShields && <span style={{ fontSize: 10, color: D.blue, background: D.blueDim, borderRadius: 3, padding: '2px 5px' }}>护盾-{group.totalShields}</span>}
                   </>}
                   action={canDeleteRecord && (
@@ -2592,14 +2636,6 @@ export default function RecordPage() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
               {groupedRecords.map(group => {
                 const isNeg = group.direction === 'negative';
-                const weightName = isNeg
-                  ? config.negativeWeightNames[group.weight as NegativeWeight]
-                  : config.positiveWeightNames[group.weight as PositiveWeight];
-                const effectiveGroupWeight = isNeg
-                  ? (group.records[0].studentCardSide === 'back' ? 1 + group.extraWeight : (group.weight as number) + group.extraWeight)
-                  : (group.weight as number) + group.extraWeight;
-                const negativeGroupUnit = group.records[0].studentCardSide === 'back' ? '心魔' : config.blankMarkName;
-                const positiveGroupUnit = group.records[0].studentCardSide === 'back' ? config.checkMarkName : '护盾';
                 const isExpanded = expandedGroups.has(group.key);
                 const allGroupSelected = group.allIds.every(id => selectedRecordIds.has(id));
                 const names = group.studentNames;
@@ -2629,9 +2665,13 @@ export default function RecordPage() {
                             });
                           }} style={{ cursor: 'pointer', flexShrink: 0 }} />
                         )}
-                        <span style={{ padding: '2px 8px', borderRadius: D.radiusXs, fontSize: 11, fontWeight: 600, flexShrink: 0, background: isNeg ? D.cinnabarDim : D.blueDim, color: isNeg ? D.cinnabar : D.blue }}>
-                          {weightName} {isNeg ? `${effectiveGroupWeight}${negativeGroupUnit}` : `${effectiveGroupWeight}${positiveGroupUnit}`}
-                        </span>
+                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5, flexShrink: 0 }}>
+                          {group.effectLabels.map(label => (
+                            <span key={label} style={{ padding: '2px 8px', borderRadius: D.radiusXs, fontSize: 11, fontWeight: 600, background: isNeg ? D.cinnabarDim : D.blueDim, color: isNeg ? D.cinnabar : D.blue }}>
+                              {label}
+                            </span>
+                          ))}
+                        </div>
                         <span className="student-name" style={{ fontSize: isMobile ? 12 : 13, color: D.text, fontWeight: 500, lineHeight: 1.45, minWidth: 0, flex: '1 1 180px', whiteSpace: 'normal', overflowWrap: 'break-word' }}>
                           {displayNames.join('、')}
                         </span>
@@ -2669,10 +2709,7 @@ export default function RecordPage() {
                         )}
                       </div>
                       <div style={{ display: 'flex', alignItems: 'center', justifyContent: isMobile ? 'flex-start' : 'flex-end', gap: 8, flexShrink: 0, flexWrap: 'wrap', minWidth: isMobile ? 0 : 180 }}>
-                        <span style={{ fontSize: 11, color: D.textDim }}>
-                          {formatBehaviorRecordDateLabel(group.records[0], config.teachingWeeks)} · 登记：{new Date(group.createdAt).toLocaleDateString('zh-CN', { month: 'numeric', day: 'numeric', hour: 'numeric', minute: '2-digit' })}
-                          {group.recordedBy && ` · ${group.recordedBy}`}
-                        </span>
+                        {renderRecordTimeChips(group.records[0], group.createdAt, group.recordedBy)}
                         {canDeleteRecord && (
                           group.allIds.some(id => showDeleteConfirm === id) ? (
                             <div style={{ display: 'flex', gap: 4 }}>

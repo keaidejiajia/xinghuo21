@@ -734,6 +734,20 @@ function BehaviorHistory({ student, onDeleteRecord }: { student: Student; onDele
   const timePeriods = config.timePeriods || [];
   const homeworkSubjects = config.homeworkSubjects || [];
 
+  const renderRecordTimeChips = (record: BehaviorRecord) => (
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: isMobile ? 'flex-start' : 'flex-end', gap: 5, flexWrap: 'wrap', minWidth: 0 }}>
+      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, padding: '2px 7px', borderRadius: D.radiusXs, border: '1px solid rgba(212,168,83,0.24)', background: 'rgba(212,168,83,0.08)', color: INK.starGold, fontSize: 10, lineHeight: 1.35, whiteSpace: 'nowrap' }}>
+        <span style={{ color: INK.textMuted }}>行为日期</span>
+        <span>{formatBehaviorRecordDateLabel(record, config.teachingWeeks)}</span>
+      </span>
+      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, padding: '2px 7px', borderRadius: D.radiusXs, border: `1px solid ${INK.border}`, background: 'rgba(255,255,255,0.03)', color: INK.textSecondary, fontSize: 10, lineHeight: 1.35, whiteSpace: 'nowrap' }}>
+        <span style={{ color: INK.textMuted }}>登记</span>
+        <span>{new Date(record.createdAt).toLocaleDateString('zh-CN', { month: 'numeric', day: 'numeric', hour: 'numeric', minute: '2-digit' })}</span>
+        {record.recordedBy && record.recordedBy !== 'demo' && <span style={{ color: INK.textPrimary }}>{record.recordedBy}</span>}
+      </span>
+    </div>
+  );
+
   const displayRecords = showAll ? studentRecords : studentRecords.slice(0, 200);
 
   return (
@@ -816,10 +830,7 @@ function BehaviorHistory({ student, onDeleteRecord }: { student: Student; onDele
                     return renderLevelChangeBadge(lc);
                   })()}
                   <div style={{ flex: 1 }} />
-                  <span style={{ fontSize: 11, color: INK.textMuted }}>
-                    {formatBehaviorRecordDateLabel(record, config.teachingWeeks)} · 登记：{new Date(record.createdAt).toLocaleDateString('zh-CN', { month: 'numeric', day: 'numeric', hour: 'numeric', minute: '2-digit' })}
-                    {record.recordedBy && record.recordedBy !== 'demo' && <span style={{ marginLeft: 4 }}>· {record.recordedBy}</span>}
-                  </span>
+                  {renderRecordTimeChips(record)}
                   {canDeleteRecord && (
                     showDeleteConfirm === record.id ? (
                       <div style={{ display: 'flex', gap: 3 }}>
@@ -869,10 +880,7 @@ function BehaviorHistory({ student, onDeleteRecord }: { student: Student; onDele
                   })()}
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexShrink: 0 }}>
-                  <span style={{ fontSize: 10, color: INK.textMuted }}>
-                    {formatBehaviorRecordDateLabel(record, config.teachingWeeks)} · 登记：{new Date(record.createdAt).toLocaleDateString('zh-CN', { month: 'numeric', day: 'numeric', hour: 'numeric', minute: '2-digit' })}
-                    {record.recordedBy && record.recordedBy !== 'demo' && <span style={{ marginLeft: 4 }}>· {record.recordedBy}</span>}
-                  </span>
+                  {renderRecordTimeChips(record)}
                   {canDeleteRecord && (
                     showDeleteConfirm === record.id ? (
                       <div style={{ display: 'flex', gap: 3 }}>
