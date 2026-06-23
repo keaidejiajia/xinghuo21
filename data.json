@@ -41469,14 +41469,15 @@
         "direction": "positive",
         "category": "学习",
         "weight": 1,
-        "name": "按时、按要求完成作业或",
+        "name": "按时、按要求完成作业或定时任务",
         "description": "由学习委员日常记录，如果此行为已经在负面行为中反选，则不再重复记录",
         "isHighSensitivity": false,
         "isComposite": false,
         "isInverseSelectable": false,
         "aliases": [
           "按时、按要求完成作业",
-          "由学习委员日常记录，如果此行为已经在负面行为中反选，则不再重复记录"
+          "由学习委员日常记录，如果此行为已经在负面行为中反选，则不再重复记录",
+          "按时、按要求完成作业或"
         ]
       },
       {
