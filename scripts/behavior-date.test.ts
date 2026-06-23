@@ -76,4 +76,20 @@ assert.equal(
   'behavior date label should stay compact for record history and student cards',
 );
 
+const mondayStartWeek: TeachingWeek[] = [
+  { weekNumber: 15, startDate: '2026-06-08', endDate: '2026-06-12' },
+];
+
+assert.equal(
+  formatBehaviorDateLabel('2026-06-07', mondayStartWeek),
+  '第15周 周日 6/7',
+  'the Sunday before a configured Monday-start teaching week should still show the upcoming teaching week',
+);
+
+assert.equal(
+  formatBehaviorDateLabel('2026-06-21', weeks),
+  '第14周 周日 6/21',
+  'weekend dates immediately after a configured teaching week should still show that teaching week',
+);
+
 console.log('behavior-date tests passed');

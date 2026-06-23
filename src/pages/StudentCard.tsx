@@ -741,12 +741,12 @@ function BehaviorHistory({ student, onDeleteRecord }: { student: Student; onDele
   };
 
   const renderRecordTimeChips = (record: BehaviorRecord) => (
-    <div style={{ display: 'flex', alignItems: 'center', justifyContent: isMobile ? 'flex-start' : 'flex-end', gap: 5, flexWrap: 'wrap', minWidth: 0 }}>
-      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, padding: '2px 7px', borderRadius: D.radiusXs, border: '1px solid rgba(212,168,83,0.24)', background: 'rgba(212,168,83,0.08)', color: INK.starGold, fontSize: 10, lineHeight: 1.35, whiteSpace: 'nowrap' }}>
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: isMobile ? 'flex-start' : 'flex-end', gap: isMobile ? 4 : 5, flexWrap: isMobile ? 'nowrap' : 'wrap', minWidth: 0, width: isMobile ? '100%' : undefined }}>
+      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, padding: isMobile ? '2px 5px' : '2px 7px', borderRadius: D.radiusXs, border: '1px solid rgba(212,168,83,0.24)', background: 'rgba(212,168,83,0.08)', color: INK.starGold, fontSize: 10, lineHeight: 1.35, whiteSpace: 'nowrap', flexShrink: 0 }}>
         <span style={{ color: INK.textMuted }}>行为日期</span>
         <span>{formatBehaviorRecordDateLabel(record, config.teachingWeeks)}</span>
       </span>
-      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, padding: '2px 7px', borderRadius: D.radiusXs, border: `1px solid ${INK.border}`, background: 'rgba(255,255,255,0.03)', color: INK.textSecondary, fontSize: 10, lineHeight: 1.35, whiteSpace: 'nowrap' }}>
+      <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, padding: isMobile ? '2px 5px' : '2px 7px', borderRadius: D.radiusXs, border: `1px solid ${INK.border}`, background: 'rgba(255,255,255,0.03)', color: INK.textSecondary, fontSize: 10, lineHeight: 1.35, whiteSpace: 'nowrap', flexShrink: 0 }}>
         <span style={{ color: INK.textMuted }}>登记</span>
         <span>{new Date(record.createdAt).toLocaleDateString('zh-CN', { month: 'numeric', day: 'numeric', hour: 'numeric', minute: '2-digit' })}</span>
         {record.recordedBy && record.recordedBy !== 'demo' && <span style={{ color: INK.textPrimary }}>{record.recordedBy}</span>}
@@ -854,7 +854,7 @@ function BehaviorHistory({ student, onDeleteRecord }: { student: Student; onDele
           </div>
         )}
 
-        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'minmax(0, 1fr) auto', gap: isMobile ? recordRowGap : 12, alignItems: isMobile ? 'start' : 'center', minWidth: 0, paddingRight: deleteSpace }}>
+        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'minmax(0, 1fr) auto', gap: isMobile ? recordRowGap : 12, alignItems: isMobile ? 'start' : 'center', minWidth: 0, paddingRight: isMobile ? 0 : deleteSpace }}>
           <div style={{ display: 'flex', flexWrap: 'wrap', columnGap: 8, rowGap: 4, alignItems: 'baseline', minWidth: 0 }}>
             <span style={{
               fontSize: isMobile ? 12 : 11,

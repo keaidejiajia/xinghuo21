@@ -36,6 +36,32 @@ export function findBehaviorTeachingWeek(
   return teachingWeeks.find(week => dateStr >= week.startDate && dateStr <= week.endDate);
 }
 
+function dayDiff(laterDateStr: string, earlierDateStr: string): number {
+  return Math.round((parseLocalDate(laterDateStr).getTime() - parseLocalDate(earlierDateStr).getTime()) / 86400000);
+}
+
+function distanceToTeachingWeek(dateStr: string, week: TeachingWeek): number {
+  if (dateStr < week.startDate) return dayDiff(week.startDate, dateStr);
+  if (dateStr > week.endDate) return dayDiff(dateStr, week.endDate);
+  return 0;
+}
+
+function findDisplayTeachingWeek(teachingWeeks: TeachingWeek[], dateStr: string): TeachingWeek | undefined {
+  const direct = findBehaviorTeachingWeek(teachingWeeks, dateStr);
+  if (direct) return direct;
+
+  const nextTeachingWeek = teachingWeeks.find(week => dayDiff(week.startDate, dateStr) === 1);
+  if (nextTeachingWeek) return nextTeachingWeek;
+
+  const previousTeachingWeek = teachingWeeks.find(week => {
+    const diff = dayDiff(dateStr, week.endDate);
+    return diff >= 1 && diff <= 2;
+  });
+  if (previousTeachingWeek) return previousTeachingWeek;
+
+  return [...teachingWeeks].sort((a, b) => distanceToTeachingWeek(dateStr, a) - distanceToTeachingWeek(dateStr, b))[0];
+}
+
 function getFallbackWeekStart(dateStr: string): string {
   const date = parseLocalDate(dateStr);
   const day = date.getDay();
@@ -75,7 +101,7 @@ export function buildWeekdayOptions(
 }
 
 export function formatBehaviorDateLabel(dateStr: string, teachingWeeks: TeachingWeek[]): string {
-  const week = findBehaviorTeachingWeek(teachingWeeks, dateStr);
+  const week = findDisplayTeachingWeek(teachingWeeks, dateStr);
   const prefix = week ? `第${week.weekNumber}周 ` : '';
   return `${prefix}${getWeekdayName(dateStr)} ${formatShortDate(dateStr)}`;
 }

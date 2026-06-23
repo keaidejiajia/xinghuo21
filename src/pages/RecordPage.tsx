@@ -1035,12 +1035,12 @@ export default function RecordPage() {
   ) => {
     const cleanedRemark = remark?.replace(/^ruleId:[^,，]+[,，]\s*/, '');
     return (
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: isMobile ? 'flex-start' : 'flex-end', gap: 5, flexWrap: 'wrap', minWidth: 0 }}>
-        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, padding: '2px 7px', borderRadius: D.radiusXs, border: '1px solid rgba(212,168,83,0.24)', background: 'rgba(212,168,83,0.08)', color: D.gold, fontSize: 11, lineHeight: 1.35, whiteSpace: 'nowrap' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: isMobile ? 'flex-start' : 'flex-end', gap: isMobile ? 4 : 5, flexWrap: isMobile ? 'nowrap' : 'wrap', minWidth: 0, width: isMobile ? '100%' : undefined }}>
+        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, padding: isMobile ? '2px 5px' : '2px 7px', borderRadius: D.radiusXs, border: '1px solid rgba(212,168,83,0.24)', background: 'rgba(212,168,83,0.08)', color: D.gold, fontSize: 11, lineHeight: 1.35, whiteSpace: 'nowrap', flexShrink: 0 }}>
           <span style={{ color: D.textDim }}>行为日期</span>
           <span>{formatBehaviorRecordDateLabel(record, config.teachingWeeks)}</span>
         </span>
-        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, padding: '2px 7px', borderRadius: D.radiusXs, border: `1px solid ${D.border}`, background: 'rgba(255,255,255,0.03)', color: D.textMid, fontSize: 11, lineHeight: 1.35, whiteSpace: 'nowrap' }}>
+        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, padding: isMobile ? '2px 5px' : '2px 7px', borderRadius: D.radiusXs, border: `1px solid ${D.border}`, background: 'rgba(255,255,255,0.03)', color: D.textMid, fontSize: 11, lineHeight: 1.35, whiteSpace: 'nowrap', flexShrink: 0 }}>
           <span style={{ color: D.textDim }}>登记</span>
           <span>{new Date(createdAt).toLocaleDateString('zh-CN', { month: 'numeric', day: 'numeric', hour: 'numeric', minute: '2-digit' })}</span>
           {recordedBy && <span style={{ color: D.text }}>{recordedBy}</span>}
