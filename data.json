@@ -907,15 +907,7 @@
       "createdAt": "2026-05-19T11:15:43.713Z",
       "updatedAt": "2026-06-23T01:33:39.506Z",
       "totalShieldsExchanged": 0,
-      "riseTaskCompleted": false,
-      "lastLevelChange": {
-        "direction": "flip",
-        "fromLevel": 6,
-        "toLevel": 1,
-        "fromSide": "front",
-        "toSide": "back",
-        "timestamp": "2026-06-22T12:37:17.012Z"
-      }
+      "riseTaskCompleted": false
     },
     {
       "id": "39",
