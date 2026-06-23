@@ -1034,6 +1034,31 @@ export default function RecordPage() {
     remark?: string,
   ) => {
     const cleanedRemark = remark?.replace(/^ruleId:[^,，]+[,，]\s*/, '');
+    const behaviorDate = behaviorRecordLocalDate(record);
+    const createdDate = toLocalDateStr(new Date(createdAt));
+    const registeredAtLabel = isMobile && createdDate === behaviorDate
+      ? new Date(createdAt).toLocaleTimeString('zh-CN', { hour: 'numeric', minute: '2-digit', hour12: false })
+      : new Date(createdAt).toLocaleDateString('zh-CN', { month: 'numeric', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+    if (isMobile) {
+      return (
+        <div style={{ display: 'flex', alignItems: 'center', gap: 7, flexWrap: 'nowrap', width: '100%', minWidth: 0, maxWidth: '100%', boxSizing: 'border-box', overflowX: 'auto', overflowY: 'hidden', WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', paddingBottom: 1 }}>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, padding: '2px 5px', borderRadius: D.radiusXs, border: '1px solid rgba(212,168,83,0.24)', background: 'rgba(212,168,83,0.08)', color: D.gold, fontSize: 10.5, lineHeight: 1.35, whiteSpace: 'nowrap', flex: '0 0 auto' }}>
+            <span style={{ color: D.textDim }}>日期</span>
+            <span>{formatBehaviorRecordDateLabel(record, config.teachingWeeks)}</span>
+          </span>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, padding: '2px 5px', borderRadius: D.radiusXs, border: `1px solid ${D.border}`, background: 'rgba(255,255,255,0.03)', color: D.textMid, fontSize: 10.5, lineHeight: 1.35, whiteSpace: 'nowrap', flex: '0 0 auto' }}>
+            <span style={{ color: D.textDim }}>登记</span>
+            <span>{registeredAtLabel}</span>
+            {recordedBy && <span style={{ color: D.text }}>{recordedBy}</span>}
+          </span>
+          {cleanedRemark && (
+            <span style={{ color: D.textDim, fontSize: 11, lineHeight: 1.45, whiteSpace: 'nowrap', flex: '0 0 auto' }}>
+              {cleanedRemark}
+            </span>
+          )}
+        </div>
+      );
+    }
     return (
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: isMobile ? 'flex-start' : 'flex-end', gap: isMobile ? 4 : 5, flexWrap: isMobile ? 'nowrap' : 'wrap', minWidth: 0, width: isMobile ? '100%' : undefined }}>
         <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, padding: isMobile ? '2px 5px' : '2px 7px', borderRadius: D.radiusXs, border: '1px solid rgba(212,168,83,0.24)', background: 'rgba(212,168,83,0.08)', color: D.gold, fontSize: 11, lineHeight: 1.35, whiteSpace: 'nowrap', flexShrink: 0 }}>
@@ -1042,7 +1067,7 @@ export default function RecordPage() {
         </span>
         <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, padding: isMobile ? '2px 5px' : '2px 7px', borderRadius: D.radiusXs, border: `1px solid ${D.border}`, background: 'rgba(255,255,255,0.03)', color: D.textMid, fontSize: 11, lineHeight: 1.35, whiteSpace: 'nowrap', flexShrink: 0 }}>
           <span style={{ color: D.textDim }}>登记</span>
-          <span>{new Date(createdAt).toLocaleDateString('zh-CN', { month: 'numeric', day: 'numeric', hour: 'numeric', minute: '2-digit' })}</span>
+          <span>{registeredAtLabel}</span>
           {recordedBy && <span style={{ color: D.text }}>{recordedBy}</span>}
         </span>
         {cleanedRemark && (
@@ -1473,7 +1498,7 @@ export default function RecordPage() {
                   </span>
 
                   <div style={{ display: 'grid', gap: 6, minWidth: 0 }}>
-                    <div style={{ display: 'grid', gap: 3, minWidth: 0, paddingRight: canDeleteRecord ? 40 : 0 }}>
+                    <div style={{ display: 'grid', gap: 3, minWidth: 0, paddingRight: canDeleteRecord ? 30 : 0 }}>
                       <div style={{ fontSize: 14, fontWeight: 700, color: D.text, lineHeight: 1.45, wordBreak: 'keep-all', overflowWrap: 'break-word' }}>
                         {group.description}
                         {timePeriodName && <span style={{ color: D.gold, fontSize: 12, marginLeft: 5, whiteSpace: 'nowrap' }}>@{timePeriodName}</span>}
@@ -1496,7 +1521,7 @@ export default function RecordPage() {
                     )}
 
                     {(group.hasShields || showExpand) && (
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: group.hasShields ? 'space-between' : 'flex-end', gap: 10, flexWrap: 'wrap', minWidth: 0, lineHeight: 1.45 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', gap: 8, flexWrap: 'nowrap', width: '100%', minWidth: 0, maxWidth: '100%', boxSizing: 'border-box', overflowX: 'auto', overflowY: 'hidden', WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', paddingBottom: 1, lineHeight: 1.45 }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap', minWidth: 0 }}>
                         {group.hasShields && <span style={{ fontSize: 11, color: D.blue, background: 'rgba(123,139,181,0.10)', border: '1px solid rgba(123,139,181,0.16)', borderRadius: D.radiusXs, padding: '1px 6px', lineHeight: 1.45 }}>护盾-{group.totalShields}</span>}
                       </div>
@@ -1519,7 +1544,23 @@ export default function RecordPage() {
                               return next;
                             });
                           }}
-                          style={{ color: D.gold, fontSize: 12, lineHeight: 1.45, cursor: 'pointer', whiteSpace: 'nowrap', outline: 'none' }}
+                          style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            minHeight: 22,
+                            padding: '1px 7px',
+                            borderRadius: D.radiusXs,
+                            border: '1px solid rgba(212,168,83,0.24)',
+                            background: 'rgba(212,168,83,0.07)',
+                            color: D.gold,
+                            fontSize: 12,
+                            lineHeight: 1.45,
+                            cursor: 'pointer',
+                            whiteSpace: 'nowrap',
+                            outline: 'none',
+                            maxWidth: '100%',
+                          }}
                         >
                           {expandLabel}
                         </span>
@@ -1548,8 +1589,8 @@ export default function RecordPage() {
                         <span onClick={() => setShowDeleteConfirm(null)} style={{ borderRadius: D.radiusXs, border: `1px solid ${D.border}`, background: D.bgCard, color: D.textDim, padding: '2px 6px', fontSize: 11, lineHeight: 1.45, cursor: 'pointer', whiteSpace: 'nowrap' }}>取消</span>
                       </div>
                     ) : (
-                      <button type="button" onClick={() => setShowDeleteConfirm(group.allIds[0])} style={{ width: 30, height: 30, minWidth: 30, minHeight: 30, padding: 0, borderRadius: D.radiusXs, border: `1px solid ${D.border}`, background: D.bgCard, color: D.textDim, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        <Trash2 size={14} />
+                      <button type="button" onClick={() => setShowDeleteConfirm(group.allIds[0])} style={{ width: 26, height: 26, minWidth: 26, minHeight: 26, padding: 0, borderRadius: D.radiusXs, border: `1px solid ${D.border}`, background: 'rgba(255,255,255,0.025)', color: D.textDim, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <Trash2 size={13} />
                       </button>
                     )
                     }
