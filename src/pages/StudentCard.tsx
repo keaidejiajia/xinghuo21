@@ -14,7 +14,7 @@ import {
   Save,
   ShoppingBag,
 } from 'lucide-react';
-import type { Student, CardSide, NegativeWeight, PositiveWeight, BehaviorRecord } from '../types';
+import type { Student, CardSide, PositiveWeight, BehaviorRecord } from '../types';
 import {
   getLevelName,
   getLevelDescription,
@@ -32,7 +32,7 @@ import { toLocalDateStr } from '../lib/utils';
 import { useStudents } from '../lib/store';
 import { computeStudentLevelChanges } from '../lib/audit';
 import { formatLevelChangeDisplay } from '../lib/levelChangeDisplay';
-import { formatBehaviorRecordTitle } from '../lib/behaviorDisplay';
+import { formatBehaviorBaseEffectLabel, formatBehaviorRecordTitle, summarizeBehaviorRecordImpacts } from '../lib/behaviorDisplay';
 import { formatBehaviorRecordDateLabel } from '../lib/behaviorDate';
 import { recordParentAccess } from '../lib/parentAccessClient';
 import { useAuth } from '../hooks/useAuth';
@@ -733,6 +733,32 @@ function BehaviorHistory({ student, onDeleteRecord }: { student: Student; onDele
   };
   const timePeriods = config.timePeriods || [];
   const homeworkSubjects = config.homeworkSubjects || [];
+  const impactDisplayOptions = {
+    blankMarkName: config.blankMarkName,
+    checkMarkName: config.checkMarkName,
+    negativeWeightNames: config.negativeWeightNames,
+    positiveWeightNames: config.positiveWeightNames,
+  };
+
+  const cleanRecordRemark = (remark?: string) => remark?.replace(/^ruleId:[^,，]+[,，]\s*/, '').trim();
+
+  const getRecordImpactRows = (record: BehaviorRecord) => summarizeBehaviorRecordImpacts(
+    [record],
+    impactDisplayOptions,
+    () => student.name,
+  ).detailRows;
+
+  const getActualImpactLabel = (record: BehaviorRecord) => {
+    const extraWeight = record.extraWeight ?? 0;
+    if (record.direction === 'negative') {
+      return record.studentCardSide === 'back'
+        ? `实际 ${1 + extraWeight}心魔`
+        : `实际 ${(record.weight as number) + extraWeight}${config.blankMarkName}`;
+    }
+    return record.studentCardSide === 'back'
+      ? `实际 ${(record.weight as number) + extraWeight}${config.checkMarkName}`
+      : `实际 ${(record.weight as number) + extraWeight}护盾`;
+  };
 
   const renderRecordTimeChips = (record: BehaviorRecord) => (
     <div style={{ display: 'flex', alignItems: 'center', justifyContent: isMobile ? 'flex-start' : 'flex-end', gap: 5, flexWrap: 'wrap', minWidth: 0 }}>
@@ -747,6 +773,143 @@ function BehaviorHistory({ student, onDeleteRecord }: { student: Student; onDele
       </span>
     </div>
   );
+
+  const renderRecordCard = (record: BehaviorRecord) => {
+    const isNeg = record.direction === 'negative';
+    const baseLabel = formatBehaviorBaseEffectLabel(record, impactDisplayOptions);
+    const actualLabel = getActualImpactLabel(record);
+    const impactRows = getRecordImpactRows(record);
+    const title = formatBehaviorRecordTitle(record, homeworkSubjects);
+    const remark = cleanRecordRemark(record.remark);
+    const timePeriod = record.timePeriodId ? timePeriods.find(tp => tp.id === record.timePeriodId)?.name || record.timePeriodId : '';
+    const levelChange = levelChangeMap.get(record.id);
+    const showActualLabel = impactRows.length > 0 || record.shieldsConsumed > 0;
+
+    return (
+      <div
+        key={record.id}
+        style={{
+          display: 'grid',
+          gridTemplateColumns: isMobile ? '1fr' : 'auto minmax(0, 1fr) auto',
+          gap: isMobile ? 8 : 12,
+          alignItems: 'start',
+          padding: isMobile ? '11px 12px' : '10px 12px',
+          borderRadius: D.radiusSm,
+          background: D.bgCard,
+          border: D.glassBorder,
+        }}
+      >
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5, alignItems: 'center', minWidth: 0 }}>
+          <span style={{
+            padding: '2px 8px',
+            borderRadius: D.radiusXs,
+            fontSize: 11,
+            fontWeight: 700,
+            lineHeight: 1.35,
+            fontFamily: "'LXGW WenKai', 'Cinzel', serif",
+            background: isNeg ? 'rgba(196,65,37,0.1)' : 'rgba(123,139,181,0.1)',
+            color: isNeg ? '#e07060' : INK.starBlue,
+            border: `1px solid ${isNeg ? 'rgba(196,65,37,0.18)' : 'rgba(123,139,181,0.2)'}`,
+            whiteSpace: 'nowrap',
+          }}>
+            {baseLabel}
+          </span>
+          {showActualLabel && (
+            <span style={{
+              padding: '2px 7px',
+              borderRadius: D.radiusXs,
+              fontSize: 11,
+              fontWeight: 600,
+              lineHeight: 1.35,
+              background: record.studentCardSide === 'back' ? 'rgba(196,65,37,0.08)' : 'rgba(212,168,83,0.08)',
+              color: record.studentCardSide === 'back' ? INK.flameCinnabar : INK.starGold,
+              border: `1px solid ${record.studentCardSide === 'back' ? 'rgba(196,65,37,0.18)' : 'rgba(212,168,83,0.18)'}`,
+              whiteSpace: 'nowrap',
+            }}>
+              {actualLabel}
+            </span>
+          )}
+        </div>
+
+        <div style={{ minWidth: 0, display: 'grid', gap: 6 }}>
+          <div style={{ display: 'flex', alignItems: 'baseline', gap: 6, flexWrap: 'wrap', minWidth: 0 }}>
+            <span style={{
+              fontSize: isMobile ? 13 : 13,
+              fontFamily: "'LXGW WenKai', 'Cinzel', serif",
+              color: INK.textPrimary,
+              fontWeight: 700,
+              lineHeight: 1.45,
+              wordBreak: 'keep-all',
+              overflowWrap: 'break-word',
+              minWidth: 0,
+            }}>
+              {title}
+            </span>
+            {timePeriod && (
+              <span style={{ fontSize: 11, color: INK.starGold, opacity: 0.9, whiteSpace: 'nowrap' }}>
+                @{timePeriod}
+              </span>
+            )}
+            {record.isHighSensitivity && <AlertTriangle size={12} style={{ color: INK.flameCinnabar, flexShrink: 0 }} />}
+          </div>
+
+          {remark && (
+            <div style={{ fontSize: 12, color: INK.textMuted, lineHeight: 1.5, wordBreak: 'keep-all', overflowWrap: 'break-word' }}>
+              {remark}
+            </div>
+          )}
+
+          {(impactRows.length > 0 || record.shieldsConsumed > 0 || levelChange) && (
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5, alignItems: 'center' }}>
+              {impactRows.map(row => (
+                <span
+                  key={row.label}
+                  style={{
+                    fontSize: 11,
+                    color: row.tone === 'warning' ? INK.starGold : INK.flameCinnabar,
+                    background: row.tone === 'warning' ? 'rgba(212,168,83,0.08)' : 'rgba(196,65,37,0.08)',
+                    border: `1px solid ${row.tone === 'warning' ? 'rgba(212,168,83,0.18)' : 'rgba(196,65,37,0.18)'}`,
+                    borderRadius: D.radiusXs,
+                    padding: '2px 7px',
+                    lineHeight: 1.35,
+                  }}
+                >
+                  {row.label}
+                </span>
+              ))}
+              {record.shieldsConsumed > 0 && (
+                <span style={{ fontSize: 11, color: INK.starBlue, background: 'rgba(123,139,181,0.08)', border: '1px solid rgba(123,139,181,0.18)', borderRadius: D.radiusXs, padding: '2px 7px', lineHeight: 1.35 }}>
+                  消耗{record.shieldsConsumed}护盾
+                </span>
+              )}
+              {levelChange && renderLevelChangeBadge(levelChange, true)}
+            </div>
+          )}
+        </div>
+
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: isMobile ? 'space-between' : 'flex-end', gap: 6, flexWrap: 'wrap', minWidth: isMobile ? 0 : 260 }}>
+          {renderRecordTimeChips(record)}
+          {canDeleteRecord && (
+            showDeleteConfirm === record.id ? (
+              <div style={{ display: 'flex', gap: 3 }}>
+                <button disabled={deletingRecordId === record.id} onClick={async () => {
+                  setDeletingRecordId(record.id);
+                  const synced = await onDeleteRecord(record.id);
+                  if (synced) setShowDeleteConfirm(null);
+                  setDeletingRecordId(null);
+                }} style={{ padding: isMobile ? '2px 8px' : '1px 6px', borderRadius: D.radiusXs, fontSize: isMobile ? 11 : 10, cursor: deletingRecordId === record.id ? 'wait' : 'pointer', opacity: deletingRecordId === record.id ? 0.65 : 1, fontFamily: "'LXGW WenKai', 'Cinzel', serif", background: 'rgba(196,65,37,0.15)', border: '1px solid rgba(196,65,37,0.35)', color: INK.flameCinnabar }}>{deletingRecordId === record.id ? '同步中' : '确认'}</button>
+                <button onClick={() => setShowDeleteConfirm(null)} style={{ padding: isMobile ? '2px 8px' : '1px 6px', borderRadius: D.radiusXs, fontSize: isMobile ? 11 : 10, cursor: 'pointer', fontFamily: "'LXGW WenKai', 'Cinzel', serif", background: 'rgba(74,83,112,0.15)', border: `1px solid ${INK.border}`, color: INK.textSecondary }}>取消</button>
+              </div>
+            ) : (
+              <button onClick={() => setShowDeleteConfirm(record.id)} style={{ width: isMobile ? 28 : 26, height: isMobile ? 28 : 26, borderRadius: D.radiusXs, cursor: 'pointer', background: 'transparent', border: '1px solid rgba(196,65,37,0.2)', color: INK.textMuted, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                <Trash2 size={isMobile ? 12 : 10} />
+              </button>
+            )
+          )}
+        </div>
+      </div>
+    );
+  };
 
   const displayRecords = showAll ? studentRecords : studentRecords.slice(0, 200);
 
@@ -789,119 +952,8 @@ function BehaviorHistory({ student, onDeleteRecord }: { student: Student; onDele
           暂无行为记录
         </div>
       ) : (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-          {displayRecords.map(record => {
-            const isNeg = record.direction === 'negative';
-            const weightName = isNeg
-              ? config.negativeWeightNames[record.weight as NegativeWeight]
-              : config.positiveWeightNames[record.weight as PositiveWeight];
-            const effectiveRecordWeight = isNeg
-              ? (record.studentCardSide === 'back' ? 1 + (record.extraWeight ?? 0) : (record.weight as number) + (record.extraWeight ?? 0))
-              : (record.weight as number) + (record.extraWeight ?? 0);
-            const negativeUnit = record.studentCardSide === 'back' ? '心魔' : config.blankMarkName;
-            const positiveUnit = record.studentCardSide === 'back' ? config.checkMarkName : '护盾';
-            const symbol = isNeg ? `${effectiveRecordWeight}${negativeUnit}` : `${effectiveRecordWeight}${positiveUnit}`;
-
-            // Mobile: stacked layout. Desktop: single-row layout.
-            if (isMobile) {
-            return (
-              <div key={record.id} style={{
-                padding: '10px 12px', borderRadius: D.radiusSm, background: D.bgCard, border: D.glassBorder,
-              }}>
-                <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8, flexWrap: 'wrap' }}>
-                  <span style={{
-                    padding: '2px 8px', borderRadius: D.radiusXs, fontSize: 11, fontWeight: 600, flexShrink: 0,
-                    background: isNeg ? 'rgba(196,65,37,0.08)' : 'rgba(123,139,181,0.08)',
-                    color: isNeg ? '#e07060' : INK.starBlue,
-                  }}>
-                    {weightName} {symbol}
-                  </span>
-                  <span style={{ fontSize: 13, color: INK.textPrimary, flex: 1, minWidth: 0, lineHeight: 1.5, wordBreak: 'break-word' }}>
-                    {formatBehaviorRecordTitle(record, homeworkSubjects)}
-                    {record.remark && <span style={{ color: INK.textMuted, marginLeft: 4 }}>({record.remark.replace(/^ruleId:[^,，]+[,，]\s*/, '')})</span>}
-                  </span>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap', marginTop: 6 }}>
-                  {record.timePeriodId && <span style={{ fontSize: 11, color: INK.starGold, opacity: 0.8 }}>@{timePeriods.find(tp => tp.id === record.timePeriodId)?.name || record.timePeriodId}</span>}
-                  {record.shieldsConsumed > 0 && <span style={{ fontSize: 11, color: INK.starBlue }}>消耗{record.shieldsConsumed}护盾</span>}
-                  {record.isHighSensitivity && <AlertTriangle size={12} style={{ color: INK.flameCinnabar }} />}
-                  {levelChangeMap.has(record.id) && (() => {
-                    const lc = levelChangeMap.get(record.id)!;
-                    return renderLevelChangeBadge(lc);
-                  })()}
-                  <div style={{ flex: 1 }} />
-                  {renderRecordTimeChips(record)}
-                  {canDeleteRecord && (
-                    showDeleteConfirm === record.id ? (
-                      <div style={{ display: 'flex', gap: 3 }}>
-                        <button disabled={deletingRecordId === record.id} onClick={async () => {
-                          setDeletingRecordId(record.id);
-                          const synced = await onDeleteRecord(record.id);
-                          if (synced) setShowDeleteConfirm(null);
-                          setDeletingRecordId(null);
-                        }} style={{ padding: '2px 8px', borderRadius: D.radiusXs, fontSize: 11, cursor: deletingRecordId === record.id ? 'wait' : 'pointer', opacity: deletingRecordId === record.id ? 0.65 : 1, background: 'rgba(196,65,37,0.15)', border: '1px solid rgba(196,65,37,0.35)', color: INK.flameCinnabar }}>{deletingRecordId === record.id ? '同步中' : '确认'}</button>
-                        <button onClick={() => setShowDeleteConfirm(null)} style={{ padding: '2px 8px', borderRadius: D.radiusXs, fontSize: 11, cursor: 'pointer', background: 'rgba(74,83,112,0.15)', border: `1px solid ${INK.border}`, color: INK.textSecondary }}>取消</button>
-                      </div>
-                    ) : (
-                      <button onClick={() => setShowDeleteConfirm(record.id)} style={{ padding: '2px 6px', borderRadius: D.radiusXs, cursor: 'pointer', background: 'transparent', border: '1px solid rgba(196,65,37,0.2)', color: INK.textMuted }}>
-                        <Trash2 size={12} />
-                      </button>
-                    )
-                  )}
-                </div>
-              </div>
-            );
-            }
-            // Desktop: original single-row layout
-            return (
-              <div key={record.id} style={{
-                display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-                padding: '8px 10px', borderRadius: D.radiusSm, background: D.bgCard, border: D.glassBorder,
-              }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 8, minWidth: 0 }}>
-                  <span style={{
-                    padding: '1px 6px', borderRadius: D.radiusXs, fontSize: 10, fontWeight: 600, flexShrink: 0,
-                    fontFamily: "'LXGW WenKai', 'Cinzel', serif",
-                    background: isNeg ? 'rgba(196,65,37,0.08)' : 'rgba(123,139,181,0.08)',
-                    color: isNeg ? '#e07060' : INK.starBlue,
-                  }}>
-                    {weightName} {symbol}
-                  </span>
-                  <span style={{ fontSize: 12, fontFamily: "'LXGW WenKai', 'Cinzel', serif", color: INK.textPrimary, overflow: 'hidden', textOverflow: 'ellipsis', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' as any, flex: 1, minWidth: 0, marginRight: 8 }}>
-                    {formatBehaviorRecordTitle(record, homeworkSubjects)}
-                    {record.remark && <span style={{ color: INK.textMuted, marginLeft: 6 }}>({record.remark.replace(/^ruleId:[^,，]+[,，]\s*/, '')})</span>}
-                  </span>
-                  {record.timePeriodId && <span style={{ fontSize: 10, color: INK.starGold, flexShrink: 0, opacity: 0.7 }}>@{timePeriods.find(tp => tp.id === record.timePeriodId)?.name || record.timePeriodId}</span>}
-                  {record.shieldsConsumed > 0 && <span style={{ fontSize: 10, color: INK.starBlue, flexShrink: 0 }}>消耗{record.shieldsConsumed}护盾</span>}
-                  {record.isHighSensitivity && <AlertTriangle size={10} style={{ color: INK.flameCinnabar, flexShrink: 0 }} />}
-                  {levelChangeMap.has(record.id) && (() => {
-                    const lc = levelChangeMap.get(record.id)!;
-                    return renderLevelChangeBadge(lc, true);
-                  })()}
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexShrink: 0 }}>
-                  {renderRecordTimeChips(record)}
-                  {canDeleteRecord && (
-                    showDeleteConfirm === record.id ? (
-                      <div style={{ display: 'flex', gap: 3 }}>
-                        <button disabled={deletingRecordId === record.id} onClick={async () => {
-                          setDeletingRecordId(record.id);
-                          const synced = await onDeleteRecord(record.id);
-                          if (synced) setShowDeleteConfirm(null);
-                          setDeletingRecordId(null);
-                        }} style={{ padding: '1px 6px', borderRadius: D.radiusXs, fontSize: 10, cursor: deletingRecordId === record.id ? 'wait' : 'pointer', opacity: deletingRecordId === record.id ? 0.65 : 1, fontFamily: "'LXGW WenKai', 'Cinzel', serif", background: 'rgba(196,65,37,0.15)', border: '1px solid rgba(196,65,37,0.35)', color: INK.flameCinnabar }}>{deletingRecordId === record.id ? '同步中' : '确认'}</button>
-                        <button onClick={() => setShowDeleteConfirm(null)} style={{ padding: '1px 6px', borderRadius: D.radiusXs, fontSize: 10, cursor: 'pointer', fontFamily: "'LXGW WenKai', 'Cinzel', serif", background: 'rgba(74,83,112,0.15)', border: `1px solid ${INK.border}`, color: INK.textSecondary }}>取消</button>
-                      </div>
-                    ) : (
-                      <button onClick={() => setShowDeleteConfirm(record.id)} style={{ padding: '1px 4px', borderRadius: D.radiusXs, cursor: 'pointer', background: 'transparent', border: '1px solid rgba(196,65,37,0.2)', color: INK.textMuted }}>
-                        <Trash2 size={10} />
-                      </button>
-                    )
-                  )}
-                </div>
-              </div>
-            );
-          })}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+          {displayRecords.map(record => renderRecordCard(record))}
           {studentRecords.length > 200 && !showAll && (
             <button onClick={() => setShowAll(true)} style={{ padding: '6px', borderRadius: D.radiusSm, fontSize: 12, cursor: 'pointer', fontFamily: "'LXGW WenKai', 'Cinzel', serif", background: D.bgGlass, border: '1px solid rgba(212,168,83,0.2)', color: INK.starGold, textAlign: 'center' }}>
               展开全部 {studentRecords.length} 条记录
