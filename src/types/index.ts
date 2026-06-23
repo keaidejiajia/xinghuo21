@@ -179,6 +179,7 @@ export interface BehaviorRecord {
   timePeriodId?: string;
   homeworkSubjectId?: string;
   homeworkTitle?: string;
+  occurredDate?: string;
   createdAt: string;
 }
 

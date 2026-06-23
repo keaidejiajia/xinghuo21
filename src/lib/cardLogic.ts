@@ -1,5 +1,5 @@
 import type { Student, CardSide, FrontLevel, BackLevel, LevelChange, BehaviorRecord, TeachingWeek } from '../types';
-import { toLocalDateStr, recordLocalDate, addDays, isTeachingDay } from './utils';
+import { behaviorRecordLocalDate, toLocalDateStr, recordLocalDate, addDays, isTeachingDay } from './utils';
 
 // ===== 核心卡片逻辑引擎 =====
 
@@ -280,7 +280,7 @@ export function getLevelOneTitleWeeks(
 }
 
 /** 星辉典范称号历史重放需要的最小记录字段。 */
-type LevelOneHistoryRecord = Pick<BehaviorRecord, 'id' | 'studentId' | 'direction' | 'weight' | 'extraWeight' | 'description' | 'remark' | 'createdAt'>;
+type LevelOneHistoryRecord = Pick<BehaviorRecord, 'id' | 'studentId' | 'direction' | 'weight' | 'extraWeight' | 'description' | 'remark' | 'occurredDate' | 'createdAt'>;
 
 interface LevelOneTitleHistoryConfig {
   teachingWeeks: Array<{ weekNumber: number; startDate: string; endDate: string }>;
@@ -413,7 +413,7 @@ export function getLevelOneTitleWeeksFromHistory(
     if (wasLevelOne && !isLevelOne) {
       levelOneSinceDate = null;
     } else if (!wasLevelOne && isLevelOne) {
-      levelOneSinceDate = recordLocalDate(record.createdAt);
+      levelOneSinceDate = behaviorRecordLocalDate(record);
     }
   }
 
@@ -494,8 +494,8 @@ export function checkHeartDemonAutoClear(
   const recentViolations = records.filter(r =>
     r.studentId === student.id &&
     r.direction === 'negative' &&
-    recordLocalDate(r.createdAt) >= twoWeeksStart &&
-    recordLocalDate(r.createdAt) <= todayStr
+    behaviorRecordLocalDate(r) >= twoWeeksStart &&
+    behaviorRecordLocalDate(r) <= todayStr
   );
 
   if (recentViolations.length === 0) {

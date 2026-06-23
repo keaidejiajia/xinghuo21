@@ -12,7 +12,8 @@ import { HeritageIcon, HeartDemonInlineIcon } from '../components/LevelIcon';
 import { MobileActionBar, MobilePage, MobileRecordItem, MobileSection, MobileSegmentedControl } from '../components/mobile/MobileUI';
 import { processNegativeBehavior, processPositiveBehavior, processPositiveBehaviorFront, processRise, addStarShield, getLevelName, donateHeritage, checkHeartDemonAutoClear } from '../lib/cardLogic';
 import { calculateNegativePenalty } from '../lib/negativePenalty';
-import { toLocalDateStr, recordLocalDate } from '../lib/utils';
+import { behaviorRecordLocalDate, toLocalDateStr } from '../lib/utils';
+import { buildWeekdayOptions, findBehaviorTeachingWeek, formatBehaviorRecordDateLabel } from '../lib/behaviorDate';
 import { buildBehaviorGroupSignature, formatBehaviorRecordTitle, sortBehaviorsForDisplay } from '../lib/behaviorDisplay';
 import type { BehaviorRecord, Category, NegativeWeight, PositiveWeight } from '../types';
 
@@ -102,7 +103,7 @@ interface BatchResult {
 
 export default function RecordPage() {
   const navigate = useNavigate();
-  const { students, records, updateStudent, addBehaviorRecord, deleteBehaviorRecord } = useStudents();
+  const { students, records, updateStudent, addBehaviorRecord: addRawBehaviorRecord, deleteBehaviorRecord } = useStudents();
   const { canDeleteRecord } = useAuth();
   const config = useConfig();
   const isMobile = useMobile();
@@ -117,6 +118,8 @@ export default function RecordPage() {
   const [selectedBehaviorId, setSelectedBehaviorId] = useState('');
   const [description, setDescription] = useState('');
   const [recordedBy, setRecordedBy] = useState(() => localStorage.getItem('last_recorder') || '');
+  const [selectedBehaviorDate, setSelectedBehaviorDate] = useState(() => toLocalDateStr());
+  const [selectedBehaviorWeekNumber, setSelectedBehaviorWeekNumber] = useState<number | undefined>(undefined);
 
   const [batchResults, setBatchResults] = useState<BatchResult[] | null>(null);
   const [shieldResults, setShieldResults] = useState<BatchResult[] | null>(null);
@@ -141,6 +144,9 @@ export default function RecordPage() {
   const [syncError, setSyncError] = useState('');
   const timePeriods = config.timePeriods || [];
   const homeworkSubjects = config.homeworkSubjects || [];
+  const addBehaviorRecord = useCallback((record: Parameters<typeof addRawBehaviorRecord>[0]) => {
+    return addRawBehaviorRecord({ ...record, occurredDate: selectedBehaviorDate });
+  }, [addRawBehaviorRecord, selectedBehaviorDate]);
 
   // Directional sliding transition
   const [slideDirection, setSlideDirection] = useState<'left' | 'right'>('right');
@@ -185,7 +191,7 @@ export default function RecordPage() {
     for (const record of displayedRecords) {
       const date = new Date(record.createdAt);
       const minuteKey = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}-${date.getHours()}-${date.getMinutes()}`;
-      const groupKey = `${buildBehaviorGroupSignature(record)}|${record.direction}|${record.weight}|${record.extraWeight ?? 0}|${record.penaltyReasons?.join(',') ?? ''}|${record.studentCardSide ?? ''}|${record.recordedBy}|${minuteKey}`;
+      const groupKey = `${buildBehaviorGroupSignature(record)}|${behaviorRecordLocalDate(record)}|${record.direction}|${record.weight}|${record.extraWeight ?? 0}|${record.penaltyReasons?.join(',') ?? ''}|${record.studentCardSide ?? ''}|${record.recordedBy}|${minuteKey}`;
       if (!groupMap.has(groupKey)) groupMap.set(groupKey, []);
       groupMap.get(groupKey)!.push(record);
     }
@@ -198,6 +204,7 @@ export default function RecordPage() {
       weight: recs[0].weight,
       extraWeight: recs[0].extraWeight ?? 0,
       createdAt: recs[0].createdAt,
+      occurredDate: behaviorRecordLocalDate(recs[0]),
       remark: recs[0].remark,
       hasShields: recs.some(r => r.shieldsConsumed > 0),
       totalShields: recs.reduce((s, r) => s + r.shieldsConsumed, 0),
@@ -252,6 +259,36 @@ export default function RecordPage() {
   };
 
   const today = toLocalDateStr();
+  const behaviorWeek = useMemo(
+    () => selectedBehaviorWeekNumber
+      ? config.teachingWeeks.find(week => week.weekNumber === selectedBehaviorWeekNumber)
+      : findBehaviorTeachingWeek(config.teachingWeeks, selectedBehaviorDate),
+    [config.teachingWeeks, selectedBehaviorDate, selectedBehaviorWeekNumber],
+  );
+  const behaviorDateOptions = useMemo(
+    () => buildWeekdayOptions(config.teachingWeeks, selectedBehaviorDate, today, behaviorWeek?.weekNumber),
+    [config.teachingWeeks, selectedBehaviorDate, today, behaviorWeek?.weekNumber],
+  );
+  const behaviorDateTitle = behaviorWeek ? `行为日期 · 第${behaviorWeek.weekNumber}周` : '行为日期';
+  const handleBehaviorWeekChange = useCallback((weekNumber: number) => {
+    const week = config.teachingWeeks.find(item => item.weekNumber === weekNumber);
+    if (!week) return;
+    setSelectedBehaviorWeekNumber(week.weekNumber);
+    setSelectedBehaviorDate(today >= week.startDate && today <= week.endDate ? today : week.startDate);
+  }, [config.teachingWeeks, today]);
+
+  useEffect(() => {
+    if (!selectedBehaviorWeekNumber) {
+      const week = findBehaviorTeachingWeek(config.teachingWeeks, today);
+      if (week) setSelectedBehaviorWeekNumber(week.weekNumber);
+    }
+  }, [config.teachingWeeks, selectedBehaviorWeekNumber, today]);
+
+  useEffect(() => {
+    if (behaviorWeek && (selectedBehaviorDate < behaviorWeek.startDate || selectedBehaviorDate > behaviorWeek.endDate)) {
+      setSelectedBehaviorDate(today >= behaviorWeek.startDate && today <= behaviorWeek.endDate ? today : behaviorWeek.startDate);
+    }
+  }, [behaviorWeek, selectedBehaviorDate, today]);
   const activeLimitedEvents = useMemo(() =>
     config.limitedEvents.filter(e => e.isActive && e.startDate <= today && e.endDate >= today),
     [config.limitedEvents, today]
@@ -446,11 +483,10 @@ export default function RecordPage() {
 
       // Daily count check — silent truncation
       if (selectedBehavior?.maxDailyCount) {
-        const todayStr = new Date().toISOString().slice(0, 10);
         const todayCount = records.filter(r =>
           r.studentId === studentId &&
           r.description === selectedBehavior.name &&
-          r.createdAt.startsWith(todayStr)
+          behaviorRecordLocalDate(r) === selectedBehaviorDate
         ).length;
         const remaining = selectedBehavior.maxDailyCount - todayCount;
         if (remaining <= 0) {
@@ -612,8 +648,7 @@ export default function RecordPage() {
 
       // Auto-rule penalty check: weekly_behavior_count rules with blank/heartDemon effect
       if (effectiveDirection === 'negative' && selectedBehavior) {
-        const todayStr = toLocalDateStr(new Date());
-        const currentWeek = config.teachingWeeks.find(w => todayStr >= w.startDate && todayStr <= w.endDate);
+        const currentWeek = findBehaviorTeachingWeek(config.teachingWeeks, selectedBehaviorDate);
         if (currentWeek) {
           const penaltyRules = config.autoRules.filter(r =>
             r.isActive &&
@@ -630,8 +665,8 @@ export default function RecordPage() {
               r.direction === 'negative' &&
               r.description === selectedBehavior.name &&
               !r.isAutoRule &&
-              recordLocalDate(r.createdAt) >= currentWeek.startDate &&
-              recordLocalDate(r.createdAt) <= currentWeek.endDate
+              behaviorRecordLocalDate(r) >= currentWeek.startDate &&
+              behaviorRecordLocalDate(r) <= currentWeek.endDate
             ).length + applyCount;
             // Only trigger when exactly reaching threshold, not beyond
             if (weeklyCount >= threshold) {
@@ -640,8 +675,8 @@ export default function RecordPage() {
                 r.studentId === studentId &&
                 r.isAutoRule &&
                 r.remark && r.remark.includes(`ruleId:${rule.id}`) &&
-                recordLocalDate(r.createdAt) >= currentWeek.startDate &&
-                recordLocalDate(r.createdAt) <= currentWeek.endDate
+                behaviorRecordLocalDate(r) >= currentWeek.startDate &&
+                behaviorRecordLocalDate(r) <= currentWeek.endDate
               );
               if (!alreadyTriggered) {
                 if (rule.effectType === 'blankAndHeartDemon') {
@@ -895,6 +930,80 @@ export default function RecordPage() {
     };
   }, [batchResults, shieldResults]);
 
+  const renderBehaviorDateButtons = (compact = false) => (
+    <div style={{
+      display: 'flex',
+      gap: 6,
+      overflowX: compact ? 'auto' : undefined,
+      flexWrap: compact ? 'nowrap' : 'wrap',
+      paddingBottom: compact ? 2 : 0,
+      WebkitOverflowScrolling: 'touch',
+    }}>
+      {behaviorDateOptions.map(option => {
+        const selected = option.date === selectedBehaviorDate;
+        return (
+          <button
+            key={option.date}
+            type="button"
+            onClick={() => setSelectedBehaviorDate(option.date)}
+            style={{
+              minWidth: compact ? 74 : 78,
+              minHeight: compact ? 38 : 36,
+              padding: compact ? '5px 8px' : '5px 10px',
+              borderRadius: D.radiusXs,
+              border: `1px solid ${selected ? D.borderGlow : D.border}`,
+              background: selected ? D.goldDim : 'rgba(255,255,255,0.025)',
+              color: selected ? D.gold : D.textMid,
+              fontSize: 12,
+              fontFamily: "'LXGW WenKai', 'Cinzel', serif",
+              cursor: 'pointer',
+              flex: compact ? '0 0 auto' : '0 0 auto',
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 4,
+              whiteSpace: 'nowrap',
+              boxShadow: selected ? '0 0 14px rgba(212,168,83,0.10)' : 'none',
+            }}
+          >
+            <span style={{ fontWeight: selected ? 700 : 500 }}>{option.weekdayName}</span>
+            <span style={{ opacity: selected ? 0.95 : 0.72 }}>{option.shortDate}</span>
+            {option.isToday && (
+              <span style={{ fontSize: 10, lineHeight: 1, padding: '1px 4px', borderRadius: 3, background: selected ? 'rgba(212,168,83,0.18)' : 'rgba(255,255,255,0.06)', color: selected ? D.gold : D.textDim }}>
+                今
+              </span>
+            )}
+          </button>
+        );
+      })}
+    </div>
+  );
+
+  const renderBehaviorWeekSelect = (compact = false) => (
+    <select
+      value={behaviorWeek?.weekNumber ?? ''}
+      onChange={event => handleBehaviorWeekChange(Number(event.target.value))}
+      style={{
+        height: compact ? 34 : 32,
+        minWidth: compact ? 108 : 116,
+        borderRadius: D.radiusXs,
+        border: `1px solid ${D.border}`,
+        background: D.bgInput,
+        color: D.text,
+        padding: '0 9px',
+        fontSize: 12,
+        fontFamily: "'LXGW WenKai', 'Cinzel', serif",
+        outline: 'none',
+      }}
+    >
+      {config.teachingWeeks.map(week => (
+        <option key={week.weekNumber} value={week.weekNumber}>
+          第{week.weekNumber}周
+        </option>
+      ))}
+    </select>
+  );
+
   if (isMobile) {
     const selectedStudents = selectedStudentIds
       .map(id => students.find(student => student.id === id))
@@ -914,6 +1023,13 @@ export default function RecordPage() {
 
     return (
       <MobilePage>
+        <MobileSection title={behaviorDateTitle} subtitle="切换后，本轮登记沿用这个日期">
+          <div style={{ marginBottom: 8 }}>
+            {renderBehaviorWeekSelect(true)}
+          </div>
+          {renderBehaviorDateButtons(true)}
+        </MobileSection>
+
         <MobileSection title="选学生" subtitle={selectedStudentIds.length > 0 ? `已选 ${selectedStudentIds.length} 人` : '可多次点击同一学生增加次数'}>
           <div style={{ display: 'flex', gap: 6, marginBottom: 8 }}>
             <div style={{ position: 'relative', flex: 1, minWidth: 0 }}>
@@ -1285,7 +1401,7 @@ export default function RecordPage() {
                   key={group.key}
                   leading={<span style={{ width: 28, height: 28, borderRadius: D.radiusXs, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: isNeg ? D.cinnabarDim : D.blueDim, color: isNeg ? D.cinnabar : D.blue }}>{isNeg ? <XCircle size={15} /> : <CheckCircle2 size={15} />}</span>}
                   title={<><b>{group.studentNames.slice(0, 4).join('、')}{group.studentNames.length > 4 ? `等${group.studentNames.length}人` : ''}</b> · {group.description}</>}
-                  meta={`${new Date(group.createdAt).toLocaleString('zh-CN', { month: 'numeric', day: 'numeric', hour: 'numeric', minute: '2-digit' })}${group.recordedBy ? ` · ${group.recordedBy}` : ''}${group.remark ? ` · ${group.remark.replace(/^ruleId:[^,，]+[,，]\s*/, '')}` : ''}`}
+                  meta={`${formatBehaviorRecordDateLabel(group.records[0], config.teachingWeeks)} · 登记：${new Date(group.createdAt).toLocaleString('zh-CN', { month: 'numeric', day: 'numeric', hour: 'numeric', minute: '2-digit' })}${group.recordedBy ? ` · ${group.recordedBy}` : ''}${group.remark ? ` · ${group.remark.replace(/^ruleId:[^,，]+[,，]\s*/, '')}` : ''}`}
                   tags={<>
                     <span style={{ fontSize: 10, color: isNeg ? D.cinnabar : D.blue, background: isNeg ? D.cinnabarDim : D.blueDim, borderRadius: 3, padding: '2px 5px' }}>{weightName}</span>
                     {group.extraWeight > 0 && <span style={{ fontSize: 10, color: '#E8A030', background: 'rgba(232,160,48,0.15)', borderRadius: 3, padding: '2px 5px' }}>额外+{group.extraWeight}</span>}
@@ -1351,6 +1467,25 @@ export default function RecordPage() {
           }}>
             行为录入
           </h2>
+        </div>
+
+        <div style={{
+          marginBottom: 18,
+          padding: '11px 12px',
+          borderRadius: D.radiusSm,
+          background: 'rgba(255,255,255,0.025)',
+          border: `1px solid ${D.border}`,
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10, marginBottom: 9, flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+              <span style={{ fontSize: 13, color: D.text, fontWeight: 700 }}>{behaviorDateTitle}</span>
+              {renderBehaviorWeekSelect(false)}
+            </div>
+            <span style={{ fontSize: 11, color: D.textDim }}>
+              本轮登记沿用：{formatBehaviorRecordDateLabel({ createdAt: new Date().toISOString(), occurredDate: selectedBehaviorDate }, config.teachingWeeks)}
+            </span>
+          </div>
+          {renderBehaviorDateButtons(false)}
         </div>
 
         {/* Student multi-select */}
@@ -2535,7 +2670,7 @@ export default function RecordPage() {
                       </div>
                       <div style={{ display: 'flex', alignItems: 'center', justifyContent: isMobile ? 'flex-start' : 'flex-end', gap: 8, flexShrink: 0, flexWrap: 'wrap', minWidth: isMobile ? 0 : 180 }}>
                         <span style={{ fontSize: 11, color: D.textDim }}>
-                          {new Date(group.createdAt).toLocaleDateString('zh-CN', { month: 'numeric', day: 'numeric', hour: 'numeric', minute: '2-digit' })}
+                          {formatBehaviorRecordDateLabel(group.records[0], config.teachingWeeks)} · 登记：{new Date(group.createdAt).toLocaleDateString('zh-CN', { month: 'numeric', day: 'numeric', hour: 'numeric', minute: '2-digit' })}
                           {group.recordedBy && ` · ${group.recordedBy}`}
                         </span>
                         {canDeleteRecord && (

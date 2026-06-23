@@ -8,6 +8,10 @@ export function recordLocalDate(createdAt: string): string {
   return toLocalDateStr(new Date(createdAt));
 }
 
+export function behaviorRecordLocalDate(record: { occurredDate?: string; createdAt: string }): string {
+  return record.occurredDate || recordLocalDate(record.createdAt);
+}
+
 /** 给 YYYY-MM-DD 日期字符串加N天 */
 export function addDays(dateStr: string, days: number): string {
   const d = new Date(dateStr + 'T00:00:00');
@@ -31,7 +35,7 @@ export function isTeachingDay(dateStr: string, teachingWeeks: Array<{ startDate:
 export function calcConsecutiveNoViolationDays(
   studentId: string | number,
   studentCreatedAt: string,
-  records: Array<{ studentId: string | number; direction: string; description?: string; createdAt: string }>,
+  records: Array<{ studentId: string | number; direction: string; description?: string; occurredDate?: string; createdAt: string }>,
   teachingWeeks: Array<{ startDate: string; endDate: string }>,
   today: string,
 ): number {
@@ -42,14 +46,14 @@ export function calcConsecutiveNoViolationDays(
       && r.direction === 'positive'
       && ((r.description || '').includes('回升任务') || (r.description || '').includes('自动回升'))
     )
-    .map(r => recordLocalDate(r.createdAt))
+    .map(r => behaviorRecordLocalDate(r))
     .sort()
     .pop();
   const countStartDate = latestRiseDate ? addDays(latestRiseDate, 1) : recordLocalDate(studentCreatedAt);
   const violationDates = [...new Set(
     records
-      .filter(r => String(r.studentId) === sid && r.direction === 'negative' && recordLocalDate(r.createdAt) >= countStartDate)
-      .map(r => recordLocalDate(r.createdAt))
+      .filter(r => String(r.studentId) === sid && r.direction === 'negative' && behaviorRecordLocalDate(r) >= countStartDate)
+      .map(r => behaviorRecordLocalDate(r))
   )].sort();
 
   if (violationDates.length === 0) {

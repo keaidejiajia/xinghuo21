@@ -33,6 +33,7 @@ import { useStudents } from '../lib/store';
 import { computeStudentLevelChanges } from '../lib/audit';
 import { formatLevelChangeDisplay } from '../lib/levelChangeDisplay';
 import { formatBehaviorRecordTitle } from '../lib/behaviorDisplay';
+import { formatBehaviorRecordDateLabel } from '../lib/behaviorDate';
 import { recordParentAccess } from '../lib/parentAccessClient';
 import { useAuth } from '../hooks/useAuth';
 import { useToast } from '../hooks/useToast';
@@ -816,7 +817,7 @@ function BehaviorHistory({ student, onDeleteRecord }: { student: Student; onDele
                   })()}
                   <div style={{ flex: 1 }} />
                   <span style={{ fontSize: 11, color: INK.textMuted }}>
-                    {new Date(record.createdAt).toLocaleDateString('zh-CN', { month: 'numeric', day: 'numeric', hour: 'numeric', minute: '2-digit' })}
+                    {formatBehaviorRecordDateLabel(record, config.teachingWeeks)} · 登记：{new Date(record.createdAt).toLocaleDateString('zh-CN', { month: 'numeric', day: 'numeric', hour: 'numeric', minute: '2-digit' })}
                     {record.recordedBy && record.recordedBy !== 'demo' && <span style={{ marginLeft: 4 }}>· {record.recordedBy}</span>}
                   </span>
                   {canDeleteRecord && (
@@ -869,7 +870,7 @@ function BehaviorHistory({ student, onDeleteRecord }: { student: Student; onDele
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 6, flexShrink: 0 }}>
                   <span style={{ fontSize: 10, color: INK.textMuted }}>
-                    {new Date(record.createdAt).toLocaleDateString('zh-CN', { month: 'numeric', day: 'numeric', hour: 'numeric', minute: '2-digit' })}
+                    {formatBehaviorRecordDateLabel(record, config.teachingWeeks)} · 登记：{new Date(record.createdAt).toLocaleDateString('zh-CN', { month: 'numeric', day: 'numeric', hour: 'numeric', minute: '2-digit' })}
                     {record.recordedBy && record.recordedBy !== 'demo' && <span style={{ marginLeft: 4 }}>· {record.recordedBy}</span>}
                   </span>
                   {canDeleteRecord && (

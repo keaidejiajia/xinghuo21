@@ -15,7 +15,7 @@ import { LevelIcon, ShieldIcon, HeartDemonIcon, EclipseIcon, SparkIcon, StarEcli
 import ExportModal from '../components/ExportModal';
 import { MobilePage, MobileSection, MobileSegmentedControl, MobileSheet } from '../components/mobile/MobileUI';
 import { D } from '../data/theme';
-import { toLocalDateStr, isTeachingDay, recordLocalDate, calcConsecutiveNoViolationDays } from '../lib/utils';
+import { behaviorRecordLocalDate, toLocalDateStr, isTeachingDay, calcConsecutiveNoViolationDays } from '../lib/utils';
 import LevelIllustration from '../components/LevelIllustration';
 import { FLAG_DATA_URL } from '../data/flagDataUrl';
 
@@ -554,8 +554,8 @@ export default function Dashboard() {
           r.studentId === student.id &&
           r.isAutoRule &&
           r.remark && r.remark.includes(`ruleId:${rule.id}`) &&
-          recordLocalDate(r.createdAt) >= prevWeek.startDate &&
-          recordLocalDate(r.createdAt) <= prevWeek.endDate
+          behaviorRecordLocalDate(r) >= prevWeek.startDate &&
+          behaviorRecordLocalDate(r) <= prevWeek.endDate
         );
         if (alreadySettled) continue;
 
@@ -572,8 +572,8 @@ export default function Dashboard() {
                 r.direction === behavior.direction &&
                 r.description === behavior.name &&
                 !r.isAutoRule &&
-                recordLocalDate(r.createdAt) >= prevWeek.startDate &&
-                recordLocalDate(r.createdAt) <= prevWeek.endDate
+                behaviorRecordLocalDate(r) >= prevWeek.startDate &&
+                behaviorRecordLocalDate(r) <= prevWeek.endDate
               ).length;
               triggered = weekCount === 0;
             } else {
@@ -581,8 +581,8 @@ export default function Dashboard() {
                 r.studentId === student.id &&
                 r.direction === 'negative' &&
                 !r.isAutoRule &&
-                recordLocalDate(r.createdAt) >= prevWeek.startDate &&
-                recordLocalDate(r.createdAt) <= prevWeek.endDate
+                behaviorRecordLocalDate(r) >= prevWeek.startDate &&
+                behaviorRecordLocalDate(r) <= prevWeek.endDate
               );
               triggered = weekNegatives.length === 0;
             }
@@ -597,8 +597,8 @@ export default function Dashboard() {
               r.direction === behavior.direction &&
               r.description === behavior.name &&
               !r.isAutoRule &&
-              recordLocalDate(r.createdAt) >= prevWeek.startDate &&
-              recordLocalDate(r.createdAt) <= prevWeek.endDate
+              behaviorRecordLocalDate(r) >= prevWeek.startDate &&
+              behaviorRecordLocalDate(r) <= prevWeek.endDate
             ).length;
             triggered = weekCount >= (rule.triggerCondition.threshold ?? 3);
             break;
@@ -877,7 +877,7 @@ export default function Dashboard() {
 
     // 按日聚合（使用indicatorDefs.aggregate确保与dashboard统计一致）
     return recentDays.map(day => {
-      const dayRecords = records.filter(r => def.filter(r) && recordLocalDate(r.createdAt) === day);
+      const dayRecords = records.filter(r => def.filter(r) && behaviorRecordLocalDate(r) === day);
       return { date: day, count: def.aggregate(dayRecords) };
     });
   }, [chartIndicator, records, students, config.teachingWeeks]);
@@ -904,7 +904,7 @@ export default function Dashboard() {
   if (isMobile) {
     const frontCount = students.filter(student => student.cardSide === 'front').length;
     const backCount = students.length - frontCount;
-    const todayRecordCount = records.filter(record => recordLocalDate(record.createdAt) === toLocalDateStr()).length;
+    const todayRecordCount = records.filter(record => behaviorRecordLocalDate(record) === toLocalDateStr()).length;
     const urgentCount = students.filter(student => student.cardSide === 'back' || student.currentLevel >= 5 || student.heartDemonMarks > 0).length;
     const statItems = [
       { label: '全班', value: students.length, color: D.gold },
@@ -1462,14 +1462,14 @@ export default function Dashboard() {
                 const isConfigured = hasFlagBehaviors;
                 const isWeekViolation = (r: any) =>
                   r.affectsFlag &&
-                  recordLocalDate(r.createdAt) >= currentWeek.startDate &&
-                  recordLocalDate(r.createdAt) <= currentWeek.endDate;
+                  behaviorRecordLocalDate(r) >= currentWeek.startDate &&
+                  behaviorRecordLocalDate(r) <= currentWeek.endDate;
 
                 const hasViolation = isConfigured && records.some(isWeekViolation);
 
                 const cleanDays = !isConfigured ? 0 : hasViolation ? 0 : weekDays.filter(d =>
                   d <= todayStr && !records.some(r =>
-                    r.affectsFlag && recordLocalDate(r.createdAt) === d
+                    r.affectsFlag && behaviorRecordLocalDate(r) === d
                   )
                 ).length;
 
