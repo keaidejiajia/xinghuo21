@@ -6,11 +6,11 @@
       "studentId": "30",
       "parentName": "王晨辰家长",
       "firstAccessAt": "2026-06-23T06:26:18.777Z",
-      "lastAccessAt": "2026-06-23T12:45:49.445Z",
+      "lastAccessAt": "2026-06-23T12:48:58.934Z",
       "loginCount": 0,
-      "viewCount": 3,
+      "viewCount": 4,
       "lastDevice": "mobile",
-      "lastCountedViewAt": "2026-06-23T12:37:27.192Z"
+      "lastCountedViewAt": "2026-06-23T12:48:58.934Z"
     },
     {
       "id": "2026-06-23-33",
@@ -272,5 +272,5 @@
       "lastDevice": "desktop"
     }
   ],
-  "updatedAt": "2026-06-23T12:45:49.445Z"
+  "updatedAt": "2026-06-23T12:48:58.934Z"
 }
