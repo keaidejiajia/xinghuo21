@@ -41180,7 +41180,7 @@
         "direction": "positive",
         "category": "学习",
         "weight": 1,
-        "name": "背面13等级的同学在大课间到办公室完成自习任务",
+        "name": "背面1等级的同学在大课间到办公室完成自习任务",
         "description": "背面1-3等级的同学在大课间到办公室完成自习任务",
         "isHighSensitivity": false,
         "isComposite": false,
@@ -41188,7 +41188,8 @@
         "affectsFlag": false,
         "requiresTimePeriod": false,
         "aliases": [
-          "背面1-3等级的同学在大课间到办公室完成自习任务"
+          "背面1-3等级的同学在大课间到办公室完成自习任务",
+          "背面13等级的同学在大课间到办公室完成自习任务"
         ]
       },
       {
