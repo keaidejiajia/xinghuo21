@@ -1,6 +1,17 @@
 {
   "entries": [
     {
+      "id": "2026-06-23-18",
+      "date": "2026-06-23",
+      "studentId": "18",
+      "parentName": "蓝义皓家长",
+      "firstAccessAt": "2026-06-23T08:26:56.297Z",
+      "lastAccessAt": "2026-06-23T08:26:56.297Z",
+      "loginCount": 1,
+      "viewCount": 0,
+      "lastDevice": "mobile"
+    },
+    {
       "id": "2026-06-23-30",
       "date": "2026-06-23",
       "studentId": "30",
@@ -177,5 +188,5 @@
       "lastDevice": "desktop"
     }
   ],
-  "updatedAt": "2026-06-23T07:58:30.815Z"
+  "updatedAt": "2026-06-23T08:26:56.297Z"
 }
