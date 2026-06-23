@@ -787,6 +787,8 @@ function BehaviorHistory({ student, onDeleteRecord }: { student: Student; onDele
         ? (isMobile ? 96 : 88)
         : (isMobile ? 32 : 30)
       : 0;
+    const recordLineHeight = 1.45;
+    const recordRowGap = isMobile ? 7 : 6;
 
     return (
       <div
@@ -795,7 +797,7 @@ function BehaviorHistory({ student, onDeleteRecord }: { student: Student; onDele
           position: 'relative',
           display: 'grid',
           gridTemplateColumns: '1fr',
-          gap: isMobile ? 8 : 7,
+          gap: recordRowGap,
           alignItems: 'start',
           padding: isMobile ? '12px 12px' : '10px 12px',
           borderRadius: D.radiusSm,
@@ -819,7 +821,7 @@ function BehaviorHistory({ student, onDeleteRecord }: { student: Student; onDele
               color: isNeg ? 'rgba(229,91,62,0.82)' : 'rgba(134,153,199,0.82)',
               fontSize: isMobile ? 12 : 10,
               fontWeight: 700,
-              lineHeight: 1.45,
+              lineHeight: recordLineHeight,
               whiteSpace: 'nowrap',
               flexShrink: 0,
             }}>
@@ -830,7 +832,7 @@ function BehaviorHistory({ student, onDeleteRecord }: { student: Student; onDele
               fontFamily: "'LXGW WenKai', 'Cinzel', serif",
               color: INK.textPrimary,
               fontWeight: 700,
-              lineHeight: 1.45,
+              lineHeight: recordLineHeight,
               wordBreak: 'keep-all',
               overflowWrap: 'break-word',
               minWidth: 0,
@@ -838,7 +840,7 @@ function BehaviorHistory({ student, onDeleteRecord }: { student: Student; onDele
               {title}
             </span>
             {timePeriod && (
-              <span style={{ fontSize: 11, color: INK.starGold, opacity: 0.9, whiteSpace: 'nowrap' }}>
+              <span style={{ fontSize: 11, color: INK.starGold, opacity: 0.9, lineHeight: recordLineHeight, whiteSpace: 'nowrap' }}>
                 @{timePeriod}
               </span>
             )}
@@ -847,14 +849,21 @@ function BehaviorHistory({ student, onDeleteRecord }: { student: Student; onDele
         </div>
 
         {remark && (
-          <div style={{ fontSize: 12, color: INK.textMuted, lineHeight: 1.5, wordBreak: 'keep-all', overflowWrap: 'break-word' }}>
-            {remark}
+          <div style={{ paddingRight: deleteSpace, fontSize: 12, color: INK.textMuted, lineHeight: recordLineHeight, wordBreak: 'keep-all', overflowWrap: 'break-word' }}>
+            备注：{remark}
           </div>
         )}
 
-        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'minmax(0, 1fr) auto', gap: isMobile ? 7 : 12, alignItems: 'center', minWidth: 0 }}>
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5, alignItems: 'center', minWidth: 0 }}>
-            <span style={{ fontSize: 11, color: isNeg ? INK.flameCinnabar : INK.starBlue, background: isNeg ? 'rgba(196,65,37,0.08)' : 'rgba(123,139,181,0.08)', border: `1px solid ${isNeg ? 'rgba(196,65,37,0.18)' : 'rgba(123,139,181,0.18)'}`, borderRadius: D.radiusXs, padding: '2px 7px', lineHeight: 1.45, maxWidth: '100%', overflowWrap: 'break-word' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'minmax(0, 1fr) auto', gap: isMobile ? recordRowGap : 12, alignItems: isMobile ? 'start' : 'center', minWidth: 0, paddingRight: deleteSpace }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', columnGap: 8, rowGap: 4, alignItems: 'baseline', minWidth: 0 }}>
+            <span style={{
+              fontSize: isMobile ? 12 : 11,
+              color: isNeg ? INK.flameCinnabar : INK.starBlue,
+              fontWeight: 700,
+              lineHeight: recordLineHeight,
+              maxWidth: '100%',
+              overflowWrap: 'break-word',
+            }}>
               {consequence.fullLabel}
             </span>
             {levelChange && renderLevelChangeBadge(levelChange, true)}
