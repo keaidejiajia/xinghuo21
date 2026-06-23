@@ -252,15 +252,19 @@ export default function Layout() {
             <button onClick={() => { toggleMobileView(); }}
               title={isMobile ? '切换到桌面视图' : '切换到手机视图'}
               style={{
-                padding: isMobile ? '4px 6px' : '6px 8px', borderRadius: D.radiusXs,
+                width: isMobile ? 28 : 34,
+                height: isMobile ? 28 : 34,
+                padding: 0,
+                borderRadius: D.radiusXs,
                 background: isMobile ? D.goldDim : 'transparent',
                 border: `1px solid ${isMobile ? D.borderGlow : D.border}`,
                 color: isMobile ? D.gold : D.textDim, fontSize: isMobile ? 14 : 16,
                 cursor: 'pointer', transition: 'all 0.2s ease',
-                display: 'flex', alignItems: 'center', lineHeight: 1,
+                display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                lineHeight: 1, flexShrink: 0,
               }}
             >
-              {isMobile ? <Smartphone size={isMobile ? 15 : 16} /> : <Monitor size={isMobile ? 15 : 16} />}
+              {isMobile ? <Smartphone size={isMobile ? 15 : 16} style={{ display: 'block' }} /> : <Monitor size={isMobile ? 15 : 16} style={{ display: 'block' }} />}
             </button>
             <button onClick={() => signOut()} style={{
               padding: isMobile ? '4px 8px' : '6px 10px', borderRadius: D.radiusXs,

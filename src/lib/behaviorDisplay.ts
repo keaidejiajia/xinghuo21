@@ -132,6 +132,7 @@ export function formatBehaviorConsequence(record: BehaviorRecord, options: Behav
   const extraWeight = record.extraWeight ?? 0;
   const baseAmount = (record.weight as number) + extraWeight;
   let resultLabel: string;
+  let fullyShielded = false;
 
   if (record.direction === 'negative') {
     if (record.studentCardSide === 'back') {
@@ -139,7 +140,8 @@ export function formatBehaviorConsequence(record: BehaviorRecord, options: Behav
     } else {
       const shieldOffset = record.shieldsConsumed > 0 ? Math.floor(record.shieldsConsumed / 2) : 0;
       const actualAmount = Math.max(0, baseAmount - shieldOffset);
-      resultLabel = `增加${actualAmount}${options.blankMarkName}`;
+      fullyShielded = actualAmount === 0 && record.shieldsConsumed > 0;
+      resultLabel = fullyShielded ? `消耗${record.shieldsConsumed}护盾` : `增加${actualAmount}${options.blankMarkName}`;
     }
   } else {
     resultLabel = record.studentCardSide === 'back'
@@ -147,12 +149,19 @@ export function formatBehaviorConsequence(record: BehaviorRecord, options: Behav
       : `获得${baseAmount}护盾`;
   }
 
-  const reasonLabels = getConsequenceReasons(record);
+  const reasonLabels = fullyShielded
+    ? getConsequenceReasons(record).filter(reason => !/^消耗\d+护盾$/.test(reason))
+    : getConsequenceReasons(record);
+  const fullLabel = fullyShielded && reasonLabels.length > 0
+    ? `${reasonLabels.join('；')}：${resultLabel}`
+    : reasonLabels.length > 0
+      ? `${resultLabel}（${reasonLabels.join('；')}）`
+      : resultLabel;
   return {
     resultLabel,
     reasonLabels,
-    fullLabel: reasonLabels.length > 0 ? `${resultLabel}（${reasonLabels.join('；')}）` : resultLabel,
-    isSpecial: reasonLabels.length > 0,
+    fullLabel,
+    isSpecial: reasonLabels.length > 0 || fullyShielded,
   };
 }
 
@@ -178,8 +187,14 @@ export function stripConsequenceRemarkParts(remark: string | undefined): string 
     .map(part => part.replace(/^第\d+次[:：]\s*/, '').trim())
     .filter(part => part.length > 0)
     .filter(part => !/^第\d+次$/.test(part))
+    .filter(part => !/^自动规则[:：]/.test(part))
+    .filter(part => !/^上周结算/.test(part))
     .filter(part => !/^旧习复发[:：]/.test(part))
     .filter(part => !/^本周记录人[:：]/.test(part))
     .filter(part => !/^额外\+\d+/.test(part))
+    .filter(part => !/^[+＋]\d+/.test(part))
+    .filter(part => !/^消耗\d+(护盾|传承值)$/.test(part))
+    .filter(part => !/^\d+传承值抵消\d+心魔$/.test(part))
+    .filter(part => !/^.+\s*→\s*.+$/.test(part))
     .join('；');
 }

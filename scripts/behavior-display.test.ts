@@ -127,6 +127,54 @@ assert.equal(
   'inline automatic count prefixes should be removed without deleting the useful remark',
 );
 
+assert.equal(
+  stripConsequenceRemarkParts('ruleId:zero-violation，上周结算，+4护盾'),
+  '',
+  'automatic rule settlement text should not be shown as a teacher remark',
+);
+
+const fullyShieldedFrontRecord: BehaviorRecord = {
+  ...speakingRecord,
+  id: 'fully-shielded-front',
+  studentId: 's5',
+  extraWeight: 0,
+  penaltyReasons: undefined,
+  studentCardSide: 'front',
+  shieldsConsumed: 4,
+};
+
+assert.deepEqual(
+  formatBehaviorConsequence(fullyShieldedFrontRecord, impactOptions),
+  {
+    resultLabel: '消耗4护盾',
+    reasonLabels: [],
+    fullLabel: '消耗4护盾',
+    isSpecial: true,
+  },
+  'fully shielded negative records should show shield consumption instead of adding zero marks',
+);
+
+const fullyShieldedWeeklyRecorder: BehaviorRecord = {
+  ...speakingRecord,
+  id: 'fully-shielded-weekly-recorder',
+  studentId: 's6',
+  extraWeight: 1,
+  penaltyReasons: ['weekly_recorder'],
+  studentCardSide: 'front',
+  shieldsConsumed: 6,
+};
+
+assert.deepEqual(
+  formatBehaviorConsequence(fullyShieldedWeeklyRecorder, impactOptions),
+  {
+    resultLabel: '消耗6护盾',
+    reasonLabels: ['记录人惩罚+1'],
+    fullLabel: '记录人惩罚+1：消耗6护盾',
+    isSpecial: true,
+  },
+  'fully shielded recorder penalties should explain the penalty reason without saying zero marks were added',
+);
+
 const studentConsequenceRows = summarizeStudentBehaviorConsequences([
   oldHabitBackRecord,
   { ...speakingRecord, id: 'talk-weekly-recorder', studentId: 's4', extraWeight: 1, penaltyReasons: ['weekly_recorder'], studentCardSide: 'front' },
