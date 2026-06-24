@@ -392,9 +392,9 @@
       "id": "18",
       "name": "蓝义皓",
       "number": 17,
-      "cardSide": "front",
-      "currentLevel": 6,
-      "blanksFilled": 6,
+      "cardSide": "back",
+      "currentLevel": 1,
+      "blanksFilled": 0,
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
       "starShields": 1,
@@ -402,15 +402,23 @@
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
-      "totalBlanksEverFilled": 32,
+      "totalBlanksEverFilled": 34,
       "totalHeartDemonsEverGained": 0,
       "totalShieldsEverEarned": 43,
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-24T01:42:19.661Z",
+      "updatedAt": "2026-06-24T01:46:52.911Z",
       "totalShieldsExchanged": 0,
-      "riseTaskCompleted": false
+      "riseTaskCompleted": false,
+      "lastLevelChange": {
+        "direction": "flip",
+        "fromLevel": 6,
+        "toLevel": 1,
+        "fromSide": "front",
+        "toSide": "back",
+        "timestamp": "2026-06-24T01:46:52.911Z"
+      }
     },
     {
       "id": "19",
@@ -1063,6 +1071,28 @@
     }
   ],
   "behavior-records": [
+    {
+      "studentId": "18",
+      "direction": "negative",
+      "weight": 1,
+      "behaviorId": "n-l-2",
+      "category": "学习",
+      "description": "课上不记笔记、做与学习无关的事情、睡觉/趴桌",
+      "remark": "本周记录人：星蚀+1",
+      "recordedBy": "袁俪玮",
+      "verified": true,
+      "shieldsConsumed": 0,
+      "extraWeight": 1,
+      "penaltyReasons": [
+        "weekly_recorder"
+      ],
+      "isHighSensitivity": false,
+      "studentCardSide": "front",
+      "timePeriodId": "tp-shuxue",
+      "occurredDate": "2026-06-24",
+      "id": "3309",
+      "createdAt": "2026-06-24T01:46:52.918Z"
+    },
     {
       "studentId": "12",
       "direction": "negative",
