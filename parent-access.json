@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "id": "2026-06-25-19",
+      "date": "2026-06-25",
+      "studentId": "19",
+      "parentName": "黎梦琪家长",
+      "firstAccessAt": "2026-06-24T23:00:49.875Z",
+      "lastAccessAt": "2026-06-24T23:00:49.875Z",
+      "loginCount": 0,
+      "viewCount": 1,
+      "lastDevice": "mobile",
+      "lastCountedViewAt": "2026-06-24T23:00:49.875Z"
+    },
+    {
       "id": "2026-06-25-30",
       "date": "2026-06-25",
       "studentId": "30",
@@ -509,5 +521,5 @@
       "lastDevice": "desktop"
     }
   ],
-  "updatedAt": "2026-06-24T20:55:37.308Z"
+  "updatedAt": "2026-06-24T23:00:49.875Z"
 }
