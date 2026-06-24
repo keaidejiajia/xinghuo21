@@ -6,8 +6,8 @@
       "studentId": "4",
       "parentName": "邓渝凡家长",
       "firstAccessAt": "2026-06-24T12:23:02.583Z",
-      "lastAccessAt": "2026-06-24T12:23:02.583Z",
-      "loginCount": 1,
+      "lastAccessAt": "2026-06-24T12:23:59.915Z",
+      "loginCount": 2,
       "viewCount": 0,
       "lastDevice": "mobile"
     },
@@ -388,5 +388,5 @@
       "lastDevice": "desktop"
     }
   ],
-  "updatedAt": "2026-06-24T12:23:02.583Z"
+  "updatedAt": "2026-06-24T12:23:59.915Z"
 }
