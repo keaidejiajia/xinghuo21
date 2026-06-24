@@ -1,6 +1,17 @@
 {
   "entries": [
     {
+      "id": "2026-06-24-39",
+      "date": "2026-06-24",
+      "studentId": "39",
+      "parentName": "易安心家长",
+      "firstAccessAt": "2026-06-24T12:20:56.571Z",
+      "lastAccessAt": "2026-06-24T12:20:56.571Z",
+      "loginCount": 1,
+      "viewCount": 0,
+      "lastDevice": "mobile"
+    },
+    {
       "id": "2026-06-24-30",
       "date": "2026-06-24",
       "studentId": "30",
@@ -366,5 +377,5 @@
       "lastDevice": "desktop"
     }
   ],
-  "updatedAt": "2026-06-24T12:17:19.385Z"
+  "updatedAt": "2026-06-24T12:20:56.571Z"
 }
