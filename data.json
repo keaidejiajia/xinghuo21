@@ -884,19 +884,19 @@
       "currentLevel": 1,
       "blanksFilled": 0,
       "cumulativeChecks": 19,
-      "heartDemonMarks": 35,
+      "heartDemonMarks": 37,
       "starShields": 0,
       "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
       "totalBlanksEverFilled": 35,
-      "totalHeartDemonsEverGained": 37,
+      "totalHeartDemonsEverGained": 39,
       "totalShieldsEverEarned": 40,
       "totalChecksEverEarned": 19,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-24T01:49:40.897Z",
+      "updatedAt": "2026-06-24T01:50:18.388Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false,
       "lastHeartDemonClearDate": "2026-06-17"
@@ -1071,6 +1071,27 @@
     }
   ],
   "behavior-records": [
+    {
+      "studentId": "37",
+      "direction": "negative",
+      "weight": 2,
+      "behaviorId": "n-p-2",
+      "category": "品行",
+      "description": "说脏话",
+      "remark": "旧习复发：心魔+1",
+      "recordedBy": "袁俪玮",
+      "verified": true,
+      "shieldsConsumed": 0,
+      "extraWeight": 1,
+      "penaltyReasons": [
+        "old_habit_recurrence"
+      ],
+      "isHighSensitivity": false,
+      "studentCardSide": "back",
+      "occurredDate": "2026-06-24",
+      "id": "3321",
+      "createdAt": "2026-06-24T01:50:18.399Z"
+    },
     {
       "studentId": "12",
       "direction": "negative",
