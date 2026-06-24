@@ -6,11 +6,11 @@
       "studentId": "13",
       "parentName": "蒋佳骏家长",
       "firstAccessAt": "2026-06-24T13:47:40.237Z",
-      "lastAccessAt": "2026-06-24T13:47:40.237Z",
+      "lastAccessAt": "2026-06-24T14:03:28.083Z",
       "loginCount": 0,
-      "viewCount": 1,
+      "viewCount": 2,
       "lastDevice": "mobile",
-      "lastCountedViewAt": "2026-06-24T13:47:40.237Z"
+      "lastCountedViewAt": "2026-06-24T14:03:28.083Z"
     },
     {
       "id": "2026-06-24-41",
@@ -485,5 +485,5 @@
       "lastDevice": "desktop"
     }
   ],
-  "updatedAt": "2026-06-24T13:47:40.237Z"
+  "updatedAt": "2026-06-24T14:03:28.083Z"
 }
