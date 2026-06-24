@@ -716,19 +716,19 @@
       "currentLevel": 1,
       "blanksFilled": 0,
       "cumulativeChecks": 1,
-      "heartDemonMarks": 8,
+      "heartDemonMarks": 12,
       "starShields": 1,
       "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
       "totalBlanksEverFilled": 36,
-      "totalHeartDemonsEverGained": 8,
+      "totalHeartDemonsEverGained": 12,
       "totalShieldsEverEarned": 57,
       "totalChecksEverEarned": 1,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-24T01:50:55.845Z",
+      "updatedAt": "2026-06-24T01:55:19.907Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -1079,6 +1079,50 @@
     }
   ],
   "behavior-records": [
+    {
+      "studentId": "30",
+      "direction": "negative",
+      "weight": 1,
+      "behaviorId": "n-l-2",
+      "category": "学习",
+      "description": "课上不记笔记、做与学习无关的事情、睡觉/趴桌",
+      "remark": "第2次；旧习复发：心魔+1",
+      "recordedBy": "袁俪玮",
+      "verified": true,
+      "shieldsConsumed": 0,
+      "extraWeight": 1,
+      "penaltyReasons": [
+        "old_habit_recurrence"
+      ],
+      "isHighSensitivity": false,
+      "studentCardSide": "back",
+      "timePeriodId": "tp-yuwen",
+      "occurredDate": "2026-06-24",
+      "id": "3349",
+      "createdAt": "2026-06-24T01:55:19.921Z"
+    },
+    {
+      "studentId": "30",
+      "direction": "negative",
+      "weight": 1,
+      "behaviorId": "n-l-2",
+      "category": "学习",
+      "description": "课上不记笔记、做与学习无关的事情、睡觉/趴桌",
+      "remark": "第1次；旧习复发：心魔+1",
+      "recordedBy": "袁俪玮",
+      "verified": true,
+      "shieldsConsumed": 0,
+      "extraWeight": 1,
+      "penaltyReasons": [
+        "old_habit_recurrence"
+      ],
+      "isHighSensitivity": false,
+      "studentCardSide": "back",
+      "timePeriodId": "tp-yuwen",
+      "occurredDate": "2026-06-24",
+      "id": "3348",
+      "createdAt": "2026-06-24T01:55:19.893Z"
+    },
     {
       "studentId": "29",
       "direction": "negative",
