@@ -1022,8 +1022,8 @@
       "blanksFilled": 0,
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
-      "starShields": 56,
-      "consecutiveNoViolationDays": 1,
+      "starShields": 52,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -1033,7 +1033,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-24T00:16:40.604Z",
+      "updatedAt": "2026-06-24T01:43:58.870Z",
       "totalShieldsExchanged": 5,
       "riseTaskCompleted": false
     },
@@ -1063,6 +1063,25 @@
     }
   ],
   "behavior-records": [
+    {
+      "studentId": "43",
+      "direction": "negative",
+      "weight": 2,
+      "behaviorId": "n-p-4",
+      "category": "品行",
+      "description": "未经允许拿用他人物品",
+      "remark": "",
+      "recordedBy": "蓝义皓",
+      "verified": true,
+      "shieldsConsumed": 4,
+      "extraWeight": 0,
+      "penaltyReasons": [],
+      "isHighSensitivity": false,
+      "studentCardSide": "front",
+      "occurredDate": "2026-06-22",
+      "id": "3300",
+      "createdAt": "2026-06-24T01:43:58.878Z"
+    },
     {
       "studentId": "33",
       "direction": "negative",
