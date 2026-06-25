@@ -78,6 +78,7 @@ function compareRecordSets(currentData, incomingData) {
     removedCount: removedRecords.length,
     removedAutoCount,
     removedNonAutoCount: removedRecords.length - removedAutoCount,
+    removedIds: removedRecords.map(record => String(record?.id || '')).filter(Boolean),
   };
 }
 
@@ -118,7 +119,13 @@ function summarizeData(data) {
   };
 }
 
-function checkRollbackRisk(currentData, incomingData) {
+function explicitDeletionCoversRemovedRecords(recordDiff, explicitDeletedRecordIds) {
+  if (!Array.isArray(explicitDeletedRecordIds) || explicitDeletedRecordIds.length === 0) return false;
+  const explicitIds = new Set(explicitDeletedRecordIds.map(id => String(id)));
+  return recordDiff.removedIds.length > 0 && recordDiff.removedIds.every(id => explicitIds.has(id));
+}
+
+export function checkRollbackRisk(currentData, incomingData, options = {}) {
   const current = summarizeData(currentData);
   const incoming = summarizeData(incomingData);
   const recordDiff = compareRecordSets(currentData, incomingData);
@@ -132,6 +139,9 @@ function checkRollbackRisk(currentData, incomingData) {
   const deletionOnly = recordCountDrop > 0 && recordDiff.incomingMismatches === 0;
 
   if (deletionOnly) {
+    if (explicitDeletionCoversRemovedRecords(recordDiff, options.explicitDeletedRecordIds)) {
+      return { stale: false, reasons, current, incoming, recordDiff };
+    }
     if (recordDiff.removedNonAutoCount > 0 && recordCountDrop > LARGE_DELETE_THRESHOLD) {
       reasons.push('incoming payload deletes ' + recordDiff.removedNonAutoCount + ' non-auto records and ' + recordCountDrop + ' records total');
     }
@@ -174,6 +184,16 @@ export default async function handler(req, res) {
   const startedAt = Date.now();
   try {
     const newData = req.body;
+    let explicitDeletedRecordIds = [];
+    const explicitDeleteHeader = req.headers['x-xinghuo-deleted-record-ids'];
+    if (typeof explicitDeleteHeader === 'string' && explicitDeleteHeader) {
+      try {
+        const parsed = JSON.parse(explicitDeleteHeader);
+        if (Array.isArray(parsed)) explicitDeletedRecordIds = parsed.map(id => String(id)).filter(Boolean);
+      } catch {
+        explicitDeletedRecordIds = [];
+      }
+    }
     const dataKeys = newData && typeof newData === 'object' ? Object.keys(newData) : [];
     const payloadText = JSON.stringify(newData, null, 2);
     const payloadBytes = Buffer.byteLength(payloadText, 'utf-8');
@@ -200,7 +220,7 @@ export default async function handler(req, res) {
       }
 
       if (currentData) {
-        const rollbackRisk = checkRollbackRisk(currentData, newData);
+        const rollbackRisk = checkRollbackRisk(currentData, newData, { explicitDeletedRecordIds });
         if (rollbackRisk.stale) {
           console.warn('[api/save] stale payload rejected', rollbackRisk);
           res.setHeader('Access-Control-Allow-Origin', '*');

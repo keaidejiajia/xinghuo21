@@ -247,11 +247,11 @@ export default function RecordPage() {
     }
   };
 
-  const syncAfterChange = async (successMessage: string): Promise<boolean> => {
+  const syncAfterChange = async (successMessage: string, options?: { explicitDeletedRecordIds?: string[] }): Promise<boolean> => {
     setIsSyncing(true);
     setSyncError('');
     try {
-      await window.xinghuoSync?.saveNow();
+      await window.xinghuoSync?.saveNow(options);
       showToast(successMessage);
       return true;
     } catch (e) {
@@ -271,10 +271,11 @@ export default function RecordPage() {
 
   const handleBatchDelete = async () => {
     const count = selectedRecordIds.size;
-    for (const id of selectedRecordIds) {
+    const deletedIds = Array.from(selectedRecordIds);
+    for (const id of deletedIds) {
       deleteBehaviorRecord(id);
     }
-    const synced = await syncAfterChange(`已删除并同步 ${count} 条记录`);
+    const synced = await syncAfterChange(`已删除并同步 ${count} 条记录`, { explicitDeletedRecordIds: deletedIds });
     if (synced) {
       setSelectedRecordIds(new Set());
       setBatchDeleteConfirm(false);
@@ -1588,7 +1589,7 @@ export default function RecordPage() {
                     <div style={{ position: 'absolute', top: 12, right: 0, zIndex: 2 }}>
                     {showDeleteConfirm === group.allIds[0] ? (
                       <div style={{ display: 'grid', gap: 4, justifyItems: 'end' }}>
-                        <span onClick={async () => { group.allIds.forEach(id => deleteBehaviorRecord(id)); const synced = await syncAfterChange(`已删除并同步 ${group.allIds.length} 条记录`); if (synced) setShowDeleteConfirm(null); }} style={{ borderRadius: D.radiusXs, border: `1px solid rgba(196,65,37,0.4)`, background: D.cinnabarDim, color: D.cinnabar, padding: '2px 6px', fontSize: 11, lineHeight: 1.45, cursor: 'pointer', whiteSpace: 'nowrap' }}>确认</span>
+                        <span onClick={async () => { const deletedIds = [...group.allIds]; deletedIds.forEach(id => deleteBehaviorRecord(id)); const synced = await syncAfterChange(`已删除并同步 ${group.allIds.length} 条记录`, { explicitDeletedRecordIds: deletedIds }); if (synced) setShowDeleteConfirm(null); }} style={{ borderRadius: D.radiusXs, border: `1px solid rgba(196,65,37,0.4)`, background: D.cinnabarDim, color: D.cinnabar, padding: '2px 6px', fontSize: 11, lineHeight: 1.45, cursor: 'pointer', whiteSpace: 'nowrap' }}>确认</span>
                         <span onClick={() => setShowDeleteConfirm(null)} style={{ borderRadius: D.radiusXs, border: `1px solid ${D.border}`, background: D.bgCard, color: D.textDim, padding: '2px 6px', fontSize: 11, lineHeight: 1.45, cursor: 'pointer', whiteSpace: 'nowrap' }}>取消</span>
                       </div>
                     ) : (
@@ -2848,8 +2849,9 @@ export default function RecordPage() {
                           group.allIds.some(id => showDeleteConfirm === id) ? (
                             <div style={{ display: 'flex', gap: 4 }}>
                               <button onClick={async () => {
-                                group.allIds.forEach(id => deleteBehaviorRecord(id));
-                                const synced = await syncAfterChange(`已删除并同步 ${group.allIds.length} 条记录`);
+                                const deletedIds = [...group.allIds];
+                                deletedIds.forEach(id => deleteBehaviorRecord(id));
+                                const synced = await syncAfterChange(`已删除并同步 ${group.allIds.length} 条记录`, { explicitDeletedRecordIds: deletedIds });
                                 if (synced) setShowDeleteConfirm(null);
                               }} style={{ padding: '2px 8px', borderRadius: D.radiusXs, fontSize: 11, cursor: 'pointer', background: D.cinnabarDim, border: '1px solid rgba(196,65,37,0.4)', color: D.cinnabar }}>确认</button>
                               <button onClick={() => setShowDeleteConfirm(null)} style={{ padding: '2px 8px', borderRadius: D.radiusXs, fontSize: 11, cursor: 'pointer', background: D.bgCard, border: `1px solid ${D.border}`, color: D.textMid }}>取消</button>

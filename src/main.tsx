@@ -21,10 +21,14 @@ type SyncState = {
   error?: string;
 };
 
+type SyncSaveOptions = {
+  explicitDeletedRecordIds?: string[];
+};
+
 declare global {
   interface Window {
     xinghuoSync?: {
-      saveNow: () => Promise<void>;
+      saveNow: (options?: SyncSaveOptions) => Promise<void>;
       retry: () => Promise<void>;
       getState: () => SyncState;
       hasPendingChanges: () => boolean;
@@ -91,18 +95,19 @@ function restoreSyncedData(data: Record<string, unknown>) {
   if (rememberedFlag) originalSetItem('xinghuo_auth_remembered', rememberedFlag);
 }
 
-function readPendingSync(): { updatedAt?: string; error?: string } | null {
+function readPendingSync(): { updatedAt?: string; error?: string; options?: SyncSaveOptions } | null {
   const raw = localStorage.getItem(PENDING_SYNC_KEY);
   if (!raw) return null;
   try { return JSON.parse(raw); } catch { return {}; }
 }
 
-function markPendingSync(data: Record<string, unknown>, error: string) {
+function markPendingSync(data: Record<string, unknown>, error: string, options?: SyncSaveOptions) {
   hasUnsavedChanges = true;
   try {
     originalSetItem(PENDING_SYNC_KEY, JSON.stringify({
       data,
       error,
+      options,
       updatedAt: new Date().toISOString(),
     }));
   } catch {
@@ -150,15 +155,26 @@ function scheduleReloadAfterStaleSave() {
   }, 1600);
 }
 
-async function saveToCloud(): Promise<void> {
+function buildSaveHeaders(options?: SyncSaveOptions): HeadersInit {
+  const headers: Record<string, string> = { 'Content-Type': 'application/json' };
+  const deletedIds = options?.explicitDeletedRecordIds?.map(String).filter(Boolean);
+  if (deletedIds?.length) {
+    headers['X-Xinghuo-Deleted-Record-Ids'] = JSON.stringify(deletedIds);
+  }
+  return headers;
+}
+
+async function saveToCloud(options?: SyncSaveOptions): Promise<void> {
   if (saveTimer) { clearTimeout(saveTimer); saveTimer = null; }
   if (isLoading) return;
   if (inFlightSave) {
     pendingSaveAfterInFlight = true;
     await inFlightSave;
-    return saveToCloud();
+    return saveToCloud(options);
   }
 
+  const pendingOptions = readPendingSync()?.options;
+  const saveOptions = options ?? pendingOptions;
   const data = collectAllData();
   pendingSaveAfterInFlight = false;
   const startedAt = Date.now();
@@ -169,7 +185,7 @@ async function saveToCloud(): Promise<void> {
 
   const request = fetch('/api/save', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: buildSaveHeaders(saveOptions),
       body: JSON.stringify(data),
       signal: controller.signal,
     })
@@ -201,7 +217,7 @@ async function saveToCloud(): Promise<void> {
       const message = aborted
         ? `同步超时：${Math.round(SAVE_TIMEOUT_MS / 1000)}秒内未完成，请稍后重试`
         : e instanceof Error ? e.message : String(e);
-      markPendingSync(data, message);
+      markPendingSync(data, message, saveOptions);
       console.error('[sync] Save failed:', { error: e, ms: Date.now() - startedAt });
       setSyncState({ status: 'error', message: '同步失败', error: message, updatedAt: new Date().toISOString() });
       throw e;
@@ -216,7 +232,7 @@ async function saveToCloud(): Promise<void> {
 
   await inFlightSave;
   if (pendingSaveAfterInFlight) {
-    return saveToCloud();
+    return saveToCloud(options);
   }
 }
 

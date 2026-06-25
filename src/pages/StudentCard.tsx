@@ -1727,10 +1727,10 @@ export default function StudentCard() {
     ? getFrontProgress(student, config.frontLevels)
     : getBackProgress(student, config.backLevels);
 
-  const syncAfterChange = async (successMessage: string) => {
+  const syncAfterChange = async (successMessage: string, options?: { explicitDeletedRecordIds?: string[] }) => {
     setIsSyncing(true);
     try {
-      await window.xinghuoSync?.saveNow();
+      await window.xinghuoSync?.saveNow(options);
       showToast(successMessage);
       return true;
     } catch {
@@ -1743,7 +1743,7 @@ export default function StudentCard() {
 
   const handleDeleteRecord = async (recordId: string) => {
     deleteBehaviorRecord(recordId);
-    return await syncAfterChange('已删除记录并同步');
+    return await syncAfterChange('已删除记录并同步', { explicitDeletedRecordIds: [recordId] });
   };
 
   const handleEditSave = async (updates: Partial<Student>) => {
