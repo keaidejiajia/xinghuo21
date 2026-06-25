@@ -1,5 +1,5 @@
-import type { BehaviorRecord, TeachingWeek } from '../types/index.js';
-import { addDays, behaviorRecordLocalDate, toLocalDateStr } from './utils.js';
+import type { BehaviorRecord, TeachingWeek } from '../types';
+import { addDays, behaviorRecordLocalDate, toLocalDateStr } from './utils';
 
 const WEEKDAY_NAMES = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
 

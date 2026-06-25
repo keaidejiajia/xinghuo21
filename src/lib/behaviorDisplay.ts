@@ -1,4 +1,5 @@
 import type { BehaviorDefinition, BehaviorRecord, HomeworkSubject, NegativeWeight, PositiveWeight } from '../types/index.js';
+import { getExchangeCostFromRecord, getExchangeSideFromRecord, isExchangeRecord } from './exchangeLogic';
 
 const CATEGORY_DISPLAY_ORDER = ['纪律', '学习', '卫生', '品行'];
 
@@ -94,6 +95,7 @@ export interface StudentBehaviorConsequenceRow {
 }
 
 function getWeightName(record: BehaviorRecord, options: BehaviorImpactDisplayOptions): string {
+  if (isExchangeRecord(record)) return '兑换';
   return record.direction === 'negative'
     ? options.negativeWeightNames[record.weight as NegativeWeight]
     : options.positiveWeightNames[record.weight as PositiveWeight];
@@ -129,6 +131,18 @@ function getConsequenceReasons(record: BehaviorRecord): string[] {
 }
 
 export function formatBehaviorConsequence(record: BehaviorRecord, options: BehaviorImpactDisplayOptions): BehaviorConsequenceDisplay {
+  if (isExchangeRecord(record)) {
+    const cost = getExchangeCostFromRecord(record);
+    const currency = getExchangeSideFromRecord(record) === 'front' ? '护盾' : '传承值';
+    const resultLabel = `消耗${cost}${currency}`;
+    return {
+      resultLabel,
+      reasonLabels: [],
+      fullLabel: resultLabel,
+      isSpecial: false,
+    };
+  }
+
   const extraWeight = record.extraWeight ?? 0;
   const baseAmount = (record.weight as number) + extraWeight;
   let resultLabel: string;
@@ -181,6 +195,7 @@ export function summarizeStudentBehaviorConsequences(
 
 export function stripConsequenceRemarkParts(remark: string | undefined): string {
   return (remark ?? '')
+    .replace(/exchange:(front|back),cost:\d+[,，]\s*/g, '')
     .replace(/^ruleId:[^,，]+[,，]\s*/, '')
     .split(/[；;]/)
     .map(part => part.trim())
@@ -194,6 +209,7 @@ export function stripConsequenceRemarkParts(remark: string | undefined): string 
     .filter(part => !/^额外\+\d+/.test(part))
     .filter(part => !/^[+＋]\d+/.test(part))
     .filter(part => !/^消耗\d+(护盾|传承值)$/.test(part))
+    .filter(part => !/^exchange:/.test(part))
     .filter(part => !/^\d+传承值抵消\d+心魔$/.test(part))
     .filter(part => !/^.+\s*→\s*.+$/.test(part))
     .join('；');

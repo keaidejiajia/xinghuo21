@@ -8,8 +8,8 @@ import {
   stripConsequenceRemarkParts,
   formatBehaviorRecordTitle,
   sortBehaviorsForDisplay,
-} from '../src/lib/behaviorDisplay.js';
-import type { BehaviorDefinition, BehaviorRecord, HomeworkSubject } from '../src/types/index.js';
+} from '../src/lib/behaviorDisplay';
+import type { BehaviorDefinition, BehaviorRecord, HomeworkSubject } from '../src/types';
 
 const behaviors = [
   { id: 'b3', direction: 'negative', category: '学习', weight: 3, name: '三级', description: '三级', isHighSensitivity: false, isComposite: false, isInverseSelectable: false },
@@ -92,6 +92,41 @@ assert.equal(
   formatBehaviorBaseEffectLabel({ ...baseRecord, direction: 'positive', weight: 3, extraWeight: 0, description: '突出贡献' }, impactOptions),
   '闪耀',
   'positive behavior label should also only show the level name',
+);
+
+const exchangeRecord: BehaviorRecord = {
+  ...baseRecord,
+  id: 'exchange-1',
+  direction: 'positive',
+  weight: 1,
+  category: '品行',
+  description: '兑换：中性笔',
+  remark: 'exchange:front,cost:7，消耗7护盾',
+  studentCardSide: 'front',
+  recordType: 'exchange',
+};
+
+assert.equal(
+  formatBehaviorBaseEffectLabel(exchangeRecord, impactOptions),
+  '兑换',
+  'exchange records should not be displayed as 微芒 positive behavior',
+);
+
+assert.deepEqual(
+  formatBehaviorConsequence(exchangeRecord, impactOptions),
+  {
+    resultLabel: '消耗7护盾',
+    reasonLabels: [],
+    fullLabel: '消耗7护盾',
+    isSpecial: false,
+  },
+  'exchange records should display account cost instead of earned shields or fire seeds',
+);
+
+assert.equal(
+  stripConsequenceRemarkParts(exchangeRecord.remark),
+  '',
+  'structured exchange remark should not be displayed as teacher-written remark',
 );
 
 const oldHabitBackRecord: BehaviorRecord = {

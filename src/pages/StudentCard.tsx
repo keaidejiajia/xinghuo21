@@ -31,6 +31,7 @@ import {
 import { toLocalDateStr } from '../lib/utils';
 import { useStudents } from '../lib/store';
 import { computeStudentLevelChanges } from '../lib/audit';
+import { applyExchangeToStudent, buildExchangeRecord } from '../lib/exchangeLogic';
 import { formatLevelChangeDisplay } from '../lib/levelChangeDisplay';
 import { formatBehaviorBaseEffectLabel, formatBehaviorConsequence, formatBehaviorRecordTitle, stripConsequenceRemarkParts } from '../lib/behaviorDisplay';
 import { formatBehaviorRecordDateLabel } from '../lib/behaviorDate';
@@ -1650,6 +1651,8 @@ export default function StudentCard() {
   const [heritageConfirm, setHeritageConfirm] = useState(false);
   const [showExchangePanel, setShowExchangePanel] = useState(false);
   const [exchangeConfirmId, setExchangeConfirmId] = useState<string | null>(null);
+  const [customExchangeName, setCustomExchangeName] = useState('');
+  const [customExchangeCost, setCustomExchangeCost] = useState('');
   const [activeTab, setActiveTab] = useState<'level' | 'effects' | 'history'>('level');
   const [isSyncing, setIsSyncing] = useState(false);
   const isMobile = useMobile();
@@ -2076,14 +2079,116 @@ export default function StudentCard() {
               }).sort((a, b) => a.cost - b.cost);
               const currency = student.cardSide === 'front' ? '护盾' : '传承值';
               const balance = student.cardSide === 'front' ? student.starShields : student.heritagePoints;
-              if (availableItems.length === 0) {
-                return <div style={{ fontSize: 12, color: D.textDim }}>暂无可兑换项目</div>;
-              }
+              const customCost = Math.floor(Number(customExchangeCost));
+              const canCustomExchange = customExchangeName.trim().length > 0 && Number.isFinite(customCost) && customCost > 0 && customCost <= balance;
               return (
                 <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                   <div style={{ fontSize: 12, color: D.textMid, marginBottom: 2 }}>
                     当前{currency}：<span style={{ color: student.cardSide === 'front' ? INK.starBlue : '#E8A030', fontWeight: 600 }}>{balance}</span>
                   </div>
+                  <div style={{
+                    padding: 12,
+                    borderRadius: D.radiusSm,
+                    background: student.cardSide === 'front' ? 'rgba(123,139,181,0.08)' : 'rgba(232,160,48,0.08)',
+                    border: student.cardSide === 'front' ? '1px solid rgba(123,139,181,0.26)' : '1px solid rgba(232,160,48,0.26)',
+                  }}>
+                    <div style={{ fontSize: 12, color: student.cardSide === 'front' ? INK.starGold : '#E8A030', fontWeight: 600, marginBottom: 8, fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}>
+                      自由兑换
+                    </div>
+                    <div style={{
+                      display: 'grid',
+                      gridTemplateColumns: isMobile ? '1fr 92px' : 'minmax(160px, 1fr) 96px auto',
+                      gap: 8,
+                      alignItems: 'center',
+                    }}>
+                      <input
+                        value={customExchangeName}
+                        onChange={e => setCustomExchangeName(e.target.value)}
+                        placeholder="兑换物品"
+                        style={{
+                          width: '100%',
+                          boxSizing: 'border-box',
+                          height: 34,
+                          padding: '6px 10px',
+                          borderRadius: D.radiusSm,
+                          background: 'rgba(0,0,0,0.16)',
+                          border: `1px solid ${INK.border}`,
+                          color: INK.textPrimary,
+                          fontSize: 13,
+                          outline: 'none',
+                          fontFamily: "'LXGW WenKai', 'Cinzel', serif",
+                        }}
+                      />
+                      <input
+                        type="number"
+                        min={1}
+                        max={balance}
+                        value={customExchangeCost}
+                        onChange={e => setCustomExchangeCost(e.target.value)}
+                        placeholder={`消耗${currency}`}
+                        style={{
+                          width: '100%',
+                          boxSizing: 'border-box',
+                          height: 34,
+                          padding: '6px 10px',
+                          borderRadius: D.radiusSm,
+                          background: 'rgba(0,0,0,0.16)',
+                          border: `1px solid ${INK.border}`,
+                          color: INK.textPrimary,
+                          fontSize: 13,
+                          outline: 'none',
+                          fontFamily: "'LXGW WenKai', 'Cinzel', serif",
+                        }}
+                      />
+                      <button
+                        disabled={!canCustomExchange || isSyncing}
+                        onClick={async () => {
+                          const itemName = customExchangeName.trim();
+                          const cost = Math.floor(Number(customExchangeCost));
+                          if (!itemName || !Number.isFinite(cost) || cost <= 0 || cost > balance) return;
+                          updateStudent(student.id, (s: Student) => applyExchangeToStudent(s, { side: student.cardSide, cost }));
+                          addBehaviorRecord(buildExchangeRecord({
+                            studentId: student.id,
+                            side: student.cardSide,
+                            itemName,
+                            cost,
+                            recordedBy: '班主任',
+                            studentCardSide: student.cardSide,
+                          }));
+                          const synced = await syncAfterChange(`已兑换并同步：${itemName}`);
+                          if (synced) {
+                            setCustomExchangeName('');
+                            setCustomExchangeCost('');
+                            setExchangeConfirmId(null);
+                          }
+                        }}
+                        style={{
+                          height: 34,
+                          padding: '0 12px',
+                          borderRadius: D.radiusSm,
+                          background: student.cardSide === 'front' ? 'rgba(123,139,181,0.16)' : 'rgba(232,160,48,0.16)',
+                          border: student.cardSide === 'front' ? '1px solid rgba(123,139,181,0.35)' : '1px solid rgba(232,160,48,0.35)',
+                          color: student.cardSide === 'front' ? INK.starBlue : '#E8A030',
+                          fontSize: 12,
+                          fontWeight: 600,
+                          fontFamily: "'LXGW WenKai', 'Cinzel', serif",
+                          gridColumn: isMobile ? '1 / -1' : undefined,
+                          opacity: !canCustomExchange || isSyncing ? 0.55 : 1,
+                          cursor: !canCustomExchange || isSyncing ? 'not-allowed' : 'pointer',
+                        }}
+                      >
+                        {isSyncing ? '同步中' : '确认兑换'}
+                      </button>
+                    </div>
+                    {customCost > balance && (
+                      <div style={{ marginTop: 6, fontSize: 11, color: D.cinnabar, fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}>
+                        当前{currency}不足
+                      </div>
+                    )}
+                  </div>
+                  {availableItems.length === 0 && (
+                    <div style={{ fontSize: 12, color: D.textDim }}>暂无固定兑换项</div>
+                  )}
                   {availableItems.map(item => {
                     const canAfford = balance >= item.cost;
                     const isConfirming = exchangeConfirmId === item.id;
@@ -2130,18 +2235,15 @@ export default function StudentCard() {
                           <div style={{ display: 'flex', gap: 6, alignItems: 'center', marginTop: 4 }}>
                             <span style={{ fontSize: 11, color: D.cinnabar, fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}>确认消耗{item.cost}{currency}兑换？</span>
                             <button disabled={isSyncing} onClick={async () => {
-                              if (student.cardSide === 'front') {
-                                updateStudent(student.id, (s: Student) => ({ ...s, starShields: s.starShields - item.cost, totalShieldsExchanged: (s.totalShieldsExchanged || 0) + item.cost }));
-                              } else {
-                                updateStudent(student.id, (s: Student) => ({ ...s, heritagePoints: s.heritagePoints - item.cost, totalHeritageDonated: s.totalHeritageDonated + item.cost }));
-                              }
-                              addBehaviorRecord({
-                                studentId: student.id, direction: 'positive', weight: 1 as PositiveWeight,
-                                category: '品行', description: `兑换：${item.name}`,
-                                remark: `消耗${item.cost}${student.cardSide === 'front' ? '护盾' : '传承值'}`, recordedBy: '班主任',
-                                verified: true, shieldsConsumed: 0, isHighSensitivity: false,
+                              updateStudent(student.id, (s: Student) => applyExchangeToStudent(s, { side: student.cardSide, cost: item.cost }));
+                              addBehaviorRecord(buildExchangeRecord({
+                                studentId: student.id,
+                                side: student.cardSide,
+                                itemName: item.name,
+                                cost: item.cost,
+                                recordedBy: '班主任',
                                 studentCardSide: student.cardSide,
-                              });
+                              }));
                               const synced = await syncAfterChange(`已兑换并同步：${item.name}`);
                               if (synced) {
                                 setExchangeConfirmId(null);

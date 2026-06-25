@@ -3,7 +3,7 @@ import {
   flushPendingParentAccessEvents,
   getPendingParentAccessEvents,
   recordParentAccess,
-} from '../src/lib/parentAccessClient.js';
+} from '../src/lib/parentAccessClient';
 
 class MemoryStorage {
   private values = new Map<string, string>();

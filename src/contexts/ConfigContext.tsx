@@ -24,12 +24,24 @@ function normalizeConfig(config: AppConfig): AppConfig {
   const homeworkSubjects = Array.isArray(config.homeworkSubjects) && config.homeworkSubjects.length > 0
     ? config.homeworkSubjects
     : DEFAULT_APP_CONFIG.homeworkSubjects;
+  const savedHeartDemonRules = (config as Partial<AppConfig>).heartDemonClearRules;
+  const heartDemonClearRules = {
+    zeroViolation: {
+      ...DEFAULT_APP_CONFIG.heartDemonClearRules.zeroViolation,
+      ...(savedHeartDemonRules?.zeroViolation ?? {}),
+    },
+    shiningBehavior: {
+      ...DEFAULT_APP_CONFIG.heartDemonClearRules.shiningBehavior,
+      ...(savedHeartDemonRules?.shiningBehavior ?? {}),
+    },
+  };
 
   return {
     ...config,
     negativeBehaviors,
     positiveBehaviors,
     homeworkSubjects,
+    heartDemonClearRules,
     versionLogs: mergeSystemVersionLogs(config.versionLogs),
   };
 }
@@ -208,6 +220,12 @@ function loadConfig(): AppConfig {
       if (parsed.version === 15) {
         const migrated = normalizeConfig({ ...DEFAULT_APP_CONFIG, ...parsed, version: CURRENT_CONFIG_VERSION });
         migrated.homeworkSubjects = DEFAULT_APP_CONFIG.homeworkSubjects;
+        localStorage.setItem(CONFIG_STORAGE_KEY, JSON.stringify(migrated));
+        return migrated;
+      }
+      // Migration from v16: add editable heart-demon clearing rules
+      if (parsed.version === 16) {
+        const migrated = normalizeConfig({ ...DEFAULT_APP_CONFIG, ...parsed, version: CURRENT_CONFIG_VERSION });
         localStorage.setItem(CONFIG_STORAGE_KEY, JSON.stringify(migrated));
         return migrated;
       }

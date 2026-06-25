@@ -3,8 +3,8 @@ import {
   buildWeekdayOptions,
   formatBehaviorDateLabel,
   getBehaviorRecordDate,
-} from '../src/lib/behaviorDate.js';
-import type { BehaviorRecord, TeachingWeek } from '../src/types/index.js';
+} from '../src/lib/behaviorDate';
+import type { BehaviorRecord, TeachingWeek } from '../src/types';
 
 const weeks: TeachingWeek[] = [
   { weekNumber: 14, startDate: '2026-06-15', endDate: '2026-06-19' },

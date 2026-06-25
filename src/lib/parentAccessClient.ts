@@ -1,4 +1,4 @@
-import type { ParentAccessDevice, ParentAccessEvent, UserRole } from '../types/index.js';
+import type { ParentAccessDevice, ParentAccessEvent, UserRole } from '../types';
 
 type ParentUser = {
   role: UserRole;

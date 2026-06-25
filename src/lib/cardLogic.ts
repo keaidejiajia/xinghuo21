@@ -1,20 +1,64 @@
-import type { Student, CardSide, FrontLevel, BackLevel, LevelChange, BehaviorRecord, TeachingWeek } from '../types';
+import type { Student, CardSide, FrontLevel, BackLevel, LevelChange, BehaviorRecord, TeachingWeek, HeartDemonClearRules } from '../types';
 import { behaviorRecordLocalDate, toLocalDateStr, recordLocalDate, addDays, isTeachingDay } from './utils';
+import { getExchangeCostFromRecord, isExchangeRecord } from './exchangeLogic';
 
-// ===== 核心卡片逻辑引擎 =====
+// ===== 鏍稿績鍗＄墖閫昏緫寮曟搸 =====
 
-/** 获取正面等级的空格数 */
+/** 鑾峰彇姝ｉ潰绛夌骇鐨勭┖鏍兼暟 */
 export function getFrontBlanks(level: number, frontLevels: FrontLevel[]): number {
   return frontLevels[level - 1]?.blanks ?? 8;
 }
 
-/** 获取背面等级所需火种数 */
+/** 鑾峰彇鑳岄潰绛夌骇鎵€闇€鐏鏁?*/
 export function getBackChecksRequired(level: number, heartDemonMarks: number, backLevels: BackLevel[]): number {
   const base = backLevels[level - 1]?.checksRequired ?? 0;
   return base + heartDemonMarks;
 }
 
-/** 处理正面星蚀记录：根据权重填入空格，星光护盾按比例抵消 */
+const DEFAULT_HEART_DEMON_CLEAR_RULES: HeartDemonClearRules = {
+  zeroViolation: { weeksRequired: 2, clearCount: 1, isActive: true },
+  shiningBehavior: { minWeight: 3, clearCount: 1, isActive: true },
+};
+
+function positiveInteger(value: unknown, fallback: number): number {
+  const n = Math.floor(Number(value));
+  return Number.isFinite(n) && n > 0 ? n : fallback;
+}
+
+export function normalizeHeartDemonClearRules(rules?: Partial<HeartDemonClearRules>): HeartDemonClearRules {
+  return {
+    zeroViolation: {
+      ...DEFAULT_HEART_DEMON_CLEAR_RULES.zeroViolation,
+      ...(rules?.zeroViolation ?? {}),
+      weeksRequired: positiveInteger(rules?.zeroViolation?.weeksRequired, DEFAULT_HEART_DEMON_CLEAR_RULES.zeroViolation.weeksRequired),
+      clearCount: positiveInteger(rules?.zeroViolation?.clearCount, DEFAULT_HEART_DEMON_CLEAR_RULES.zeroViolation.clearCount),
+    },
+    shiningBehavior: {
+      ...DEFAULT_HEART_DEMON_CLEAR_RULES.shiningBehavior,
+      ...(rules?.shiningBehavior ?? {}),
+      minWeight: positiveInteger(rules?.shiningBehavior?.minWeight, DEFAULT_HEART_DEMON_CLEAR_RULES.shiningBehavior.minWeight),
+      clearCount: positiveInteger(rules?.shiningBehavior?.clearCount, DEFAULT_HEART_DEMON_CLEAR_RULES.shiningBehavior.clearCount),
+    },
+  };
+}
+
+function clearHeartDemons(current: number, requested: number): { remaining: number; cleared: number } {
+  const cleared = Math.min(Math.max(0, current), Math.max(0, requested));
+  return { remaining: Math.max(0, current - cleared), cleared };
+}
+
+function isHeartDemonClearRecord(record: Pick<BehaviorRecord, 'description' | 'remark'>): boolean {
+  return String(record.description || '').includes('心魔消除') || String(record.remark || '').includes('heartDemonClear:');
+}
+
+function getHeartDemonClearCountFromRecord(record: Pick<BehaviorRecord, 'description' | 'remark' | 'weight'>): number {
+  const text = `${record.description || ''} ${record.remark || ''}`;
+  const match = text.match(/count:(\d+)/) || text.match(/[（(]\s*-\s*(\d+)/);
+  const parsed = match ? Number(match[1]) : Number(record.weight || 1);
+  return Number.isFinite(parsed) && parsed > 0 ? Math.floor(parsed) : 1;
+}
+
+/** 澶勭悊姝ｉ潰鏄熻殌璁板綍锛氭牴鎹潈閲嶅～鍏ョ┖鏍硷紝鏄熷厜鎶ょ浘鎸夋瘮渚嬫姷娑?*/
 export function processNegativeBehavior(
   student: Student,
   weight: number,
@@ -58,13 +102,13 @@ export function processNegativeBehavior(
     const heartDemonGain = Math.max(1, Math.floor(weight));
     s.heartDemonMarks += heartDemonGain;
     s.totalHeartDemonsEverGained += heartDemonGain;
-    // 不朽晨辉：传承值自动抵消心魔
+    // 涓嶆溄鏅ㄨ緣锛氫紶鎵垮€艰嚜鍔ㄦ姷娑堝績榄?
     while (s.heartDemonMarks > 0 && s.heritagePoints > 0 && s.currentLevel === 6) {
       s.heartDemonMarks -= 1;
       s.heritagePoints -= 1;
       heritageOffsetCount += 1;
     }
-    // 不朽晨辉降级检测：心魔≥阈值时降级到熔炉之心
+    // 涓嶆溄鏅ㄨ緣闄嶇骇妫€娴嬶細蹇冮瓟鈮ラ槇鍊兼椂闄嶇骇鍒扮啍鐐変箣蹇?
     if (s.cardSide === 'back' && s.currentLevel === 6 && s.heartDemonMarks >= demotionThreshold) {
       s.currentLevel = 5;
       s.heartDemonMarks = 0;
@@ -87,7 +131,7 @@ export function processNegativeBehavior(
   return { student: s, shieldsConsumed, levelChanged, flipped, fromLevel, fromSide, heritageOffsetCount };
 }
 
-/** 处理正面行为（卡片在正面→获得护盾，卡片在背面→增加火种） */
+/** 澶勭悊姝ｉ潰琛屼负锛堝崱鐗囧湪姝ｉ潰鈫掕幏寰楁姢鐩撅紝鍗＄墖鍦ㄨ儗闈⑩啋澧炲姞鐏锛?*/
 export function processPositiveBehaviorFront(
   student: Student,
   weight: number
@@ -99,11 +143,12 @@ export function processPositiveBehaviorFront(
   return { student: s, shieldsGained: weight };
 }
 
-/** 处理背面火种记录：根据权重累加火种数 */
+/** 澶勭悊鑳岄潰鐏璁板綍锛氭牴鎹潈閲嶇疮鍔犵伀绉嶆暟 */
 export function processPositiveBehavior(
   student: Student,
   weight: number,
   backLevels: BackLevel[],
+  heartDemonClearRules?: Partial<HeartDemonClearRules>,
 ): { student: Student; levelChanged: boolean; reachedImmortal: boolean; fromLevel: number; fromSide: CardSide; heartDemonsCleared: number } {
   const s = { ...student };
   let levelChanged = false;
@@ -111,28 +156,30 @@ export function processPositiveBehavior(
   let heartDemonsCleared = 0;
   const fromLevel = student.currentLevel;
   const fromSide = student.cardSide;
+  const clearRules = normalizeHeartDemonClearRules(heartDemonClearRules);
 
   if (s.cardSide === 'back') {
-    // 闪耀级行为消1心魔（所有背面同学）
-    if (weight >= 3 && s.heartDemonMarks > 0) {
-      s.heartDemonMarks -= 1;
-      heartDemonsCleared += 1;
+    // 闂€€绾ц涓烘秷1蹇冮瓟锛堟墍鏈夎儗闈㈠悓瀛︼級
+    if (clearRules.shiningBehavior.isActive !== false && weight >= clearRules.shiningBehavior.minWeight && s.heartDemonMarks > 0) {
+      const result = clearHeartDemons(s.heartDemonMarks, clearRules.shiningBehavior.clearCount);
+      s.heartDemonMarks = result.remaining;
+      heartDemonsCleared += result.cleared;
     }
 
     s.cumulativeChecks += weight;
     s.totalChecksEverEarned += weight;
 
-    // 不朽晨辉：获得传承值
+    // 涓嶆溄鏅ㄨ緣锛氳幏寰椾紶鎵垮€?
     if (s.currentLevel === 6) {
       s.heritagePoints += weight;
       s.totalHeritageEarned += weight;
-      // 传承值自动抵消心魔
+      // 浼犳壙鍊艰嚜鍔ㄦ姷娑堝績榄?
       while (s.heartDemonMarks > 0 && s.heritagePoints > 0) {
         s.heartDemonMarks -= 1;
         s.heritagePoints -= 1;
         heartDemonsCleared += 1;
       }
-      // 不朽晨辉不再升级
+      // 涓嶆溄鏅ㄨ緣涓嶅啀鍗囩骇
       s.updatedAt = new Date().toISOString();
       return { student: s, levelChanged: false, reachedImmortal: true, fromLevel, fromSide, heartDemonsCleared };
     }
@@ -161,7 +208,7 @@ export function processPositiveBehavior(
   return { student: s, levelChanged, reachedImmortal, fromLevel, fromSide, heartDemonsCleared };
 }
 
-/** 处理正面回升 */
+/** 澶勭悊姝ｉ潰鍥炲崌 */
 export function processRise(
   student: Student,
   consecutiveDays: number,
@@ -181,8 +228,7 @@ export function processRise(
     s.blanksFilled = 0;
     s.consecutiveNoViolationDays = 0;
     s.weeksAtLevelOne = 0;
-    // 护盾保留，以资鼓励
-    s.updatedAt = new Date().toISOString();
+    // 鎶ょ浘淇濈暀锛屼互璧勯紦鍔?    s.updatedAt = new Date().toISOString();
     s.lastLevelChange = { direction: 'up', fromLevel, toLevel: s.currentLevel, fromSide, toSide: s.cardSide, timestamp: s.updatedAt };
     s.riseTaskCompleted = false;
     return { student: s, rose: true, fromLevel, fromSide };
@@ -191,7 +237,7 @@ export function processRise(
   return { student, rose: false, fromLevel, fromSide };
 }
 
-/** 处理心魔消除 */
+/** 澶勭悊蹇冮瓟娑堥櫎 */
 export function clearHeartDemon(student: Student): Student {
   const s = { ...student };
   if (s.heartDemonMarks > 0) {
@@ -201,7 +247,7 @@ export function clearHeartDemon(student: Student): Student {
   return s;
 }
 
-/** 处理星光护盾获得 */
+/** 澶勭悊鏄熷厜鎶ょ浘鑾峰緱 */
 export function addStarShield(student: Student): Student {
   const s = { ...student };
   s.starShields += 1;
@@ -210,7 +256,7 @@ export function addStarShield(student: Student): Student {
   return s;
 }
 
-/** 处理零违纪日 */
+/** 澶勭悊闆惰繚绾棩 */
 export function processNoViolationDay(student: Student): Student {
   const s = { ...student };
   s.consecutiveNoViolationDays += 1;
@@ -218,7 +264,7 @@ export function processNoViolationDay(student: Student): Student {
   return s;
 }
 
-/** 计算等级1进阶称号 */
+/** 璁＄畻绛夌骇1杩涢樁绉板彿 */
 export function getLevelOneTitle(weeksAtLevelOne: number, levelOneTitles: Array<{ weeksRequired: number; name: string; description: string }>): string | null {
   let result: string | null = null;
   for (const title of levelOneTitles) {
@@ -228,7 +274,6 @@ export function getLevelOneTitle(weeksAtLevelOne: number, levelOneTitles: Array<
   }
   return result;
 }
-
 function countTeachingDaysInRange(startDate: string, endDate: string, teachingWeeks: Array<{ startDate: string; endDate: string }>): number {
   let count = 0;
   let current = startDate;
@@ -268,7 +313,7 @@ function countCompletedTeachingWeeksFromDays(
   return completedWeeks;
 }
 
-/** 获取星辉典范称号使用的周数：兼容旧数据，用连续无违纪教学日按教学周折算 */
+/** 鑾峰彇鏄熻緣鍏歌寖绉板彿浣跨敤鐨勫懆鏁帮細鍏煎鏃ф暟鎹紝鐢ㄨ繛缁棤杩濈邯鏁欏鏃ユ寜鏁欏鍛ㄦ姌绠?*/
 export function getLevelOneTitleWeeks(
   student: Pick<Student, 'weeksAtLevelOne' | 'consecutiveNoViolationDays'>,
   teachingWeeks: Array<{ weekNumber: number; startDate: string; endDate: string }>,
@@ -279,7 +324,7 @@ export function getLevelOneTitleWeeks(
   return Math.max(storedWeeks, weeksFromNoViolationDays);
 }
 
-/** 星辉典范称号历史重放需要的最小记录字段。 */
+/** 鏄熻緣鍏歌寖绉板彿鍘嗗彶閲嶆斁闇€瑕佺殑鏈€灏忚褰曞瓧娈点€?*/
 type LevelOneHistoryRecord = Pick<BehaviorRecord, 'id' | 'studentId' | 'direction' | 'weight' | 'extraWeight' | 'description' | 'remark' | 'occurredDate' | 'createdAt'>;
 
 interface LevelOneTitleHistoryConfig {
@@ -288,6 +333,7 @@ interface LevelOneTitleHistoryConfig {
   backLevels: BackLevel[];
   shieldOffsetRatio?: number;
   immortalDemotionThreshold?: number;
+  heartDemonClearRules?: Partial<HeartDemonClearRules>;
 }
 
 function countCompletedTeachingWeeksSince(
@@ -301,16 +347,16 @@ function countCompletedTeachingWeeksSince(
 }
 
 function isRiseRecord(description: string): boolean {
-  return description.includes('回升任务') || description.includes('自动回升');
+  return description.includes('鍥炲崌浠诲姟') || description.includes('鑷姩鍥炲崌');
 }
 
 function parseShieldExchangeCost(record: Pick<LevelOneHistoryRecord, 'description' | 'remark'>): number {
   const text = `${record.description || ''} ${record.remark || ''}`;
-  const match = text.match(/消耗\s*(\d+)\s*护盾/) || text.match(/兑换.*?(\d+)\s*护盾/);
+  const match = text.match(/娑堣€梊s*(\d+)\s*鎶ょ浘/) || text.match(/鍏戞崲.*?(\d+)\s*鎶ょ浘/);
   return match ? Math.max(0, Number(match[1]) || 0) : 0;
 }
 
-/** 从个人行为历史重放“连续保持星辉典范”的教学周数。 */
+/** 浠庝釜浜鸿涓哄巻鍙查噸鏀锯€滆繛缁繚鎸佹槦杈夊吀鑼冣€濈殑鏁欏鍛ㄦ暟銆?*/
 export function getLevelOneTitleWeeksFromHistory(
   student: Pick<Student, 'id' | 'cardSide' | 'currentLevel' | 'createdAt' | 'weeksAtLevelOne' | 'consecutiveNoViolationDays'>,
   records: LevelOneHistoryRecord[],
@@ -339,6 +385,7 @@ export function getLevelOneTitleWeeksFromHistory(
 
   const shieldRatio = config.shieldOffsetRatio ?? 2;
   const immortalDemotionThreshold = config.immortalDemotionThreshold ?? 3;
+  const heartDemonClearRules = normalizeHeartDemonClearRules(config.heartDemonClearRules);
 
   for (const record of sorted) {
     const wasLevelOne = cardSide === 'front' && currentLevel === 1;
@@ -346,7 +393,9 @@ export function getLevelOneTitleWeeksFromHistory(
 
     if (record.direction === 'positive') {
       if (cardSide === 'front') {
-        if (isRiseRecord(record.description || '') && currentLevel > 1) {
+        if (isExchangeRecord(record)) {
+          starShields = Math.max(0, starShields - getExchangeCostFromRecord(record));
+        } else if (isRiseRecord(record.description || '') && currentLevel > 1) {
           currentLevel -= 1;
           blanksFilled = 0;
           starShields += weight;
@@ -356,7 +405,12 @@ export function getLevelOneTitleWeeksFromHistory(
           if (exchangeCost > 0) starShields = Math.max(0, starShields - exchangeCost);
         }
       } else {
-        if (weight >= 3 && heartDemonMarks > 0) heartDemonMarks -= 1;
+        if (isHeartDemonClearRecord(record)) {
+          heartDemonMarks = clearHeartDemons(heartDemonMarks, getHeartDemonClearCountFromRecord(record)).remaining;
+        } else {
+        if (heartDemonClearRules.shiningBehavior.isActive !== false && weight >= heartDemonClearRules.shiningBehavior.minWeight && heartDemonMarks > 0) {
+          heartDemonMarks = clearHeartDemons(heartDemonMarks, heartDemonClearRules.shiningBehavior.clearCount).remaining;
+        }
         cumulativeChecks += weight;
 
         if (currentLevel === 6) {
@@ -374,6 +428,7 @@ export function getLevelOneTitleWeeksFromHistory(
               cumulativeChecks = 0;
             }
           }
+        }
         }
       }
     } else {
@@ -427,15 +482,15 @@ export function getLevelOneTitleWeeksFromHistory(
   );
 }
 
-/** 获取学生的等级名称 */
+/** 鑾峰彇瀛︾敓鐨勭瓑绾у悕绉?*/
 export function getLevelName(cardSide: CardSide, level: number, frontLevels: FrontLevel[], backLevels: BackLevel[]): string {
   if (cardSide === 'front') {
-    return frontLevels[level - 1]?.name ?? '未知';
+    return frontLevels[level - 1]?.name ?? '鏈煡';
   }
-  return backLevels[level - 1]?.name ?? '未知';
+  return backLevels[level - 1]?.name ?? '鏈煡';
 }
 
-/** 获取学生的等级描述 */
+/** 鑾峰彇瀛︾敓鐨勭瓑绾ф弿杩?*/
 export function getLevelDescription(cardSide: CardSide, level: number, frontLevels: FrontLevel[], backLevels: BackLevel[]): string {
   if (cardSide === 'front') {
     return frontLevels[level - 1]?.description ?? '';
@@ -443,7 +498,7 @@ export function getLevelDescription(cardSide: CardSide, level: number, frontLeve
   return backLevels[level - 1]?.description ?? '';
 }
 
-/** 检查复合行为是否触发 */
+/** 妫€鏌ュ鍚堣涓烘槸鍚﹁Е鍙?*/
 export function checkCompositeBehavior(
   weeklyCount: number,
   threshold: number
@@ -451,7 +506,7 @@ export function checkCompositeBehavior(
   return weeklyCount >= threshold;
 }
 
-/** 获取背面升级进度百分比 */
+/** 鑾峰彇鑳岄潰鍗囩骇杩涘害鐧惧垎姣?*/
 export function getBackProgress(student: Student, backLevels: BackLevel[]): number {
   if (student.cardSide !== 'back') return 0;
   if (student.currentLevel === 6) return 100;
@@ -462,58 +517,68 @@ export function getBackProgress(student: Student, backLevels: BackLevel[]): numb
   return Math.min(100, Math.max(0, progress));
 }
 
-/** 获取正面空格进度百分比 */
+/** 鑾峰彇姝ｉ潰绌烘牸杩涘害鐧惧垎姣?*/
 export function getFrontProgress(student: Student, frontLevels: FrontLevel[]): number {
   if (student.cardSide !== 'front') return 0;
   const maxBlanks = getFrontBlanks(student.currentLevel, frontLevels);
   return Math.min(100, (student.blanksFilled / maxBlanks) * 100);
 }
 
-/** 心魔自动消除：连续2教学周零违纪→消1心魔 */
+/** 蹇冮瓟鑷姩娑堥櫎锛氳繛缁?鏁欏鍛ㄩ浂杩濈邯鈫掓秷1蹇冮瓟 */
 export function checkHeartDemonAutoClear(
   student: Student,
   records: BehaviorRecord[],
   teachingWeeks: TeachingWeek[],
-): { student: Student; cleared: boolean; reason: string } {
+  heartDemonClearRules?: Partial<HeartDemonClearRules>,
+  todayStr: string = toLocalDateStr(),
+): { student: Student; cleared: boolean; clearedCount: number; reason: string } {
   if (student.cardSide !== 'back' || student.heartDemonMarks <= 0) {
-    return { student, cleared: false, reason: '' };
+    return { student, cleared: false, clearedCount: 0, reason: '' };
   }
 
-  const today = new Date();
-  const todayStr = toLocalDateStr(today);
+  const clearRules = normalizeHeartDemonClearRules(heartDemonClearRules);
+  if (clearRules.zeroViolation.isActive === false) {
+    return { student, cleared: false, clearedCount: 0, reason: '' };
+  }
 
-  // 找到当前和上一个教学周
-  const currentWeek = teachingWeeks.find(w => todayStr >= w.startDate && todayStr <= w.endDate);
-  if (!currentWeek) return { student, cleared: false, reason: '' };
+  // 鎵惧埌褰撳墠鍜屼笂涓€涓暀瀛﹀懆
+  const completedWeeks = [...teachingWeeks]
+    .filter(w => w.endDate < todayStr)
+    .sort((a, b) => b.weekNumber - a.weekNumber || b.endDate.localeCompare(a.endDate))
+    .slice(0, clearRules.zeroViolation.weeksRequired)
+    .reverse();
 
-  const prevWeek = teachingWeeks.find(w => w.weekNumber === currentWeek.weekNumber - 1);
-  if (!prevWeek) return { student, cleared: false, reason: '' };
+  if (completedWeeks.length < clearRules.zeroViolation.weeksRequired) {
+    return { student, cleared: false, clearedCount: 0, reason: '' };
+  }
 
-  // 检查最近2个教学周内是否有违纪记录
-  const twoWeeksStart = prevWeek.startDate;
+  // 妫€鏌ユ渶杩?涓暀瀛﹀懆鍐呮槸鍚︽湁杩濈邯璁板綍
+  const windowStart = completedWeeks[0].startDate;
+  const windowEnd = completedWeeks[completedWeeks.length - 1].endDate;
   const recentViolations = records.filter(r =>
     r.studentId === student.id &&
     r.direction === 'negative' &&
-    behaviorRecordLocalDate(r) >= twoWeeksStart &&
-    behaviorRecordLocalDate(r) <= todayStr
+    behaviorRecordLocalDate(r) >= windowStart &&
+    behaviorRecordLocalDate(r) <= windowEnd
   );
 
   if (recentViolations.length === 0) {
-    // 防重复：检查上次消除日期
-    if (student.lastHeartDemonClearDate && student.lastHeartDemonClearDate >= twoWeeksStart) {
-      return { student, cleared: false, reason: '' };
+    // 闃查噸澶嶏細妫€鏌ヤ笂娆℃秷闄ゆ棩鏈?
+    if (student.lastHeartDemonClearDate && student.lastHeartDemonClearDate >= windowEnd) {
+      return { student, cleared: false, clearedCount: 0, reason: '' };
     }
     const s = { ...student };
-    s.heartDemonMarks -= 1;
+    const result = clearHeartDemons(s.heartDemonMarks, clearRules.zeroViolation.clearCount);
+    s.heartDemonMarks = result.remaining;
     s.lastHeartDemonClearDate = todayStr;
     s.updatedAt = new Date().toISOString();
-    return { student: s, cleared: true, reason: '连续2周零违纪' };
+    return { student: s, cleared: result.cleared > 0, clearedCount: result.cleared, reason: `连续${clearRules.zeroViolation.weeksRequired}周零违纪` };
   }
 
-  return { student, cleared: false, reason: '' };
+  return { student, cleared: false, clearedCount: 0, reason: '' };
 }
 
-/** 传承值捐赠：不朽晨辉同学用传承值帮背面同学消心魔 */
+/** 浼犳壙鍊兼崘璧狅細涓嶆溄鏅ㄨ緣鍚屽鐢ㄤ紶鎵垮€煎府鑳岄潰鍚屽娑堝績榄?*/
 export function donateHeritage(donor: Student, recipient: Student): { donor: Student; recipient: Student } {
   if (donor.heritagePoints <= 0 || recipient.heartDemonMarks <= 0 || recipient.cardSide !== 'back') {
     return { donor, recipient };
@@ -523,7 +588,7 @@ export function donateHeritage(donor: Student, recipient: Student): { donor: Stu
   return { donor: d, recipient: r };
 }
 
-/** 获取不朽晨辉称号（基于累计传承值） */
+/** 鑾峰彇涓嶆溄鏅ㄨ緣绉板彿锛堝熀浜庣疮璁′紶鎵垮€硷級 */
 export function getImmortalTitle(
   totalHeritageEarned: number,
   immortalTitles: Array<{ heritageRequired: number; name: string; description: string }>,

@@ -3,7 +3,7 @@ import type {
   ParentAccessData,
   ParentAccessEvent,
   ParentAccessDevice,
-} from '../types/index.js';
+} from '../types';
 
 const DEFAULT_VIEW_THROTTLE_MINUTES = 10;
 

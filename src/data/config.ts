@@ -202,6 +202,19 @@ export const IMMORTAL_TITLES = [
 
 export const IMMORTAL_DEMOTION_THRESHOLD = 3;
 
+export const HEART_DEMON_CLEAR_RULES = {
+  zeroViolation: {
+    weeksRequired: 2,
+    clearCount: 1,
+    isActive: true,
+  },
+  shiningBehavior: {
+    minWeight: 3,
+    clearCount: 1,
+    isActive: true,
+  },
+};
+
 // ===== 正面回升任务配置 =====
 export const RISE_TASKS: LevelConfig[] = [
   { side: 'front', level: 6, name: '深谷余烬', description: '', riseDaysRequired: 5, riseTask: '写一篇反思并交由班主任审阅' },
@@ -460,10 +473,10 @@ export const DEFAULT_HOMEWORK_SUBJECTS = [
   { id: 'hw-kouyu', name: '英语口语' },
 ];
 
-export const CURRENT_CONFIG_VERSION = 16;
+export const CURRENT_CONFIG_VERSION = 17;
 
 export const DEFAULT_APP_CONFIG: AppConfig = {
-  version: 16,
+  version: 17,
   frontLevels: FRONT_LEVELS,
   backLevels: BACK_LEVELS,
   frontLevelEffects: FRONT_LEVEL_EFFECTS,
@@ -476,6 +489,7 @@ export const DEFAULT_APP_CONFIG: AppConfig = {
   checkMarkName: CHECK_MARK_NAME,
   shieldOffsetRatio: SHIELD_OFFSET_RATIO,
   autoRules: AUTO_RULES,
+  heartDemonClearRules: HEART_DEMON_CLEAR_RULES,
   riseTasks: RISE_TASKS,
   levelOneTitles: LEVEL_ONE_TITLES,
   immortalTitles: IMMORTAL_TITLES,

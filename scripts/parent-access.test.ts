@@ -2,8 +2,8 @@ import assert from 'node:assert/strict';
 import {
   getParentAccessDailySummary,
   upsertParentAccessEvent,
-} from '../src/lib/parentAccess.js';
-import type { ParentAccessData, ParentAccessEvent } from '../src/types/index.js';
+} from '../src/lib/parentAccess';
+import type { ParentAccessData, ParentAccessEvent } from '../src/types';
 
 const empty: ParentAccessData = { entries: [] };
 const firstLogin: ParentAccessEvent = {

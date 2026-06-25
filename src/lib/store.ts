@@ -1,5 +1,17 @@
 import { useState, useCallback, useEffect } from 'react';
 import type { Student, BehaviorRecord } from '../types';
+import { isExchangeRecord, revertExchangeFromStudent } from './exchangeLogic';
+
+function isHeartDemonClearRecord(record: Pick<BehaviorRecord, 'description' | 'remark'>): boolean {
+  return String(record.description || '').includes('心魔消除') || String(record.remark || '').includes('heartDemonClear:');
+}
+
+function getHeartDemonClearCount(record: Pick<BehaviorRecord, 'description' | 'remark' | 'weight'>): number {
+  const text = `${record.description || ''} ${record.remark || ''}`;
+  const match = text.match(/count:(\d+)/) || text.match(/[（(]\s*-\s*(\d+)/);
+  const parsed = match ? Number(match[1]) : Number(record.weight || 1);
+  return Number.isFinite(parsed) && parsed > 0 ? Math.floor(parsed) : 1;
+}
 
 // ===== 本地状态管理 + localStorage 持久化 =====
 
@@ -311,14 +323,15 @@ export function deleteBehaviorRecord(id: string): boolean {
       student.totalHeartDemonsEverGained = Math.max(0, student.totalHeartDemonsEverGained - heartDemonAmount);
     }
   } else if (record.direction === 'positive') {
-    if (student.cardSide === 'front') {
+    if (isExchangeRecord(record)) {
+      const reverted = revertExchangeFromStudent(student, record);
+      Object.assign(student, reverted);
+    } else if (student.cardSide === 'front') {
       student.starShields = Math.max(0, student.starShields - ew);
       student.totalShieldsEverEarned = Math.max(0, student.totalShieldsEverEarned - ew);
-      // Reverse exchange shield tracking
-      if (record.description && record.description.startsWith('兑换：')) {
-        const costMatch = record.remark && record.remark.match(/消耗(\d+)/);
-        if (costMatch) student.totalShieldsExchanged = Math.max(0, (student.totalShieldsExchanged || 0) - parseInt(costMatch[1]));
-      }
+    } else if (isHeartDemonClearRecord(record)) {
+      student.heartDemonMarks += getHeartDemonClearCount(record);
+      student.lastHeartDemonClearDate = undefined;
     } else {
       student.cumulativeChecks = Math.max(0, student.cumulativeChecks - ew);
       student.totalChecksEverEarned = Math.max(0, student.totalChecksEverEarned - ew);

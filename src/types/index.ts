@@ -154,6 +154,7 @@ export interface Student {
 }
 
 export type PenaltyReason = 'weekly_recorder' | 'old_habit_recurrence';
+export type RecordType = 'behavior' | 'exchange';
 
 // ===== 行为记录 =====
 export interface BehaviorRecord {
@@ -175,6 +176,7 @@ export interface BehaviorRecord {
   isHighSensitivity: boolean;
   affectsFlag?: boolean;
   studentCardSide?: CardSide;
+  recordType?: RecordType;
   isAutoRule?: boolean;
   timePeriodId?: string;
   homeworkSubjectId?: string;
@@ -257,6 +259,19 @@ export interface AutoRule {
   effectType: AutoRuleEffect;
   effectAmount: number;
   isActive: boolean;
+}
+
+export interface HeartDemonClearRules {
+  zeroViolation: {
+    weeksRequired: number;
+    clearCount: number;
+    isActive?: boolean;
+  };
+  shiningBehavior: {
+    minWeight: number;
+    clearCount: number;
+    isActive?: boolean;
+  };
 }
 
 // ===== 规则版本 =====
@@ -361,6 +376,7 @@ export interface AppConfig {
   // 系统
   shieldOffsetRatio: number;
   autoRules: AutoRule[];
+  heartDemonClearRules: HeartDemonClearRules;
   riseTasks: LevelConfig[];
   levelOneTitles: Array<{ weeksRequired: number; name: string; description: string }>;
   immortalTitles: Array<{ heritageRequired: number; name: string; description: string }>;

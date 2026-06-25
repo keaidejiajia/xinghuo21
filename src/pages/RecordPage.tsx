@@ -580,7 +580,7 @@ export default function RecordPage() {
               weight: 1 as PositiveWeight,
               category: '品行',
               description: `传承值抵消·心魔消除（-${heritageOffsetCount}）`,
-              remark: `${heritageOffsetCount}传承值抵消${heritageOffsetCount}心魔`,
+              remark: `heartDemonClear:heritage,count:${heritageOffsetCount}，${heritageOffsetCount}传承值抵消${heritageOffsetCount}心魔`,
               recordedBy,
               verified: true,
               shieldsConsumed: 0,
@@ -621,7 +621,7 @@ export default function RecordPage() {
 
             currentStudent = updated;
           } else {
-            const { student: updated, levelChanged, reachedImmortal, heartDemonsCleared } = processPositiveBehavior(currentStudent, effectiveWeight, config.backLevels);
+            const { student: updated, levelChanged, reachedImmortal, heartDemonsCleared } = processPositiveBehavior(currentStudent, effectiveWeight, config.backLevels, config.heartDemonClearRules);
 
             if (levelChanged) anyLevelChanged = true;
             if (reachedImmortal) anyReachedImmortal = true;
@@ -648,13 +648,15 @@ export default function RecordPage() {
 
             // 心魔消除记录
             if (heartDemonsCleared > 0) {
-              const reason = effectiveWeight >= 3 ? '闪耀行为·心魔消除' : '传承值抵消·心魔消除';
+              const shiningThreshold = config.heartDemonClearRules?.shiningBehavior?.minWeight ?? 3;
+              const reason = effectiveWeight >= shiningThreshold ? '闪耀行为·心魔消除' : '传承值抵消·心魔消除';
               addBehaviorRecord({
                 studentId,
                 direction: 'positive',
                 weight: 1 as PositiveWeight,
                 category: '品行',
                 description: `${reason}（-${heartDemonsCleared}）`,
+                remark: `heartDemonClear:${effectiveWeight >= shiningThreshold ? 'shiningBehavior' : 'heritage'},count:${heartDemonsCleared}`,
                 recordedBy,
                 verified: true,
                 shieldsConsumed: 0,
@@ -733,7 +735,7 @@ export default function RecordPage() {
                         weight: 1 as PositiveWeight,
                         category: '品行',
                         description: `传承值抵消·心魔消除（-${penaltyHeritage}）`,
-                        remark: `${penaltyHeritage}传承值抵消${penaltyHeritage}心魔`,
+                        remark: `heartDemonClear:heritage,count:${penaltyHeritage}，${penaltyHeritage}传承值抵消${penaltyHeritage}心魔`,
                         recordedBy: '系统',
                         verified: true,
                         shieldsConsumed: 0,
@@ -844,7 +846,7 @@ export default function RecordPage() {
     for (const studentId of selectedStudentIds) {
       const currentStudent = students.find(s => s.id === studentId);
       if (!currentStudent || currentStudent.cardSide !== 'back') continue;
-      const { student: clearedStudent, cleared, reason } = checkHeartDemonAutoClear(currentStudent, records, config.teachingWeeks);
+      const { student: clearedStudent, cleared, clearedCount, reason } = checkHeartDemonAutoClear(currentStudent, records, config.teachingWeeks, config.heartDemonClearRules);
       if (cleared) {
         updateStudent(studentId, () => clearedStudent);
         addBehaviorRecord({
@@ -852,7 +854,8 @@ export default function RecordPage() {
           direction: 'positive',
           weight: 1 as PositiveWeight,
           category: '品行',
-          description: `心魔消除·${reason}`,
+          description: `心魔消除·${reason}（-${clearedCount}）`,
+          remark: `heartDemonClear:zeroViolation,count:${clearedCount}`,
           recordedBy,
           verified: true,
           shieldsConsumed: 0,
@@ -860,10 +863,10 @@ export default function RecordPage() {
           studentCardSide: currentStudent.cardSide,
         timePeriodId: selectedTimePeriodId || undefined,
         });
-        showToast(`${currentStudent.name}：心魔消除·${reason}`);
+        showToast(`${currentStudent.name}：心魔消除·${reason}，心魔-${clearedCount}`);
         const existResult = results.find(r => r.studentId === studentId);
         if (existResult) {
-          existResult.message += ` — ${reason}，心魔-1`;
+          existResult.message += ` — ${reason}，心魔-${clearedCount}`;
         }
       }
     }

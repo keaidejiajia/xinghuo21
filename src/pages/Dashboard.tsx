@@ -689,7 +689,7 @@ export default function Dashboard() {
                 isAutoRule: true,
               });
             } else {
-              const { student: updated } = processPositiveBehavior(student, amount, config.backLevels);
+              const { student: updated } = processPositiveBehavior(student, amount, config.backLevels, config.heartDemonClearRules);
               studentMap.set(student.id, updated);
               updateStudent(student.id, () => updated);
               addBehaviorRecord({

@@ -7,6 +7,8 @@
  */
 
 import type { Student, BehaviorRecord, AppConfig, CardSide } from '../types';
+import { normalizeHeartDemonClearRules } from './cardLogic';
+import { getExchangeCostFromRecord, getExchangeSideFromRecord, isExchangeRecord } from './exchangeLogic';
 
 export interface AuditDiscrepancy {
   studentId: string;
@@ -53,6 +55,17 @@ function getBackChecksRequired(
 ): number {
   const base = backLevels[level - 1]?.checksRequired ?? 0;
   return base + heartDemonMarks;
+}
+
+function isHeartDemonClearRecord(record: Pick<BehaviorRecord, 'description' | 'remark'>): boolean {
+  return String(record.description || '').includes('心魔消除') || String(record.remark || '').includes('heartDemonClear:');
+}
+
+function getHeartDemonClearCount(record: Pick<BehaviorRecord, 'description' | 'remark' | 'weight'>): number {
+  const text = `${record.description || ''} ${record.remark || ''}`;
+  const match = text.match(/count:(\d+)/) || text.match(/[（(]\s*-\s*(\d+)/);
+  const parsed = match ? Number(match[1]) : Number(record.weight || 1);
+  return Number.isFinite(parsed) && parsed > 0 ? Math.floor(parsed) : 1;
 }
 
 interface SimState {
@@ -107,6 +120,7 @@ export function recomputeAllStudents(
 
   const SHIELD_RATIO = config.shieldOffsetRatio ?? 2;
   const DEMOTE_THRESH = config.immortalDemotionThreshold ?? 3;
+  const HEART_DEMON_CLEAR_RULES = normalizeHeartDemonClearRules(config.heartDemonClearRules);
 
   // Track computed shieldsConsumed and level changes per record
   const computedShieldsConsumed = new Map<string, number>();
@@ -123,6 +137,24 @@ export function recomputeAllStudents(
     const remark = r.remark || '';
 
     if (dir === 'positive') {
+      if (isExchangeRecord(r)) {
+        const cost = getExchangeCostFromRecord(r);
+        const side = getExchangeSideFromRecord(r);
+        if (side === 'front') {
+          sim.starShields = Math.max(0, sim.starShields - cost);
+          sim.totalShieldsExchanged += cost;
+        } else {
+          sim.heritagePoints = Math.max(0, sim.heritagePoints - cost);
+          sim.totalHeritageDonated += cost;
+        }
+        continue;
+      }
+      if (isHeartDemonClearRecord(r)) {
+        if (sim.cardSide === 'back') {
+          sim.heartDemonMarks = Math.max(0, sim.heartDemonMarks - getHeartDemonClearCount(r));
+        }
+        continue;
+      }
       if (sim.cardSide === 'front') {
         // Detect rise (回升任务)
         const isRise = (desc.includes('回升任务') || desc.includes('自动回升'));
@@ -155,8 +187,12 @@ export function recomputeAllStudents(
           }
         }
       } else {
-        if (weight >= 3 && sim.heartDemonMarks > 0) {
-          sim.heartDemonMarks -= 1;
+        if (
+          HEART_DEMON_CLEAR_RULES.shiningBehavior.isActive !== false &&
+          weight >= HEART_DEMON_CLEAR_RULES.shiningBehavior.minWeight &&
+          sim.heartDemonMarks > 0
+        ) {
+          sim.heartDemonMarks = Math.max(0, sim.heartDemonMarks - HEART_DEMON_CLEAR_RULES.shiningBehavior.clearCount);
         }
         sim.cumulativeChecks += weight;
         sim.totalChecksEverEarned += weight;
@@ -385,12 +421,29 @@ export function computeStudentLevelChanges(
   const frontLevels = config.frontLevels;
   const backLevels = config.backLevels;
   const DEMOTE_THRESH = config.immortalDemotionThreshold ?? 3;
+  const HEART_DEMON_CLEAR_RULES = normalizeHeartDemonClearRules(config.heartDemonClearRules);
 
   for (const r of sorted) {
     const weight = (r.weight || 0) + (r.extraWeight || 0);
     const dir = r.direction;
 
     if (dir === 'positive') {
+      if (isExchangeRecord(r)) {
+        const cost = getExchangeCostFromRecord(r);
+        const side = getExchangeSideFromRecord(r);
+        if (side === 'front') {
+          starShields = Math.max(0, starShields - cost);
+        } else {
+          heritagePoints = Math.max(0, heritagePoints - cost);
+        }
+        continue;
+      }
+      if (isHeartDemonClearRecord(r)) {
+        if (cardSide === 'back') {
+          heartDemonMarks = Math.max(0, heartDemonMarks - getHeartDemonClearCount(r));
+        }
+        continue;
+      }
       if (cardSide === 'front') {
         // Detect rise (回升任务)
         const desc = r.description || '';
@@ -408,7 +461,13 @@ export function computeStudentLevelChanges(
           starShields += weight;
         }
       } else {
-        if (weight >= 3 && heartDemonMarks > 0) heartDemonMarks -= 1;
+        if (
+          HEART_DEMON_CLEAR_RULES.shiningBehavior.isActive !== false &&
+          weight >= HEART_DEMON_CLEAR_RULES.shiningBehavior.minWeight &&
+          heartDemonMarks > 0
+        ) {
+          heartDemonMarks = Math.max(0, heartDemonMarks - HEART_DEMON_CLEAR_RULES.shiningBehavior.clearCount);
+        }
         cumulativeChecks += weight;
         if (currentLevel === 6) {
           heritagePoints += weight;

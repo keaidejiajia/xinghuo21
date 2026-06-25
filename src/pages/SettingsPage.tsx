@@ -62,6 +62,12 @@ const S = {
   tag: (bg: string, fg: string) => ({ padding: '1px 6px', borderRadius: D.radiusXs, fontSize: 10, background: bg, color: fg, border: `1px solid ${fg}33`, fontFamily: "'LXGW WenKai', 'Cinzel', serif" }),
 };
 
+const clampRuleNumber = (value: string, fallback: number, min = 1, max = 99) => {
+  const parsed = Math.floor(Number(value));
+  if (!Number.isFinite(parsed)) return fallback;
+  return Math.min(max, Math.max(min, parsed));
+};
+
 function mergeAliases(existing: string[] | undefined, ...values: Array<string | undefined>): string[] | undefined {
   const aliases = [...(existing ?? [])];
   for (const value of values) {
@@ -1714,6 +1720,32 @@ function SystemTab({ config, updateConfig }: { config: ReturnType<typeof useConf
     return saved ? parseFloat(saved) : 1;
   });
 
+  const updateZeroViolationRule = (changes: Partial<{ weeksRequired: number; clearCount: number; isActive: boolean }>) => {
+    updateConfig(prev => ({
+      ...prev,
+      heartDemonClearRules: {
+        ...prev.heartDemonClearRules,
+        zeroViolation: {
+          ...prev.heartDemonClearRules.zeroViolation,
+          ...changes,
+        },
+      },
+    }));
+  };
+
+  const updateShiningBehaviorRule = (changes: Partial<{ minWeight: number; clearCount: number; isActive: boolean }>) => {
+    updateConfig(prev => ({
+      ...prev,
+      heartDemonClearRules: {
+        ...prev.heartDemonClearRules,
+        shiningBehavior: {
+          ...prev.heartDemonClearRules.shiningBehavior,
+          ...changes,
+        },
+      },
+    }));
+  };
+
   const handleZoomChange = (val: number) => {
     const clamped = Math.max(1, Math.min(1.5, val));
     setZoom(clamped);
@@ -2133,6 +2165,89 @@ function SystemTab({ config, updateConfig }: { config: ReturnType<typeof useConf
             <input type="number" value={config.immortalDemotionThreshold} onChange={e => updateConfig(prev => ({ ...prev, immortalDemotionThreshold: Number(e.target.value) }))} style={S.input} />
           </div>
           <span style={{ color: INK.textMuted, fontSize: 12, alignSelf: 'flex-end', fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}>心魔≥{config.immortalDemotionThreshold}时降级到熔炉之心</span>
+        </div>
+        <div style={{
+          marginTop: 12,
+          marginBottom: 14,
+          padding: 12,
+          borderRadius: D.radiusXs,
+          border: `1px solid ${INK.border}`,
+          background: 'rgba(0,0,0,0.14)',
+        }}>
+          <div style={{ fontSize: 12, fontWeight: 600, color: INK.textSecondary, marginBottom: 10, fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}>心魔消除规则</div>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: isMobile ? 'repeat(2, minmax(0, 1fr))' : '120px 120px minmax(180px, 1fr)',
+            gap: 8,
+            alignItems: 'end',
+            marginBottom: 10,
+          }}>
+            <div>
+              <label style={S.label}>零违纪周数</label>
+              <input
+                type="number"
+                min={1}
+                max={8}
+                value={config.heartDemonClearRules.zeroViolation.weeksRequired}
+                onChange={e => updateZeroViolationRule({
+                  weeksRequired: clampRuleNumber(e.target.value, config.heartDemonClearRules.zeroViolation.weeksRequired, 1, 8),
+                })}
+                style={S.input}
+              />
+            </div>
+            <div>
+              <label style={S.label}>消除心魔</label>
+              <input
+                type="number"
+                min={1}
+                max={12}
+                value={config.heartDemonClearRules.zeroViolation.clearCount}
+                onChange={e => updateZeroViolationRule({
+                  clearCount: clampRuleNumber(e.target.value, config.heartDemonClearRules.zeroViolation.clearCount, 1, 12),
+                })}
+                style={S.input}
+              />
+            </div>
+            <div style={{ color: INK.textMuted, fontSize: 12, lineHeight: 1.5, fontFamily: "'LXGW WenKai', 'Cinzel', serif", gridColumn: isMobile ? '1 / -1' : undefined }}>
+              连续完整教学周零违纪后自动执行；当前未结束的教学周不会参与结算。
+            </div>
+          </div>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: isMobile ? 'repeat(2, minmax(0, 1fr))' : '120px 120px minmax(180px, 1fr)',
+            gap: 8,
+            alignItems: 'end',
+          }}>
+            <div>
+              <label style={S.label}>闪耀最低等级</label>
+              <input
+                type="number"
+                min={1}
+                max={3}
+                value={config.heartDemonClearRules.shiningBehavior.minWeight}
+                onChange={e => updateShiningBehaviorRule({
+                  minWeight: clampRuleNumber(e.target.value, config.heartDemonClearRules.shiningBehavior.minWeight, 1, 3),
+                })}
+                style={S.input}
+              />
+            </div>
+            <div>
+              <label style={S.label}>消除心魔</label>
+              <input
+                type="number"
+                min={1}
+                max={12}
+                value={config.heartDemonClearRules.shiningBehavior.clearCount}
+                onChange={e => updateShiningBehaviorRule({
+                  clearCount: clampRuleNumber(e.target.value, config.heartDemonClearRules.shiningBehavior.clearCount, 1, 12),
+                })}
+                style={S.input}
+              />
+            </div>
+            <div style={{ color: INK.textMuted, fontSize: 12, lineHeight: 1.5, fontFamily: "'LXGW WenKai', 'Cinzel', serif", gridColumn: isMobile ? '1 / -1' : undefined }}>
+              背面同学完成达到该等级的正向行为时自动消除；默认 3 级对应“闪耀”。
+            </div>
+          </div>
         </div>
         <div style={{ fontSize: 12, fontWeight: 600, color: INK.textSecondary, marginTop: 12, marginBottom: 8, fontFamily: "'LXGW WenKai', 'Cinzel', serif" }}>传承值称号</div>
         {config.immortalTitles.map((title, idx) => (
