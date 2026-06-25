@@ -421,8 +421,8 @@
       "blanksFilled": 0,
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
-      "starShields": 28,
-      "consecutiveNoViolationDays": 1,
+      "starShields": 26,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -432,7 +432,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-25T03:06:19.407Z",
+      "updatedAt": "2026-06-25T03:32:26.148Z",
       "totalShieldsExchanged": 5,
       "riseTaskCompleted": false
     },
@@ -1039,6 +1039,26 @@
     }
   ],
   "behavior-records": [
+    {
+      "studentId": "19",
+      "direction": "negative",
+      "weight": 1,
+      "behaviorId": "n-l-2",
+      "category": "学习",
+      "description": "课上不记笔记、做与学习无关的事情、睡觉/趴桌",
+      "remark": "",
+      "recordedBy": "袁俪玮",
+      "verified": true,
+      "shieldsConsumed": 2,
+      "extraWeight": 0,
+      "penaltyReasons": [],
+      "isHighSensitivity": false,
+      "studentCardSide": "front",
+      "timePeriodId": "tp-yingyu",
+      "occurredDate": "2026-06-24",
+      "id": "3472",
+      "createdAt": "2026-06-25T03:32:26.162Z"
+    },
     {
       "studentId": "2",
       "direction": "positive",
