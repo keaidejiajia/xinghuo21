@@ -1038,7 +1038,7 @@
       "blanksFilled": 2,
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
-      "starShields": 54,
+      "starShields": 58,
       "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
@@ -1049,7 +1049,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-25T08:03:52.486Z",
+      "updatedAt": "2026-06-25T08:03:56.381Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -2619,24 +2619,6 @@
       "occurredDate": "2026-06-24",
       "id": "3562",
       "createdAt": "2026-06-25T06:37:43.679Z"
-    },
-    {
-      "studentId": "42",
-      "direction": "negative",
-      "weight": 2,
-      "category": "学习",
-      "description": "自动规则：一周内2次「作业/定时任务未按时上交，或未按要求完成」",
-      "remark": "ruleId:ar-custom-1779854874797，+2星蚀",
-      "recordedBy": "系统",
-      "verified": true,
-      "shieldsConsumed": 4,
-      "isHighSensitivity": false,
-      "studentCardSide": "front",
-      "affectsFlag": false,
-      "isAutoRule": true,
-      "occurredDate": "2026-06-24",
-      "id": "3561",
-      "createdAt": "2026-06-25T06:37:43.633Z"
     },
     {
       "studentId": "42",
