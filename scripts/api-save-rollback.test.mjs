@@ -47,4 +47,31 @@ assert.equal(
   'delete metadata must cover all removed records before bypassing rollback protection',
 );
 
+const repairedRecords = incomingRecords.map(record =>
+  record.id === '40' ? { ...record, shieldsConsumed: 2 } : record,
+);
+const repairAfterLocalDeletion = checkRollbackRisk(currentData, {
+  students: [{ id: '1', name: '学生1', starShields: 3 }],
+  'behavior-records': repairedRecords,
+}, {
+  saveIntent: 'audit-repair',
+});
+assert.equal(
+  repairAfterLocalDeletion.stale,
+  false,
+  'teacher audit repair should be allowed even when it combines local deletion and record corrections',
+);
+
+const emptyAuditRepair = checkRollbackRisk(currentData, {
+  students: [{ id: '1', name: '学生1', starShields: 3 }],
+  'behavior-records': [],
+}, {
+  saveIntent: 'audit-repair',
+});
+assert.equal(
+  emptyAuditRepair.stale,
+  true,
+  'audit repair must not allow an empty behavior history to overwrite cloud data',
+);
+
 console.log('api-save-rollback tests passed');

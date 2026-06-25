@@ -1573,7 +1573,7 @@ function DataAuditSection() {
         recordCorrections,
       );
 
-      await window.xinghuoSync?.saveNow();
+      await window.xinghuoSync?.saveNow({ saveIntent: 'audit-repair' });
       showToast(`已备份并修正 ${fixedStudents} 名学生、${fixedRecords} 条记录，且同步成功`);
       setAuditResult(null);
       setShowDetails(false);

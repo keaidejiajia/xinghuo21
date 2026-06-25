@@ -125,6 +125,10 @@ function explicitDeletionCoversRemovedRecords(recordDiff, explicitDeletedRecordI
   return recordDiff.removedIds.length > 0 && recordDiff.removedIds.every(id => explicitIds.has(id));
 }
 
+function isTrustedAuditRepair(options, incoming) {
+  return options.saveIntent === 'audit-repair' && incoming.records > 0;
+}
+
 export function checkRollbackRisk(currentData, incomingData, options = {}) {
   const current = summarizeData(currentData);
   const incoming = summarizeData(incomingData);
@@ -133,6 +137,10 @@ export function checkRollbackRisk(currentData, incomingData, options = {}) {
 
   if (current.records > 0 && incoming.records === 0) {
     reasons.push('incoming payload has no behavior records while cloud data has records');
+  }
+
+  if (isTrustedAuditRepair(options, incoming)) {
+    return { stale: reasons.length > 0, reasons, current, incoming, recordDiff };
   }
 
   const recordCountDrop = current.records - incoming.records;
@@ -185,6 +193,9 @@ export default async function handler(req, res) {
   try {
     const newData = req.body;
     let explicitDeletedRecordIds = [];
+    const saveIntent = typeof req.headers['x-xinghuo-save-intent'] === 'string'
+      ? req.headers['x-xinghuo-save-intent']
+      : '';
     const explicitDeleteHeader = req.headers['x-xinghuo-deleted-record-ids'];
     if (typeof explicitDeleteHeader === 'string' && explicitDeleteHeader) {
       try {
@@ -220,7 +231,7 @@ export default async function handler(req, res) {
       }
 
       if (currentData) {
-        const rollbackRisk = checkRollbackRisk(currentData, newData, { explicitDeletedRecordIds });
+        const rollbackRisk = checkRollbackRisk(currentData, newData, { explicitDeletedRecordIds, saveIntent });
         if (rollbackRisk.stale) {
           console.warn('[api/save] stale payload rejected', rollbackRisk);
           res.setHeader('Access-Control-Allow-Origin', '*');

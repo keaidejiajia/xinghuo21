@@ -23,6 +23,7 @@ type SyncState = {
 
 type SyncSaveOptions = {
   explicitDeletedRecordIds?: string[];
+  saveIntent?: 'audit-repair';
 };
 
 declare global {
@@ -160,6 +161,9 @@ function buildSaveHeaders(options?: SyncSaveOptions): HeadersInit {
   const deletedIds = options?.explicitDeletedRecordIds?.map(String).filter(Boolean);
   if (deletedIds?.length) {
     headers['X-Xinghuo-Deleted-Record-Ids'] = JSON.stringify(deletedIds);
+  }
+  if (options?.saveIntent) {
+    headers['X-Xinghuo-Save-Intent'] = options.saveIntent;
   }
   return headers;
 }
