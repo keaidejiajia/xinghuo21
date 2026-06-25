@@ -56,19 +56,19 @@
       "currentLevel": 1,
       "blanksFilled": 0,
       "cumulativeChecks": 20,
-      "heartDemonMarks": 40,
+      "heartDemonMarks": 42,
       "starShields": 0,
       "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
       "totalBlanksEverFilled": 35,
-      "totalHeartDemonsEverGained": 42,
+      "totalHeartDemonsEverGained": 44,
       "totalShieldsEverEarned": 14,
       "totalChecksEverEarned": 20,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-25T03:37:36.410Z",
+      "updatedAt": "2026-06-25T04:06:38.474Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0,
       "lastHeartDemonClearDate": "2026-06-17"
@@ -1055,6 +1055,29 @@
     }
   ],
   "behavior-records": [
+    {
+      "studentId": "4",
+      "direction": "negative",
+      "weight": 1,
+      "behaviorId": "n-l-1",
+      "category": "学习",
+      "description": "作业/定时任务未按时上交，或未按要求完成",
+      "remark": "旧习复发：心魔+1",
+      "recordedBy": "王老师",
+      "verified": true,
+      "shieldsConsumed": 0,
+      "extraWeight": 1,
+      "penaltyReasons": [
+        "old_habit_recurrence"
+      ],
+      "isHighSensitivity": false,
+      "studentCardSide": "back",
+      "homeworkSubjectId": "hw-yuwen",
+      "homeworkTitle": "作业本",
+      "occurredDate": "2026-06-25",
+      "id": "3518",
+      "createdAt": "2026-06-25T04:06:38.486Z"
+    },
     {
       "studentId": "38",
       "direction": "negative",
