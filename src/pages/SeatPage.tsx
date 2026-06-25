@@ -15,6 +15,7 @@ import { LevelIcon } from '../components/LevelIcon';
 import { D, INK } from '../data/theme';
 import { useMobile } from '../hooks/useMobile';
 import { MobilePage, MobileRecordItem, MobileSection, MobileSegmentedControl } from '../components/mobile/MobileUI';
+import { compareSeatTieBreaker, getSeatTieScore } from '../lib/seatRanking';
 
 // ===== Teaching week from config =====
 function getCurrentTeachingWeek(teachingWeeks: Array<{ weekNumber: number; startDate: string; endDate: string }>): number {
@@ -828,40 +829,7 @@ export default function SeatPage() {
       const pa = getSeatPriority(a.cardSide, a.currentLevel, config.seatPriorityMap);
       const pb = getSeatPriority(b.cardSide, b.currentLevel, config.seatPriorityMap);
       if (pa !== pb) return pa - pb;
-      // Same level tiebreaker: sub-score (shields - eclipses / sparks - demon marks)
-      if (a.cardSide === 'front') {
-        // 星辉典范(正1)用累积护盾排名，不因兑换而降
-        if (a.currentLevel === 1 && b.currentLevel === 1) {
-          const shieldSumA = a.starShields + (a.totalShieldsExchanged || 0);
-          const shieldSumB = b.starShields + (b.totalShieldsExchanged || 0);
-          const subA = shieldSumA - a.totalBlanksEverFilled;
-          const subB = shieldSumB - b.totalBlanksEverFilled;
-          if (subA !== subB) return subB - subA;
-          if (shieldSumA !== shieldSumB) return shieldSumB - shieldSumA;
-          return b.consecutiveNoViolationDays - a.consecutiveNoViolationDays;
-        }
-        const subA = a.starShields - a.blanksFilled;
-        const subB = b.starShields - b.blanksFilled;
-        if (subA !== subB) return subB - subA;
-        if (a.starShields !== b.starShields) return b.starShields - a.starShields;
-        return b.consecutiveNoViolationDays - a.consecutiveNoViolationDays;
-      } else {
-        // 不朽晨辉(背6)用累积传承值排名
-        if (a.currentLevel === 6 && b.currentLevel === 6) {
-          const heritageSumA = a.heritagePoints + a.totalHeritageDonated;
-          const heritageSumB = b.heritagePoints + b.totalHeritageDonated;
-          const subA = heritageSumA - a.heartDemonMarks;
-          const subB = heritageSumB - b.heartDemonMarks;
-          if (subA !== subB) return subB - subA;
-          if (heritageSumA !== heritageSumB) return heritageSumB - heritageSumA;
-          return b.consecutiveNoViolationDays - a.consecutiveNoViolationDays;
-        }
-        const subA = a.cumulativeChecks - a.heartDemonMarks;
-        const subB = b.cumulativeChecks - b.heartDemonMarks;
-        if (subA !== subB) return subB - subA;
-        if (a.cumulativeChecks !== b.cumulativeChecks) return b.cumulativeChecks - a.cumulativeChecks;
-        return b.consecutiveNoViolationDays - a.consecutiveNoViolationDays;
-      }
+      return compareSeatTieBreaker(a, b);
     }),
     [students, config.seatPriorityMap, skippedIds]
   );
@@ -915,9 +883,7 @@ export default function SeatPage() {
     let lastSubScore = 0;
     for (const s of priorityOrder) {
       const p = getSeatPriority(s.cardSide, s.currentLevel, config.seatPriorityMap);
-      const subScore = s.cardSide === 'front'
-        ? s.starShields - s.blanksFilled
-        : s.cumulativeChecks - s.heartDemonMarks;
+      const subScore = getSeatTieScore(s);
       if (p !== lastPriority) {
         rankInGroup = 1;
         countInGroup = 1;
