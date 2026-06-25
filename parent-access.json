@@ -6,11 +6,11 @@
       "studentId": "35",
       "parentName": "吴佳芮家长",
       "firstAccessAt": "2026-06-25T14:27:33.344Z",
-      "lastAccessAt": "2026-06-25T14:27:33.344Z",
+      "lastAccessAt": "2026-06-25T14:37:41.181Z",
       "loginCount": 0,
-      "viewCount": 1,
+      "viewCount": 2,
       "lastDevice": "mobile",
-      "lastCountedViewAt": "2026-06-25T14:27:33.344Z"
+      "lastCountedViewAt": "2026-06-25T14:37:41.181Z"
     },
     {
       "id": "2026-06-25-33",
@@ -725,5 +725,5 @@
       "lastDevice": "desktop"
     }
   ],
-  "updatedAt": "2026-06-25T14:27:33.344Z"
+  "updatedAt": "2026-06-25T14:37:41.181Z"
 }
