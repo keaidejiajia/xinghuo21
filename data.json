@@ -429,7 +429,7 @@
       "blanksFilled": 0,
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
-      "starShields": 29,
+      "starShields": 34,
       "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
@@ -440,8 +440,8 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-25T10:41:08.018Z",
-      "totalShieldsExchanged": 5,
+      "updatedAt": "2026-06-25T11:43:11.972Z",
+      "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
     {
@@ -20606,21 +20606,6 @@
       "studentCardSide": "front",
       "id": "2301",
       "createdAt": "2026-06-04T10:57:20.831Z"
-    },
-    {
-      "studentId": "19",
-      "direction": "positive",
-      "weight": 1,
-      "category": "品行",
-      "description": "兑换：将自选图片设为一体机桌面背景一周",
-      "remark": "消耗5护盾",
-      "recordedBy": "班主任",
-      "verified": true,
-      "shieldsConsumed": 0,
-      "isHighSensitivity": false,
-      "studentCardSide": "front",
-      "id": "2300",
-      "createdAt": "2026-06-04T10:55:51.528Z"
     },
     {
       "studentId": "43",
