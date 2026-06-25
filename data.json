@@ -381,7 +381,7 @@
       "blanksFilled": 0,
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
-      "starShields": 31,
+      "starShields": 61,
       "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
@@ -392,8 +392,8 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-25T06:32:04.245Z",
-      "totalShieldsExchanged": 56,
+      "updatedAt": "2026-06-25T12:32:38.388Z",
+      "totalShieldsExchanged": 26,
       "riseTaskCompleted": false
     },
     {
@@ -20546,21 +20546,6 @@
       "studentCardSide": "front",
       "id": "2305",
       "createdAt": "2026-06-04T11:28:38.176Z"
-    },
-    {
-      "studentId": "17",
-      "direction": "positive",
-      "weight": 1,
-      "category": "品行",
-      "description": "兑换：手账本礼盒套装",
-      "remark": "消耗30护盾",
-      "recordedBy": "班主任",
-      "verified": true,
-      "shieldsConsumed": 0,
-      "isHighSensitivity": false,
-      "studentCardSide": "front",
-      "id": "2304",
-      "createdAt": "2026-06-04T10:57:48.045Z"
     },
     {
       "studentId": "17",
