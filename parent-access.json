@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "id": "2026-06-25-41",
+      "date": "2026-06-25",
+      "studentId": "41",
+      "parentName": "袁昊家长",
+      "firstAccessAt": "2026-06-25T10:34:06.556Z",
+      "lastAccessAt": "2026-06-25T10:34:06.556Z",
+      "loginCount": 0,
+      "viewCount": 1,
+      "lastDevice": "mobile",
+      "lastCountedViewAt": "2026-06-25T10:34:06.556Z"
+    },
+    {
       "id": "2026-06-25-30",
       "date": "2026-06-25",
       "studentId": "30",
@@ -581,5 +593,5 @@
       "lastDevice": "desktop"
     }
   ],
-  "updatedAt": "2026-06-25T08:33:52.004Z"
+  "updatedAt": "2026-06-25T10:34:06.556Z"
 }
