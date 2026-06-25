@@ -47762,6 +47762,20 @@
         "isInverseSelectable": false
       },
       {
+        "id": "p-custom-1782374902108",
+        "direction": "positive",
+        "category": "品行",
+        "weight": 2,
+        "name": "主动帮助老师",
+        "description": "主动帮助老师",
+        "isHighSensitivity": false,
+        "isComposite": false,
+        "isInverseSelectable": false,
+        "affectsFlag": false,
+        "requiresTimePeriod": false,
+        "requiresHomeworkDetail": false
+      },
+      {
         "id": "p-d-3",
         "direction": "positive",
         "category": "纪律",
