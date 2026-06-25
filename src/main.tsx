@@ -47,6 +47,13 @@ const PENDING_SYNC_KEY = 'xinghuo_pending_sync_payload';
 const SAVE_TIMEOUT_MS = 30_000;
 const LOAD_TIMEOUT_MS = 15_000;
 
+class StaleDataRejectedError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = 'StaleDataRejectedError';
+  }
+}
+
 let syncState: SyncState = { status: 'idle', message: '待同步' };
 let hasUnsavedChanges = Boolean(localStorage.getItem(PENDING_SYNC_KEY));
 
@@ -134,6 +141,14 @@ function fetchWithTimeout(
 let saveTimer: ReturnType<typeof setTimeout> | null = null;
 let inFlightSave: Promise<void> | null = null;
 let pendingSaveAfterInFlight = false;
+let staleReloadTimer: ReturnType<typeof setTimeout> | null = null;
+
+function scheduleReloadAfterStaleSave() {
+  if (staleReloadTimer) return;
+  staleReloadTimer = setTimeout(() => {
+    window.location.reload();
+  }, 1600);
+}
 
 async function saveToCloud(): Promise<void> {
   if (saveTimer) { clearTimeout(saveTimer); saveTimer = null; }
@@ -164,6 +179,9 @@ async function saveToCloud(): Promise<void> {
       try { payload = text ? JSON.parse(text) : null; } catch { payload = text; }
       if (!r.ok) {
         const detail = typeof payload === 'string' ? payload : JSON.stringify(payload);
+        if (r.status === 409 && detail.includes('STALE_DATA_REJECTED')) {
+          throw new StaleDataRejectedError('\u4e91\u7aef\u5df2\u6709\u66f4\u65b0\u6570\u636e\uff0c\u672c\u673a\u65e7\u7f13\u5b58\u5df2\u88ab\u62d2\u7edd\u4fdd\u5b58\u3002\u7cfb\u7edf\u5c06\u5237\u65b0\u5e76\u91cd\u65b0\u8bfb\u53d6\u4e91\u7aef\u6570\u636e\u3002');
+        }
         throw new Error(`HTTP ${r.status}: ${detail.slice(0, 300)}`);
       }
       clearPendingSync();
@@ -171,6 +189,14 @@ async function saveToCloud(): Promise<void> {
       setSyncState({ status: 'saved', message: '已同步', updatedAt: new Date().toISOString() });
     })
     .catch(e => {
+      if (e instanceof StaleDataRejectedError) {
+        clearPendingSync();
+        pendingSaveAfterInFlight = false;
+        console.error('[sync] Stale save rejected:', { error: e, ms: Date.now() - startedAt });
+        setSyncState({ status: 'error', message: '\u4e91\u7aef\u5df2\u6709\u65b0\u6570\u636e', error: e.message, updatedAt: new Date().toISOString() });
+        scheduleReloadAfterStaleSave();
+        throw e;
+      }
       const aborted = e instanceof DOMException && e.name === 'AbortError';
       const message = aborted
         ? `同步超时：${Math.round(SAVE_TIMEOUT_MS / 1000)}秒内未完成，请稍后重试`
