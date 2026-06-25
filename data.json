@@ -381,7 +381,7 @@
       "blanksFilled": 0,
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
-      "starShields": 61,
+      "starShields": 69,
       "consecutiveNoViolationDays": 1,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
@@ -392,8 +392,8 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-25T12:32:38.388Z",
-      "totalShieldsExchanged": 26,
+      "updatedAt": "2026-06-25T12:32:45.721Z",
+      "totalShieldsExchanged": 18,
       "riseTaskCompleted": false
     },
     {
@@ -20561,21 +20561,6 @@
       "studentCardSide": "front",
       "id": "2303",
       "createdAt": "2026-06-04T10:57:33.529Z"
-    },
-    {
-      "studentId": "17",
-      "direction": "positive",
-      "weight": 1,
-      "category": "品行",
-      "description": "兑换：班会课自选视频播放",
-      "remark": "消耗8护盾",
-      "recordedBy": "班主任",
-      "verified": true,
-      "shieldsConsumed": 0,
-      "isHighSensitivity": false,
-      "studentCardSide": "front",
-      "id": "2302",
-      "createdAt": "2026-06-04T10:57:28.287Z"
     },
     {
       "studentId": "17",
