@@ -41,6 +41,46 @@ function getRecordDate(record) {
   return '';
 }
 
+function stableStringify(value) {
+  if (Array.isArray(value)) return '[' + value.map(stableStringify).join(',') + ']';
+  if (value && typeof value === 'object') {
+    return '{' + Object.keys(value).sort().map(key => JSON.stringify(key) + ':' + stableStringify(value[key])).join(',') + '}';
+  }
+  return JSON.stringify(value);
+}
+
+function isAutoRuleRecord(record) {
+  return Boolean(record?.isAutoRule) || String(record?.description || '').includes('\u81ea\u52a8\u89c4\u5219');
+}
+
+function compareRecordSets(currentData, incomingData) {
+  const currentRecords = getRecords(currentData);
+  const incomingRecords = getRecords(incomingData);
+  const currentById = new Map();
+  for (const record of currentRecords) {
+    currentById.set(String(record?.id || ''), { record, signature: stableStringify(record) });
+  }
+
+  let incomingMismatches = 0;
+  const incomingIds = new Set();
+  for (const record of incomingRecords) {
+    const id = String(record?.id || '');
+    incomingIds.add(id);
+    const current = currentById.get(id);
+    if (!current || current.signature !== stableStringify(record)) incomingMismatches++;
+  }
+
+  const removedRecords = currentRecords.filter(record => !incomingIds.has(String(record?.id || '')));
+  const removedAutoCount = removedRecords.filter(isAutoRuleRecord).length;
+
+  return {
+    incomingMismatches,
+    removedCount: removedRecords.length,
+    removedAutoCount,
+    removedNonAutoCount: removedRecords.length - removedAutoCount,
+  };
+}
+
 function summarizeData(data) {
   const records = getRecords(data);
   let maxCreated = '';
@@ -81,25 +121,40 @@ function summarizeData(data) {
 function checkRollbackRisk(currentData, incomingData) {
   const current = summarizeData(currentData);
   const incoming = summarizeData(incomingData);
+  const recordDiff = compareRecordSets(currentData, incomingData);
   const reasons = [];
 
   if (current.records > 0 && incoming.records === 0) {
     reasons.push('incoming payload has no behavior records while cloud data has records');
   }
 
+  const recordCountDrop = current.records - incoming.records;
+  const deletionOnly = recordCountDrop > 0 && recordDiff.incomingMismatches === 0;
+
+  if (deletionOnly) {
+    if (recordDiff.removedNonAutoCount > 0 && recordCountDrop > LARGE_DELETE_THRESHOLD) {
+      reasons.push('incoming payload deletes ' + recordDiff.removedNonAutoCount + ' non-auto records and ' + recordCountDrop + ' records total');
+    }
+    return { stale: reasons.length > 0, reasons, current, incoming, recordDiff };
+  }
+
   if (current.maxRecordMs > 0 && incoming.maxRecordMs > 0 && incoming.maxRecordMs < current.maxRecordMs) {
     reasons.push('incoming latest behavior date is older than cloud latest behavior date');
   }
 
-  if (current.records - incoming.records > LARGE_DELETE_THRESHOLD) {
-    reasons.push(`incoming payload has ${current.records - incoming.records} fewer records than cloud data`);
+  if (recordCountDrop > LARGE_DELETE_THRESHOLD) {
+    reasons.push('incoming payload has ' + recordCountDrop + ' fewer records than cloud data');
   }
 
   if (current.maxId > 0 && incoming.maxId > 0 && incoming.maxId + LARGE_DELETE_THRESHOLD < current.maxId && incoming.records < current.records) {
     reasons.push('incoming record id sequence is behind cloud data');
   }
 
-  return { stale: reasons.length > 0, reasons, current, incoming };
+  if (incoming.records < current.records && recordDiff.incomingMismatches > 0) {
+    reasons.push('incoming payload has ' + recordDiff.incomingMismatches + ' records that do not match current cloud records');
+  }
+
+  return { stale: reasons.length > 0, reasons, current, incoming, recordDiff };
 }
 
 export default async function handler(req, res) {

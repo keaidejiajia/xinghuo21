@@ -55,6 +55,26 @@ function ProgressDots({ filled, total, type }: { filled: number; total: number; 
   return <div style={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>{items}</div>;
 }
 
+function hasSettledAutoRuleForWeek(
+  record: BehaviorRecord,
+  ruleId: string,
+  prevWeek: { weekNumber: number; startDate: string; endDate: string },
+  currentWeek: { startDate: string; endDate: string },
+): boolean {
+  if (!record.isAutoRule) return false;
+  const remark = record.remark || '';
+  if (!remark.includes(`ruleId:${ruleId}`)) return false;
+
+  if (remark.includes(`settledWeek:${prevWeek.weekNumber}`) || remark.includes(`\u7ed3\u7b97\u7b2c${prevWeek.weekNumber}\u5468`)) {
+    return true;
+  }
+
+  const recordDate = behaviorRecordLocalDate(record);
+
+  // Legacy weekly records did not store occurredDate or settledWeek; they were created in the next week.
+  return remark.includes('\u4e0a\u5468\u7ed3\u7b97') && recordDate >= currentWeek.startDate && recordDate <= currentWeek.endDate;
+}
+
 function HonorTitleBadge({ title, color, fontSize = 10, padding = '1px 7px', marginBottom = 8 }: {
   title: string;
   color: string;
@@ -552,10 +572,7 @@ export default function Dashboard() {
         // Idempotency: skip if this rule already triggered for this student for prevWeek
         const alreadySettled = records.some(r =>
           r.studentId === student.id &&
-          r.isAutoRule &&
-          r.remark && r.remark.includes(`ruleId:${rule.id}`) &&
-          behaviorRecordLocalDate(r) >= prevWeek.startDate &&
-          behaviorRecordLocalDate(r) <= prevWeek.endDate
+          hasSettledAutoRuleForWeek(r, rule.id, prevWeek, currentWeek)
         );
         if (alreadySettled) continue;
 
@@ -621,7 +638,8 @@ export default function Dashboard() {
                 weight: amount as any,
                 category: behavior?.category || '纪律',
                 description: `自动规则：${rule.name.split(' → ')[0]}`,
-                remark: `ruleId:${rule.id}，上周结算，+${amount}${config.blankMarkName}`,
+                remark: `ruleId:${rule.id}，结算第${prevWeek.weekNumber}周，settledWeek:${prevWeek.weekNumber}，+${amount}${config.blankMarkName}`,
+                occurredDate: prevWeek.endDate,
                 recordedBy: '系统',
                 verified: true,
                 shieldsConsumed: sc,
@@ -639,7 +657,8 @@ export default function Dashboard() {
                 weight: 1 as any,
                 category: '品行',
                 description: `自动规则：${rule.name.split(' → ')[0]}`,
-                remark: `ruleId:${rule.id}，上周结算，+1心魔`,
+                remark: `ruleId:${rule.id}，结算第${prevWeek.weekNumber}周，settledWeek:${prevWeek.weekNumber}，+1心魔`,
+                occurredDate: prevWeek.endDate,
                 recordedBy: '系统',
                 verified: true,
                 shieldsConsumed: 0,
@@ -660,7 +679,8 @@ export default function Dashboard() {
                 weight: amount as PositiveWeight,
                 category: '品行',
                 description: `自动规则：${rule.name.split(' → ')[0]}`,
-                remark: `ruleId:${rule.id}，上周结算，+${amount}护盾`,
+                remark: `ruleId:${rule.id}，结算第${prevWeek.weekNumber}周，settledWeek:${prevWeek.weekNumber}，+${amount}护盾`,
+                occurredDate: prevWeek.endDate,
                 recordedBy: '系统',
                 verified: true,
                 shieldsConsumed: 0,
@@ -678,7 +698,8 @@ export default function Dashboard() {
                 weight: amount as PositiveWeight,
                 category: '品行',
                 description: `自动规则：${rule.name.split(' → ')[0]}`,
-                remark: `ruleId:${rule.id}，上周结算，+${amount}${config.checkMarkName}`,
+                remark: `ruleId:${rule.id}，结算第${prevWeek.weekNumber}周，settledWeek:${prevWeek.weekNumber}，+${amount}${config.checkMarkName}`,
+                occurredDate: prevWeek.endDate,
                 recordedBy: '系统',
                 verified: true,
                 shieldsConsumed: 0,
