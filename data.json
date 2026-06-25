@@ -46131,13 +46131,32 @@
       {
         "id": "le-1781747207255",
         "seriesId": "le-1781747207255",
-        "name": "中考考场布置",
+        "name": "高中会考考场布置",
         "direction": "positive",
         "weight": 3,
         "description": "补充记录",
         "startDate": "2026-06-12",
         "endDate": "2026-06-19",
-        "isActive": true
+        "isActive": true,
+        "aliases": [
+          "中考考场布置",
+          "补充记录",
+          "g考场布置",
+          "ga考场布置",
+          "gao考场布置",
+          "gaoz考场布置",
+          "gaozh考场布置",
+          "gaozho考场布置",
+          "gaozhon考场布置",
+          "gaozhong考场布置",
+          "高中考场布置",
+          "高中h考场布置",
+          "高中hu考场布置",
+          "高中hui考场布置",
+          "高中huik考场布置",
+          "高中huika考场布置",
+          "高中huikao考场布置"
+        ]
       },
       {
         "id": "le-1781747566244",
