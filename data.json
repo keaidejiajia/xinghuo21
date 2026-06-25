@@ -191,15 +191,7 @@
       "createdAt": "2026-05-19T11:15:43.713Z",
       "updatedAt": "2026-06-25T09:41:34.474Z",
       "riseTaskCompleted": false,
-      "totalShieldsExchanged": 0,
-      "lastLevelChange": {
-        "direction": "down",
-        "fromLevel": 5,
-        "toLevel": 6,
-        "fromSide": "front",
-        "toSide": "front",
-        "timestamp": "2026-06-25T06:37:44.364Z"
-      }
+      "totalShieldsExchanged": 0
     },
     {
       "id": "10",
