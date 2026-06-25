@@ -1038,7 +1038,7 @@
       "blanksFilled": 2,
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
-      "starShields": 50,
+      "starShields": 54,
       "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
@@ -1049,7 +1049,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-25T06:37:43.615Z",
+      "updatedAt": "2026-06-25T08:03:52.486Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -8151,29 +8151,6 @@
       "occurredDate": "2026-06-22",
       "id": "3176",
       "createdAt": "2026-06-23T01:56:34.051Z"
-    },
-    {
-      "studentId": "42",
-      "direction": "negative",
-      "weight": 1,
-      "behaviorId": "n-l-1",
-      "category": "学习",
-      "description": "作业/定时任务未按时上交，或未按要求完成",
-      "remark": "本周记录人：星蚀+1",
-      "recordedBy": "王老师",
-      "verified": true,
-      "shieldsConsumed": 4,
-      "extraWeight": 1,
-      "penaltyReasons": [
-        "weekly_recorder"
-      ],
-      "isHighSensitivity": false,
-      "studentCardSide": "front",
-      "homeworkSubjectId": "hw-yuwen",
-      "homeworkTitle": "语文作业未按要求完成",
-      "occurredDate": "2026-06-22",
-      "id": "3175",
-      "createdAt": "2026-06-23T01:56:34.037Z"
     },
     {
       "studentId": "12",
