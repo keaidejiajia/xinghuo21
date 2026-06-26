@@ -138,7 +138,7 @@
       "blanksFilled": 2,
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
-      "starShields": 40,
+      "starShields": 38,
       "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
@@ -149,7 +149,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-26T03:38:39.921Z",
+      "updatedAt": "2026-06-26T04:07:22.138Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -162,7 +162,7 @@
       "blanksFilled": 0,
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
-      "starShields": 27,
+      "starShields": 25,
       "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
@@ -173,7 +173,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-26T03:37:13.608Z",
+      "updatedAt": "2026-06-26T04:07:22.110Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -586,15 +586,7 @@
       "createdAt": "2026-05-19T11:15:43.713Z",
       "updatedAt": "2026-06-26T03:31:39.957Z",
       "riseTaskCompleted": false,
-      "totalShieldsExchanged": 0,
-      "lastLevelChange": {
-        "direction": "down",
-        "fromLevel": 3,
-        "toLevel": 4,
-        "fromSide": "front",
-        "toSide": "front",
-        "timestamp": "2026-06-25T03:33:22.716Z"
-      }
+      "totalShieldsExchanged": 0
     },
     {
       "id": "25",
@@ -1095,6 +1087,46 @@
     }
   ],
   "behavior-records": [
+    {
+      "studentId": "7",
+      "direction": "negative",
+      "weight": 1,
+      "behaviorId": "n-l-2",
+      "category": "学习",
+      "description": "课上不记笔记、做与学习无关的事情、睡觉/趴桌",
+      "remark": "",
+      "recordedBy": "袁俪玮",
+      "verified": true,
+      "shieldsConsumed": 2,
+      "extraWeight": 0,
+      "penaltyReasons": [],
+      "isHighSensitivity": false,
+      "studentCardSide": "front",
+      "timePeriodId": "tp-zixi",
+      "occurredDate": "2026-06-26",
+      "id": "3811",
+      "createdAt": "2026-06-26T04:07:22.150Z"
+    },
+    {
+      "studentId": "8",
+      "direction": "negative",
+      "weight": 1,
+      "behaviorId": "n-l-2",
+      "category": "学习",
+      "description": "课上不记笔记、做与学习无关的事情、睡觉/趴桌",
+      "remark": "",
+      "recordedBy": "袁俪玮",
+      "verified": true,
+      "shieldsConsumed": 2,
+      "extraWeight": 0,
+      "penaltyReasons": [],
+      "isHighSensitivity": false,
+      "studentCardSide": "front",
+      "timePeriodId": "tp-zixi",
+      "occurredDate": "2026-06-26",
+      "id": "3810",
+      "createdAt": "2026-06-26T04:07:22.126Z"
+    },
     {
       "studentId": "2",
       "direction": "positive",
