@@ -147,6 +147,7 @@ function fetchWithTimeout(
 let saveTimer: ReturnType<typeof setTimeout> | null = null;
 let inFlightSave: Promise<void> | null = null;
 let pendingSaveAfterInFlight = false;
+let queuedSaveOptions: SyncSaveOptions | undefined;
 let staleReloadTimer: ReturnType<typeof setTimeout> | null = null;
 
 function scheduleReloadAfterStaleSave() {
@@ -168,13 +169,32 @@ function buildSaveHeaders(options?: SyncSaveOptions): HeadersInit {
   return headers;
 }
 
+function mergeSaveOptions(a?: SyncSaveOptions, b?: SyncSaveOptions): SyncSaveOptions | undefined {
+  if (!a) return b;
+  if (!b) return a;
+  const deletedIds = new Set<string>();
+  a.explicitDeletedRecordIds?.forEach(id => deletedIds.add(String(id)));
+  b.explicitDeletedRecordIds?.forEach(id => deletedIds.add(String(id)));
+  return {
+    explicitDeletedRecordIds: deletedIds.size ? Array.from(deletedIds) : undefined,
+    saveIntent: a.saveIntent === 'audit-repair' || b.saveIntent === 'audit-repair' ? 'audit-repair' : undefined,
+  };
+}
+
 async function saveToCloud(options?: SyncSaveOptions): Promise<void> {
   if (saveTimer) { clearTimeout(saveTimer); saveTimer = null; }
   if (isLoading) return;
   if (inFlightSave) {
     pendingSaveAfterInFlight = true;
-    await inFlightSave;
-    return saveToCloud(options);
+    queuedSaveOptions = mergeSaveOptions(queuedSaveOptions, options);
+    try {
+      await inFlightSave;
+    } catch (e) {
+      if (!queuedSaveOptions) throw e;
+    }
+    const nextOptions = mergeSaveOptions(queuedSaveOptions, options);
+    queuedSaveOptions = undefined;
+    return saveToCloud(nextOptions);
   }
 
   const pendingOptions = readPendingSync()?.options;
@@ -210,6 +230,11 @@ async function saveToCloud(options?: SyncSaveOptions): Promise<void> {
     })
     .catch(e => {
       if (e instanceof StaleDataRejectedError) {
+        if (pendingSaveAfterInFlight && queuedSaveOptions) {
+          console.warn('[sync] Stale save rejected while a newer explicit save is queued; retrying queued save next.', { error: e, ms: Date.now() - startedAt });
+          setSyncState({ status: 'saving', message: '正在重新同步本次操作...', updatedAt: new Date().toISOString() });
+          throw e;
+        }
         clearPendingSync();
         pendingSaveAfterInFlight = false;
         console.error('[sync] Stale save rejected:', { error: e, ms: Date.now() - startedAt });
@@ -236,7 +261,9 @@ async function saveToCloud(options?: SyncSaveOptions): Promise<void> {
 
   await inFlightSave;
   if (pendingSaveAfterInFlight) {
-    return saveToCloud(options);
+    const nextOptions = queuedSaveOptions;
+    queuedSaveOptions = undefined;
+    return saveToCloud(nextOptions ?? options);
   }
 }
 
