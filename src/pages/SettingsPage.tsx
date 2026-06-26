@@ -8,6 +8,7 @@ import { ClipboardList, Star, Calendar, Users, Settings, Plus, Trash2, RotateCcw
 import { D, INK, SCROLL_CARD, INK_INPUT, INK_OPTION } from '../data/theme';
 import { toLocalDateStr } from '../lib/utils';
 import { recomputeAllStudents, type AuditResult } from '../lib/audit';
+import { createAuditRepairBackupPayload, persistAuditRepairBackup } from '../lib/auditBackup';
 import { sortBehaviorsForDisplay } from '../lib/behaviorDisplay';
 
 // Error boundary to catch render errors
@@ -1548,19 +1549,12 @@ function DataAuditSection() {
     try {
       const createdAt = new Date().toISOString();
       const backupKey = `xinghuo_audit_backup_${createdAt.replace(/[:.]/g, '-')}`;
-      localStorage.setItem(backupKey, JSON.stringify({
+      const backupSaved = persistAuditRepairBackup(localStorage, backupKey, createAuditRepairBackupPayload({
         createdAt,
-        reason: 'data-audit-before-fix',
         students,
-        behaviorRecords: records,
         appConfig: config,
-        auditSummary: {
-          totalStudents: auditResult.totalStudents,
-          totalRecords: auditResult.totalRecords,
-          studentsWithIssues: auditResult.studentsWithIssues,
-          discrepancies: auditResult.discrepancies.length,
-        },
-        discrepancies: auditResult.discrepancies,
+        records,
+        auditResult,
       }));
 
       const recordCorrections = new Map<string, Partial<BehaviorRecord>>();
@@ -1575,6 +1569,7 @@ function DataAuditSection() {
 
       await window.xinghuoSync?.saveNow({ saveIntent: 'audit-repair' });
       showToast(`已备份并修正 ${fixedStudents} 名学生、${fixedRecords} 条记录，且同步成功`);
+      if (!backupSaved) showToast('修正已同步，但本地轻量备份未写入；不影响数据修正。');
       setAuditResult(null);
       setShowDetails(false);
     } catch (e: any) {
