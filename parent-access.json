@@ -6,10 +6,11 @@
       "studentId": "7",
       "parentName": "冯晨轩家长",
       "firstAccessAt": "2026-06-26T06:36:26.093Z",
-      "lastAccessAt": "2026-06-26T06:36:26.093Z",
+      "lastAccessAt": "2026-06-26T06:36:32.702Z",
       "loginCount": 1,
-      "viewCount": 0,
-      "lastDevice": "mobile"
+      "viewCount": 1,
+      "lastDevice": "mobile",
+      "lastCountedViewAt": "2026-06-26T06:36:32.702Z"
     },
     {
       "id": "2026-06-26-41",
@@ -796,5 +797,5 @@
       "lastDevice": "desktop"
     }
   ],
-  "updatedAt": "2026-06-26T06:36:26.093Z"
+  "updatedAt": "2026-06-26T06:36:32.702Z"
 }
