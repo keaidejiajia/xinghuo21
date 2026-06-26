@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "id": "2026-06-26-41",
+      "date": "2026-06-26",
+      "studentId": "41",
+      "parentName": "袁昊家长",
+      "firstAccessAt": "2026-06-26T04:39:27.228Z",
+      "lastAccessAt": "2026-06-26T06:28:56.663Z",
+      "loginCount": 0,
+      "viewCount": 2,
+      "lastDevice": "mobile",
+      "lastCountedViewAt": "2026-06-26T06:28:56.663Z"
+    },
+    {
       "id": "2026-06-26-43",
       "date": "2026-06-26",
       "studentId": "43",
@@ -23,18 +35,6 @@
       "viewCount": 1,
       "lastDevice": "mobile",
       "lastCountedViewAt": "2026-06-26T06:25:15.876Z"
-    },
-    {
-      "id": "2026-06-26-41",
-      "date": "2026-06-26",
-      "studentId": "41",
-      "parentName": "袁昊家长",
-      "firstAccessAt": "2026-06-26T04:39:27.228Z",
-      "lastAccessAt": "2026-06-26T04:39:32.731Z",
-      "loginCount": 0,
-      "viewCount": 1,
-      "lastDevice": "mobile",
-      "lastCountedViewAt": "2026-06-26T04:39:27.228Z"
     },
     {
       "id": "2026-06-26-26",
@@ -785,5 +785,5 @@
       "lastDevice": "desktop"
     }
   ],
-  "updatedAt": "2026-06-26T06:25:42.108Z"
+  "updatedAt": "2026-06-26T06:28:56.663Z"
 }
