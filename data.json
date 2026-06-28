@@ -50983,6 +50983,13 @@
         "cost": 8,
         "name": "A5点线笔记本",
         "isActive": true
+      },
+      {
+        "id": "ex-1782648543567",
+        "side": "front",
+        "cost": 10,
+        "name": "B5点线笔记本",
+        "isActive": true
       }
     ],
     "limitedEvents": [
