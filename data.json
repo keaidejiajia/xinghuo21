@@ -50960,6 +50960,14 @@
         "cost": 40,
         "name": "大容量笔袋",
         "isActive": true
+      },
+      {
+        "id": "ex-1782648161733",
+        "side": "front",
+        "cost": 20,
+        "name": "修正带",
+        "description": "SDI手牌糖果限定色",
+        "isActive": true
       }
     ],
     "limitedEvents": [
