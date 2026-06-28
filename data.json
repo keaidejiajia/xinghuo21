@@ -50929,6 +50929,14 @@
         "name": "桌游time",
         "description": "需至少4人共同兑换，桌游由班主任选择，仅限大课间/午休玩",
         "isActive": true
+      },
+      {
+        "id": "ex-1782647620968",
+        "side": "front",
+        "cost": 12,
+        "name": "A5活页本",
+        "description": "国誉Campus系列",
+        "isActive": true
       }
     ],
     "limitedEvents": [
