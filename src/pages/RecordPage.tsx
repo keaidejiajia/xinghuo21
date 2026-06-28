@@ -13,7 +13,7 @@ import { MobileActionBar, MobilePage, MobileSection, MobileSegmentedControl } fr
 import { processNegativeBehavior, processPositiveBehavior, processPositiveBehaviorFront, processRise, addStarShield, getLevelName, donateHeritage, checkHeartDemonAutoClear } from '../lib/cardLogic';
 import { calculateNegativePenalty } from '../lib/negativePenalty';
 import { behaviorRecordLocalDate, toLocalDateStr } from '../lib/utils';
-import { buildWeekdayOptions, findBehaviorTeachingWeek, formatBehaviorRecordDateLabel } from '../lib/behaviorDate';
+import { buildWeekdayOptions, findBehaviorTeachingWeek, formatAutoRuleSettlementWeekLabel, formatBehaviorRecordDateLabel } from '../lib/behaviorDate';
 import { buildBehaviorGroupSignature, formatBehaviorBaseEffectLabel, formatBehaviorRecordTitle, formatRecordGroupExpandLabel, getBehaviorRemarkForDisplay, sortBehaviorsForDisplay, summarizeStudentBehaviorConsequences } from '../lib/behaviorDisplay';
 import type { BehaviorRecord, Category, NegativeWeight, PositiveWeight } from '../types';
 
@@ -1034,12 +1034,37 @@ export default function RecordPage() {
   );
 
   const renderRecordTimeChips = (
-    record: Pick<BehaviorRecord, 'createdAt' | 'occurredDate'>,
+    record: Pick<BehaviorRecord, 'createdAt' | 'occurredDate' | 'isAutoRule' | 'autoRuleId' | 'settledWeek' | 'remark'>,
     createdAt: string,
     recordedBy?: string,
     remark?: string,
   ) => {
     const cleanedRemark = remark?.replace(/^ruleId:[^,，]+[,，]\s*/, '');
+    if (record.isAutoRule) {
+      const settlementWeekLabel = formatAutoRuleSettlementWeekLabel(record, config.teachingWeeks) ?? '\u672a\u77e5\u5468\u6b21';
+      const autoRuleChips = (
+        <>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, padding: isMobile ? '2px 5px' : '2px 7px', borderRadius: D.radiusXs, border: '1px solid rgba(212,168,83,0.24)', background: 'rgba(212,168,83,0.08)', color: D.gold, fontSize: isMobile ? 10.5 : 11, lineHeight: 1.35, whiteSpace: 'nowrap', flex: '0 0 auto' }}>
+            <span style={{ color: D.textDim }}>\u7ed3\u7b97\u5468</span>
+            <span>{settlementWeekLabel}</span>
+          </span>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, padding: isMobile ? '2px 5px' : '2px 7px', borderRadius: D.radiusXs, border: `1px solid ${D.border}`, background: 'rgba(255,255,255,0.03)', color: D.textMid, fontSize: isMobile ? 10.5 : 11, lineHeight: 1.35, whiteSpace: 'nowrap', flex: '0 0 auto' }}>
+            \u7cfb\u7edf\u81ea\u52a8\u7ed3\u7b97
+          </span>
+          {cleanedRemark && (
+            <span style={{ color: D.textDim, fontSize: 11, lineHeight: 1.35, whiteSpace: isMobile ? 'nowrap' : undefined, flex: isMobile ? '0 0 auto' : undefined }}>
+              {cleanedRemark}
+            </span>
+          )}
+        </>
+      );
+      return (
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: isMobile ? 'flex-start' : 'flex-end', gap: isMobile ? 7 : 5, flexWrap: isMobile ? 'nowrap' : 'wrap', width: isMobile ? '100%' : undefined, minWidth: 0, maxWidth: '100%', boxSizing: 'border-box', overflowX: isMobile ? 'auto' : 'visible', overflowY: 'hidden', WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', paddingBottom: isMobile ? 1 : 0 }}>
+          {autoRuleChips}
+        </div>
+      );
+    }
+
     const behaviorDate = behaviorRecordLocalDate(record);
     const createdDate = toLocalDateStr(new Date(createdAt));
     const registeredAtLabel = isMobile && createdDate === behaviorDate

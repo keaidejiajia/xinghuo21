@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { formatBehaviorRecordDateLabel } from '../src/lib/behaviorDate';
+import { formatAutoRuleSettlementWeekLabel, formatBehaviorRecordDateLabel } from '../src/lib/behaviorDate';
 import {
   getAutoRuleSettledWeekNumber,
   getLatestCompletedTeachingWeek,
@@ -61,6 +61,12 @@ const structuredRecord = {
   occurredDate: '2026-06-26',
   createdAt: '2026-06-28T10:00:00.000Z',
 };
+
+assert.equal(
+  formatAutoRuleSettlementWeekLabel(structuredRecord as any, teachingWeeks as any),
+  '\u7b2c17\u5468',
+  'auto-rule UI should use week-only settlement labels',
+);
 
 assert.equal(
   isAutoRuleRecordForWeek(structuredRecord as any, 'ar-3', teachingWeeks[1] as any, teachingWeeks as any),

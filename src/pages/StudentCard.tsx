@@ -34,7 +34,7 @@ import { computeStudentLevelChanges } from '../lib/audit';
 import { applyExchangeToStudent, buildExchangeRecord } from '../lib/exchangeLogic';
 import { formatLevelChangeDisplay } from '../lib/levelChangeDisplay';
 import { formatBehaviorBaseEffectLabel, formatBehaviorConsequence, formatBehaviorRecordTitle, getBehaviorRemarkForDisplay } from '../lib/behaviorDisplay';
-import { formatBehaviorRecordDateLabel } from '../lib/behaviorDate';
+import { formatAutoRuleSettlementWeekLabel, formatBehaviorRecordDateLabel } from '../lib/behaviorDate';
 import { recordParentAccess } from '../lib/parentAccessClient';
 import { useAuth } from '../hooks/useAuth';
 import { useToast } from '../hooks/useToast';
@@ -742,6 +742,21 @@ function BehaviorHistory({ student, onDeleteRecord }: { student: Student; onDele
   };
 
   const renderRecordTimeChips = (record: BehaviorRecord) => {
+    if (record.isAutoRule) {
+      const settlementWeekLabel = formatAutoRuleSettlementWeekLabel(record, config.teachingWeeks) ?? '\u672a\u77e5\u5468\u6b21';
+      return (
+        <div style={{ display: 'flex', alignItems: 'center', gap: 7, flexWrap: isMobile ? 'nowrap' : 'wrap', width: isMobile ? '100%' : undefined, minWidth: 0, maxWidth: '100%', boxSizing: 'border-box', overflowX: isMobile ? 'auto' : 'visible', overflowY: 'hidden', WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', paddingBottom: isMobile ? 1 : 0 }}>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, padding: isMobile ? '2px 5px' : '2px 7px', borderRadius: D.radiusXs, border: '1px solid rgba(212,168,83,0.24)', background: 'rgba(212,168,83,0.08)', color: INK.starGold, fontSize: isMobile ? 10 : 10, lineHeight: 1.35, whiteSpace: 'nowrap', flex: '0 0 auto' }}>
+            <span style={{ color: INK.textMuted }}>\u7ed3\u7b97\u5468</span>
+            <span>{settlementWeekLabel}</span>
+          </span>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, padding: isMobile ? '2px 5px' : '2px 7px', borderRadius: D.radiusXs, border: `1px solid ${INK.border}`, background: 'rgba(255,255,255,0.03)', color: INK.textSecondary, fontSize: isMobile ? 10 : 10, lineHeight: 1.35, whiteSpace: 'nowrap', flex: '0 0 auto' }}>
+            \u7cfb\u7edf\u81ea\u52a8\u7ed3\u7b97
+          </span>
+        </div>
+      );
+    }
+
     const createdDate = toLocalDateStr(new Date(record.createdAt));
     const behaviorDate = record.occurredDate || createdDate;
     const registeredAtLabel = isMobile && createdDate === behaviorDate

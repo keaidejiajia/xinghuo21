@@ -1,6 +1,6 @@
 import type { BehaviorRecord, TeachingWeek } from '../types';
 import { addDays, behaviorRecordLocalDate, toLocalDateStr } from './utils';
-import { getAutoRuleSettlementDate } from './autoRuleSettlement';
+import { getAutoRuleSettledWeekNumber, getAutoRuleSettlementDate } from './autoRuleSettlement';
 
 const WEEKDAY_NAMES = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
 
@@ -112,4 +112,12 @@ export function formatBehaviorRecordDateLabel(
   teachingWeeks: TeachingWeek[],
 ): string {
   return formatBehaviorDateLabel(getAutoRuleSettlementDate(record, teachingWeeks) ?? getBehaviorRecordDate(record), teachingWeeks);
+}
+
+export function formatAutoRuleSettlementWeekLabel(
+  record: Pick<BehaviorRecord, 'isAutoRule' | 'autoRuleId' | 'settledWeek' | 'remark' | 'createdAt' | 'occurredDate'>,
+  teachingWeeks: TeachingWeek[],
+): string | undefined {
+  const weekNumber = getAutoRuleSettledWeekNumber(record, teachingWeeks);
+  return weekNumber === undefined ? undefined : `\u7b2c${weekNumber}\u5468`;
 }
