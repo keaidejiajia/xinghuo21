@@ -50982,6 +50982,13 @@
         "cost": 10,
         "name": "B5点线笔记本",
         "isActive": true
+      },
+      {
+        "id": "ex-1782648591484",
+        "side": "front",
+        "cost": 15,
+        "name": "B5活页本",
+        "isActive": true
       }
     ],
     "limitedEvents": [
