@@ -9,7 +9,7 @@
       "blanksFilled": 2,
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
-      "starShields": 9,
+      "starShields": 5,
       "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
@@ -20,7 +20,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-26T03:38:40.224Z",
+      "updatedAt": "2026-06-28T11:05:19.474Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0
     },
@@ -56,19 +56,19 @@
       "currentLevel": 1,
       "blanksFilled": 0,
       "cumulativeChecks": 20,
-      "heartDemonMarks": 56,
+      "heartDemonMarks": 58,
       "starShields": 0,
-      "consecutiveNoViolationDays": 1,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
       "totalBlanksEverFilled": 35,
-      "totalHeartDemonsEverGained": 59,
+      "totalHeartDemonsEverGained": 61,
       "totalShieldsEverEarned": 14,
       "totalChecksEverEarned": 20,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-26T15:25:46.465Z",
+      "updatedAt": "2026-06-28T11:05:19.500Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0,
       "lastHeartDemonClearDate": "2026-06-17"
@@ -119,15 +119,7 @@
       "createdAt": "2026-05-19T11:15:43.713Z",
       "updatedAt": "2026-06-26T14:40:30.302Z",
       "totalShieldsExchanged": 0,
-      "riseTaskCompleted": false,
-      "lastLevelChange": {
-        "direction": "down",
-        "fromLevel": 1,
-        "toLevel": 2,
-        "fromSide": "front",
-        "toSide": "front",
-        "timestamp": "2026-06-26T02:44:50.285Z"
-      }
+      "riseTaskCompleted": false
     },
     {
       "id": "7",
@@ -199,15 +191,7 @@
       "createdAt": "2026-05-19T11:15:43.713Z",
       "updatedAt": "2026-06-26T14:40:28.782Z",
       "riseTaskCompleted": false,
-      "totalShieldsExchanged": 0,
-      "lastLevelChange": {
-        "direction": "down",
-        "fromLevel": 5,
-        "toLevel": 6,
-        "fromSide": "front",
-        "toSide": "front",
-        "timestamp": "2026-06-26T02:44:50.458Z"
-      }
+      "totalShieldsExchanged": 0
     },
     {
       "id": "10",
@@ -522,15 +506,7 @@
       "createdAt": "2026-05-19T11:15:43.713Z",
       "updatedAt": "2026-06-26T14:40:30.373Z",
       "totalShieldsExchanged": 0,
-      "riseTaskCompleted": false,
-      "lastLevelChange": {
-        "direction": "down",
-        "fromLevel": 3,
-        "toLevel": 4,
-        "fromSide": "front",
-        "toSide": "front",
-        "timestamp": "2026-06-26T02:48:17.974Z"
-      }
+      "riseTaskCompleted": false
     },
     {
       "id": "23",
@@ -541,8 +517,8 @@
       "blanksFilled": 1,
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
-      "starShields": 5,
-      "consecutiveNoViolationDays": 1,
+      "starShields": 1,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -552,17 +528,9 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-26T14:40:29.679Z",
+      "updatedAt": "2026-06-28T11:05:19.417Z",
       "riseTaskCompleted": false,
-      "totalShieldsExchanged": 0,
-      "lastLevelChange": {
-        "direction": "down",
-        "fromLevel": 5,
-        "toLevel": 6,
-        "fromSide": "front",
-        "toSide": "front",
-        "timestamp": "2026-06-26T02:48:18.043Z"
-      }
+      "totalShieldsExchanged": 0
     },
     {
       "id": "24",
@@ -596,29 +564,21 @@
       "currentLevel": 1,
       "blanksFilled": 0,
       "cumulativeChecks": 0,
-      "heartDemonMarks": 0,
+      "heartDemonMarks": 2,
       "starShields": 1,
-      "consecutiveNoViolationDays": 1,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
       "totalBlanksEverFilled": 36,
-      "totalHeartDemonsEverGained": 0,
+      "totalHeartDemonsEverGained": 2,
       "totalShieldsEverEarned": 43,
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-26T15:25:46.572Z",
+      "updatedAt": "2026-06-28T11:05:19.448Z",
       "riseTaskCompleted": false,
-      "totalShieldsExchanged": 0,
-      "lastLevelChange": {
-        "direction": "flip",
-        "fromLevel": 6,
-        "toLevel": 1,
-        "fromSide": "front",
-        "toSide": "back",
-        "timestamp": "2026-06-26T14:40:31.022Z"
-      }
+      "totalShieldsExchanged": 0
     },
     {
       "id": "26",
@@ -690,15 +650,7 @@
       "createdAt": "2026-05-19T11:15:43.713Z",
       "updatedAt": "2026-06-26T03:38:39.612Z",
       "totalShieldsExchanged": 0,
-      "riseTaskCompleted": false,
-      "lastLevelChange": {
-        "direction": "down",
-        "fromLevel": 2,
-        "toLevel": 3,
-        "fromSide": "front",
-        "toSide": "front",
-        "timestamp": "2026-06-26T02:46:39.898Z"
-      }
+      "riseTaskCompleted": false
     },
     {
       "id": "29",
@@ -722,15 +674,7 @@
       "createdAt": "2026-05-19T11:15:43.713Z",
       "updatedAt": "2026-06-26T03:38:39.884Z",
       "totalShieldsExchanged": 0,
-      "riseTaskCompleted": false,
-      "lastLevelChange": {
-        "direction": "down",
-        "fromLevel": 4,
-        "toLevel": 5,
-        "fromSide": "front",
-        "toSide": "front",
-        "timestamp": "2026-06-26T02:44:50.417Z"
-      }
+      "riseTaskCompleted": false
     },
     {
       "id": "30",
@@ -1095,6 +1039,90 @@
     }
   ],
   "behavior-records": [
+    {
+      "studentId": "4",
+      "direction": "negative",
+      "weight": 2,
+      "behaviorId": "n-d-3",
+      "category": "纪律",
+      "description": "课上随意讲话",
+      "remark": "周日晚自习数学考试期间，交头接耳；旧习复发：心魔+1",
+      "recordedBy": "王老师",
+      "verified": true,
+      "shieldsConsumed": 0,
+      "extraWeight": 1,
+      "penaltyReasons": [
+        "old_habit_recurrence"
+      ],
+      "isHighSensitivity": false,
+      "studentCardSide": "back",
+      "timePeriodId": "tp-zixi",
+      "occurredDate": "2026-06-28",
+      "id": "3874",
+      "createdAt": "2026-06-28T11:05:19.513Z"
+    },
+    {
+      "studentId": "2",
+      "direction": "negative",
+      "weight": 2,
+      "behaviorId": "n-d-3",
+      "category": "纪律",
+      "description": "课上随意讲话",
+      "remark": "周日晚自习数学考试期间，交头接耳",
+      "recordedBy": "王老师",
+      "verified": true,
+      "shieldsConsumed": 4,
+      "extraWeight": 0,
+      "penaltyReasons": [],
+      "isHighSensitivity": false,
+      "studentCardSide": "front",
+      "timePeriodId": "tp-zixi",
+      "occurredDate": "2026-06-28",
+      "id": "3873",
+      "createdAt": "2026-06-28T11:05:19.487Z"
+    },
+    {
+      "studentId": "25",
+      "direction": "negative",
+      "weight": 2,
+      "behaviorId": "n-d-3",
+      "category": "纪律",
+      "description": "课上随意讲话",
+      "remark": "周日晚自习数学考试期间，交头接耳；旧习复发：心魔+1",
+      "recordedBy": "王老师",
+      "verified": true,
+      "shieldsConsumed": 0,
+      "extraWeight": 1,
+      "penaltyReasons": [
+        "old_habit_recurrence"
+      ],
+      "isHighSensitivity": false,
+      "studentCardSide": "back",
+      "timePeriodId": "tp-zixi",
+      "occurredDate": "2026-06-28",
+      "id": "3872",
+      "createdAt": "2026-06-28T11:05:19.461Z"
+    },
+    {
+      "studentId": "23",
+      "direction": "negative",
+      "weight": 2,
+      "behaviorId": "n-d-3",
+      "category": "纪律",
+      "description": "课上随意讲话",
+      "remark": "周日晚自习数学考试期间，交头接耳",
+      "recordedBy": "王老师",
+      "verified": true,
+      "shieldsConsumed": 4,
+      "extraWeight": 0,
+      "penaltyReasons": [],
+      "isHighSensitivity": false,
+      "studentCardSide": "front",
+      "timePeriodId": "tp-zixi",
+      "occurredDate": "2026-06-28",
+      "id": "3871",
+      "createdAt": "2026-06-28T11:05:19.433Z"
+    },
     {
       "studentId": "41",
       "direction": "negative",
