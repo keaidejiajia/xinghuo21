@@ -15,7 +15,8 @@ import { LevelIcon, ShieldIcon, HeartDemonIcon, EclipseIcon, SparkIcon, StarEcli
 import ExportModal from '../components/ExportModal';
 import { MobilePage, MobileSection, MobileSegmentedControl, MobileSheet } from '../components/mobile/MobileUI';
 import { D } from '../data/theme';
-import { behaviorRecordLocalDate, toLocalDateStr, isTeachingDay, calcConsecutiveNoViolationDays } from '../lib/utils';
+import { behaviorRecordLocalDate, recordLocalDate, toLocalDateStr, isTeachingDay, calcConsecutiveNoViolationDays } from '../lib/utils';
+import { getLatestCompletedTeachingWeek, isAutoRuleRecordForWeek } from '../lib/autoRuleSettlement';
 import LevelIllustration from '../components/LevelIllustration';
 import { FLAG_DATA_URL } from '../data/flagDataUrl';
 
@@ -542,6 +543,8 @@ export default function Dashboard() {
   // Weekly settlement: auto-rules (reward + penalty)
   useEffect(() => {
     const today = toLocalDateStr();
+    const legacyWeeklySettlementDisabled = localStorage.getItem('__xinghuo_run_legacy_weekly_settlement__') !== '1';
+    if (legacyWeeklySettlementDisabled) return;
     // Find current teaching week
     const currentWeek = config.teachingWeeks.find(w => today >= w.startDate && today <= w.endDate);
     if (!currentWeek) return;
@@ -713,6 +716,109 @@ export default function Dashboard() {
                 isAutoRule: true,
               });
             }
+          }
+        }
+      }
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Completed-week settlement: positive weekly rewards are derived after a teaching week ends.
+  useEffect(() => {
+    const today = toLocalDateStr();
+    const completedWeeks = config.teachingWeeks
+      .filter(week => week.endDate < today)
+      .sort((a, b) => a.weekNumber - b.weekNumber);
+    if (completedWeeks.length === 0) return;
+
+    const latestCompletedWeek = getLatestCompletedTeachingWeek(config.teachingWeeks, today);
+    if (latestCompletedWeek) {
+      localStorage.setItem('app_last_week_settle', String(latestCompletedWeek.weekNumber));
+    }
+
+    const rewardRules = config.autoRules.filter(rule =>
+      rule.isActive &&
+      rule.effectType === 'shieldAndEmber' &&
+      rule.triggerCondition.type === 'weekly_no_behavior'
+    );
+    if (rewardRules.length === 0) return;
+
+    const studentMap = new Map<string, Student>();
+    students.forEach(student => studentMap.set(student.id, student));
+
+    for (const settledWeek of completedWeeks) {
+      for (const rule of rewardRules) {
+        const targetBehavior = rule.triggerCondition.behaviorId
+          ? [...config.negativeBehaviors, ...config.positiveBehaviors].find(behavior => behavior.id === rule.triggerCondition.behaviorId)
+          : undefined;
+        if (rule.triggerCondition.behaviorId && !targetBehavior) continue;
+
+        for (const originalStudent of students) {
+          const student = studentMap.get(originalStudent.id);
+          if (!student) continue;
+          if (recordLocalDate(student.createdAt) > settledWeek.endDate) continue;
+
+          const alreadySettled = records.some(record =>
+            record.studentId === student.id &&
+            isAutoRuleRecordForWeek(record, rule.id, settledWeek, config.teachingWeeks)
+          );
+          if (alreadySettled) continue;
+
+          const blockingRecords = records.filter(record => {
+            if (
+              record.studentId !== student.id ||
+              record.isAutoRule ||
+              behaviorRecordLocalDate(record) < settledWeek.startDate ||
+              behaviorRecordLocalDate(record) > settledWeek.endDate
+            ) {
+              return false;
+            }
+            if (!targetBehavior) return record.direction === 'negative';
+            return record.direction === targetBehavior.direction && record.description === targetBehavior.name;
+          });
+          if (blockingRecords.length > 0) continue;
+
+          const amount = rule.effectAmount;
+          const description = `自动规则：${rule.name.split('→')[0].trim()}`;
+          if (student.cardSide === 'front') {
+            const { student: updated } = processPositiveBehaviorFront(student, amount);
+            studentMap.set(student.id, updated);
+            updateStudent(student.id, () => updated);
+            addBehaviorRecord({
+              studentId: student.id,
+              direction: 'positive',
+              weight: amount as PositiveWeight,
+              category: '品行',
+              description,
+              autoRuleId: rule.id,
+              settledWeek: settledWeek.weekNumber,
+              occurredDate: settledWeek.endDate,
+              recordedBy: '系统',
+              verified: true,
+              shieldsConsumed: 0,
+              isHighSensitivity: false,
+              studentCardSide: 'front',
+              isAutoRule: true,
+            });
+          } else {
+            const { student: updated } = processPositiveBehavior(student, amount, config.backLevels, config.heartDemonClearRules);
+            studentMap.set(student.id, updated);
+            updateStudent(student.id, () => updated);
+            addBehaviorRecord({
+              studentId: student.id,
+              direction: 'positive',
+              weight: amount as PositiveWeight,
+              category: '品行',
+              description,
+              autoRuleId: rule.id,
+              settledWeek: settledWeek.weekNumber,
+              occurredDate: settledWeek.endDate,
+              recordedBy: '系统',
+              verified: true,
+              shieldsConsumed: 0,
+              isHighSensitivity: false,
+              studentCardSide: 'back',
+              isAutoRule: true,
+            });
           }
         }
       }
