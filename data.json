@@ -50968,6 +50968,14 @@
         "name": "修正带",
         "description": "SDI手牌糖果限定色",
         "isActive": true
+      },
+      {
+        "id": "ex-1782648352833",
+        "side": "front",
+        "cost": 6,
+        "name": "东米955低重心黑笔",
+        "description": "黑白配色自选",
+        "isActive": true
       }
     ],
     "limitedEvents": [
