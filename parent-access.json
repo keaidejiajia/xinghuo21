@@ -1,6 +1,17 @@
 {
   "entries": [
     {
+      "id": "2026-06-28-21",
+      "date": "2026-06-28",
+      "studentId": "21",
+      "parentName": "刘入源家长",
+      "firstAccessAt": "2026-06-28T02:09:17.715Z",
+      "lastAccessAt": "2026-06-28T02:09:17.715Z",
+      "loginCount": 1,
+      "viewCount": 0,
+      "lastDevice": "mobile"
+    },
+    {
       "id": "2026-06-27-43",
       "date": "2026-06-27",
       "studentId": "43",
@@ -856,5 +867,5 @@
       "lastDevice": "desktop"
     }
   ],
-  "updatedAt": "2026-06-27T09:42:38.618Z"
+  "updatedAt": "2026-06-28T02:09:17.715Z"
 }
