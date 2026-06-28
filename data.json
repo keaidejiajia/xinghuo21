@@ -50907,14 +50907,6 @@
         "isActive": true
       },
       {
-        "id": "ex-f-13",
-        "side": "front",
-        "cost": 5,
-        "name": "作业减免券",
-        "description": "可免作业类型待确认",
-        "isActive": true
-      },
-      {
         "id": "ex-b-1",
         "side": "back",
         "cost": 10,
