@@ -50945,6 +50945,14 @@
         "name": "B5活页本",
         "description": "国誉Campus系列",
         "isActive": true
+      },
+      {
+        "id": "ex-1782647903292",
+        "side": "front",
+        "cost": 35,
+        "name": "试卷收纳风琴包",
+        "description": "国誉",
+        "isActive": true
       }
     ],
     "limitedEvents": [
