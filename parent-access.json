@@ -6,11 +6,11 @@
       "studentId": "41",
       "parentName": "袁昊家长",
       "firstAccessAt": "2026-06-28T14:00:16.891Z",
-      "lastAccessAt": "2026-06-28T14:01:27.538Z",
+      "lastAccessAt": "2026-06-28T14:53:55.165Z",
       "loginCount": 0,
-      "viewCount": 1,
+      "viewCount": 2,
       "lastDevice": "mobile",
-      "lastCountedViewAt": "2026-06-28T14:00:16.891Z"
+      "lastCountedViewAt": "2026-06-28T14:53:55.165Z"
     },
     {
       "id": "2026-06-28-35",
@@ -915,5 +915,5 @@
       "lastDevice": "desktop"
     }
   ],
-  "updatedAt": "2026-06-28T14:01:27.538Z"
+  "updatedAt": "2026-06-28T14:53:55.165Z"
 }
