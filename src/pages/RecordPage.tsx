@@ -14,7 +14,7 @@ import { processNegativeBehavior, processPositiveBehavior, processPositiveBehavi
 import { calculateNegativePenalty } from '../lib/negativePenalty';
 import { behaviorRecordLocalDate, toLocalDateStr } from '../lib/utils';
 import { buildWeekdayOptions, findBehaviorTeachingWeek, formatBehaviorRecordDateLabel } from '../lib/behaviorDate';
-import { buildBehaviorGroupSignature, formatBehaviorBaseEffectLabel, formatBehaviorRecordTitle, formatRecordGroupExpandLabel, sortBehaviorsForDisplay, stripConsequenceRemarkParts, summarizeStudentBehaviorConsequences } from '../lib/behaviorDisplay';
+import { buildBehaviorGroupSignature, formatBehaviorBaseEffectLabel, formatBehaviorRecordTitle, formatRecordGroupExpandLabel, getBehaviorRemarkForDisplay, sortBehaviorsForDisplay, summarizeStudentBehaviorConsequences } from '../lib/behaviorDisplay';
 import type { BehaviorRecord, Category, NegativeWeight, PositiveWeight } from '../types';
 
 function getPinyinInitial(name: string): string {
@@ -227,7 +227,7 @@ export default function RecordPage() {
         createdAt: recs[0].createdAt,
         occurredDate: behaviorRecordLocalDate(recs[0]),
         remark: recs[0].remark,
-        cleanRemark: stripConsequenceRemarkParts(recs[0].remark),
+        cleanRemark: getBehaviorRemarkForDisplay(recs[0]),
         hasShields: recs.some(r => r.shieldsConsumed > 0),
         totalShields: recs.reduce((s, r) => s + r.shieldsConsumed, 0),
         hasHighSensitivity: recs.some(r => r.isHighSensitivity),
@@ -700,7 +700,7 @@ export default function RecordPage() {
               const alreadyTriggered = records.some(r =>
                 r.studentId === studentId &&
                 r.isAutoRule &&
-                r.remark && r.remark.includes(`ruleId:${rule.id}`) &&
+                (r.autoRuleId === rule.id || Boolean(r.remark && r.remark.includes(`ruleId:${rule.id}`))) &&
                 behaviorRecordLocalDate(r) >= currentWeek.startDate &&
                 behaviorRecordLocalDate(r) <= currentWeek.endDate
               );
@@ -719,7 +719,8 @@ export default function RecordPage() {
                       weight: penalty as NegativeWeight,
                       category: selectedBehavior.category,
                       description: `自动规则：一周内${weeklyCount}次「${selectedBehavior.name}」`,
-                      remark: `ruleId:${rule.id}，+${penalty}${config.blankMarkName}`,
+                      autoRuleId: rule.id,
+                      settledWeek: currentWeek.weekNumber,
                       recordedBy: '系统',
                       verified: true,
                       shieldsConsumed: penaltyShields,
@@ -757,7 +758,8 @@ export default function RecordPage() {
                       weight: 1 as NegativeWeight,
                       category: selectedBehavior.category,
                       description: `自动规则：一周内${weeklyCount}次「${selectedBehavior.name}」`,
-                      remark: `ruleId:${rule.id}，+1心魔`,
+                      autoRuleId: rule.id,
+                      settledWeek: currentWeek.weekNumber,
                       recordedBy: '系统',
                       verified: true,
                       shieldsConsumed: 0,

@@ -214,3 +214,8 @@ export function stripConsequenceRemarkParts(remark: string | undefined): string 
     .filter(part => !/^.+\s*→\s*.+$/.test(part))
     .join('；');
 }
+
+export function getBehaviorRemarkForDisplay(record: Pick<BehaviorRecord, 'remark' | 'isAutoRule'>): string {
+  if (record.isAutoRule) return '';
+  return stripConsequenceRemarkParts(record.remark);
+}

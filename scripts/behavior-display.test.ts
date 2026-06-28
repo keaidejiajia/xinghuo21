@@ -3,6 +3,7 @@ import {
   buildBehaviorGroupSignature,
   formatBehaviorBaseEffectLabel,
   formatBehaviorConsequence,
+  getBehaviorRemarkForDisplay,
   formatRecordGroupExpandLabel,
   summarizeStudentBehaviorConsequences,
   stripConsequenceRemarkParts,
@@ -166,6 +167,18 @@ assert.equal(
   stripConsequenceRemarkParts('ruleId:zero-violation，上周结算，+4护盾'),
   '',
   'automatic rule settlement text should not be shown as a teacher remark',
+);
+
+assert.equal(
+  getBehaviorRemarkForDisplay({ remark: 'ruleId:zero-violation，结算第17周，settledWeek:17，+4护盾', isAutoRule: true }),
+  '',
+  'auto-rule records should never display generated settlement remark text',
+);
+
+assert.equal(
+  getBehaviorRemarkForDisplay({ remark: '被老师点名', isAutoRule: false }),
+  '被老师点名',
+  'teacher-written remarks on normal records should still be displayed',
 );
 
 const fullyShieldedFrontRecord: BehaviorRecord = {

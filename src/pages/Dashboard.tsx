@@ -62,6 +62,7 @@ function hasSettledAutoRuleForWeek(
   currentWeek: { startDate: string; endDate: string },
 ): boolean {
   if (!record.isAutoRule) return false;
+  if (record.autoRuleId === ruleId && record.settledWeek === prevWeek.weekNumber) return true;
   const remark = record.remark || '';
   if (!remark.includes(`ruleId:${ruleId}`)) return false;
 
@@ -638,7 +639,8 @@ export default function Dashboard() {
                 weight: amount as any,
                 category: behavior?.category || '纪律',
                 description: `自动规则：${rule.name.split(' → ')[0]}`,
-                remark: `ruleId:${rule.id}，结算第${prevWeek.weekNumber}周，settledWeek:${prevWeek.weekNumber}，+${amount}${config.blankMarkName}`,
+                autoRuleId: rule.id,
+                settledWeek: prevWeek.weekNumber,
                 occurredDate: prevWeek.endDate,
                 recordedBy: '系统',
                 verified: true,
@@ -657,7 +659,8 @@ export default function Dashboard() {
                 weight: 1 as any,
                 category: '品行',
                 description: `自动规则：${rule.name.split(' → ')[0]}`,
-                remark: `ruleId:${rule.id}，结算第${prevWeek.weekNumber}周，settledWeek:${prevWeek.weekNumber}，+1心魔`,
+                autoRuleId: rule.id,
+                settledWeek: prevWeek.weekNumber,
                 occurredDate: prevWeek.endDate,
                 recordedBy: '系统',
                 verified: true,
@@ -679,7 +682,8 @@ export default function Dashboard() {
                 weight: amount as PositiveWeight,
                 category: '品行',
                 description: `自动规则：${rule.name.split(' → ')[0]}`,
-                remark: `ruleId:${rule.id}，结算第${prevWeek.weekNumber}周，settledWeek:${prevWeek.weekNumber}，+${amount}护盾`,
+                autoRuleId: rule.id,
+                settledWeek: prevWeek.weekNumber,
                 occurredDate: prevWeek.endDate,
                 recordedBy: '系统',
                 verified: true,
@@ -698,7 +702,8 @@ export default function Dashboard() {
                 weight: amount as PositiveWeight,
                 category: '品行',
                 description: `自动规则：${rule.name.split(' → ')[0]}`,
-                remark: `ruleId:${rule.id}，结算第${prevWeek.weekNumber}周，settledWeek:${prevWeek.weekNumber}，+${amount}${config.checkMarkName}`,
+                autoRuleId: rule.id,
+                settledWeek: prevWeek.weekNumber,
                 occurredDate: prevWeek.endDate,
                 recordedBy: '系统',
                 verified: true,

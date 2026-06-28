@@ -33,7 +33,7 @@ import { useStudents } from '../lib/store';
 import { computeStudentLevelChanges } from '../lib/audit';
 import { applyExchangeToStudent, buildExchangeRecord } from '../lib/exchangeLogic';
 import { formatLevelChangeDisplay } from '../lib/levelChangeDisplay';
-import { formatBehaviorBaseEffectLabel, formatBehaviorConsequence, formatBehaviorRecordTitle, stripConsequenceRemarkParts } from '../lib/behaviorDisplay';
+import { formatBehaviorBaseEffectLabel, formatBehaviorConsequence, formatBehaviorRecordTitle, getBehaviorRemarkForDisplay } from '../lib/behaviorDisplay';
 import { formatBehaviorRecordDateLabel } from '../lib/behaviorDate';
 import { recordParentAccess } from '../lib/parentAccessClient';
 import { useAuth } from '../hooks/useAuth';
@@ -801,7 +801,7 @@ function BehaviorHistory({ student, onDeleteRecord }: { student: Student; onDele
     const consequence = formatBehaviorConsequence(record, impactDisplayOptions);
     const baseEffectLabel = formatBehaviorBaseEffectLabel(record, impactDisplayOptions);
     const title = formatBehaviorRecordTitle(record, homeworkSubjects);
-    const remark = stripConsequenceRemarkParts(record.remark);
+    const remark = getBehaviorRemarkForDisplay(record);
     const timePeriod = record.timePeriodId ? timePeriods.find(tp => tp.id === record.timePeriodId)?.name || record.timePeriodId : '';
     const levelChange = levelChangeMap.get(record.id);
     const isNeg = record.direction === 'negative';

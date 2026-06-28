@@ -178,6 +178,8 @@ export interface BehaviorRecord {
   studentCardSide?: CardSide;
   recordType?: RecordType;
   isAutoRule?: boolean;
+  autoRuleId?: string;
+  settledWeek?: number;
   timePeriodId?: string;
   homeworkSubjectId?: string;
   homeworkTitle?: string;
