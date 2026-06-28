@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "id": "2026-06-28-26",
+      "date": "2026-06-28",
+      "studentId": "26",
+      "parentName": "冉家鳌家长",
+      "firstAccessAt": "2026-06-28T12:27:10.330Z",
+      "lastAccessAt": "2026-06-28T12:27:10.330Z",
+      "loginCount": 0,
+      "viewCount": 1,
+      "lastDevice": "mobile",
+      "lastCountedViewAt": "2026-06-28T12:27:10.330Z"
+    },
+    {
       "id": "2026-06-28-43",
       "date": "2026-06-28",
       "studentId": "43",
@@ -880,5 +892,5 @@
       "lastDevice": "desktop"
     }
   ],
-  "updatedAt": "2026-06-28T09:19:08.134Z"
+  "updatedAt": "2026-06-28T12:27:10.330Z"
 }
