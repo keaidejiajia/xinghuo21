@@ -50953,6 +50953,13 @@
         "name": "试卷收纳风琴包",
         "description": "国誉",
         "isActive": true
+      },
+      {
+        "id": "ex-1782647978052",
+        "side": "back",
+        "cost": 40,
+        "name": "大容量笔袋",
+        "isActive": true
       }
     ],
     "limitedEvents": [
