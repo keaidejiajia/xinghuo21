@@ -54433,6 +54433,13 @@
         "cost": 15,
         "name": "B5活页本",
         "isActive": true
+      },
+      {
+        "id": "ex-1782648740239",
+        "side": "front",
+        "cost": 40,
+        "name": "淡彩柔光马克笔套装",
+        "isActive": true
       }
     ],
     "limitedEvents": [
