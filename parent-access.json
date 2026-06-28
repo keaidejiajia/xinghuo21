@@ -6,8 +6,8 @@
       "studentId": "43",
       "parentName": "邹梓航家长",
       "firstAccessAt": "2026-06-28T09:16:28.598Z",
-      "lastAccessAt": "2026-06-28T09:16:28.598Z",
-      "loginCount": 0,
+      "lastAccessAt": "2026-06-28T09:19:08.134Z",
+      "loginCount": 1,
       "viewCount": 1,
       "lastDevice": "mobile",
       "lastCountedViewAt": "2026-06-28T09:16:28.598Z"
@@ -880,5 +880,5 @@
       "lastDevice": "desktop"
     }
   ],
-  "updatedAt": "2026-06-28T09:16:28.598Z"
+  "updatedAt": "2026-06-28T09:19:08.134Z"
 }
