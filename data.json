@@ -50896,7 +50896,7 @@
         "cost": 10,
         "name": "一封表扬信",
         "description": "由班主任亲笔写就，查重率0%",
-        "isActive": true
+        "isActive": false
       },
       {
         "id": "ex-f-9",
