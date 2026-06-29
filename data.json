@@ -51751,7 +51751,7 @@
       {
         "id": "ex-f-1",
         "side": "front",
-        "cost": 3,
+        "cost": 5,
         "name": "课间点歌一首",
         "description": "提前找班长登记歌名，自选点歌时段",
         "isActive": true
