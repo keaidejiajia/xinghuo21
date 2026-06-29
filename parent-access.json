@@ -1,6 +1,17 @@
 {
   "entries": [
     {
+      "id": "2026-06-29-24",
+      "date": "2026-06-29",
+      "studentId": "24",
+      "parentName": "彭子媂家长",
+      "firstAccessAt": "2026-06-29T01:51:25.236Z",
+      "lastAccessAt": "2026-06-29T01:51:25.236Z",
+      "loginCount": 1,
+      "viewCount": 0,
+      "lastDevice": "mobile"
+    },
+    {
       "id": "2026-06-29-33",
       "date": "2026-06-29",
       "studentId": "33",
@@ -951,5 +962,5 @@
       "lastDevice": "desktop"
     }
   ],
-  "updatedAt": "2026-06-29T01:04:32.912Z"
+  "updatedAt": "2026-06-29T01:51:25.236Z"
 }
