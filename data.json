@@ -958,7 +958,7 @@
       "blanksFilled": 2,
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
-      "starShields": 9,
+      "starShields": 5,
       "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
@@ -969,7 +969,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-29T05:03:27.351Z",
+      "updatedAt": "2026-06-29T05:03:51.121Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -1047,6 +1047,25 @@
     }
   ],
   "behavior-records": [
+    {
+      "studentId": "41",
+      "direction": "negative",
+      "weight": 2,
+      "behaviorId": "n-p-2",
+      "category": "品行",
+      "description": "说脏话",
+      "remark": "",
+      "recordedBy": "王老师",
+      "verified": true,
+      "shieldsConsumed": 4,
+      "extraWeight": 0,
+      "penaltyReasons": [],
+      "isHighSensitivity": false,
+      "studentCardSide": "front",
+      "occurredDate": "2026-06-29",
+      "id": "4068",
+      "createdAt": "2026-06-29T05:03:51.145Z"
+    },
     {
       "studentId": "18",
       "direction": "negative",
