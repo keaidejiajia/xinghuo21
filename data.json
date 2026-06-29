@@ -51775,7 +51775,7 @@
       {
         "id": "ex-f-7",
         "side": "front",
-        "cost": 8,
+        "cost": 15,
         "name": "班会课自选视频播放",
         "description": "20分钟以内，需班主任提前审核内容",
         "isActive": true
