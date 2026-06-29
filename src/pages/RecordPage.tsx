@@ -1045,11 +1045,11 @@ export default function RecordPage() {
       const autoRuleChips = (
         <>
           <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, padding: isMobile ? '2px 5px' : '2px 7px', borderRadius: D.radiusXs, border: '1px solid rgba(212,168,83,0.24)', background: 'rgba(212,168,83,0.08)', color: D.gold, fontSize: isMobile ? 10.5 : 11, lineHeight: 1.35, whiteSpace: 'nowrap', flex: '0 0 auto' }}>
-            <span style={{ color: D.textDim }}>\u7ed3\u7b97\u5468</span>
+            <span style={{ color: D.textDim }}>{'\u7ed3\u7b97\u5468'}</span>
             <span>{settlementWeekLabel}</span>
           </span>
           <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4, padding: isMobile ? '2px 5px' : '2px 7px', borderRadius: D.radiusXs, border: `1px solid ${D.border}`, background: 'rgba(255,255,255,0.03)', color: D.textMid, fontSize: isMobile ? 10.5 : 11, lineHeight: 1.35, whiteSpace: 'nowrap', flex: '0 0 auto' }}>
-            \u7cfb\u7edf\u81ea\u52a8\u7ed3\u7b97
+            {'\u7cfb\u7edf\u81ea\u52a8\u7ed3\u7b97'}
           </span>
           {cleanedRemark && (
             <span style={{ color: D.textDim, fontSize: 11, lineHeight: 1.35, whiteSpace: isMobile ? 'nowrap' : undefined, flex: isMobile ? '0 0 auto' : undefined }}>

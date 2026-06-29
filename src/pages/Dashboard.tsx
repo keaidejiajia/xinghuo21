@@ -725,15 +725,10 @@ export default function Dashboard() {
   // Completed-week settlement: positive weekly rewards are derived after a teaching week ends.
   useEffect(() => {
     const today = toLocalDateStr();
-    const completedWeeks = config.teachingWeeks
-      .filter(week => week.endDate < today)
-      .sort((a, b) => a.weekNumber - b.weekNumber);
-    if (completedWeeks.length === 0) return;
-
     const latestCompletedWeek = getLatestCompletedTeachingWeek(config.teachingWeeks, today);
-    if (latestCompletedWeek) {
-      localStorage.setItem('app_last_week_settle', String(latestCompletedWeek.weekNumber));
-    }
+    if (!latestCompletedWeek) return;
+    const completedWeeks = [latestCompletedWeek];
+    localStorage.setItem('app_last_week_settle', String(latestCompletedWeek.weekNumber));
 
     const rewardRules = config.autoRules.filter(rule =>
       rule.isActive &&
