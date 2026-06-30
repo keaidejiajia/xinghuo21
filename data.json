@@ -250,19 +250,19 @@
       "currentLevel": 1,
       "blanksFilled": 0,
       "cumulativeChecks": 24,
-      "heartDemonMarks": 73,
+      "heartDemonMarks": 75,
       "starShields": 1,
       "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
       "totalBlanksEverFilled": 38,
-      "totalHeartDemonsEverGained": 78,
+      "totalHeartDemonsEverGained": 80,
       "totalShieldsEverEarned": 23,
       "totalChecksEverEarned": 24,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-30T01:55:35.137Z",
+      "updatedAt": "2026-06-30T01:58:04.673Z",
       "riseTaskCompleted": false,
       "totalShieldsExchanged": 0,
       "lastHeartDemonClearDate": "2026-06-17"
@@ -1047,6 +1047,27 @@
     }
   ],
   "behavior-records": [
+    {
+      "studentId": "12",
+      "direction": "negative",
+      "weight": 2,
+      "behaviorId": "n-h-3",
+      "category": "卫生",
+      "description": "将零食饮料带入教学区",
+      "remark": "旧习复发：心魔+1",
+      "recordedBy": "蒋佳骏",
+      "verified": true,
+      "shieldsConsumed": 0,
+      "extraWeight": 1,
+      "penaltyReasons": [
+        "old_habit_recurrence"
+      ],
+      "isHighSensitivity": false,
+      "studentCardSide": "back",
+      "occurredDate": "2026-06-25",
+      "id": "4145",
+      "createdAt": "2026-06-30T01:58:04.687Z"
+    },
     {
       "studentId": "7",
       "direction": "positive",
