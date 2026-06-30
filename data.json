@@ -501,8 +501,8 @@
       "blanksFilled": 1,
       "cumulativeChecks": 0,
       "heartDemonMarks": 0,
-      "starShields": 8,
-      "consecutiveNoViolationDays": 2,
+      "starShields": 2,
+      "consecutiveNoViolationDays": 0,
       "heritagePoints": 0,
       "totalHeritageEarned": 0,
       "totalHeritageDonated": 0,
@@ -512,7 +512,7 @@
       "totalChecksEverEarned": 0,
       "weeksAtLevelOne": 0,
       "createdAt": "2026-05-19T11:15:43.713Z",
-      "updatedAt": "2026-06-30T00:42:52.356Z",
+      "updatedAt": "2026-06-30T04:07:46.102Z",
       "totalShieldsExchanged": 0,
       "riseTaskCompleted": false
     },
@@ -1055,6 +1055,25 @@
     }
   ],
   "behavior-records": [
+    {
+      "studentId": "22",
+      "direction": "negative",
+      "weight": 3,
+      "behaviorId": "n-d-6",
+      "category": "纪律",
+      "description": "不交手机手表或违规使用电子设备",
+      "remark": "数学课使用BB机",
+      "recordedBy": "王老师",
+      "verified": false,
+      "shieldsConsumed": 6,
+      "extraWeight": 0,
+      "penaltyReasons": [],
+      "isHighSensitivity": true,
+      "studentCardSide": "front",
+      "occurredDate": "2026-06-30",
+      "id": "4168",
+      "createdAt": "2026-06-30T04:07:46.117Z"
+    },
     {
       "studentId": "10",
       "direction": "negative",
