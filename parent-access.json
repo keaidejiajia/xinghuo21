@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "id": "2026-07-01-39",
+      "date": "2026-07-01",
+      "studentId": "39",
+      "parentName": "易安心家长",
+      "firstAccessAt": "2026-07-01T09:40:27.221Z",
+      "lastAccessAt": "2026-07-01T09:40:27.221Z",
+      "loginCount": 0,
+      "viewCount": 1,
+      "lastDevice": "mobile",
+      "lastCountedViewAt": "2026-07-01T09:40:27.221Z"
+    },
+    {
       "id": "2026-07-01-41",
       "date": "2026-07-01",
       "studentId": "41",
@@ -1033,5 +1045,5 @@
       "lastDevice": "desktop"
     }
   ],
-  "updatedAt": "2026-07-01T09:27:28.830Z"
+  "updatedAt": "2026-07-01T09:40:27.221Z"
 }
