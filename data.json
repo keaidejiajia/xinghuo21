@@ -52747,7 +52747,7 @@
     }
   ],
   "app-config": {
-    "version": 17,
+    "version": 16,
     "frontLevels": [
       {
         "level": 1,
@@ -52811,28 +52811,28 @@
         "level": 3,
         "name": "烛火摇曳",
         "imagery": "风中烛火：已形成火焰，能提供光热，但仍不稳定",
-        "checksRequired": 15,
+        "checksRequired": 20,
         "description": "你已经重新亮起来了。虽然这团火还不够稳，偶尔也会被风吹得摇晃，但只要不放弃，它就会越来越明。能坚持下来的人，已经在变强了。"
       },
       {
         "level": 4,
         "name": "篝火渐旺",
         "imagery": "营地的篝火：稳定、温暖，可以聚集他人，抵御寒冷",
-        "checksRequired": 20,
+        "checksRequired": 35,
         "description": "你的改变，已经不只是自己知道，别人也能看见了。你开始更稳定，也开始把积极、认真和温暖带给周围的人。此时的你，已经不只是被照亮的人，也在慢慢照亮别人。"
       },
       {
         "level": 5,
         "name": "熔炉之心",
         "imagery": "锻造的熔炉：高温、猛烈、足以重塑钢铁与自身",
-        "checksRequired": 25,
+        "checksRequired": 55,
         "description": "你正在经历真正的成长。这个过程也许不轻松，因为你要和过去的坏习惯较劲，要把散漫、冲动和逃避一点点炼掉。但正因为经历了锤炼，你才会变得更坚定、更有力量。"
       },
       {
         "level": 6,
         "name": "不朽晨辉",
         "imagery": "破晓的太阳：永恒、宏大、普照万物，源自内部核聚变",
-        "checksRequired": 30,
+        "checksRequired": 80,
         "description": "你已经走过低谷，也完成了重建。现在的你，不只是回到了从前，而是比从前更懂自律、更懂坚持，也更懂珍惜。你的光，已经不只是天赋或状态，而是经历过考验之后，真正属于自己的力量。"
       }
     ],
@@ -52854,7 +52854,7 @@
         "items": [
           "评优评奖次优先",
           "可担任班委职务",
-          "期末获得「弦月之辉」定制徽章"
+          "期末获得「弦月清辉」定制徽章"
         ]
       },
       {
@@ -52903,7 +52903,7 @@
           "须每周提交自我反思，并在翻面仪式上发表宣言",
           "作业须家长每日签字",
           "座位由班主任指定",
-          "大课间须到班主任办公室自习",
+          "大课间须在教室自习",
           "参加课外活动须班主任批准"
         ]
       },
@@ -52914,7 +52914,7 @@
           "须每周提交自我反思",
           "作业须家长每日签字",
           "座位由班主任指定",
-          "大课间须到班主任办公室自习"
+          "大课间须在教室自习"
         ]
       },
       {
@@ -52963,21 +52963,20 @@
         "category": "纪律",
         "weight": 1,
         "name": "迟到",
-        "description": "由纪律委员和班主任日常记录，包括早午晚三个时段，但每天只能因未迟到获得至多1个护盾",
+        "description": "迟到",
         "isHighSensitivity": false,
         "isComposite": true,
-        "isInverseSelectable": false,
+        "isInverseSelectable": true,
         "compositeThreshold": 3,
-        "compositePenalty": 1,
-        "behaviorBlacklist": []
+        "compositePenalty": 1
       },
       {
         "id": "n-d-2",
         "direction": "negative",
         "category": "纪律",
         "weight": 1,
-        "name": "预备铃后未按时就位",
-        "description": "由纪律委员和班主任日常记录。以预备铃响后未回座位或者未静息为标准",
+        "name": "预备铃后未就位",
+        "description": "预备铃后未按时就位",
         "isHighSensitivity": false,
         "isComposite": false,
         "isInverseSelectable": false,
@@ -52988,11 +52987,11 @@
         "direction": "negative",
         "category": "学习",
         "weight": 1,
-        "name": "作业/定时任务未按时上交，或未按要求完成",
-        "description": "由学习委员和班主任日常记录，作业以小组长每日登记和科任老师的作业反馈为标准",
+        "name": "作业未按时上交",
+        "description": "作业未按时上交或未按要求完成",
         "isHighSensitivity": false,
         "isComposite": true,
-        "isInverseSelectable": false,
+        "isInverseSelectable": true,
         "compositeThreshold": 3,
         "compositePenalty": 1,
         "requiresHomeworkDetail": true
@@ -53002,8 +53001,8 @@
         "direction": "negative",
         "category": "学习",
         "weight": 1,
-        "name": "课上不记笔记、做与学习无关的事情、睡觉/趴桌",
-        "description": "由学习委员和班主任日常记录，不接受趴桌上课、但没有睡觉的理由",
+        "name": "课上做无关的事",
+        "description": "课上做与学习无关的事情",
         "isHighSensitivity": false,
         "isComposite": false,
         "isInverseSelectable": false,
@@ -53015,7 +53014,7 @@
         "category": "卫生",
         "weight": 1,
         "name": "个人区域脏乱",
-        "description": "由劳动委员和班主任日常记录",
+        "description": "个人区域脏乱，有明显垃圾",
         "isHighSensitivity": false,
         "isComposite": false,
         "isInverseSelectable": false
@@ -53026,7 +53025,7 @@
         "category": "品行",
         "weight": 1,
         "name": "仪容仪表不合规范",
-        "description": "由班长和班主任日常记录",
+        "description": "仪容仪表不合规范",
         "isHighSensitivity": false,
         "isComposite": false,
         "isInverseSelectable": false
@@ -53037,7 +53036,7 @@
         "category": "纪律",
         "weight": 2,
         "name": "课上随意讲话",
-        "description": "由纪律委员和班主任日常记录，以老师点名为准，与“课上做与学习无关的事情或睡觉”的行为区分开",
+        "description": "课上随意讲话",
         "isHighSensitivity": false,
         "isComposite": true,
         "isInverseSelectable": false,
@@ -53050,45 +53049,19 @@
         "direction": "negative",
         "category": "纪律",
         "weight": 2,
-        "name": "课间追逐打闹或在教室大喊大叫",
-        "description": "由纪律委员和班主任日常记录",
+        "name": "课间追逐打闹",
+        "description": "课间追逐打闹",
         "isHighSensitivity": false,
         "isComposite": false,
         "isInverseSelectable": false
-      },
-      {
-        "id": "n-custom-1782094301198",
-        "direction": "negative",
-        "category": "纪律",
-        "weight": 2,
-        "name": "携带或阅读网络小说等与学习无关的课外书",
-        "description": "携带或阅读网络小说等与学习无关的课外书",
-        "isHighSensitivity": false,
-        "isComposite": false,
-        "isInverseSelectable": false,
-        "affectsFlag": false,
-        "requiresTimePeriod": false
-      },
-      {
-        "id": "n-custom-1782098209600",
-        "direction": "negative",
-        "category": "纪律",
-        "weight": 2,
-        "name": "午休期间不睡觉，打扰其他同学休息",
-        "description": "午休期间不睡觉，打扰其他同学休息",
-        "isHighSensitivity": false,
-        "isComposite": false,
-        "isInverseSelectable": false,
-        "affectsFlag": false,
-        "requiresTimePeriod": false
       },
       {
         "id": "n-l-3",
         "direction": "negative",
         "category": "学习",
         "weight": 2,
-        "name": "抄袭作业或提供作业给他人照抄",
-        "description": " 由学习委员和班主任日常记录",
+        "name": "抄袭作业",
+        "description": "抄袭作业或提供作业给他人照抄",
         "isHighSensitivity": false,
         "isComposite": false,
         "isInverseSelectable": false
@@ -53099,7 +53072,7 @@
         "category": "卫生",
         "weight": 2,
         "name": "随地乱扔垃圾",
-        "description": "由劳动委员日常记录",
+        "description": "随地乱扔垃圾",
         "isHighSensitivity": false,
         "isComposite": false,
         "isInverseSelectable": false
@@ -53109,8 +53082,8 @@
         "direction": "negative",
         "category": "卫生",
         "weight": 2,
-        "name": "将零食饮料带入教学区",
-        "description": "由劳动委员和班主任日常记录，所有同学互相监督",
+        "name": "零食饮料入教学区",
+        "description": "将零食饮料带入教学区",
         "isHighSensitivity": false,
         "isComposite": false,
         "isInverseSelectable": false
@@ -53121,19 +53094,18 @@
         "category": "品行",
         "weight": 2,
         "name": "说脏话",
-        "description": "由班长和班主任日常记录",
+        "description": "说脏话",
         "isHighSensitivity": false,
         "isComposite": false,
-        "isInverseSelectable": false,
-        "requiresTimePeriod": false
+        "isInverseSelectable": false
       },
       {
         "id": "n-p-3",
         "direction": "negative",
         "category": "品行",
         "weight": 2,
-        "name": "以嘲笑、讥讽等无礼的方式对待同学",
-        "description": "由班长和班主任日常记录",
+        "name": "嘲笑讥讽同学",
+        "description": "嘲笑、讥讽同学",
         "isHighSensitivity": false,
         "isComposite": false,
         "isInverseSelectable": false
@@ -53143,8 +53115,8 @@
         "direction": "negative",
         "category": "品行",
         "weight": 2,
-        "name": "未经允许拿用他人物品",
-        "description": "由班长和班主任日常记录",
+        "name": "拿用他人物品",
+        "description": "未经允许拿用他人物品",
         "isHighSensitivity": false,
         "isComposite": false,
         "isInverseSelectable": false
@@ -53154,8 +53126,8 @@
         "direction": "negative",
         "category": "纪律",
         "weight": 3,
-        "name": "集体活动中擅自行动或表现失格",
-        "description": "由纪律委员和班主任日常记录",
+        "name": "集体活动擅自行动",
+        "description": "集体活动中擅自行动",
         "isHighSensitivity": false,
         "isComposite": false,
         "isInverseSelectable": false
@@ -53165,30 +53137,11 @@
         "direction": "negative",
         "category": "纪律",
         "weight": 3,
-        "name": "不交手机手表或违规使用电子设备",
-        "description": "由纪律委员和班主任日常记录，违规者，其电子设备将被班主任没收一个学期",
+        "name": "违规使用电子设备",
+        "description": "违规使用电子设备",
         "isHighSensitivity": true,
         "isComposite": false,
-        "isInverseSelectable": false,
-        "aliases": [
-          "违规使用电子设备",
-          "由纪律委员和班主任日常记录，违规者，其电子设备将被班主任没收一个学期",
-          "不交违规使用电子设备",
-          "不交手机违规使用电子设备",
-          "不交手机手表违规使用电子设备"
-        ]
-      },
-      {
-        "id": "n-custom-1779205227323",
-        "direction": "negative",
-        "category": "纪律",
-        "weight": 3,
-        "name": "违纪导致班级被扣分",
-        "description": "由纪律委员和班主任日常记录",
-        "isHighSensitivity": false,
-        "isComposite": false,
-        "isInverseSelectable": false,
-        "affectsFlag": true
+        "isInverseSelectable": false
       },
       {
         "id": "n-l-4",
@@ -53196,7 +53149,7 @@
         "category": "学习",
         "weight": 3,
         "name": "考试作弊",
-        "description": "由班主任日常记录",
+        "description": "考试或常规练习中作弊、协助作弊",
         "isHighSensitivity": true,
         "isComposite": false,
         "isInverseSelectable": false
@@ -53206,8 +53159,8 @@
         "direction": "negative",
         "category": "卫生",
         "weight": 3,
-        "name": "值日未按时完成或缺席",
-        "description": "由劳动委员和班主任日常记录",
+        "name": "值日迟到或缺席",
+        "description": "值日无故迟到或缺席",
         "isHighSensitivity": false,
         "isComposite": false,
         "isInverseSelectable": false
@@ -53217,8 +53170,8 @@
         "direction": "negative",
         "category": "卫生",
         "weight": 3,
-        "name": "值日不合格导致班级被扣分",
-        "description": "由劳动委员和班主任日常记录，具体到负责不合格值日项目的同学",
+        "name": "值日不达标",
+        "description": "值日不达标致班级扣分",
         "isHighSensitivity": false,
         "isComposite": false,
         "isInverseSelectable": false
@@ -53229,7 +53182,7 @@
         "category": "品行",
         "weight": 3,
         "name": "顶撞师长",
-        "description": "由班长和班主任日常记录",
+        "description": "顶撞师长",
         "isHighSensitivity": true,
         "isComposite": false,
         "isInverseSelectable": false
@@ -53239,8 +53192,8 @@
         "direction": "negative",
         "category": "品行",
         "weight": 3,
-        "name": "辱骂、威胁或欺凌同学",
-        "description": "由班长和班主任日常记录",
+        "name": "辱骂/威胁/欺凌",
+        "description": "辱骂、威胁或欺凌同学",
         "isHighSensitivity": true,
         "isComposite": false,
         "isInverseSelectable": false
@@ -53251,22 +53204,21 @@
         "category": "品行",
         "weight": 3,
         "name": "破坏公物",
-        "description": "由班长和班主任日常记录，所有同学互相监督",
+        "description": "破坏公物",
         "isHighSensitivity": true,
         "isComposite": false,
         "isInverseSelectable": false
       },
       {
-        "id": "n-custom-1779322088070",
+        "id": "n-p-8",
         "direction": "negative",
         "category": "品行",
         "weight": 3,
-        "name": "撒谎或上报不实行为",
-        "description": "由班长或班主任日常记录，如讲题等行为记录存在欺瞒、糊弄等情况，则取消当次记录，改为记录此行为，同时将相关同学拉入对应正面行为黑名单一学期",
+        "name": "上报不实行为",
+        "description": "以欺瞒方式虚报正面行为，查实后登记",
         "isHighSensitivity": true,
         "isComposite": false,
-        "isInverseSelectable": false,
-        "affectsFlag": false
+        "isInverseSelectable": false
       }
     ],
     "positiveBehaviors": [
@@ -53275,29 +53227,22 @@
         "direction": "positive",
         "category": "纪律",
         "weight": 1,
-        "name": "主动报名参加集体活动",
-        "description": "由班长、纪律委员和班主任日常记录",
+        "name": "主动报名集体活动",
+        "description": "主动报名参加各项集体活动",
         "isHighSensitivity": false,
         "isComposite": false,
-        "isInverseSelectable": false,
-        "extraWeight": 0
+        "isInverseSelectable": false
       },
       {
         "id": "p-l-1",
         "direction": "positive",
         "category": "学习",
         "weight": 1,
-        "name": "按时、按要求完成作业或定时任务",
-        "description": "由学习委员日常记录，如果此行为已经在负面行为中反选，则不再重复记录",
+        "name": "按时完成作业",
+        "description": "按时、按要求完成作业",
         "isHighSensitivity": false,
         "isComposite": false,
-        "isInverseSelectable": false,
-        "aliases": [
-          "按时、按要求完成作业",
-          "由学习委员日常记录，如果此行为已经在负面行为中反选，则不再重复记录",
-          "按时、按要求完成作业或"
-        ],
-        "requiresHomeworkDetail": false
+        "isInverseSelectable": false
       },
       {
         "id": "p-l-2",
@@ -53305,19 +53250,18 @@
         "category": "学习",
         "weight": 1,
         "name": "课堂主动发言",
-        "description": "由学习委员日常记录。如果是老师点名回答问题，只记录回答正确的同学",
+        "description": "课堂主动发言",
         "isHighSensitivity": false,
         "isComposite": false,
-        "isInverseSelectable": false,
-        "requiresTimePeriod": true
+        "isInverseSelectable": false
       },
       {
         "id": "p-l-3",
         "direction": "positive",
         "category": "学习",
         "weight": 1,
-        "name": "作业高质量完成或学习态度认真，受到老师表扬",
-        "description": "由学习委员日常记录",
+        "name": "作业高质量受表扬",
+        "description": "作业高质量完成，受到老师表扬",
         "isHighSensitivity": false,
         "isComposite": false,
         "isInverseSelectable": false
@@ -53327,38 +53271,19 @@
         "direction": "positive",
         "category": "学习",
         "weight": 1,
-        "name": "在年级考试中取得班级名次进步（总等级未变）",
-        "description": "由学习委员日常记录",
+        "name": "考试名次进步",
+        "description": "在年级考试中取得名次进步（总等级未变）",
         "isHighSensitivity": false,
         "isComposite": false,
         "isInverseSelectable": false
-      },
-      {
-        "id": "p-custom-1782093820498",
-        "direction": "positive",
-        "category": "学习",
-        "weight": 1,
-        "name": "背面前三等级的同学在大课间到办公室完成自习任务",
-        "description": "背面1-3等级的同学在大课间到办公室完成自习任务",
-        "isHighSensitivity": false,
-        "isComposite": false,
-        "isInverseSelectable": false,
-        "affectsFlag": false,
-        "requiresTimePeriod": false,
-        "aliases": [
-          "背面1-3等级的同学在大课间到办公室完成自习任务",
-          "背面1-等级的同学在大课间到办公室完成自习任务",
-          "背面1等级的同学在大课间到办公室完成自习任务",
-          "背面等级的同学在大课间到办公室完成自习任务"
-        ]
       },
       {
         "id": "p-h-1",
         "direction": "positive",
         "category": "卫生",
         "weight": 1,
-        "name": "个人区域整洁，受到老师表扬",
-        "description": "由劳动委员和班主任日常记录",
+        "name": "个人区域整洁受表扬",
+        "description": "个人区域整洁，受到老师表扬",
         "isHighSensitivity": false,
         "isComposite": false,
         "isInverseSelectable": false
@@ -53368,8 +53293,8 @@
         "direction": "positive",
         "category": "品行",
         "weight": 1,
-        "name": "接受批评教育时主动向老师承认错误",
-        "description": "由班长和班主任日常记录",
+        "name": "主动承认错误",
+        "description": "接受批评教育时主动向老师承认错误",
         "isHighSensitivity": false,
         "isComposite": false,
         "isInverseSelectable": false
@@ -53379,8 +53304,8 @@
         "direction": "positive",
         "category": "品行",
         "weight": 1,
-        "name": "在同学矛盾中主动道歉并改正",
-        "description": "由班长和班主任日常记录",
+        "name": "主动道歉并改正",
+        "description": "在同学矛盾中主动道歉并改正",
         "isHighSensitivity": false,
         "isComposite": false,
         "isInverseSelectable": false
@@ -53390,8 +53315,8 @@
         "direction": "positive",
         "category": "品行",
         "weight": 1,
-        "name": "仪容仪表规范，受到老师表扬",
-        "description": "由班长和班主任日常记录，如果此行为已经在负面行为中反选，则不再重复记录",
+        "name": "仪容仪表规范受表扬",
+        "description": "仪容仪表规范，受到老师表扬",
         "isHighSensitivity": false,
         "isComposite": false,
         "isInverseSelectable": false
@@ -53401,8 +53326,8 @@
         "direction": "positive",
         "category": "纪律",
         "weight": 2,
-        "name": "集体活动中表现优异，受到老师表扬",
-        "description": "由纪律委员和班主任日常记录",
+        "name": "集体活动规范受表扬",
+        "description": "集体活动中表现规范，受到老师表扬",
         "isHighSensitivity": false,
         "isComposite": false,
         "isInverseSelectable": false
@@ -53412,8 +53337,8 @@
         "direction": "positive",
         "category": "学习",
         "weight": 2,
-        "name": "帮助同学解决学习问题，并得到确认",
-        "description": "由学习委员日常记录，可主动找学习委员登记，登记时需双方一起展示讲解题目，每人每日最多记录两次",
+        "name": "帮助同学解决学习问题",
+        "description": "帮助同学解决学习问题，并得到确认",
         "isHighSensitivity": false,
         "isComposite": false,
         "isInverseSelectable": false
@@ -53423,47 +53348,30 @@
         "direction": "positive",
         "category": "卫生",
         "weight": 2,
-        "name": "主动帮助值日小组完成卫生任务",
-        "description": "由劳动委员日常记录，需得到劳动委员的确认并在清洁登记册上签字",
+        "name": "主动帮助值日",
+        "description": "主动帮助值日小组完成卫生任务",
         "isHighSensitivity": false,
         "isComposite": false,
-        "isInverseSelectable": false,
-        "behaviorBlacklist": [
-          "12"
-        ]
+        "isInverseSelectable": false
       },
       {
         "id": "p-p-4",
         "direction": "positive",
         "category": "品行",
         "weight": 2,
-        "name": "主动归还拾到物品或上交失物",
-        "description": "由班长或班主任日常记录",
+        "name": "归还拾到物品",
+        "description": "主动归还拾到物品或上交失物",
         "isHighSensitivity": false,
         "isComposite": false,
         "isInverseSelectable": false
-      },
-      {
-        "id": "p-custom-1782374902108",
-        "direction": "positive",
-        "category": "品行",
-        "weight": 2,
-        "name": "主动帮助老师",
-        "description": "主动帮助老师",
-        "isHighSensitivity": false,
-        "isComposite": false,
-        "isInverseSelectable": false,
-        "affectsFlag": false,
-        "requiresTimePeriod": false,
-        "requiresHomeworkDetail": false
       },
       {
         "id": "p-d-3",
         "direction": "positive",
         "category": "纪律",
         "weight": 3,
-        "name": "集体活动中负责策划、组织等，受到老师表扬",
-        "description": "由纪律委员和班主任日常记录",
+        "name": "集体活动策划组织受表扬",
+        "description": "集体活动中负责策划、组织等，受到老师表扬",
         "isHighSensitivity": false,
         "isComposite": false,
         "isInverseSelectable": false
@@ -53473,32 +53381,30 @@
         "direction": "positive",
         "category": "学习",
         "weight": 3,
-        "name": "在年级考试中取得总等级进步",
-        "description": "由学习委员日常记录",
+        "name": "考试总等级进步",
+        "description": "在年级考试中取得总等级进步",
         "isHighSensitivity": false,
         "isComposite": false,
-        "isInverseSelectable": false,
-        "extraWeight": 0
+        "isInverseSelectable": false
       },
       {
         "id": "p-h-3",
         "direction": "positive",
         "category": "卫生",
         "weight": 3,
-        "name": "作为值日小组成员一周扫除达标",
-        "description": "由劳动委员日常记录，以清洁登记册的签字记录为准",
+        "name": "值日小组一周达标",
+        "description": "卫生任务完成认真，值日小组一周内值日任务完全达标",
         "isHighSensitivity": false,
         "isComposite": false,
-        "isInverseSelectable": false,
-        "maxDailyCount": 0
+        "isInverseSelectable": false
       },
       {
         "id": "p-p-5",
         "direction": "positive",
         "category": "品行",
         "weight": 3,
-        "name": "在集体活动中代表班级取得荣誉",
-        "description": "由班长和班主任日常记录",
+        "name": "代表班级取得荣誉",
+        "description": "在集体活动中代表班级取得荣誉",
         "isHighSensitivity": false,
         "isComposite": false,
         "isInverseSelectable": false
@@ -53517,115 +53423,31 @@
     "blankMarkName": "星蚀",
     "checkMarkName": "火种",
     "shieldOffsetRatio": 2,
-    "autoRules": [
-      {
-        "id": "ar-1",
-        "name": "一周作业全部按时上交且按要求完成→ 额外加2护盾/火种",
-        "triggerCondition": {
-          "type": "weekly_no_behavior",
-          "behaviorId": "n-l-1"
-        },
-        "effectType": "shieldAndEmber",
-        "effectAmount": 2,
-        "isActive": true
-      },
-      {
-        "id": "ar-2",
-        "name": "一周无迟到 → 额外加2护盾/火种",
-        "triggerCondition": {
-          "type": "weekly_no_behavior",
-          "behaviorId": "n-d-1"
-        },
-        "effectType": "shieldAndEmber",
-        "effectAmount": 2,
-        "isActive": true
-      },
-      {
-        "id": "ar-3",
-        "name": "一周零违纪 → 额外加4护盾/火种",
-        "triggerCondition": {
-          "type": "weekly_no_behavior"
-        },
-        "effectType": "shieldAndEmber",
-        "effectAmount": 4,
-        "isActive": true
-      },
-      {
-        "id": "ar-custom-1779849084941",
-        "name": "一周迟到两次及以上 → 额外加2星蚀",
-        "triggerCondition": {
-          "type": "weekly_behavior_count",
-          "behaviorId": "n-d-1",
-          "threshold": 2,
-          "period": "week"
-        },
-        "effectType": "blankAndHeartDemon",
-        "effectAmount": 2,
-        "isActive": true
-      },
-      {
-        "id": "ar-custom-1779854874797",
-        "name": "一周未交作业或未按要求完成两次及以上 → 额外加2星蚀",
-        "triggerCondition": {
-          "type": "weekly_behavior_count",
-          "behaviorId": "n-l-1",
-          "threshold": 2,
-          "period": "week"
-        },
-        "effectType": "blankAndHeartDemon",
-        "effectAmount": 2,
-        "isActive": true
-      },
-      {
-        "id": "ar-custom-1779854956442",
-        "name": "一周课上讲话3次及以上 → 额外加3星蚀",
-        "triggerCondition": {
-          "type": "weekly_behavior_count",
-          "behaviorId": "n-d-3",
-          "threshold": 3,
-          "period": "week"
-        },
-        "effectType": "blankAndHeartDemon",
-        "effectAmount": 3,
-        "isActive": true
-      }
-    ],
-    "heartDemonClearRules": {
-      "zeroViolation": {
-        "weeksRequired": 2,
-        "clearCount": 1,
-        "isActive": true
-      },
-      "shiningBehavior": {
-        "minWeight": 3,
-        "clearCount": 1,
-        "isActive": true
-      }
-    },
+    "autoRules": [],
     "riseTasks": [
       {
         "side": "front",
         "level": 6,
         "name": "深谷余烬",
         "description": "",
-        "riseDaysRequired": 20,
-        "riseTask": "为班级扫除1个月"
+        "riseDaysRequired": 5,
+        "riseTask": "写一篇反思并交由班主任审阅"
       },
       {
         "side": "front",
         "level": 5,
         "name": "雾中孤星",
         "description": "",
-        "riseDaysRequired": 15,
-        "riseTask": "抄写语文所有背诵篇目1遍，并从中抽背5首"
+        "riseDaysRequired": 5,
+        "riseTask": "主动发言2次"
       },
       {
         "side": "front",
         "level": 4,
         "name": "流星即逝",
         "description": "",
-        "riseDaysRequired": 10,
-        "riseTask": "抄写英语书后单词表所有单词中英文1遍，并从中听写20个单词，正确15个以上"
+        "riseDaysRequired": 5,
+        "riseTask": "帮助1名同学解决学习问题"
       },
       {
         "side": "front",
@@ -53633,7 +53455,7 @@
         "name": "云翳遮星",
         "description": "",
         "riseDaysRequired": 5,
-        "riseTask": "为班级扫除1周"
+        "riseTask": "承担1次班级公共任务"
       },
       {
         "side": "front",
@@ -53641,29 +53463,29 @@
         "name": "弦月之辉",
         "description": "",
         "riseDaysRequired": 5,
-        "riseTask": "主动发言5次"
+        "riseTask": "为班级争得荣誉"
       }
     ],
     "levelOneTitles": [
       {
-        "weeksRequired": 2,
+        "weeksRequired": 1,
         "name": "初级星辉",
+        "description": "持续保持星辉典范1周"
+      },
+      {
+        "weeksRequired": 2,
+        "name": "稳固星辉",
         "description": "持续保持星辉典范2周"
       },
       {
         "weeksRequired": 4,
-        "name": "闪耀星辉",
+        "name": "永恒星辉",
         "description": "持续保持星辉典范1个月"
       },
       {
-        "weeksRequired": 8,
+        "weeksRequired": 9,
         "name": "传奇星辉",
-        "description": "持续保持星辉典范2个月"
-      },
-      {
-        "weeksRequired": 10,
-        "name": "永恒星辉",
-        "description": "持续保持星辉典范1学期"
+        "description": "持续保持星辉典范半学期"
       }
     ],
     "immortalTitles": [
@@ -53704,107 +53526,107 @@
       "back-1": 12
     },
     "chooseThreshold": 8,
-    "semesterStartDate": "2026-03-02",
+    "semesterStartDate": "2026-02-17",
     "teachingWeeks": [
       {
         "weekNumber": 1,
-        "startDate": "2026-03-02",
-        "endDate": "2026-03-06"
+        "startDate": "2026-02-17",
+        "endDate": "2026-02-21"
       },
       {
         "weekNumber": 2,
-        "startDate": "2026-03-09",
-        "endDate": "2026-03-13"
+        "startDate": "2026-02-24",
+        "endDate": "2026-02-28"
       },
       {
         "weekNumber": 3,
-        "startDate": "2026-03-16",
-        "endDate": "2026-03-20"
+        "startDate": "2026-03-03",
+        "endDate": "2026-03-07"
       },
       {
         "weekNumber": 4,
-        "startDate": "2026-03-23",
-        "endDate": "2026-03-27"
+        "startDate": "2026-03-10",
+        "endDate": "2026-03-14"
       },
       {
         "weekNumber": 5,
-        "startDate": "2026-03-30",
-        "endDate": "2026-04-03"
+        "startDate": "2026-03-17",
+        "endDate": "2026-03-21"
       },
       {
         "weekNumber": 6,
-        "startDate": "2026-04-06",
-        "endDate": "2026-04-10"
+        "startDate": "2026-03-24",
+        "endDate": "2026-03-28"
       },
       {
         "weekNumber": 7,
-        "startDate": "2026-04-13",
-        "endDate": "2026-04-17"
+        "startDate": "2026-03-31",
+        "endDate": "2026-04-04"
       },
       {
         "weekNumber": 8,
-        "startDate": "2026-04-20",
-        "endDate": "2026-04-24"
+        "startDate": "2026-04-07",
+        "endDate": "2026-04-11"
       },
       {
         "weekNumber": 9,
-        "startDate": "2026-04-27",
-        "endDate": "2026-05-01"
+        "startDate": "2026-04-14",
+        "endDate": "2026-04-18"
       },
       {
         "weekNumber": 10,
-        "startDate": "2026-05-04",
-        "endDate": "2026-05-08"
+        "startDate": "2026-04-21",
+        "endDate": "2026-04-25"
       },
       {
         "weekNumber": 11,
-        "startDate": "2026-05-11",
-        "endDate": "2026-05-15"
+        "startDate": "2026-04-28",
+        "endDate": "2026-05-02"
       },
       {
         "weekNumber": 12,
-        "startDate": "2026-05-18",
-        "endDate": "2026-05-22"
+        "startDate": "2026-05-05",
+        "endDate": "2026-05-09"
       },
       {
         "weekNumber": 13,
-        "startDate": "2026-05-25",
-        "endDate": "2026-05-29"
+        "startDate": "2026-05-12",
+        "endDate": "2026-05-16"
       },
       {
         "weekNumber": 14,
-        "startDate": "2026-06-01",
-        "endDate": "2026-06-05"
+        "startDate": "2026-05-19",
+        "endDate": "2026-05-23"
       },
       {
         "weekNumber": 15,
-        "startDate": "2026-06-08",
-        "endDate": "2026-06-12"
+        "startDate": "2026-05-26",
+        "endDate": "2026-05-30"
       },
       {
         "weekNumber": 16,
-        "startDate": "2026-06-15",
-        "endDate": "2026-06-19"
+        "startDate": "2026-06-02",
+        "endDate": "2026-06-06"
       },
       {
         "weekNumber": 17,
-        "startDate": "2026-06-22",
-        "endDate": "2026-06-26"
+        "startDate": "2026-06-09",
+        "endDate": "2026-06-13"
       },
       {
         "weekNumber": 18,
-        "startDate": "2026-06-29",
-        "endDate": "2026-07-03"
+        "startDate": "2026-06-16",
+        "endDate": "2026-06-20"
       },
       {
         "weekNumber": 19,
-        "startDate": "2026-07-06",
-        "endDate": "2026-07-10"
+        "startDate": "2026-06-23",
+        "endDate": "2026-06-27"
       },
       {
         "weekNumber": 20,
-        "startDate": "2026-07-13",
-        "endDate": "2026-07-17"
+        "startDate": "2026-06-30",
+        "endDate": "2026-07-04"
       }
     ],
     "categories": [
@@ -53814,244 +53636,163 @@
       "品行"
     ],
     "committeeNames": [
-      "王老师",
-      "易安心",
-      "陈浩博",
-      "赖佳颖",
-      "蒋佳骏"
+      "王老师"
     ],
     "exchangeItems": [
       {
         "id": "ex-f-1",
         "side": "front",
-        "cost": 5,
+        "cost": 3,
         "name": "课间点歌一首",
-        "description": "提前找班长登记歌名，自选点歌时段",
+        "description": "电教管理员负责播放，班长审查歌曲，纪律部维持安静",
         "isActive": true
       },
       {
         "id": "ex-f-2",
         "side": "front",
-        "cost": 10,
-        "name": "将自选图片设为一体机桌面背景一周",
-        "description": "图片需通过班主任审核",
+        "cost": 4,
+        "name": "选一张图片做桌面壁纸一周",
+        "description": "自己选图，电教管理员帮忙换",
+        "isActive": true
+      },
+      {
+        "id": "ex-f-3",
+        "side": "front",
+        "cost": 4,
+        "name": "借阅班主任一本书籍一周",
+        "description": "爱护书籍，按时归还",
+        "isActive": true
+      },
+      {
+        "id": "ex-f-4",
+        "side": "front",
+        "cost": 5,
+        "name": "晚自习看课外书一节",
+        "description": "作业做完的前提下",
+        "isActive": true
+      },
+      {
+        "id": "ex-f-5",
+        "side": "front",
+        "cost": 8,
+        "name": "和任意同学换座位一天",
+        "description": "双方同意即可",
         "isActive": true
       },
       {
         "id": "ex-f-6",
         "side": "front",
         "cost": 8,
-        "name": "桌游time",
-        "description": "需至少4人共同兑换，桌游由班主任选择，仅限大课间/午休玩",
+        "name": "带桌游到学校一天",
+        "description": "仅限课间/午休玩",
         "isActive": true
       },
       {
         "id": "ex-f-7",
         "side": "front",
-        "cost": 15,
+        "cost": 12,
         "name": "班会课自选视频播放",
-        "description": "20分钟以内，需班主任提前审核内容",
+        "description": "20分钟以内，需班长预审内容",
         "isActive": true
       },
       {
         "id": "ex-f-8",
         "side": "front",
-        "cost": 10,
+        "cost": 12,
         "name": "一封表扬信",
-        "description": "由班主任亲笔写就，查重率0%",
-        "isActive": false
+        "description": "班主任亲笔，可带给家长",
+        "isActive": true
       },
       {
         "id": "ex-f-9",
         "side": "front",
+        "cost": 18,
+        "name": "免值日一次",
+        "description": "提前一天告知劳动委员",
+        "isActive": true
+      },
+      {
+        "id": "ex-f-10",
+        "side": "front",
         "cost": 20,
-        "name": "班级放映员",
-        "description": "为班级兑换一次电影放映机会，提前告知班主任想看的电影题材，由班主任荐片",
+        "name": "免受惩罚一次",
+        "description": "如罚值日、罚扣分；不含严重违纪",
+        "isActive": true
+      },
+      {
+        "id": "ex-f-11",
+        "side": "front",
+        "cost": 25,
+        "name": "和同学彻底调换座位",
+        "description": "被换同学获得6盾补偿",
+        "isActive": true
+      },
+      {
+        "id": "ex-f-12",
+        "side": "front",
+        "cost": 8,
+        "name": "小组免值日一次",
+        "description": "小组每人8盾，全组出齐即可",
+        "isActive": true
+      },
+      {
+        "id": "ex-f-13",
+        "side": "front",
+        "cost": 30,
+        "name": "作业减免券（1次）",
+        "description": "单科单次作业",
+        "isActive": true
+      },
+      {
+        "id": "ex-f-14",
+        "side": "front",
+        "cost": 40,
+        "name": "自选同桌权（1周）",
+        "description": "双方同意，被选同学获5盾",
+        "isActive": true
+      },
+      {
+        "id": "ex-f-15",
+        "side": "front",
+        "cost": 10,
+        "name": "与班主任共进午餐",
+        "description": "聊天、吐槽、提建议，管饭",
         "isActive": true
       },
       {
         "id": "ex-b-1",
         "side": "back",
-        "cost": 10,
-        "name": "一封表扬信",
-        "description": "由班主任亲笔写就，查重率0%",
-        "isActive": false
+        "cost": 2,
+        "name": "为班级选一首晨读诗",
+        "description": "下周晨读使用",
+        "isActive": true
       },
       {
         "id": "ex-b-2",
         "side": "back",
-        "cost": 15,
-        "name": "班会课自选视频播放",
-        "description": "20分钟以内，需班主任提前审核内容",
+        "cost": 3,
+        "name": "指定一位同学回答你的问题",
+        "description": "学习/生活问题均可",
         "isActive": true
       },
       {
-        "id": "ex-1780366815734",
+        "id": "ex-b-3",
         "side": "back",
-        "cost": 8,
-        "name": "桌游time",
-        "description": "需至少4人共同兑换，桌游由班主任选择，仅限大课间/午休玩",
+        "cost": 5,
+        "name": "在班会上分享一个故事",
+        "description": "5分钟以内",
         "isActive": true
       },
       {
-        "id": "ex-1782647620968",
-        "side": "front",
-        "cost": 10,
-        "name": "A5活页本",
-        "isActive": true
-      },
-      {
-        "id": "ex-1782647903292",
-        "side": "front",
-        "cost": 45,
-        "name": "试卷收纳风琴包",
-        "isActive": true
-      },
-      {
-        "id": "ex-1782647978052",
+        "id": "ex-b-4",
         "side": "back",
-        "cost": 50,
-        "name": "大容量笔袋",
-        "isActive": true
-      },
-      {
-        "id": "ex-1782648161733",
-        "side": "front",
-        "cost": 20,
-        "name": "修正带",
-        "description": "SDI手牌糖果限定色",
-        "isActive": true
-      },
-      {
-        "id": "ex-1782648352833",
-        "side": "front",
         "cost": 10,
-        "name": "东米955低重心黑笔",
-        "description": "黑白配色自选",
-        "isActive": true
-      },
-      {
-        "id": "ex-1782648502503",
-        "side": "front",
-        "cost": 15,
-        "name": "A5点线笔记本",
-        "isActive": true
-      },
-      {
-        "id": "ex-1782648543567",
-        "side": "front",
-        "cost": 20,
-        "name": "B5点线笔记本",
-        "isActive": true
-      },
-      {
-        "id": "ex-1782648591484",
-        "side": "front",
-        "cost": 15,
-        "name": "B5活页本",
-        "isActive": true
-      },
-      {
-        "id": "ex-1782648740239",
-        "side": "front",
-        "cost": 60,
-        "name": "淡彩柔光马克笔套装",
+        "name": "获得\"薪火使者\"称号",
+        "description": "荣誉称号，有效期至学期末",
         "isActive": true
       }
     ],
-    "limitedEvents": [
-      {
-        "id": "le-1779776984298",
-        "name": "背诵篇目，统统拿下",
-        "direction": "positive",
-        "weight": 3,
-        "description": "背诵期末考试范围内的全部古诗和文言文篇目，并在记录册上登记。具体篇目如下，古诗10首：《登幽州台歌》、《望岳》、《登飞来峰》、《游山西村》、《己亥杂诗》、《问刘十九》、《芙蓉楼送辛渐》、《凉州词》、《金陵图》、《出塞》；文言文3首：《陋室铭》、《爱莲说》、《活板》",
-        "startDate": "2026-05-26",
-        "endDate": "2026-06-05",
-        "isActive": true
-      },
-      {
-        "id": "le-1779859749578",
-        "name": "劳逸结合",
-        "direction": "negative",
-        "weight": 3,
-        "description": "午休不好好睡觉者，3星蚀奉上",
-        "startDate": "2026-05-27",
-        "endDate": "2026-06-05",
-        "isActive": true
-      },
-      {
-        "id": "le-1780229176599",
-        "name": "紫藤萝瀑布，熟读成诵",
-        "direction": "positive",
-        "weight": 2,
-        "description": "背诵教材课文《紫藤萝瀑布》",
-        "startDate": "2026-06-01",
-        "endDate": "2026-06-05",
-        "isActive": true
-      },
-      {
-        "id": "le-1780366192303",
-        "name": "门面担当",
-        "direction": "positive",
-        "weight": 3,
-        "description": "完成周三周四的校园保洁和礼仪任务",
-        "startDate": "2026-06-03",
-        "endDate": "2026-06-05",
-        "isActive": true
-      },
-      {
-        "id": "le-1780366690691",
-        "name": "家长会志愿服务",
-        "direction": "positive",
-        "weight": 2,
-        "description": "主持1人、礼仪2人、卫生4人、教室布置3人",
-        "startDate": "2026-06-02",
-        "endDate": "2026-06-05",
-        "isActive": true
-      },
-      {
-        "id": "le-1781747207255",
-        "seriesId": "le-1781747207255",
-        "name": "高中会考考场布置",
-        "direction": "positive",
-        "weight": 3,
-        "description": "补充记录",
-        "startDate": "2026-06-25",
-        "endDate": "2026-06-27",
-        "isActive": true,
-        "aliases": [
-          "中考考场布置",
-          "补充记录",
-          "g考场布置",
-          "ga考场布置",
-          "gao考场布置",
-          "gaoz考场布置",
-          "gaozh考场布置",
-          "gaozho考场布置",
-          "gaozhon考场布置",
-          "gaozhong考场布置",
-          "高中考场布置",
-          "高中h考场布置",
-          "高中hu考场布置",
-          "高中hui考场布置",
-          "高中huik考场布置",
-          "高中huika考场布置",
-          "高中huikao考场布置"
-        ]
-      },
-      {
-        "id": "le-1781747566244",
-        "seriesId": "le-1781747566244",
-        "name": "地理课录制",
-        "direction": "positive",
-        "weight": 1,
-        "description": "",
-        "startDate": "2026-06-16",
-        "endDate": "2026-06-18",
-        "isActive": true
-      }
-    ],
+    "limitedEvents": [],
     "timePeriods": [
       {
         "id": "tp-yuwen",
@@ -54127,21 +53868,6 @@
         "id": "tp-jiti",
         "name": "集体活动期间",
         "group": "other"
-      },
-      {
-        "id": "tp-1780400729282",
-        "name": "班会课",
-        "group": "course"
-      },
-      {
-        "id": "tp-1780400740901",
-        "name": "英语口语课",
-        "group": "course"
-      },
-      {
-        "id": "tp-1780400777113",
-        "name": "午休期间",
-        "group": "other"
       }
     ],
     "homeworkSubjects": [
@@ -54166,6 +53892,18 @@
         "name": "历史"
       },
       {
+        "id": "hw-tiyu",
+        "name": "体育"
+      },
+      {
+        "id": "hw-dili",
+        "name": "地理"
+      },
+      {
+        "id": "hw-shengwu",
+        "name": "生物"
+      },
+      {
         "id": "hw-meishu",
         "name": "美术"
       },
@@ -54182,12 +53920,16 @@
         "name": "心理"
       },
       {
-        "id": "hw-1782115783027",
-        "name": "生物"
+        "id": "hw-zixi",
+        "name": "自习"
       },
       {
-        "id": "hw-1782115786346",
-        "name": "地理"
+        "id": "hw-banhui",
+        "name": "班会"
+      },
+      {
+        "id": "hw-kouyu",
+        "name": "英语口语"
       }
     ],
     "versionLogs": [
@@ -54196,59 +53938,58 @@
         "date": "2026-06-17",
         "changes": [
           {
-            "title": "旧习复发机制上线：改过的人，更要守住改变",
-            "detail": "有些同学已经走上背面，正在努力重建自己；但如果又出现曾经在正面阶段反复犯过的问题，系统会识别为“旧习复发”。这不是为了翻旧账，而是提醒我们：真正的改变，不只是暂时不犯错，而是能在原来的薄弱处站稳。"
+            "title": "登记规则更完整：旧习复发与记录人惩罚加一",
+            "detail": "行为登记现在能更好地处理“旧习复发”等连续性问题；记录人相关惩罚也纳入规则链条，谁登记、怎么登记、后续如何追踪，都比之前更清楚。"
           },
           {
-            "title": "记录人惩罚加一：权力越靠近记录，越要谨慎使用",
-            "detail": "当记录人涉及相关行为时，系统会自动提高惩罚权重。班级管理不是“谁来记谁就安全”，而是越有记录权限，越要对自己的行为更严格。这个机制会让记录更有公信力，也让班委和记录人更清楚：职责本身就是一种约束。\n"
+            "title": "班委登录界面上线",
+            "detail": "班委入口从老师入口中拆分出来，登录身份更明确，日常登记更顺手，也减少了误进教师管理页面的可能。"
           },
           {
-            "title": "班委登录界面优化：让日常登记更顺手",
-            "detail": "班委登录入口和身份界面已经重新整理，减少无关选项，让值周班委进入系统、完成记录更加直接。\n"
+            "title": "手机端全面适配与优化",
+            "detail": "全班总览、规则说明、行为录入、个人卡片等页面都重新照顾了手机宽度：按钮更适合触摸，卡片内容会自然换行，弹窗和列表不再像桌面网页硬缩小。"
           },
           {
-            "title": "手机端全面适配：不再是“桌面网页缩小版”",
-            "detail": "对手机端做了大范围调整：总览、学生卡片、行为录入、规则说明、弹窗、按钮和列表都进行了重新适配。文字更不容易被挤断，标签不会顶出屏幕，卡片信息也更适合竖屏查看。以后在手机上登记、查看、处理信息，会更像真正的手机应用，而不是勉强缩小的电脑页面。\n\n**跨设备数据同步继续加固：网页端更稳了**  \n网页版的数据读取和保存流程进一步优化。现在系统会更稳定地从云端读取最新数据，减少不同浏览器、不同设备之间数据不一致的问题。登记之后，其他设备刷新即可看到同步结果，班级数据终于更像一个真正的“共同账本”。\n"
+            "title": "数据同步链路加固",
+            "detail": "网页版读写数据改为通过 Vercel 接口与 GitHub 数据文件同步，减少不同浏览器、不同终端看到的数据不一致的问题。"
           },
           {
-            "title": "进阶称号正式呈现：努力有名字，也应该被看见",
-            "detail": "星辉典范和不朽晨辉的进阶称号现在会在缩略图和个人卡片中显示，例如“✦ 永恒星辉”“。让长期稳定、持续成长的同学被清楚看见。\n"
+            "title": "荣誉称号展示升级",
+            "detail": "星辉典范和不朽晨辉的进阶称号现在会在缩略图与个人卡片中以轻量徽章呈现；星辉典范周数按系统设置的教学日和教学周计算，不把未完成的本周提前算入。"
           },
           {
-            "title": "细节继续打磨",
-            "detail": "背面同学的缩略图不再显示连续零违纪天数，避免信息误导；不朽晨辉的传承值展示改为历史累计口径，捐赠后也不会影响称号判断。很多手机端卡片、标签、弹窗和文字换行也同步做了细节修正。系统不是一次做完的，它会跟着21班的真实使用，一点一点长得更合适。"
-          },
-          {
-            "title": "新增午休违纪条目",
-            "detail": "午休期间不睡觉，打扰其他同学休息，已经增加进负面行为条目中（2星蚀）"
-          },
-          {
-            "title": "新增违规书籍条目",
-            "detail": "携带或阅读与学习无关的课外书已经增加进负面行为条目中（2星蚀）"
+            "title": "公告入口回归",
+            "detail": "右上角新增版本公告按钮。即使自动弹窗已经关闭，也可以随时手动打开，查看当前版本更新内容。"
           }
-        ],
-        "id": "vl-1781687026793"
+        ]
       },
       {
         "version": "1.2.0",
         "date": "2026-06-02",
         "changes": [
           {
-            "title": "兑换机制正式上线",
-            "detail": "星辉典范和不朽晨辉等级的同学可以用护盾/传承值兑换奖励了，兑换是一种纯粹的奖励机制，不会影响你的选座排名。兑换后在个人卡片和全班历史中都会留下完整记录，谁换了什么，清清楚楚。"
+            "title": "护盾体系重构：累积护盾 + 可用护盾",
+            "detail": "以前\"历史护盾\"统计的是从入学以来获得过的所有护盾，包含了已被违纪消耗掉的——看了白看。现在重新定义：累积护盾 = 可用护盾 + 已兑换护盾，即\"如果没有兑换，现在该有多少盾\"。兑换不降排名（累积不变），违纪照常扣减（可用和累积同时降）。传承值同理：累积传承值 = 可用传承值 + 已捐赠。星辉典范和不朽晨辉同学的个人卡片、逐个展示、缩略卡均已同步更新。"
+          },
+          {
+            "title": "兑换机制正式上线：攒盾不花的时代结束了",
+            "detail": "星辉典范同学可以用护盾兑换奖励，不朽晨辉同学可以用传承值兑换专属权益。兑换项按所需护盾/传承值由少到多自动排序。限时兑换项会标注醒目的\"限时\"标签。兑换后在个人卡片和全班历史中都会留下完整记录——谁换了什么，清清楚楚。"
           },
           {
             "title": "回升优化：护盾保留，努力不被辜负",
-            "detail": "以前完成回升任务升级后，护盾会被清零——这不公平。现在回升后护盾保留、只清零星蚀。同时，回升成功会自动生成行为记录，标注\"弦月之辉 → 星辉典范\"，在个人历史中永久留存。"
+            "detail": "以前完成回升任务升级后，护盾会被清零——这不公平。现在回升后护盾保留、只清零星蚀。比如25护盾的同学从弦月之辉回升到星辉典范，25盾照常保留。同时，回升成功会自动生成行为记录，标注\"弦月之辉 → 星辉典范\"，在个人历史中永久留存。"
           },
           {
             "title": "行为录入界面排序优化",
-            "detail": "学生名单现在按等级优先级排列，同等级按学号排序，更加一目了然。"
+            "detail": "学生名单现在按等级优先级排列：星辉典范排在最上面，其次微光初现、弦月之辉……直到暗影沉沦。同等级按学号排。再也不是乱七八糟的顺序了。"
           },
           {
-            "title": "上课再专注些，课间再安静些",
-            "detail": "课上不记笔记与课间在班级大喊大叫已经补充进行为描述。"
+            "title": "兑换项管理优化",
+            "detail": "系统设置中的兑换项现在按所需护盾/传承值由少到多自动排序，方便一眼看出\"最便宜\"和\"最贵\"。"
+          },
+          {
+            "title": "界面细节打磨",
+            "detail": "逐个展示的统计格标签更简洁（累计/可用/心魔），文字不再被省略号截断；卡片宽度加宽，四格布局更加舒展；行为历史记录列表已修复排序问题，确保最新记录始终在最前面。"
           }
         ]
       },
