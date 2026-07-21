@@ -52747,7 +52747,7 @@
     }
   ],
   "app-config": {
-    "version": 16,
+    "version": 17,
     "frontLevels": [
       {
         "level": 1,
@@ -53424,6 +53424,18 @@
     "checkMarkName": "火种",
     "shieldOffsetRatio": 2,
     "autoRules": [],
+    "heartDemonClearRules": {
+      "zeroViolation": {
+        "weeksRequired": 2,
+        "clearCount": 1,
+        "isActive": true
+      },
+      "shiningBehavior": {
+        "minWeight": 3,
+        "clearCount": 1,
+        "isActive": true
+      }
+    },
     "riseTasks": [
       {
         "side": "front",
