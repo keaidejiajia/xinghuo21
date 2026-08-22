@@ -6,10 +6,11 @@
       "studentId": "17",
       "parentName": "赖俊豪家长",
       "firstAccessAt": "2026-08-22T03:22:29.837Z",
-      "lastAccessAt": "2026-08-22T03:22:29.837Z",
+      "lastAccessAt": "2026-08-22T03:31:38.998Z",
       "loginCount": 1,
-      "viewCount": 0,
-      "lastDevice": "mobile"
+      "viewCount": 1,
+      "lastDevice": "mobile",
+      "lastCountedViewAt": "2026-08-22T03:31:38.998Z"
     },
     {
       "id": "2026-07-25-32",
@@ -1128,5 +1129,5 @@
       "lastDevice": "desktop"
     }
   ],
-  "updatedAt": "2026-08-22T03:22:29.837Z"
+  "updatedAt": "2026-08-22T03:31:38.998Z"
 }
