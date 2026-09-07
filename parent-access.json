@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "id": "2026-09-07-3",
+      "date": "2026-09-07",
+      "studentId": "3",
+      "parentName": "陈可美家长",
+      "firstAccessAt": "2026-09-07T06:19:07.241Z",
+      "lastAccessAt": "2026-09-07T06:19:07.241Z",
+      "loginCount": 0,
+      "viewCount": 1,
+      "lastDevice": "desktop",
+      "lastCountedViewAt": "2026-09-07T06:19:07.241Z"
+    },
+    {
       "id": "2026-08-30-43",
       "date": "2026-08-30",
       "studentId": "43",
@@ -1153,5 +1165,5 @@
       "lastDevice": "desktop"
     }
   ],
-  "updatedAt": "2026-08-30T02:52:46.381Z"
+  "updatedAt": "2026-09-07T06:19:07.241Z"
 }
